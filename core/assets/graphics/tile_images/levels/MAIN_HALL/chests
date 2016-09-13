@@ -1,0 +1,11 @@
+[
+   {
+      "x":0,
+      "y":0,
+      "typeId":0,
+      "isOpen":false,
+      "hasKey":false,
+      "loot_level_lower":1,
+      "loot_level_higher":5,
+   }
+]
