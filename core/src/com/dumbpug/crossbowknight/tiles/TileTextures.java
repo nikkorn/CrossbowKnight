@@ -2,7 +2,7 @@ package com.dumbpug.crossbowknight.tiles;
 
 import java.util.HashMap;
 import com.badlogic.gdx.graphics.Texture;
-import com.dumbpug.crossbowknight.Constants;
+import com.dumbpug.crossbowknight.C;
 
 /**
  * Holds tile textures.
@@ -100,27 +100,27 @@ public class TileTextures {
 	private TileTextures() {
 		// Populate our background tile texture map.
 		for(BackgroundTile tile : BackgroundTile.values()) {
-			String tileTexturePath = Constants.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
+			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
 			backgroundTileTextures.put(tile, new Texture(tileTexturePath));
 		}
 		// Populate our decoration tile texture map.
 		for(DecorationTile tile : DecorationTile.values()) {
-			String tileTexturePath = Constants.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
+			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
 			decorationTileTextures.put(tile, new Texture(tileTexturePath));
 		}
 		// Populate our entity tile texture map.
 		for(EntityTile tile : EntityTile.values()) {
-			String tileTexturePath = Constants.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
+			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
 			entityTileTextures.put(tile, new Texture(tileTexturePath));
 		}
 		// Populate our block tile texture map.
 		for(BlockTile tile : BlockTile.values()) {
-			String tileTexturePath = Constants.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
+			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
 			blockTileTextures.put(tile, new Texture(tileTexturePath));
 		}
 		// Populate our misc tile texture map.
 		for(MiscTile tile : MiscTile.values()) {
-			String tileTexturePath = Constants.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
+			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
 			miscTileTextures.put(tile, new Texture(tileTexturePath));
 		}
 	}
