@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.game;
+package com.dumbpug.crossbowknight.level;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class LevelFactory {
 		File tileDecorationsFile = new File(C.SAVED_LEVELS_DIR + levelName + "/decorations");
 		// Error if we have missing resources.
 		if(!tileBackgroundsFile.exists() || !tileBackgroundsFile.exists() || !tileBackgroundsFile.exists()) {
-			throw new RuntimeException("Missing map resources!");
+			throw new RuntimeException("Missing map resources in '" + new File(C.SAVED_LEVELS_DIR + levelName).getAbsolutePath() + "'");
 		}
 		// Convert our map resources to JSON.	
 		JSONArray tileBackgroundsJSONArray = Helpers.readJSONArrayFromFile(tileBackgroundsFile);

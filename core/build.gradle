@@ -12,4 +12,5 @@ eclipse.project {
 
 dependencies {
     compile 'org.json:json:20140107'
+    compile files('libs/nbp_lib.jar')
 }

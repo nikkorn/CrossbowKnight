@@ -1,0 +1,15 @@
+[
+   {
+      "x":0,
+      "y":0,
+      "enemyId":0,
+      "enemyLevel":0,
+      "dropsAmmo":false,
+      "hasKey":false,
+      "loot":{
+         "drop_rate_%":10,
+         "drop_level_lower":5,
+         "drop_level_higher":10
+      }
+   }
+]

@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.game;
+package com.dumbpug.crossbowknight.level;
 
 import java.util.ArrayList;
 import com.dumbpug.crossbowknight.tiles.Tile;
