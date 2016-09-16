@@ -16,6 +16,14 @@ public class LevelWorld {
 	 */
 	public LevelWorld() {
 		// Create our levels physics world.
-		physicsWorld = new NBPWorld(C.PHYSICS_GRAVITY);
+		this.physicsWorld = new NBPWorld(C.PHYSICS_GRAVITY);
+	}
+
+	/**
+	 * Get the physics world.
+	 * @return physics world
+	 */
+	public NBPWorld getPhysicsWorld() {
+		return physicsWorld;
 	}
 }

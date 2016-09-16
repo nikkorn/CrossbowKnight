@@ -1,7 +1,7 @@
 package com.dumbpug.crossbowknight.tiles;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.dumbpug.crossbowknight.entities.physicsentities.Block;
+import com.dumbpug.crossbowknight.level.Block;
 
 /**
  * Represents a world tile.

@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.entities.physicsentities;
+package com.dumbpug.crossbowknight.level;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.dumbpug.nbp.NBPBloom;
@@ -78,11 +78,11 @@ public class Block extends NBPBox {
 	 * Get this blocks texture.
 	 * @return block texture.
      */
-	public Texture getBackgroundTexture() { return blockTexture; }
+	public Texture getBlockTexture() { return blockTexture; }
 
 	/**
 	 * Set this blocks texture.
 	 * @param blockTexture
      */
-	public void setBackgroundTexture(Texture blockTexture) { this.blockTexture = blockTexture; }
+	public void setBlockTexture(Texture blockTexture) { this.blockTexture = blockTexture; }
 }
