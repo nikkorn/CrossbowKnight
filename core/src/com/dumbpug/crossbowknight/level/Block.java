@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 import com.dumbpug.nbp.NBPBoxType;
@@ -85,4 +87,17 @@ public class Block extends NBPBox {
 	 * @param blockTexture
      */
 	public void setBlockTexture(Texture blockTexture) { this.blockTexture = blockTexture; }
+	
+	/**
+	 * Draw this block 
+	 * @param batch
+	 * @param xPosition
+	 * @param yPosition
+	 */
+	public void draw(SpriteBatch batch, float xPosition, float yPosition) {
+		// Draw the texture for this block.
+		if(blockTexture != null) {
+			batch.draw(blockTexture, xPosition, yPosition, C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE);
+		}
+	}
 }

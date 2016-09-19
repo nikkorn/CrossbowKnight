@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.tiles;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.level.Block;
 
 /**
@@ -13,6 +15,8 @@ public class Tile {
 	private int y;
 	/** The background texture for this tile */
 	private Texture backgroundTexture = null;
+	/** The decoration texture for this tile */
+	private Texture decorationTexture = null;
 	/** A physical block attached to this tile. */
 	private Block physicsBlock = null;
 	
@@ -27,6 +31,18 @@ public class Tile {
 	 * @param backgroundTexture
      */
 	public void setBackgroundTexture(Texture backgroundTexture) { this.backgroundTexture = backgroundTexture; }
+	
+	/**
+	 * Get this tiles decoration texture.
+	 * @return decoration texture.
+     */
+	public Texture getDecorationTexture() { return decorationTexture; }
+
+	/**
+	 * Set this tiles decoration texture.
+	 * @param decorationTexture
+     */
+	public void setDecorationTexture(Texture decorationTexture) { this.decorationTexture = decorationTexture; }
 
 	/**
 	 * Get the x position of this tile.
@@ -64,4 +80,30 @@ public class Tile {
 	 * @param physicsBlock
 	 */
 	public void setPhysicsBlock(Block physicsBlock) { this.physicsBlock = physicsBlock; }
+	
+	/**
+	 * Draw the background of this tile.
+	 * @param batch
+	 * @param xOffset
+	 * @param yOffset
+	 */
+	public void drawBackground(SpriteBatch batch, float xOffset, float yOffset) {
+		if(backgroundTexture != null) {
+			batch.draw(backgroundTexture, (x * C.LAYOUT_TILE_SIZE) + xOffset,
+					(y * C.LAYOUT_TILE_SIZE) + yOffset, C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE);
+		}
+	}
+	
+	/**
+	 * Draw the decoration of this tile.
+	 * @param batch
+	 * @param xOffset
+	 * @param yOffset
+	 */
+	public void drawDecoration(SpriteBatch batch, float xOffset, float yOffset) {
+		if(decorationTexture != null) {
+			batch.draw(decorationTexture, (x * C.LAYOUT_TILE_SIZE) + xOffset,
+					(y * C.LAYOUT_TILE_SIZE) + yOffset, C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE);
+		}
+	}
 }

@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
-import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 import com.dumbpug.crossbowknight.tiles.TileTextures.EntityTile;
 
@@ -16,6 +15,10 @@ public class CrossbowKnight extends ApplicationAdapter {
 	SpriteBatch batch;
 	Level testLevel;
 	Texture img;
+	
+	// Tester offsets
+	float offsetx = 0f;
+	float offsety = 0f;
 	
 	@Override
 	public void create () {
@@ -31,15 +34,13 @@ public class CrossbowKnight extends ApplicationAdapter {
 
 		// For now, lets force exit on press of Q.
 		if(Gdx.input.isKeyPressed(Input.Keys.Q)) { Gdx.app.exit(); }
-
+		
+		// Update the level.
+		testLevel.update();
+		
+		// Draw the level.
 		batch.begin();
-		// Draw test level.
-		for(Tile tile : testLevel.getLevelTiles()) {
-			// Draw tile background.
-			batch.draw(tile.getBackgroundTexture(), tile.getX() * C.LAYOUT_TILE_SIZE,
-					tile.getY() * C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE);
-		}
-		batch.draw(img, 0, 0, C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE);
+		testLevel.draw(batch);
 		batch.end();
 	}
 	
