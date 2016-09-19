@@ -61,11 +61,8 @@ public class LevelDrawer {
 	private void drawForegroundLayer(SpriteBatch batch) {
 		// Draw all level blocks.
 		for(Tile tile : level.getLevelTiles()) {
-			Block block = tile.getPhysicsBlock();
-			if(block != null) {
-				float drawPositionX = (tile.getX() * C.LAYOUT_TILE_SIZE) + level.getLevelCamera().getX();
-				float drawPositionY = (tile.getY() * C.LAYOUT_TILE_SIZE) + level.getLevelCamera().getY();
-				block.draw(batch, drawPositionX, drawPositionY);
+			if(tile.getPhysicsBlock() != null) {
+				tile.getPhysicsBlock().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 			}
 		}
 	}

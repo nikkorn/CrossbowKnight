@@ -70,8 +70,9 @@ public class LevelFactory {
 		}
 		// Convert our map resources to JSON.	
 		JSONArray tileBackgroundsJSONArray = Helpers.readJSONArrayFromFile(tileBackgroundsFile);
-		JSONArray tileBlocksJSONArray      = Helpers.readJSONArrayFromFile(tileBlocksFile);
 		JSONArray tileDecorationsJSONArray = Helpers.readJSONArrayFromFile(tileDecorationsFile);
+		JSONArray tileBlocksJSONArray      = Helpers.readJSONArrayFromFile(tileBlocksFile);
+
 		// Create tiles which have backgrounds.
 		for(int tileBackgroundIndex = 0; tileBackgroundIndex < tileBackgroundsJSONArray.length(); tileBackgroundIndex++) {
 			int xPos   = tileBackgroundsJSONArray.getJSONObject(tileBackgroundIndex).getInt("x");
@@ -97,8 +98,79 @@ public class LevelFactory {
 			}
 		}
 
+		// Create tiles which have decorations.
+		for(int tileDecorationIndex = 0; tileDecorationIndex < tileDecorationsJSONArray.length(); tileDecorationIndex++) {
+			int xPos   = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("x");
+			int yPos   = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("y");
+			int bgType = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("typeId");
+			// Get our decoration texture.
+			TileTextures.DecorationTile decorationTile = TileTextures.DecorationTile.values()[bgType];
+			Texture decorationTexture = TileTextures.getTileTextures().getDecorationTileTexture(decorationTile);
+			// Does our map contain a tile at the same position as the current entry
+			if(tileMap.containsKey(xPos + "-" + yPos)) {
+				// Get our existing tile from the map.
+				Tile tile = tileMap.get(xPos + "-" + yPos);
+				// Set the decoration texture on our tile.
+				tile.setDecorationTexture(decorationTexture);
+			} else {
+				Tile tile = new Tile();
+				tile.setX(xPos);
+				tile.setY(yPos);
+				// Set the decoration texture on our tile.
+				tile.setDecorationTexture(decorationTexture);
+				// Add our newly created tile to our map.
+				tileMap.put(xPos + "-" + yPos, tile);
+			}
+		}
+
+		// Create tiles which have blocks.
+		for(int tileBlockIndex = 0; tileBlockIndex < tileBlocksJSONArray.length(); tileBlockIndex++) {
+			int xPos         = tileBlocksJSONArray.getJSONObject(tileBlockIndex).getInt("x");
+			int yPos         = tileBlocksJSONArray.getJSONObject(tileBlockIndex).getInt("y");
+			int bgType       = tileBlocksJSONArray.getJSONObject(tileBlockIndex).getInt("typeId");
+			int tileFillType = tileBlocksJSONArray.getJSONObject(tileBlockIndex).getInt("tileFillType");
+			// Get the fill type of this block.
+			Block.TileBlockFillType fillType = Block.TileBlockFillType.values()[tileFillType];
+			// Create the new block.
+			Block block = null;
+			// The position of this block will depend on its position relative to the tile.
+			switch(fillType) {
+				case FULL:
+					block = new Block(xPos * C.LAYOUT_TILE_SIZE, yPos * C.LAYOUT_TILE_SIZE,
+							C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE, fillType);
+					break;
+				case TOP_HALF:
+					block = new Block(xPos * C.LAYOUT_TILE_SIZE, (yPos * C.LAYOUT_TILE_SIZE) + (C.LAYOUT_TILE_SIZE / 2),
+							C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE / 2, fillType);
+					break;
+				case BOTTOM_HALF:
+					block = new Block(xPos * C.LAYOUT_TILE_SIZE, yPos * C.LAYOUT_TILE_SIZE,
+							C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE / 2, fillType);
+					break;
+			}
+			// Set the texture for the block.
+			TileTextures.BlockTile blockTile = TileTextures.BlockTile.values()[bgType];
+			Texture blockTexture = TileTextures.getTileTextures().getBlockTileTexture(blockTile);
+			block.setBlockTexture(blockTexture);
+			// Does our map contain a tile at the same position as the current entry
+			if(tileMap.containsKey(xPos + "-" + yPos)) {
+				// Get our existing tile from the map.
+				Tile tile = tileMap.get(xPos + "-" + yPos);
+				// Set the physics block for this tile.
+				tile.setPhysicsBlock(block);
+			} else {
+				Tile tile = new Tile();
+				tile.setX(xPos);
+				tile.setY(yPos);
+				// Set the physics block for this tile.
+				tile.setPhysicsBlock(block);
+				// Add our newly created tile to our map.
+				tileMap.put(xPos + "-" + yPos, tile);
+			}
+		}
+
 		// ...
-		
+
 		// Return the tiles in our map as a list.
 		return new ArrayList<Tile>(tileMap.values());
 	}

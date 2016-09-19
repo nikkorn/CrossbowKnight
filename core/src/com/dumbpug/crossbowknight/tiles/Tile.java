@@ -89,8 +89,11 @@ public class Tile {
 	 */
 	public void drawBackground(SpriteBatch batch, float xOffset, float yOffset) {
 		if(backgroundTexture != null) {
-			batch.draw(backgroundTexture, (x * C.LAYOUT_TILE_SIZE) + xOffset,
-					(y * C.LAYOUT_TILE_SIZE) + yOffset, C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE);
+			batch.draw(backgroundTexture,
+					(x * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + xOffset,
+					(y * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + yOffset,
+					(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER),
+					(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER));
 		}
 	}
 	
@@ -102,8 +105,11 @@ public class Tile {
 	 */
 	public void drawDecoration(SpriteBatch batch, float xOffset, float yOffset) {
 		if(decorationTexture != null) {
-			batch.draw(decorationTexture, (x * C.LAYOUT_TILE_SIZE) + xOffset,
-					(y * C.LAYOUT_TILE_SIZE) + yOffset, C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE);
+			batch.draw(decorationTexture,
+					(x * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + xOffset,
+					(y * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + yOffset,
+					(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER),
+					(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER));
 		}
 	}
 }

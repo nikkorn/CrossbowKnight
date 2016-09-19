@@ -4,5 +4,17 @@
       "y":0,
       "typeId":0,
       "tileFillType":0
+   },
+   {
+      "x":1,
+      "y":0,
+      "typeId":2,
+      "tileFillType":1
+   },
+   {
+     "x":2,
+     "y":2,
+     "typeId":2,
+     "tileFillType":0
    }
 ]
