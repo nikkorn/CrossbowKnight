@@ -8,7 +8,9 @@ import com.badlogic.gdx.Gdx;
  */
 public class C {
 	/** Layout */
-	public static final float LAYOUT_TILE_SIZE               = Gdx.graphics.getHeight() * 0.2f;
+	public static final float LAYOUT_MULTIPLIER              = Gdx.graphics.getHeight() / C.LAYOUT_SCREEN_HEIGHT;
+	public static final float LAYOUT_SCREEN_HEIGHT           = 100f;
+	public static final float LAYOUT_TILE_SIZE               = 20f;
 	
 	/** Resources */
 	public static final String GRAPHICS_WORLD_TILES_DIR      = "graphics/tile_images";
