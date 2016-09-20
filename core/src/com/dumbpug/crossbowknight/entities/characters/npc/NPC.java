@@ -6,6 +6,7 @@ import com.dumbpug.crossbowknight.entities.characters.Character;
  * Represents a NPC.
  * @author nikolas.howard
  */
-public class NPC extends Character {
+public abstract class NPC extends Character {
 
+	
 }

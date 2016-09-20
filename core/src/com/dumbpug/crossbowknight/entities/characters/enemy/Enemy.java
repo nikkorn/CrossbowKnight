@@ -6,6 +6,7 @@ import com.dumbpug.crossbowknight.entities.characters.Character;
  * Represents an Enemy.
  * @author nikolas.howard
  */
-public class Enemy extends Character {
+public abstract class Enemy extends Character {
 
+	
 }

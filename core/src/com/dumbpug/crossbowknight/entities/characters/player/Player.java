@@ -1,5 +1,6 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBoxType;
@@ -39,23 +40,17 @@ public class Player extends Character {
 	/**
      * Move the player to the left.
      */
-    public void moveLeft() {
-    	playerPhysicsBox.moveLeft();
-    }
+    public void moveLeft() { playerPhysicsBox.moveLeft(); }
 
     /**
      * Move the player to the right.
      */
-    public void moveRight() {
-    	playerPhysicsBox.moveRight();
-    }
+    public void moveRight() { playerPhysicsBox.moveRight(); }
 
     /**
      * Make the player jump if he can.
      */
-    public void jump() {
-    	playerPhysicsBox.jump();
-    }
+    public void jump() { playerPhysicsBox.jump(); }
 
 	/**
 	 * Handles the player being pushed by a force bloom in the world.
@@ -72,15 +67,17 @@ public class Player extends Character {
 	 * Get this players angle of focus.
 	 * @return angleOfFocus
 	 */
-	public float getAngleOfFocus() {
-		return angleOfFocus;
-	}
+	public float getAngleOfFocus() { return angleOfFocus; }
 
 	/**
 	 * Set this players angle of focus.
 	 * @param angleOfFocus
 	 */
-	public void setAngleOfFocus(float angleOfFocus) {
-		this.angleOfFocus = angleOfFocus;
+	public void setAngleOfFocus(float angleOfFocus) { this.angleOfFocus = angleOfFocus; }
+
+	@Override
+	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
+		// TODO Auto-generated method stub
+		
 	}
 }

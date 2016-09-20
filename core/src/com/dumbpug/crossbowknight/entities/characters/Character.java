@@ -1,5 +1,7 @@
 package com.dumbpug.crossbowknight.entities.characters;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 /**
  * Represents a living being.
  * @author nikolas.howard
@@ -41,4 +43,12 @@ public abstract class Character {
 	public void setStats(Stats stats) {
 		this.stats = stats;
 	}
+	
+	/**
+	 * Draw the character.
+	 * @param batch
+	 * @param offsetx
+	 * @param offsety
+	 */
+	public abstract void draw(SpriteBatch batch, float offsetX, float offsetY);
 }
