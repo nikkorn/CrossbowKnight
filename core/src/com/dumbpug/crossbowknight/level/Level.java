@@ -1,7 +1,6 @@
 package com.dumbpug.crossbowknight.level;
 
 import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +19,8 @@ public class Level {
 	private LevelCamera camera;
 	/** The level drawer. */
 	private LevelDrawer levelDrawer;
+	/** The level physics world */
+	private LevelWorld levelWorld;
 	
 	// ----TEST---- Tester offsets
 	float offsetx = 0f;
@@ -31,6 +32,8 @@ public class Level {
 	public Level() {
 		// Create our level drawer.
 		this.levelDrawer = new LevelDrawer(this);
+		// Create our level world..
+		this.levelWorld = new LevelWorld();
 		// Create our level camera.
 		// TODO Replace with correct hook-up.
 		this.camera = new LevelCamera(new LevelCameraPositionProvider() {
@@ -55,18 +58,6 @@ public class Level {
 	}
 
 	/**
-	 * Get all level tiles.
-	 * @return level tiles.
-	 */
-	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
-
-	/**
-	 * Set all level tiles.
-	 * @param levelTiles.
-	 */
-	public void setLevelTiles(ArrayList<Tile> levelTiles) { this.levelTiles = levelTiles; }
-
-	/**
 	 * Get the name of this level.
 	 * @return name
 	 */
@@ -89,6 +80,26 @@ public class Level {
 	 * @param level camera.
 	 */
 	public void setLevelCamera(LevelCamera camera) { this.camera = camera; }
+	
+	/**
+	 * Get all level tiles.
+	 * @return level tiles.
+	 */
+	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
+
+	/**
+	 * Set all level tiles.
+	 * @param levelTiles.
+	 */
+	public void setLevelTiles(ArrayList<Tile> levelTiles) { 
+		this.levelTiles = levelTiles; 
+		// Now that we have set our tiles, we can add and tile blocks to our physics world.
+		for(Tile tile : levelTiles) {
+			if(tile.getPhysicsBlock() != null) {
+				this.levelWorld.getPhysicsWorld().addBox(tile.getPhysicsBlock());
+			}
+		}
+	}
 	
 	/**
 	 * Draw this level
