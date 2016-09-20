@@ -18,6 +18,17 @@ public class LevelWorld {
 		// Create our levels physics world.
 		this.physicsWorld = new NBPWorld(C.PHYSICS_GRAVITY);
 	}
+	
+	/**
+	 * Update the level world.
+	 */
+	public void update() {
+		// Firstly, update our physics world.
+		physicsWorld.update();
+		
+		// ...
+		
+	}
 
 	/**
 	 * Get the physics world.

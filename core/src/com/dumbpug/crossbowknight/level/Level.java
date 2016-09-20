@@ -50,6 +50,9 @@ public class Level {
 	public void update() {
 		// Step the level here!!!!
 		
+		// Update the level world.
+		levelWorld.update();
+		
 		// Test camera movement
 		if(Gdx.input.isKeyPressed(Input.Keys.W)) { offsety++; }
 		if(Gdx.input.isKeyPressed(Input.Keys.S)) { offsety--; }
