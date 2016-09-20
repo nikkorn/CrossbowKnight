@@ -147,6 +147,16 @@ public class LevelFactory {
 					block = new Block(xPos * C.LAYOUT_TILE_SIZE, yPos * C.LAYOUT_TILE_SIZE,
 							C.LAYOUT_TILE_SIZE, C.LAYOUT_TILE_SIZE / 2, fillType);
 					break;
+				case LEFT_HALF:
+					block = new Block(xPos * C.LAYOUT_TILE_SIZE, yPos * C.LAYOUT_TILE_SIZE,
+							C.LAYOUT_TILE_SIZE / 2, C.LAYOUT_TILE_SIZE, fillType);
+					break;
+				case RIGHT_HALF:
+					block = new Block((xPos * C.LAYOUT_TILE_SIZE) + (C.LAYOUT_TILE_SIZE / 2), yPos * C.LAYOUT_TILE_SIZE,
+							C.LAYOUT_TILE_SIZE / 2, C.LAYOUT_TILE_SIZE, fillType);
+					break;
+			default:
+				break;
 			}
 			// Set the texture for the block.
 			TileTextures.BlockTile blockTile = TileTextures.BlockTile.values()[bgType];

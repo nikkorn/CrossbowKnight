@@ -1,7 +1,6 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
