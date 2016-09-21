@@ -51,7 +51,6 @@ public class LevelDrawer {
 	 */
 	private void drawMiddleLayer(SpriteBatch batch) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -65,7 +64,6 @@ public class LevelDrawer {
 				tile.getPhysicsBlock().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 			}
 		}
-		// Draw the player
 	}
 	
 	/**

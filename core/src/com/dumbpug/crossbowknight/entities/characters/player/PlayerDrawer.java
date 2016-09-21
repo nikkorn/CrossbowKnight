@@ -31,8 +31,6 @@ public class PlayerDrawer {
 	 * @param offsetY
 	 */
 	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
-		// Our player will always be in the center of our screen. Get tehse offsets
-		
 		// Get the players position.
 		float playerPosX = player.getCurrentOriginPoint().getX() - (C.PLAYER_SIZE_WIDTH/2);
 		float playerPosY = player.getCurrentOriginPoint().getY() - (C.PLAYER_SIZE_HEIGHT/2);

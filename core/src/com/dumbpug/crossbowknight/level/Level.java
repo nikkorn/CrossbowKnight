@@ -30,11 +30,6 @@ public class Level {
 	private Player player;
 	// -----------------------------------
 	
-	
-	// ----TEST---- Tester offsets
-	float offsetx = 0f;
-	float offsety = 0f;
-	
 	/**
 	 * Create a new instance of the Level class.
 	 */
@@ -81,8 +76,6 @@ public class Level {
 	 * Update the level.
 	 */
 	public void update() {
-		// Step the level here!!!!
-		
 		// Update the level world.
 		levelWorld.update();
 		
