@@ -1,6 +1,5 @@
 package com.dumbpug.crossbowknight.input;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 /**
@@ -10,7 +9,6 @@ public class Button {
     /** This buttons target key. */
     private Input.Keys key;
     private boolean isPressed = false;
-    private boolean isDown = false;
 
     /**
      * Creates a new instance of the Button class.
@@ -23,6 +21,10 @@ public class Button {
     public boolean hasBeenPressed() {
         boolean pressed = this.isPressed;
         this.isPressed = false;
+        return pressed;
+    }
+    
+    public boolean isDown() {
         return false;
     }
 
@@ -33,6 +35,4 @@ public class Button {
     public Input.Keys getKey() {
         return key;
     }
-
-
 }

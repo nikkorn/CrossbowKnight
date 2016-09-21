@@ -16,7 +16,9 @@ public class Player extends Character {
     private float angleOfFocus = 0f;
 	/** The physics box for this player. */
     private PlayerPhysicsBox playerPhysicsBox;
-	
+    /** The player drawer. */
+    private PlayerDrawer playerDrawer;
+    
 	/**
      * Initialise a new instance of the Player class.
      * @param x
@@ -26,6 +28,8 @@ public class Player extends Character {
         // Initialise our players physics box.
         playerPhysicsBox = new PlayerPhysicsBox(this, x, y, C.PLAYER_SIZE_WIDTH, C.PLAYER_SIZE_HEIGHT, NBPBoxType.KINETIC);
         playerPhysicsBox.setName("PLAYER");
+        // Create our player drawer.
+        playerDrawer = new PlayerDrawer(this);
     }
     
     /**
@@ -64,6 +68,12 @@ public class Player extends Character {
 	}
 
 	/**
+	 * Get this players physics box.
+	 * @return playerPhysicsBox
+	 */
+	public PlayerPhysicsBox getPlayerPhysicsBox() { return playerPhysicsBox; }
+	
+	/**
 	 * Get this players angle of focus.
 	 * @return angleOfFocus
 	 */
@@ -77,7 +87,7 @@ public class Player extends Character {
 
 	@Override
 	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
-		// TODO Auto-generated method stub
-		
+		// Let the player drawer take care of drawing.
+		playerDrawer.draw(batch, offsetX, offsetY);
 	}
 }

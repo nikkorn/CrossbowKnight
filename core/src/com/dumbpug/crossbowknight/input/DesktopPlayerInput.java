@@ -1,12 +1,13 @@
 package com.dumbpug.crossbowknight.input;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
 /**
  * Created by nik on 17/09/16.
  */
 public class DesktopPlayerInput implements PlayerInput, InputProcessor {
-    private boolean upButtonPressed = false;
 
     @Override
     public void update() {
@@ -20,7 +21,7 @@ public class DesktopPlayerInput implements PlayerInput, InputProcessor {
 
     @Override
     public boolean isUpButtonDown() {
-        return upButtonPressed;
+        return Gdx.input.isKeyPressed(Input.Keys.W);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class DesktopPlayerInput implements PlayerInput, InputProcessor {
 
     @Override
     public boolean isLeftButtonDown() {
-        return false;
+    	return Gdx.input.isKeyPressed(Input.Keys.A);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class DesktopPlayerInput implements PlayerInput, InputProcessor {
 
     @Override
     public boolean isRightButtonDown() {
-        return false;
+    	return Gdx.input.isKeyPressed(Input.Keys.D);
     }
 
     @Override
@@ -80,7 +81,7 @@ public class DesktopPlayerInput implements PlayerInput, InputProcessor {
 
     @Override
     public boolean isJumpButtonDown() {
-        return false;
+    	return Gdx.input.isKeyPressed(Input.Keys.SPACE);
     }
 
     @Override

@@ -27,8 +27,9 @@ public class LevelDrawer {
 		drawBackgroundLayer(batch);
 		drawMiddleLayer(batch);
 		drawForegroundLayer(batch);
+		drawCharacters(batch);
 	}
-
+	
 	/**
 	 * Draw everything in the levels background layer.
 	 * @param batch
@@ -64,5 +65,15 @@ public class LevelDrawer {
 				tile.getPhysicsBlock().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 			}
 		}
+		// Draw the player
+	}
+	
+	/**
+	 * Draw characters in the level.
+	 * @param batch
+	 */
+	private void drawCharacters(SpriteBatch batch) {
+		// Draw the player.
+		level.getPlayer().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 	}
 }

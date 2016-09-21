@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.nbp.NBPWorld;
 
 /**
@@ -36,5 +37,13 @@ public class LevelWorld {
 	 */
 	public NBPWorld getPhysicsWorld() {
 		return physicsWorld;
+	}
+
+	/**
+	 * Add the player to the physics world.
+	 * @param player
+	 */
+	public void addPlayer(Player player) {
+		this.physicsWorld.addBox(player.getPlayerPhysicsBox());
 	}
 }

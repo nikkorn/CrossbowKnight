@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -22,6 +24,13 @@ public class Level {
 	/** The level physics world */
 	private LevelWorld levelWorld;
 	
+	// -----------------------------------
+	// ---------- Level Entities ---------
+	/** The Player. */
+	private Player player;
+	// -----------------------------------
+	
+	
 	// ----TEST---- Tester offsets
 	float offsetx = 0f;
 	float offsety = 0f;
@@ -34,13 +43,37 @@ public class Level {
 		this.levelDrawer = new LevelDrawer(this);
 		// Create our level world..
 		this.levelWorld = new LevelWorld();
-		// Create our level camera.
-		// TODO Replace with correct hook-up.
+		// Initialise our player.
+		initialisePlayer();
+		// Set up our level camera.
+		setupCamera();
+	}
+	
+	/**
+	 * Initialise the player.
+	 */
+	public void initialisePlayer() {
+		// Create our player.
+		player = new Player(50, 50); // TODO Add actual spawn point!!!
+		// Add our player to the level world.
+		this.levelWorld.addPlayer(player);
+	}
+	
+	/**
+	 * Set up the camera.
+	 */
+	public void setupCamera() {
+		// Create our level camera. our camera is completely dependent
+		// on the position of the character and the size of the screen.
 		this.camera = new LevelCamera(new LevelCameraPositionProvider() {
 			@Override
-			public float getXPositon() { return offsetx; } 
+			public float getXPositon() { 
+				return -((player.getCurrentOriginPoint().getX() * C.LAYOUT_MULTIPLIER) - (Gdx.graphics.getWidth()/2)); 
+			} 
 			@Override
-			public float getYPositon() { return offsety; }
+			public float getYPositon() { 
+				return -((player.getCurrentOriginPoint().getY() * C.LAYOUT_MULTIPLIER) - (Gdx.graphics.getHeight()/2)); 
+			}
 		});
 	}
 	
@@ -54,10 +87,9 @@ public class Level {
 		levelWorld.update();
 		
 		// Test camera movement
-		if(Gdx.input.isKeyPressed(Input.Keys.W)) { offsety++; }
-		if(Gdx.input.isKeyPressed(Input.Keys.S)) { offsety--; }
-		if(Gdx.input.isKeyPressed(Input.Keys.A)) { offsetx--; }
-		if(Gdx.input.isKeyPressed(Input.Keys.D)) { offsetx++; }
+		if(Gdx.input.isKeyPressed(Input.Keys.D)) { player.moveRight(); }
+		if(Gdx.input.isKeyPressed(Input.Keys.A)) { player.moveLeft(); }
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) { player.jump(); }
 	}
 
 	/**
@@ -89,6 +121,12 @@ public class Level {
 	 * @return level tiles.
 	 */
 	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
+	
+	/**
+	 * Get the player.
+	 * @return player.
+	 */
+	public Player getPlayer() { return player; }
 
 	/**
 	 * Set all level tiles.

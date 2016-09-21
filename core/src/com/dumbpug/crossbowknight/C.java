@@ -20,15 +20,15 @@ public class C {
 	
 	/** Physics */
 	public static final float PHYSICS_TO_GAME_RATIO          = 0.2f; //TODO  figure out
-	public static final float PHYSICS_GRAVITY                = 0.9f; 
+	public static final float PHYSICS_GRAVITY                = 0.09f; 
 	
 	/** Player */
-	public static final float PLAYER_SIZE_WIDTH              = 20f;
-	public static final float PLAYER_SIZE_HEIGHT             = 30f;
-	public static final float PLAYER_MAX_VELOCITY            = 5f;
-	public static final float PLAYER_FRICTION                = 0.92f;
+	public static final float PLAYER_SIZE_WIDTH              = 10f;
+	public static final float PLAYER_SIZE_HEIGHT             = 15f;
+	public static final float PLAYER_MAX_VELOCITY            = 2f;
+	public static final float PLAYER_FRICTION                = 0.8f;
 	public static final float PLAYER_RESTITUTION             = 0f;
-	public static final float PLAYER_MAX_WALKING_VELOCITY    = 2f;
+	public static final float PLAYER_MAX_WALKING_VELOCITY    = 1f;
 	public static final float PLAYER_WALKING_IMPULSE_VALUE   = 0.2f;
-	public static final float PLAYER_JUMPING_IMPULSE         = 3.5f;
+	public static final float PLAYER_JUMPING_IMPULSE         = 2f;
 }
