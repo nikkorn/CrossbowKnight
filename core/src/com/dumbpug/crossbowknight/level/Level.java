@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
@@ -76,13 +77,19 @@ public class Level {
 	 * Update the level.
 	 */
 	public void update() {
-		// Update the level world.
+		// ------------ Update the level world. -----------
 		levelWorld.update();
 		
-		// Test camera movement
+		// ------------ Handle input. ---------------------
+		// TODO Hook these up to our PlayerInput.
+		// ------------------------------------------------
+		// Move our player.
 		if(Gdx.input.isKeyPressed(Input.Keys.D)) { player.moveRight(); }
 		if(Gdx.input.isKeyPressed(Input.Keys.A)) { player.moveLeft(); }
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) { player.jump(); }
+		// Set players angle of focus.
+		player.setAngleOfFocus((float) GameMath.GetAngleOfLineBetweenTwoPoints(Gdx.input.getX(), Gdx.input.getY(), 
+				Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
 	}
 
 	/**

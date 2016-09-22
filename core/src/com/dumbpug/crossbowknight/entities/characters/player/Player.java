@@ -78,6 +78,15 @@ public class Player extends Character {
 	 * @return angleOfFocus
 	 */
 	public float getAngleOfFocus() { return angleOfFocus; }
+	
+	/**
+	 * Get whether the player is currently idle (not moving at all)
+	 * @return is idle.
+	 */
+	public boolean isIdle() {
+		return (playerPhysicsBox.getVelx() < 0.2f && playerPhysicsBox.getVelx() > -0.2f) && 
+				(playerPhysicsBox.getVely() < 0.2f && playerPhysicsBox.getVely() > -0.2f);
+	}
 
 	/**
 	 * Set this players angle of focus.
