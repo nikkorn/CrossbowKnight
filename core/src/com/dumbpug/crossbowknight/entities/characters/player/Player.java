@@ -2,6 +2,7 @@ package com.dumbpug.crossbowknight.entities.characters.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBoxType;
 import com.dumbpug.nbp.NBPPoint;
@@ -54,7 +55,13 @@ public class Player extends Character {
     /**
      * Make the player jump if he can.
      */
-    public void jump() { playerPhysicsBox.jump(); }
+    public void jump() {
+		// Attempt to jump.
+		if(playerPhysicsBox.jump()) {
+			// The player was able to jump! Play jump sound effect.
+			Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
+		}
+	}
 
 	/**
 	 * Handles the player being pushed by a force bloom in the world.

@@ -74,13 +74,18 @@ public class PlayerPhysicsBox extends NBPBox {
 
     /**
      * Make the player jump if he can.
+     * @return true if player was able to jump
      */
-    public void jump() {
+    public boolean jump() {
         // Can we jump? (Are we on a static block?)
         if(canJump) {
             // Apply a vertical impulse.
             applyImpulse(0f, C.PLAYER_JUMPING_IMPULSE);
+            // Player was able to jump.
+            return true;
         }
+        // Player was not able to jump.
+        return false;
     }
     
     @Override

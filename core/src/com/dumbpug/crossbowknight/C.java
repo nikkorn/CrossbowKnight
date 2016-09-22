@@ -14,6 +14,8 @@ public class C {
 	
 	/** Resources */
 	public static final String GRAPHICS_WORLD_TILES_DIR      = "graphics/tile_images";
+	public static final String AUDIO_SOUND_EFFECTS_DIR       = "audio/sounds";
+	public static final String AUDIO_MUSIC_DIR               = "audio/music";
 	
 	/** Saved State */
 	public static final String SAVED_LEVELS_DIR              = "levels/";

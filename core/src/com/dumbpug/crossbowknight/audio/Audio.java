@@ -1,7 +1,9 @@
 package com.dumbpug.crossbowknight.audio;
 
 import java.util.HashMap;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.dumbpug.crossbowknight.C;
 
 /**
  * Provides all game audio.
@@ -9,9 +11,9 @@ import com.badlogic.gdx.audio.Sound;
  */
 public class Audio {
 	/** All cached sounds effects. */
-	private HashMap<SoundEffect, Sound> cachedSoundEffects = new HashMap<SoundEffect, Sound>();
+	private static HashMap<SoundEffect, Sound> cachedSoundEffects = new HashMap<SoundEffect, Sound>();
 	/** All cached music. */
-	private HashMap<Music, Sound> cachedMusic = new HashMap<Music, Sound>();
+	private static HashMap<Music, Sound> cachedMusic = new HashMap<Music, Sound>();
 	
 	/** 
 	 * All game sound effects.
@@ -32,22 +34,38 @@ public class Audio {
 	 * All game music.
 	 */
     public enum Music {
-		
+		MAIN_THEME
+	}
+
+	/**
+	 * Load all audio files.
+ 	 */
+	public static void loadAudio() {
+		// Populate our sound effect map.
+		for(SoundEffect soundEffect : SoundEffect.values()) {
+			String soundEffectPath = C.AUDIO_SOUND_EFFECTS_DIR + "/" + soundEffect + ".wav";
+			cachedSoundEffects.put(soundEffect, Gdx.audio.newSound(Gdx.files.internal(soundEffectPath)));
+		}
+		// Populate our music map.
+		for(Music music : Music.values()) {
+			String musicPath = C.AUDIO_MUSIC_DIR + "/" + music + ".wav";
+			cachedMusic.put(music, Gdx.audio.newSound(Gdx.files.internal(musicPath)));
+		}
 	}
 
     /**
 	 * Get sound effect.
 	 * @return sound effect.
 	 */
-	public Sound getSoundEffect(SoundEffect soundEffect) {
-		return null;
+	public static Sound getSoundEffect(SoundEffect soundEffect) {
+		return cachedSoundEffects.get(soundEffect);
 	}
 	
 	/**
 	 * Get music track.
 	 * @return music track.
 	 */
-	public Sound getMusic() {
-		return null;
+	public static Sound getMusic(Music music) {
+		return cachedMusic.get(music);
 	}
 }
