@@ -25,6 +25,8 @@ public class PlayerDrawer {
 	private Sprite arms;
 	/** Players idle sprite. */
 	private Sprite idle;
+	/** Players airborne sprite. */
+	private Sprite airborne;
 	/** ---------------------------------------- */
 	
 	/**
@@ -43,6 +45,8 @@ public class PlayerDrawer {
 		arms.setOrigin(arms.getWidth()*(14/29f), arms.getHeight()/2);
 		idle = new Sprite(new Texture("graphics/characters/player/robo_idle.png"));
 		idle.setSize(C.PLAYER_SIZE_HEIGHT * C.LAYOUT_MULTIPLIER, C.PLAYER_SIZE_HEIGHT * C.LAYOUT_MULTIPLIER);
+		airborne = new Sprite(new Texture("graphics/characters/player/robo_air.png"));
+		airborne.setSize(C.PLAYER_SIZE_HEIGHT * C.LAYOUT_MULTIPLIER, C.PLAYER_SIZE_HEIGHT * C.LAYOUT_MULTIPLIER);
 	}
 	
 	/**
@@ -75,15 +79,21 @@ public class PlayerDrawer {
 		arms.setRotation((float) viewAngle);
 		arms.setPosition((playerPosX * C.LAYOUT_MULTIPLIER) + offsetX, (playerPosY * C.LAYOUT_MULTIPLIER) + offsetY);
 		idle.setPosition((playerPosX * C.LAYOUT_MULTIPLIER) + offsetX, (playerPosY * C.LAYOUT_MULTIPLIER) + offsetY);
+		airborne.setPosition((playerPosX * C.LAYOUT_MULTIPLIER) + offsetX, (playerPosY * C.LAYOUT_MULTIPLIER) + offsetY);
 		
 		head.setFlip(!facingRight, false);
 		arms.setFlip(!facingRight, false);
 		idle.setFlip(!facingRight, false);
-		
-		// If our player is idle then draw idle body, otherwise its our run animation.
-		if(player.isIdle()) {
+		airborne.setFlip(!facingRight, false);
+
+		if(!player.isTouchingFloor()) {
+			// If our player is airborne, then draw airborne body.
+			airborne.draw(batch);
+		} else if(player.isIdle()) {
+			// If our player is idle then draw idle body.
 			idle.draw(batch);
 		} else {
+			// If our player is not airborne and not idle, they must be walking. Draw walk animation.
 			batch.draw(walkAnimationFrame, (playerPosX * C.LAYOUT_MULTIPLIER) + offsetX, (playerPosY * C.LAYOUT_MULTIPLIER) + offsetY, 
 					C.PLAYER_SIZE_HEIGHT * C.LAYOUT_MULTIPLIER, C.PLAYER_SIZE_HEIGHT * C.LAYOUT_MULTIPLIER);
 		}

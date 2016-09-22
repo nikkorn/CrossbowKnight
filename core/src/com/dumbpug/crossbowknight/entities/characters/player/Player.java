@@ -1,10 +1,8 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.nbp.NBPBloom;
-import com.dumbpug.nbp.NBPBoxType;
 import com.dumbpug.nbp.NBPPoint;
 import com.dumbpug.crossbowknight.entities.characters.Character;
 
@@ -27,7 +25,7 @@ public class Player extends Character {
      */
     public Player(float x, float y) {
         // Initialise our players physics box.
-        playerPhysicsBox = new PlayerPhysicsBox(this, x, y, C.PLAYER_SIZE_WIDTH, C.PLAYER_SIZE_HEIGHT, NBPBoxType.KINETIC);
+        playerPhysicsBox = new PlayerPhysicsBox(this, x, y);
         playerPhysicsBox.setName("PLAYER");
         // Create our player drawer.
         playerDrawer = new PlayerDrawer(this);
@@ -64,15 +62,36 @@ public class Player extends Character {
 	}
 
 	/**
+	 * Called by physics entity when the player box lands on a static floor.
+	 */
+	public void onLanding() {
+		// We landed so play a thump!
+		Audio.getSoundEffect(Audio.SoundEffect.LANDING_SOFT).play();
+	}
+
+	/**
+	 * Get whether the player is currently idle (not moving at all)
+	 * @return is idle.
+	 */
+	public boolean isIdle() {
+		return (playerPhysicsBox.getVelx() < 0.2f && playerPhysicsBox.getVelx() > -0.2f) &&
+				(playerPhysicsBox.getVely() < 0.2f && playerPhysicsBox.getVely() > -0.2f);
+	}
+
+	/**
+	 * Get whether the player is touching the floor (if false then the player is airborne).
+	 * @return is touching floor.
+	 */
+	public boolean isTouchingFloor() { return playerPhysicsBox.isTouchingFloor(); }
+
+	/**
 	 * Handles the player being pushed by a force bloom in the world.
 	 * @param bloom
 	 * @param angleOfForce
 	 * @param force
 	 * @param distance
 	 */
-	public void onPushedByForce(NBPBloom bloom, float angleOfForce, float force, float distance) {
-		// TODO Auto-generated method stub
-	}
+	public void onPushedByForce(NBPBloom bloom, float angleOfForce, float force, float distance) { }
 
 	/**
 	 * Get this players physics box.
@@ -85,15 +104,6 @@ public class Player extends Character {
 	 * @return angleOfFocus
 	 */
 	public float getAngleOfFocus() { return angleOfFocus; }
-	
-	/**
-	 * Get whether the player is currently idle (not moving at all)
-	 * @return is idle.
-	 */
-	public boolean isIdle() {
-		return (playerPhysicsBox.getVelx() < 0.2f && playerPhysicsBox.getVelx() > -0.2f) && 
-				(playerPhysicsBox.getVely() < 0.2f && playerPhysicsBox.getVely() > -0.2f);
-	}
 
 	/**
 	 * Set this players angle of focus.

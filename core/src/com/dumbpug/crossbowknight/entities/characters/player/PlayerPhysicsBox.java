@@ -10,26 +10,31 @@ import com.dumbpug.nbp.NBPSensor;
 /**
  * Physics box for a player.
  * @author nikolas.howard
- *
  */
 public class PlayerPhysicsBox extends NBPBox {
-	// Reference to our player object.
+	/** Reference to our player object. */
 	private Player player;
-	// Can the player jump?
+	/** Can the player jump? */
     private boolean canJump = false;
 
-	public PlayerPhysicsBox(Player player, float x, float y, float width, float height, NBPBoxType type) {
-		super(x, y, width, height, type);
+    /**
+     * Creates a new instance of the PlayerPhysicsBox class.
+     * @param player
+     * @param x
+     * @param y
+     */
+	public PlayerPhysicsBox(Player player, float x, float y) {
+		super(x, y, C.PLAYER_SIZE_WIDTH, C.PLAYER_SIZE_HEIGHT, NBPBoxType.KINETIC);
 		setFriction(C.PLAYER_FRICTION);
         setRestitution(C.PLAYER_RESTITUTION);
         // Set max velocity for this player.
         setMaxVelocityX(C.PLAYER_MAX_VELOCITY);
-        setMaxVelocityY(C.PLAYER_MAX_VELOCITY);
+        setMaxVelocityY(C.PLAYER_MAX_VELOCITY * 1.5f);
         // Create a sensor and place it at the base of our player. This sensor will
         // be used to detect when we are standing on something static, thus allowing
         // the player to jump.
-        float sensorHeight = 1;
-        float sensorWidth  = width/2;
+        float sensorHeight = 2;
+        float sensorWidth  = C.PLAYER_SIZE_WIDTH/2;
         float sensorPosX   = x;
         float sensorPosY   = y - sensorHeight;
         // Create the sensor.
@@ -87,6 +92,15 @@ public class PlayerPhysicsBox extends NBPBox {
         // Player was not able to jump.
         return false;
     }
+
+    /**
+     * Get whether the player is touching the floor (if false then the player is airborne).
+     * @return is touching floor.
+     */
+    public boolean isTouchingFloor() {
+        // If the player can jump then he is touching the floor.
+        return canJump;
+    }
     
     @Override
     public void onSensorEntry(NBPSensor sensor, NBPBox enteredBox) {
@@ -94,6 +108,11 @@ public class PlayerPhysicsBox extends NBPBox {
         if(sensor.getName().equals("player_base_sensor")) {
             // If we are on any static block then we can jump off of it.
             if(enteredBox.getType() == NBPBoxType.STATIC) {
+                // If the player was previously airborne, then this is a landing.
+                if(!isTouchingFloor()) {
+                    // Let our player instance know that we have landed.
+                    player.onLanding();
+                }
                 // Set a flag to show that the player can now jump.
                 this.canJump = true;
             }
