@@ -33,12 +33,12 @@ public class PlayerPhysicsBox extends NBPBox {
         // Create a sensor and place it at the base of our player. This sensor will
         // be used to detect when we are standing on something static, thus allowing
         // the player to jump.
-        float sensorHeight = 2;
-        float sensorWidth  = C.PLAYER_SIZE_WIDTH/2;
+        float sensorHeight = 1;
+        float sensorWidth  = C.PLAYER_SIZE_WIDTH;
         float sensorPosX   = x;
         float sensorPosY   = y - sensorHeight;
         // Create the sensor.
-        NBPSensor baseSensor = new NBPSensor(sensorPosX + (sensorWidth/2), sensorPosY, sensorWidth, sensorHeight);
+        NBPSensor baseSensor = new NBPSensor(sensorPosX, sensorPosY, sensorWidth, sensorHeight);
         // Give the sensor a name, this will be checked when notified by the sensor.
         baseSensor.setName("player_base_sensor");
         // Attach the sensor to the player box.
@@ -83,7 +83,12 @@ public class PlayerPhysicsBox extends NBPBox {
      */
     public boolean jump() {
         // Can we jump? (Are we on a static block?)
-        if(canJump) {
+        // We should also not allow a jump to happen if our Y velocity
+        // is above 0, this is due to the fact that you cannot jump
+        // if you are already ascending. This fixes the issue where
+        // sometimes the players base sensor will intersect with a
+        // static box while ascending upwards against it.
+        if(canJump && !(this.getVely() > 0)) {
             // Apply a vertical impulse.
             applyImpulse(0f, C.PLAYER_JUMPING_IMPULSE);
             // Player was able to jump.

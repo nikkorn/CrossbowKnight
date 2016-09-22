@@ -57,7 +57,7 @@ public class PlayerDrawer {
 	 */
 	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
 		// Get the players position.
-		float playerPosX = player.getCurrentOriginPoint().getX() - (C.PLAYER_SIZE_WIDTH/2);
+		float playerPosX = player.getCurrentOriginPoint().getX() - (C.PLAYER_SIZE_HEIGHT/2);
 		float playerPosY = player.getCurrentOriginPoint().getY() - (C.PLAYER_SIZE_HEIGHT/2);
 		
 		// The position of the cursor defines the direction we are facing.

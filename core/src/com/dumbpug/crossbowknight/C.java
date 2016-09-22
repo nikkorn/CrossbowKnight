@@ -32,5 +32,5 @@ public class C {
 	public static final float PLAYER_RESTITUTION             = 0f;
 	public static final float PLAYER_MAX_WALKING_VELOCITY    = 1f;
 	public static final float PLAYER_WALKING_IMPULSE_VALUE   = 0.2f;
-	public static final float PLAYER_JUMPING_IMPULSE         = 1.1f;
+	public static final float PLAYER_JUMPING_IMPULSE         = 2.5f;
 }
