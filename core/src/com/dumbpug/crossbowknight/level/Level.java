@@ -3,9 +3,11 @@ package com.dumbpug.crossbowknight.level;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.GameMath;
+import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
@@ -24,6 +26,8 @@ public class Level {
 	private LevelDrawer levelDrawer;
 	/** The level physics world */
 	private LevelWorld levelWorld;
+	/** The level backing music.*/
+	private Sound levelBackingMusic;
 	
 	// -----------------------------------
 	// ---------- Level Entities ---------
@@ -43,6 +47,9 @@ public class Level {
 		initialisePlayer();
 		// Set up our level camera.
 		setupCamera();
+		// Set the levels backing music.
+		this.levelBackingMusic = Audio.getMusic(Audio.Music.MAIN_THEME);
+		this.levelBackingMusic.loop(0.5f);
 	}
 	
 	/**

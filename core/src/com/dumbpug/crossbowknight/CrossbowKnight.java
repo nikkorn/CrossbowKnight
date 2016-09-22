@@ -17,11 +17,11 @@ public class CrossbowKnight extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 
-		// Set up a test level.
-		testLevel = LevelFactory.getLevelFromDisk("MAIN_HALL");
-
 		// Load all audio files.
 		Audio.loadAudio();
+
+		// Set up a test level.
+		testLevel = LevelFactory.getLevelFromDisk("MAIN_HALL");
 	}
 
 	@Override
