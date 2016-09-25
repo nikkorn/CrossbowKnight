@@ -8,8 +8,6 @@ import java.util.ArrayList;
  * Created by nik on 25/09/16.
  */
 public class DialogSection {
-    /** The dialog section identifier. */
-    private String identifier;
     /** The dialog to display. */
     private String dialog;
     /** The id of the section to navigate to when we are done with this one. */
@@ -22,25 +20,35 @@ public class DialogSection {
     private boolean hasFinishedPrinting = false;
     /** Is this dialog section finished with? If true then the dialog box will swap out
      *  the active dialog section with whatever 'followingSectionIdentifier' targets. */
-    public boolean isFinishedWith = false;
+    private boolean isFinishedWith = false;
 
     /**
      * Creates a new instance of the DialogSection class.
-     * @param identifier
      * @param dialog
      */
-    public DialogSection(String identifier, String dialog) {
-        this.identifier                 = identifier;
+    public DialogSection(String dialog) {
         this.dialog                     = dialog;
         this.followingSectionIdentifier = null;
         this.dialogResponseActions      = new ArrayList<DialogResponseAction>();
     }
 
     /**
-     * Get the identifier of this dialog section.
-     * @return
+     * On up key press.
      */
-    public String getIdentifier() { return identifier; }
+    public void onUpPress() {
+    }
+
+    /**
+     * On down key press.
+     */
+    public void onDownPress() {
+    }
+
+    /**
+     * On accept key press.
+     */
+    public void onAcceptPress() {
+    }
 
     /**
      * Get the following section identifier.
@@ -60,6 +68,14 @@ public class DialogSection {
     public void refresh() {
         this.isFinishedWith      = false;
         this.hasFinishedPrinting = false;
+    }
+
+    /**
+     * Is this dialog section finished with?
+     * @return finished with
+     */
+    public boolean isFinishedWith() {
+        return isFinishedWith;
     }
 
     /**

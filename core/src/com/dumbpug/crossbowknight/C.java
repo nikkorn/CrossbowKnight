@@ -13,6 +13,8 @@ public class C {
 	public static final float LAYOUT_TILE_SIZE               = 20f;
 
 	/** Dialog/Font */
+	public static final float DIALOG_HEIGHT                  = Gdx.graphics.getHeight() / 5f;
+	public static final float DIALOG_BORDER_SIZE             = DIALOG_HEIGHT / 5f;
 	
 	/** Resources */
 	public static final String GRAPHICS_WORLD_TILES_DIR      = "graphics/tile_images";

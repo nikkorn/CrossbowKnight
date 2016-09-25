@@ -64,6 +64,9 @@ public class Level {
 		player = new Player(50, 50); // TODO Add actual spawn point!!!
 		// Add our player to the level world.
 		this.levelWorld.addPlayer(player);
+
+		// TODO test !!!!!!!!!!!!! REMOVE!!!!!!!
+		this.currentDialogBox = new DialogBox();
 	}
 	
 	/**
