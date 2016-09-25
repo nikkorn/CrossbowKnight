@@ -1,176 +1,217 @@
 package com.dumbpug.crossbowknight.input;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 
 /**
  * Created by nik on 17/09/16.
  */
-public class DesktopPlayerInput implements PlayerInput, InputProcessor {
-
-    @Override
-    public void update() {
-
-    }
+public class DesktopPlayerInput extends PlayerInput {
+    private boolean upButtonPressed         = false;
+    private boolean downButtonPressed       = false;
+    private boolean leftButtonPressed       = false;
+    private boolean rightButtonPressed      = false;
+    private boolean acceptButtonPressed     = false;
+    private boolean cancelButtonPressed     = false;
+    private boolean jumpButtonPressed       = false;
+    private boolean fireButtonPressed       = false;
+    private boolean secondaryButtonPressed  = false;
+    private boolean thirdButtonPressed      = false;
+    private boolean cycleLeftButtonPressed  = false;
+    private boolean cycleRightButtonPressed = false;
 
     @Override
     public boolean isUpButtonPressed() {
-        return false;
+        boolean pressed = upButtonPressed;
+        upButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isUpButtonDown() {
-        return Gdx.input.isKeyPressed(Input.Keys.W);
+        return Gdx.input.isKeyPressed(KeyMapping.UP_KEY);
     }
 
     @Override
     public boolean isLeftButtonPressed() {
-        return false;
+        boolean pressed   = leftButtonPressed;
+        leftButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isLeftButtonDown() {
-    	return Gdx.input.isKeyPressed(Input.Keys.A);
+        return Gdx.input.isKeyPressed(KeyMapping.LEFT_KEY);
     }
 
     @Override
     public boolean isDownButtonPressed() {
-        return false;
+        boolean pressed   = downButtonPressed;
+        downButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isDownButtonDown() {
-        return false;
+        return Gdx.input.isKeyPressed(KeyMapping.DOWN_KEY);
     }
 
     @Override
     public boolean isRightButtonPressed() {
-        return false;
+        boolean pressed    = rightButtonPressed;
+        rightButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isRightButtonDown() {
-    	return Gdx.input.isKeyPressed(Input.Keys.D);
+        return Gdx.input.isKeyPressed(KeyMapping.RIGHT_KEY);
     }
 
     @Override
     public boolean isAcceptButtonPressed() {
-        return false;
+        boolean pressed     = acceptButtonPressed;
+        acceptButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isAcceptButtonDown() {
-        return false;
+        return Gdx.input.isKeyPressed(KeyMapping.ACCEPT);
     }
 
     @Override
     public boolean isCancelButtonPressed() {
-        return false;
+        boolean pressed     = cancelButtonPressed;
+        cancelButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isCancelButtonDown() {
-        return false;
+        return Gdx.input.isKeyPressed(KeyMapping.CANCEL);
     }
 
     @Override
     public boolean isJumpButtonPressed() {
-        return false;
+        boolean pressed   = jumpButtonPressed;
+        jumpButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isJumpButtonDown() {
-    	return Gdx.input.isKeyPressed(Input.Keys.SPACE);
+        return Gdx.input.isKeyPressed(KeyMapping.JUMP);
     }
 
     @Override
     public boolean isFireButtonPressed() {
-        return false;
+        boolean pressed   = fireButtonPressed;
+        fireButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isFireButtonDown() {
-        return false;
+        return Gdx.input.isButtonPressed(KeyMapping.FIRE);
     }
 
     @Override
     public boolean isSecondaryButtonPressed() {
-        return false;
+        boolean pressed        = secondaryButtonPressed;
+        secondaryButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isSecondaryButtonDown() {
-        return false;
+        return Gdx.input.isButtonPressed(KeyMapping.SECONDARY);
     }
 
     @Override
     public boolean isThirdButtonPressed() {
-        return false;
+        boolean pressed    = thirdButtonPressed;
+        thirdButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isThirdButtonDown() {
-        return false;
+        return Gdx.input.isKeyPressed(KeyMapping.THIRD);
     }
 
     @Override
     public boolean isCycleLeftButtonPressed() {
-        return false;
+        boolean pressed        = cycleLeftButtonPressed;
+        cycleLeftButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isCycleLeftButtonDown() {
-        return false;
+        return Gdx.input.isKeyPressed(KeyMapping.CYCLE_LEFT);
     }
 
     @Override
     public boolean isCycleRightButtonPressed() {
-        return false;
+        boolean pressed         = cycleRightButtonPressed;
+        cycleRightButtonPressed = false;
+        return pressed;
     }
 
     @Override
     public boolean isCycleRightButtonDown() {
-        return false;
+        return Gdx.input.isKeyPressed(KeyMapping.CYCLE_RIGHT);
     }
 
+   /** -------------------- InputAdapter Overrides -------------------- */
+
+    /**
+     * Use keyDown method to determine when a key is pressed only once.
+     * @param keycode
+     * @return processed
+     */
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        if(keycode == KeyMapping.UP_KEY) {
+            this.upButtonPressed = true;
+        } else if(keycode == KeyMapping.DOWN_KEY) {
+            this.downButtonPressed = true;
+        } else if(keycode == KeyMapping.LEFT_KEY) {
+            this.leftButtonPressed = true;
+        } else if(keycode == KeyMapping.RIGHT_KEY) {
+            this.rightButtonPressed = true;
+        } else if(keycode == KeyMapping.ACCEPT) {
+            this.acceptButtonPressed = true;
+        } else if(keycode == KeyMapping.CANCEL) {
+            this.cancelButtonPressed = true;
+        } else if(keycode == KeyMapping.JUMP) {
+            this.jumpButtonPressed = true;
+        } else if(keycode == KeyMapping.THIRD) {
+            this.thirdButtonPressed = true;
+        } else if(keycode == KeyMapping.CYCLE_LEFT) {
+            this.cycleLeftButtonPressed = true;
+        } else if(keycode == KeyMapping.CYCLE_RIGHT) {
+            this.cycleRightButtonPressed = true;
+        }
+        return true;
     }
 
+    /**
+     * Use touchDown method to determine when a mouse button is pressed only once.
+     * @param screenX
+     * @param screenY
+     * @param pointer
+     * @param button
+     * @return processed
+     */
     @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
+    public boolean touchDown(int screenX, int screenY, int pointer, int button)
+    {
+        if(button == KeyMapping.FIRE) {
+            this.fireButtonPressed = true;
+        } else if(button == KeyMapping.SECONDARY) {
+            this.secondaryButtonPressed = true;
+        }
+        return true;
     }
 }

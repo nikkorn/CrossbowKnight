@@ -3,20 +3,32 @@ package com.dumbpug.crossbowknight;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
+import com.dumbpug.crossbowknight.input.OuyaPlayerInput;
+import com.dumbpug.crossbowknight.input.PlayerInput;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
 
 public class CrossbowKnight extends ApplicationAdapter {
-	SpriteBatch batch;
+	/** The games input processor. */
+	private static PlayerInput playerInput;
+	/** The games sprite batch. */
+	private SpriteBatch batch;
+
+	/** Test level. */
 	Level testLevel;
 	
 	@Override
 	public void create () {
+		// Create the games SpriteBatch.
 		batch = new SpriteBatch();
-
+		// Set the games input processor. Depends on whether we are running on the Ouya or Desktop.
+		this.playerInput = Ouya.runningOnOuya ? new OuyaPlayerInput() : new DesktopPlayerInput();
+		Gdx.input.setInputProcessor(this.playerInput);
 		// Load all audio files.
 		Audio.loadAudio();
 
@@ -42,7 +54,11 @@ public class CrossbowKnight extends ApplicationAdapter {
 	}
 	
 	@Override
-	public void dispose () {
-		batch.dispose();
-	}
+	public void dispose () { batch.dispose(); }
+
+	/**
+	 * Get player input.
+	 * @return player input.
+     */
+	public static PlayerInput getPlayerInput() { return CrossbowKnight.playerInput; }
 }

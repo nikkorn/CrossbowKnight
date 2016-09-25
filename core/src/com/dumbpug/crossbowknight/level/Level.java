@@ -6,9 +6,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.hud.dialog.DialogBox;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -16,7 +18,7 @@ import com.dumbpug.crossbowknight.tiles.Tile;
  * @author nikolas.howard
  */
 public class Level {
-	/** The name of this level */
+	/** The name of this level. */
 	private String name = "";
 	/** All tiles in this level. */
 	private ArrayList<Tile> levelTiles = new ArrayList<Tile>();
@@ -24,10 +26,12 @@ public class Level {
 	private LevelCamera camera;
 	/** The level drawer. */
 	private LevelDrawer levelDrawer;
-	/** The level physics world */
+	/** The level physics world. */
 	private LevelWorld levelWorld;
 	/** The level backing music.*/
 	private Sound levelBackingMusic;
+	/** The current dialog box. */
+	private DialogBox currentDialogBox;
 	
 	// -----------------------------------
 	// ---------- Level Entities ---------
@@ -86,17 +90,18 @@ public class Level {
 	public void update() {
 		// ------------ Update the level world. -----------
 		levelWorld.update();
+
+		// ------------ Update the current dialog (if it exists) ----------------
+		if(this.currentDialogBox != null) {
+			if(this.currentDialogBox.isFinished()) {
+				this.currentDialogBox = null;
+			} else {
+				this.currentDialogBox.update();
+			}
+		}
 		
-		// ------------ Handle input. ---------------------
-		// TODO Hook these up to our PlayerInput.
-		// ------------------------------------------------
-		// Move our player.
-		if(Gdx.input.isKeyPressed(Input.Keys.D)) { player.moveRight(); }
-		if(Gdx.input.isKeyPressed(Input.Keys.A)) { player.moveLeft(); }
-		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) { player.jump(); }
-		// Set players angle of focus.
-		player.setAngleOfFocus((float) GameMath.GetAngleOfLineBetweenTwoPoints(Gdx.input.getX(), Gdx.input.getY(), 
-				Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+		// ---------------------- Handle input. ---------------------
+		player.processInput();
 	}
 
 	/**
@@ -116,12 +121,6 @@ public class Level {
 	 * @return level camera.
 	 */
 	public LevelCamera getLevelCamera() { return camera; }
-
-	/**
-	 * Set the level camera.
-	 * @param level camera.
-	 */
-	public void setLevelCamera(LevelCamera camera) { this.camera = camera; }
 	
 	/**
 	 * Get all level tiles.
@@ -136,8 +135,14 @@ public class Level {
 	public Player getPlayer() { return player; }
 
 	/**
+	 * Get the current dialog box.
+	 * @return dialog box.
+     */
+	public DialogBox getCurrentDialogBox() { return currentDialogBox; }
+
+	/**
 	 * Set all level tiles.
-	 * @param levelTiles.
+	 * @param levelTiles
 	 */
 	public void setLevelTiles(ArrayList<Tile> levelTiles) { 
 		this.levelTiles = levelTiles; 

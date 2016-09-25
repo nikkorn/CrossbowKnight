@@ -11,6 +11,8 @@ public class C {
 	public static final float LAYOUT_MULTIPLIER              = Gdx.graphics.getHeight() / C.LAYOUT_SCREEN_HEIGHT;
 	public static final float LAYOUT_SCREEN_HEIGHT           = 100f;
 	public static final float LAYOUT_TILE_SIZE               = 20f;
+
+	/** Dialog/Font */
 	
 	/** Resources */
 	public static final String GRAPHICS_WORLD_TILES_DIR      = "graphics/tile_images";

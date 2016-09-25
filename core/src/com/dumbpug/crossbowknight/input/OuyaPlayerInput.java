@@ -3,11 +3,7 @@ package com.dumbpug.crossbowknight.input;
 /**
  * Created by nik on 17/09/16.
  */
-public class OuyaPlayerInput implements PlayerInput {
-    @Override
-    public void update() {
-
-    }
+public class OuyaPlayerInput extends PlayerInput {
 
     @Override
     public boolean isUpButtonPressed() {
@@ -40,9 +36,7 @@ public class OuyaPlayerInput implements PlayerInput {
     }
 
     @Override
-    public boolean isRightButtonPressed() {
-        return false;
-    }
+    public boolean isRightButtonPressed() { return false; }
 
     @Override
     public boolean isRightButtonDown() {

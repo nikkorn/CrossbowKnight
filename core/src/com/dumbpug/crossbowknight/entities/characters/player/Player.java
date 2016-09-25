@@ -1,6 +1,10 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.CrossbowKnight;
+import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPPoint;
@@ -30,6 +34,33 @@ public class Player extends Character {
         // Create our player drawer.
         playerDrawer = new PlayerDrawer(this);
     }
+
+	/**
+	 * Process input for this player.
+	 */
+	public void processInput() {
+		// Move our player.
+		if(CrossbowKnight.getPlayerInput().isRightButtonDown()) {
+			playerPhysicsBox.moveRight();
+		}
+		if(CrossbowKnight.getPlayerInput().isLeftButtonDown()) {
+			playerPhysicsBox.moveLeft();
+		}
+		if(CrossbowKnight.getPlayerInput().isJumpButtonPressed()) {
+			// Attempt to jump.
+			if(playerPhysicsBox.jump()) {
+				// The player was able to jump! Play jump sound effect.
+				Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
+			}
+		}
+		// Set players angle of focus. Will depend on whether we are running on the Ouya or desktop.
+		if(Ouya.runningOnOuya) {
+			// TODO Get angle of focus from analog stick position.
+		} else {
+			setAngleOfFocus((float) GameMath.GetAngleOfLineBetweenTwoPoints(Gdx.input.getX(), Gdx.input.getY(),
+					Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+		}
+	}
     
     /**
 	 * Get this players current point of origin.
@@ -38,27 +69,6 @@ public class Player extends Character {
 	public NBPPoint getCurrentOriginPoint() {
 		// This players point of origin will match the origin of its physics box.
 		return playerPhysicsBox.getCurrentOriginPoint();
-	}
-	
-	/**
-     * Move the player to the left.
-     */
-    public void moveLeft() { playerPhysicsBox.moveLeft(); }
-
-    /**
-     * Move the player to the right.
-     */
-    public void moveRight() { playerPhysicsBox.moveRight(); }
-
-    /**
-     * Make the player jump if he can.
-     */
-    public void jump() {
-		// Attempt to jump.
-		if(playerPhysicsBox.jump()) {
-			// The player was able to jump! Play jump sound effect.
-			Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
-		}
 	}
 
 	/**
