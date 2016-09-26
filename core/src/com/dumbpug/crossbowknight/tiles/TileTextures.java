@@ -55,8 +55,7 @@ public class TileTextures {
 		PILLAR_BOTTOM,
 		CHAIN_TOP,
 		CHAIN_MIDDLE,
-		CHAIN_BOTTOM_LIGHT,
-		CHAIN_BOTTOM_HEAVY
+		CHAIN_BOTTOM
 	}
 	
 	/**
