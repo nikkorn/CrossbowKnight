@@ -100,9 +100,9 @@ public class DialogBox {
      */
     public void draw(SpriteBatch batch) {
         // Draw the dialog background.
-        batch.draw(dialogBodyTexture, 0, 0, Gdx.graphics.getWidth(), C.DIALOG_HEIGHT);
-        batch.draw(dialogTopTexture, 0, C.DIALOG_HEIGHT - C.DIALOG_BORDER_SIZE, Gdx.graphics.getWidth(), C.DIALOG_BORDER_SIZE);
-        batch.draw(dialogBottomTexture, 0, 0, Gdx.graphics.getWidth(), C.DIALOG_BORDER_SIZE);
+        batch.draw(dialogBodyTexture, C.DIALOG_BORDER_SIZE, C.DIALOG_BORDER_SIZE, Gdx.graphics.getWidth() - (C.DIALOG_BORDER_SIZE*2), C.DIALOG_HEIGHT - C.DIALOG_BORDER_SIZE);
+        batch.draw(dialogTopTexture, C.DIALOG_BORDER_SIZE, C.DIALOG_HEIGHT, Gdx.graphics.getWidth() - (C.DIALOG_BORDER_SIZE*2), C.DIALOG_BORDER_SIZE);
+        batch.draw(dialogBottomTexture, C.DIALOG_BORDER_SIZE, 0, Gdx.graphics.getWidth() - (C.DIALOG_BORDER_SIZE*2), C.DIALOG_BORDER_SIZE);
         // Draw the current dialog section.
         DialogSection currentDialogSection = dialogSections.get(currentDialogSectionIdentifier);
         if(currentDialogSection != null) {

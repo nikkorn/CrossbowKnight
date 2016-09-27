@@ -27,8 +27,8 @@ public class CrossbowKnight extends ApplicationAdapter {
 		// Create the games SpriteBatch.
 		batch = new SpriteBatch();
 		// Set the games input processor. Depends on whether we are running on the Ouya or Desktop.
-		this.playerInput = Ouya.runningOnOuya ? new OuyaPlayerInput() : new DesktopPlayerInput();
-		Gdx.input.setInputProcessor(this.playerInput);
+		CrossbowKnight.playerInput = Ouya.runningOnOuya ? new OuyaPlayerInput() : new DesktopPlayerInput();
+		Gdx.input.setInputProcessor(CrossbowKnight.playerInput);
 		// Load all audio files.
 		Audio.loadAudio();
 
