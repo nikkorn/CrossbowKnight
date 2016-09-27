@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.leveleditor;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -22,12 +23,15 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	private int editorTilePositionY = 0;
 	/** The Tiles */
 	private ArrayList<LevelTile> tiles = new ArrayList<LevelTile>();
+	/** The scanner used to read command line input */
+	private Scanner inputScanner; 
 
 	@Override
 	public void create () {
 		batch               = new SpriteBatch();
 		levelEditorTextures = new LevelEditorTextures();
 		playerInput         = new DesktopPlayerInput();
+		inputScanner        = new Scanner(System.in);
 		Gdx.input.setInputProcessor(CrossbowKnightLevelEditor.playerInput);
 	}
 
@@ -78,6 +82,10 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		System.out.println("Got click at:");
 		System.out.println("X: " + x);
 		System.out.println("Y: " + y);
+		
+		System.out.println("What you wanna do?:");
+		String input = inputScanner.nextLine();
+		System.out.println("A, you wanna " + input);
 	}
 	
 	/**
