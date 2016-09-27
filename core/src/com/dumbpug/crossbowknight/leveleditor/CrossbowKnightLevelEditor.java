@@ -7,9 +7,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
 import com.dumbpug.crossbowknight.input.PlayerInput;
+import com.dumbpug.crossbowknight.tiles.TileTextures;
 
 public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	/** The input processor. */
@@ -67,6 +69,18 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				batch.draw(levelEditorTextures.getGridTileTexture(), x*C.TILE_SIZE, y*C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
+		// Draw all tile backgrounds.
+		for(LevelTile tile : tiles) {
+			if(tile.backgroundTexture != null) {
+				batch.draw(tile.backgroundTexture, (tile.X - editorTilePositionX) * C.TILE_SIZE, (tile.Y - editorTilePositionY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
+			}
+		}
+		// Draw all tile decorations.
+		for(LevelTile tile : tiles) {
+			if(tile.decorationTexture != null) {
+				batch.draw(tile.decorationTexture, (tile.X - editorTilePositionX) * C.TILE_SIZE, (tile.Y - editorTilePositionY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
+			}
+		}
 		
 		// ...
 		
@@ -79,13 +93,114 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	 * @param y
 	 */
 	public void onClickOnGridTile(int x, int y) {
-		System.out.println("Got click at:");
-		System.out.println("X: " + x);
-		System.out.println("Y: " + y);
+		// Get the target tile.
+		LevelTile targetTile = getTileAt(x, y);
+
+		System.out.print("Selected ");
+		System.out.print("X: " + x);
+		System.out.println(" Y: " + y);
 		
-		System.out.println("What you wanna do?:");
-		String input = inputScanner.nextLine();
-		System.out.println("A, you wanna " + input);
+		System.out.println("options:");
+		System.out.println(" 1. clear tile");
+		System.out.println(" 2. set background texture");
+		System.out.println(" 3. clear background texture");
+		System.out.println(" 4. set decoration texture");
+		System.out.println(" 5. clear decoration texture");
+		System.out.println(" 6. set block");
+		System.out.println(" 7. clear block");
+		System.out.println(" 8. resume");
+
+		System.out.print("option? : ");
+		int selection = inputScanner.nextInt();
+		int textureId;
+
+		switch(selection) {
+			case 1:
+				// ------ Clear tile. ------
+				if(targetTile != null) {
+					tiles.remove(targetTile);
+					System.out.println("tile cleared.");
+				} else {
+					System.out.println("no tile to clear.");
+				}
+				break;
+			case 2:
+				// ------ Set background texture. ------
+				System.out.print("texture id? : ");
+				textureId = inputScanner.nextInt();
+				// Do we have a matching texture?
+				if(textureId >= TileTextures.BackgroundTile.values().length) {
+					System.out.println("no matching texture.");
+				} else {
+					Texture texture = TileTextures.getTileTextures().getBackgroundTileTexture(TileTextures.BackgroundTile.values()[textureId]);
+					// Do we actually have an existing tile at this position?
+					if(targetTile == null) {
+						targetTile = new LevelTile();
+						tiles.add(targetTile);
+						targetTile.X = x;
+						targetTile.Y = y;
+					}
+					// Set the texture.
+					targetTile.backgroundTexture = texture;
+				}
+				break;
+			case 3:
+				// ------ Clear background texture. ------
+				if(targetTile != null) {
+					// Get rid of the tile background texture.
+					targetTile.backgroundTexture = null;
+					System.out.println("texture cleared.");
+					// If our tile has nothing on it, then remove it.
+					if(targetTile.isBlank()) {
+						tiles.remove(targetTile);
+					}
+				} else {
+					System.out.println("no tile.");
+				}
+				break;
+			case 4:
+				// ------ Set decoration texture. ------
+				System.out.print("texture id? : ");
+				textureId = inputScanner.nextInt();
+				// Do we have a matching texture?
+				if(textureId >= TileTextures.DecorationTile.values().length) {
+					System.out.println("no matching texture.");
+				} else {
+					Texture texture = TileTextures.getTileTextures().getDecorationTileTexture(TileTextures.DecorationTile.values()[textureId]);
+					// Do we actually have an existing tile at this position?
+					if(targetTile == null) {
+						targetTile = new LevelTile();
+						tiles.add(targetTile);
+						targetTile.X = x;
+						targetTile.Y = y;
+					}
+					// Set the texture.
+					targetTile.decorationTexture = texture;
+				}
+				break;
+			case 5:
+				// ------ Clear decoration texture. ------
+				if(targetTile != null) {
+					// Get rid of the tile decoration texture.
+					targetTile.decorationTexture = null;
+					System.out.println("texture cleared.");
+					// If our tile has nothing on it, then remove it.
+					if(targetTile.isBlank()) {
+						tiles.remove(targetTile);
+					}
+				} else {
+					System.out.println("no tile.");
+				}
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+		}
+
+		System.out.println();
 	}
 	
 	/**

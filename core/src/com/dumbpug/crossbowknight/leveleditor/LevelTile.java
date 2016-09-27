@@ -12,4 +12,12 @@ public class LevelTile {
 	public Texture decorationTexture = null;
 	/** The block texture for this tile */
 	public LevelBlock levelBlock     = null;
+
+	/**
+	 * Returns true if this tile has nothing on it.
+	 * @return is blank
+     */
+	public boolean isBlank() {
+		return (backgroundTexture == null && decorationTexture == null && levelBlock == null);
+	}
 }
