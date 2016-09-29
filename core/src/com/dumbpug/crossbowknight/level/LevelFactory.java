@@ -11,7 +11,7 @@ import com.dumbpug.crossbowknight.Helpers;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
- * Creates level.
+ * Creates levels.
  * @author nikolas.howard
  */
 public class LevelFactory {
@@ -24,12 +24,22 @@ public class LevelFactory {
 	public static Level getLevelFromDisk(String levelName) {
 		// Initialise a new Level.
 		Level level = new Level();
+		// Populate level object from disk.
+		buildLevelFromDisk(level, levelName);
+		// Return our built level.
+		return level;
+	}
+	
+	/**
+	 * Populate level object from disk.
+	 * @param level
+	 * @param levelName
+	 */
+	protected static void buildLevelFromDisk(Level level, String levelName) {
 		// Set the level tiles.
 		level.setLevelTiles(LevelFactory.readLevelTilesFromDisk(levelName));
 		
 		//...
-		
-		return level;
 	}
 	
 	/**

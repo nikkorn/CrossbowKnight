@@ -12,7 +12,13 @@ import com.dumbpug.crossbowknight.input.PlayerInput;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 
+/**
+ * Editor for building levels.
+ * @author nikolas.howard
+ */
 public class CrossbowKnightLevelEditor extends ApplicationAdapter {
+	/** The name of the level. */
+	private String levelName;
 	/** The input processor. */
 	private static PlayerInput playerInput;
 	/** The games sprite batch. */
@@ -31,10 +37,26 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	public void create () {
 		batch               = new SpriteBatch();
 		levelEditorTextures = new LevelEditorTextures();
-		level               = new EditableLevel();
 		playerInput         = new DesktopPlayerInput();
 		inputScanner        = new Scanner(System.in);
 		Gdx.input.setInputProcessor(CrossbowKnightLevelEditor.playerInput);
+		// Try to read the level from disk. If this fails, create a blank level.
+		try {
+			level = EditableLevelFactory.getEditableLevelFromDisk(levelName);
+		} catch(Exception e) {
+			// We were not able to read the level from disk. So we should
+			// assume that we are making a new level.
+			System.out.println("No existing level '" + levelName + "', creating new level.");
+			level = new EditableLevel();
+		}
+	}
+	
+	/**
+	 * Creates a new instance of CrossbowKnightLevelEditor.
+	 * @param levelName
+	 */
+	public CrossbowKnightLevelEditor(String levelName) {
+		this.levelName = levelName;
 	}
 
 	@Override

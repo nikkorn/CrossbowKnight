@@ -47,14 +47,6 @@ public class Level {
 	}
 	
 	/**
-	 * Create a new instance of the Level class.
-	 * For use with the level editor.
-	 */
-	public Level(boolean forLevelEditorUse) {
-		this.setLevelTiles(new ArrayList<Tile>());
-	}
-	
-	/**
 	 * Initialise the player.
 	 */
 	public void initialisePlayer() {
