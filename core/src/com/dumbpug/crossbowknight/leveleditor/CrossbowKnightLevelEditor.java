@@ -1,8 +1,6 @@
 package com.dumbpug.crossbowknight.leveleditor;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
 import com.dumbpug.crossbowknight.input.PlayerInput;
+import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 
 public class CrossbowKnightLevelEditor extends ApplicationAdapter {
@@ -23,8 +22,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	/** The editor tile offset. */
 	private int editorTilePositionX = 0;
 	private int editorTilePositionY = 0;
-	/** The Tiles */
-	private ArrayList<LevelTile> tiles = new ArrayList<LevelTile>();
+	/** The editable level. */
+	private EditableLevel level;
 	/** The scanner used to read command line input */
 	private Scanner inputScanner; 
 
@@ -32,6 +31,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	public void create () {
 		batch               = new SpriteBatch();
 		levelEditorTextures = new LevelEditorTextures();
+		level               = new EditableLevel();
 		playerInput         = new DesktopPlayerInput();
 		inputScanner        = new Scanner(System.in);
 		Gdx.input.setInputProcessor(CrossbowKnightLevelEditor.playerInput);
@@ -69,21 +69,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				batch.draw(levelEditorTextures.getGridTileTexture(), x*C.TILE_SIZE, y*C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
-		// Draw all tile backgrounds.
-		for(LevelTile tile : tiles) {
-			if(tile.backgroundTexture != null) {
-				batch.draw(tile.backgroundTexture, (tile.X - editorTilePositionX) * C.TILE_SIZE, (tile.Y - editorTilePositionY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
-			}
-		}
-		// Draw all tile decorations.
-		for(LevelTile tile : tiles) {
-			if(tile.decorationTexture != null) {
-				batch.draw(tile.decorationTexture, (tile.X - editorTilePositionX) * C.TILE_SIZE, (tile.Y - editorTilePositionY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
-			}
-		}
-		
-		// ...
-		
+		// Draw the level.
+		level.draw(batch, editorTilePositionX, editorTilePositionY);
 		batch.end();
 	}
 	
@@ -94,7 +81,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	 */
 	public void onClickOnGridTile(int x, int y) {
 		// Get the target tile.
-		LevelTile targetTile = getTileAt(x, y);
+		Tile targetTile = level.getTileAt(x, y);
 
 		System.out.print("Selected ");
 		System.out.print("X: " + x);
@@ -118,7 +105,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 			case 1:
 				// ------ Clear tile. ------
 				if(targetTile != null) {
-					tiles.remove(targetTile);
+					level.removeTile(targetTile);
 					System.out.println("tile cleared.");
 				} else {
 					System.out.println("no tile to clear.");
@@ -135,24 +122,21 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					Texture texture = TileTextures.getTileTextures().getBackgroundTileTexture(TileTextures.BackgroundTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
-						targetTile = new LevelTile();
-						tiles.add(targetTile);
-						targetTile.X = x;
-						targetTile.Y = y;
+						targetTile = level.addNewTileAt(x, y);
 					}
 					// Set the texture.
-					targetTile.backgroundTexture = texture;
+					targetTile.setBackgroundTexture(texture);
 				}
 				break;
 			case 3:
 				// ------ Clear background texture. ------
 				if(targetTile != null) {
 					// Get rid of the tile background texture.
-					targetTile.backgroundTexture = null;
+					targetTile.setBackgroundTexture(null);
 					System.out.println("texture cleared.");
 					// If our tile has nothing on it, then remove it.
-					if(targetTile.isBlank()) {
-						tiles.remove(targetTile);
+					if(level.isTileBlank(targetTile)) {
+						level.removeTile(targetTile);
 					}
 				} else {
 					System.out.println("no tile.");
@@ -169,24 +153,21 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					Texture texture = TileTextures.getTileTextures().getDecorationTileTexture(TileTextures.DecorationTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
-						targetTile = new LevelTile();
-						tiles.add(targetTile);
-						targetTile.X = x;
-						targetTile.Y = y;
+						targetTile = level.addNewTileAt(x, y);
 					}
 					// Set the texture.
-					targetTile.decorationTexture = texture;
+					targetTile.setDecorationTexture(texture);
 				}
 				break;
 			case 5:
 				// ------ Clear decoration texture. ------
 				if(targetTile != null) {
 					// Get rid of the tile decoration texture.
-					targetTile.decorationTexture = null;
+					targetTile.setDecorationTexture(null);
 					System.out.println("texture cleared.");
 					// If our tile has nothing on it, then remove it.
-					if(targetTile.isBlank()) {
-						tiles.remove(targetTile);
+					if(level.isTileBlank(targetTile)) {
+						level.removeTile(targetTile);
 					}
 				} else {
 					System.out.println("no tile.");
@@ -201,22 +182,6 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		}
 
 		System.out.println();
-	}
-	
-	/**
-	 * Get a tile at a specific x/y position.
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	public LevelTile getTileAt(int x, int y) {
-		for(LevelTile tile: tiles) {
-			if(tile.X == x && tile.Y == y) {
-				return tile;
-			}
-		}
-		// Didn't find the tile.
-		return null;
 	}
 	
 	/**

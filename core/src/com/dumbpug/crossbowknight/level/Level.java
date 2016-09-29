@@ -2,10 +2,8 @@ package com.dumbpug.crossbowknight.level;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.hud.dialog.DialogBox;
 import com.dumbpug.crossbowknight.tiles.Tile;
@@ -25,8 +23,6 @@ public class Level {
 	private LevelDrawer levelDrawer;
 	/** The level physics world. */
 	private LevelWorld levelWorld;
-	/** The level backing music.*/
-	private Sound levelBackingMusic;
 	/** The current dialog box. */
 	private DialogBox currentDialogBox;
 	
@@ -48,9 +44,14 @@ public class Level {
 		initialisePlayer();
 		// Set up our level camera.
 		setupCamera();
-		// Set the levels backing music.
-		this.levelBackingMusic = Audio.getMusic(Audio.Music.MAIN_THEME);
-		this.levelBackingMusic.loop(0.5f);
+	}
+	
+	/**
+	 * Create a new instance of the Level class.
+	 * For use with the level editor.
+	 */
+	public Level(boolean forLevelEditorUse) {
+		this.setLevelTiles(new ArrayList<Tile>());
 	}
 	
 	/**
@@ -61,9 +62,6 @@ public class Level {
 		player = new Player(50, 50); // TODO Add actual spawn point!!!
 		// Add our player to the level world.
 		this.levelWorld.addPlayer(player);
-
-		// TODO test !!!!!!!!!!!!! REMOVE!!!!!!!
-		this.currentDialogBox = new DialogBox();
 	}
 	
 	/**
@@ -90,15 +88,6 @@ public class Level {
 	public void update() {
 		// ------------ Update the level world. -----------
 		levelWorld.update();
-
-		// ------------ Update the current dialog (if it exists) ----------------
-		if(this.currentDialogBox != null) {
-			if(this.currentDialogBox.isFinished()) {
-				this.currentDialogBox = null;
-			} else {
-				this.currentDialogBox.update();
-			}
-		}
 		
 		// ---------------------- Handle input. ---------------------
 		player.processInput();
