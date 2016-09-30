@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
 import com.dumbpug.crossbowknight.input.PlayerInput;
+import com.dumbpug.crossbowknight.level.Block;
+import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 
@@ -196,11 +198,78 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				}
 				break;
 			case 6:
+				// ------ Set block. ------
+				System.out.print("texture id? : ");
+				textureId = inputScanner.nextInt();
+				System.out.print("tile fill type? (1.top 2.bottom 3.left 4.right 5.full) : ");
+				TileBlockFillType fillType = null;
+				int fillTypeInput = inputScanner.nextInt();
+				// Convert the fill type option to can actual fill type.
+				switch(fillTypeInput) {
+					case 1:
+						fillType = TileBlockFillType.TOP_HALF;
+						break;
+					case 2:
+						fillType = TileBlockFillType.BOTTOM_HALF;
+						break;
+					case 3:
+						fillType = TileBlockFillType.LEFT_HALF;
+						break;
+					case 4:
+						fillType = TileBlockFillType.RIGHT_HALF;
+						break;
+					case 5:
+						fillType = TileBlockFillType.FULL;
+						break;
+					default:
+						System.out.println("not a valid fill type, defaulting to FULL.");
+						fillType = TileBlockFillType.FULL;
+				}
+				// We have everything we need to create our new block.
+				// We don't need to specify x/y/width/height at this moment 
+				// as this is only calculated when the block is generated
+				// using the games level factory.
+				Block newBlock = new Block(0, 0, 0, 0, fillType);
+				// Do we have a matching texture?
+				if(textureId >= TileTextures.BlockTile.values().length) {
+					System.out.println("no matching texture.");
+					break;
+				}
+				// Get the texture.
+				Texture texture = TileTextures.getTileTextures().getBlockTileTexture(TileTextures.BlockTile.values()[textureId]);
+				// Do we actually have an existing tile at this position?
+				if(targetTile == null) {
+					targetTile = level.addNewTileAt(x, y);
+				}
+				// Set the texture on the block.
+				newBlock.setBlockTexture(texture);
+				// Attach our block to the target tile.
+				targetTile.setPhysicsBlock(newBlock);
+				System.out.println("block set!");
 				break;
 			case 7:
+				// ------ Clear block. ------
+				if(targetTile != null) {
+					if(targetTile.getPhysicsBlock() != null) {
+						// Get rid of the block attached to this tile.
+						targetTile.setPhysicsBlock(null);
+						System.out.println("block cleared.");
+						// If our tile has nothing on it, then remove it.
+						if(level.isTileBlank(targetTile)) {
+							level.removeTile(targetTile);
+						}
+					} else {
+						System.out.println("no block attached to tile.");
+					}
+				} else {
+					System.out.println("no tile.");
+				}
 				break;
 			case 8:
+				// Do nothing!
 				break;
+			default:
+				System.out.println("not a valid option!");
 		}
 
 		System.out.println();
