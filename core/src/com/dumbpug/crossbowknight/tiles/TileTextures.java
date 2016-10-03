@@ -13,11 +13,11 @@ public class TileTextures {
 	private static TileTextures instance;
 	
 	/** Maps which hold all tile textures. */
-	private HashMap<BackgroundTile, Texture> backgroundTileTextures = new HashMap<BackgroundTile, Texture>();
-	private HashMap<DecorationTile, Texture> decorationTileTextures = new HashMap<DecorationTile, Texture>();
-	private HashMap<EntityTile, Texture> entityTileTextures         = new HashMap<EntityTile, Texture>();
-	private HashMap<BlockTile, Texture> blockTileTextures           = new HashMap<BlockTile, Texture>();
-	private HashMap<MiscTile, Texture> miscTileTextures             = new HashMap<MiscTile, Texture>();
+	private HashMap<BackgroundTile, IndexedTileTexture> backgroundTileTextures = new HashMap<BackgroundTile, IndexedTileTexture>();
+	private HashMap<DecorationTile, IndexedTileTexture> decorationTileTextures = new HashMap<DecorationTile, IndexedTileTexture>();
+	private HashMap<EntityTile, IndexedTileTexture> entityTileTextures         = new HashMap<EntityTile, IndexedTileTexture>();
+	private HashMap<BlockTile, IndexedTileTexture> blockTileTextures           = new HashMap<BlockTile, IndexedTileTexture>();
+	private HashMap<MiscTile, IndexedTileTexture> miscTileTextures             = new HashMap<MiscTile, IndexedTileTexture>();
 	
 	/**
 	 * Tiles that represent part of the background.
@@ -103,30 +103,30 @@ public class TileTextures {
 	 * Creates an instance of the TileTextures class.
 	 */
 	private TileTextures() {
-		// Populate our background tile texture map.
+		// Populate our background tile indexed texture map.
 		for(BackgroundTile tile : BackgroundTile.values()) {
 			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
-			backgroundTileTextures.put(tile, new Texture(tileTexturePath));
+			backgroundTileTextures.put(tile, new IndexedTileTexture(new Texture(tileTexturePath), tile.ordinal()));
 		}
-		// Populate our decoration tile texture map.
+		// Populate our decoration tile indexed texture map.
 		for(DecorationTile tile : DecorationTile.values()) {
 			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
-			decorationTileTextures.put(tile, new Texture(tileTexturePath));
+			decorationTileTextures.put(tile, new IndexedTileTexture(new Texture(tileTexturePath), tile.ordinal()));
 		}
-		// Populate our entity tile texture map.
+		// Populate our entity tile indexed texture map.
 		for(EntityTile tile : EntityTile.values()) {
 			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
-			entityTileTextures.put(tile, new Texture(tileTexturePath));
+			entityTileTextures.put(tile, new IndexedTileTexture(new Texture(tileTexturePath), tile.ordinal()));
 		}
-		// Populate our block tile texture map.
+		// Populate our block tile indexed texture map.
 		for(BlockTile tile : BlockTile.values()) {
 			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
-			blockTileTextures.put(tile, new Texture(tileTexturePath));
+			blockTileTextures.put(tile, new IndexedTileTexture(new Texture(tileTexturePath), tile.ordinal()));
 		}
-		// Populate our misc tile texture map.
+		// Populate our misc tile indexed texture map.
 		for(MiscTile tile : MiscTile.values()) {
 			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
-			miscTileTextures.put(tile, new Texture(tileTexturePath));
+			miscTileTextures.put(tile, new IndexedTileTexture(new Texture(tileTexturePath), tile.ordinal()));
 		}
 	}
 	
@@ -143,46 +143,46 @@ public class TileTextures {
 	
 	/**
 	 * Get Background tile texture.
-	 * @param texture
+	 * @param background
 	 * @return tile texture
 	 */
-	public Texture getBackgroundTileTexture(BackgroundTile texture) {
-		return this.backgroundTileTextures.get(texture);
+	public IndexedTileTexture getBackgroundTileTexture(BackgroundTile background) {
+		return this.backgroundTileTextures.get(background);
 	}
 	
 	/**
 	 * Get Decoration tile texture.
-	 * @param texture
+	 * @param decoration
 	 * @return tile texture
 	 */
-	public Texture getDecorationTileTexture(DecorationTile texture) {
-		return this.decorationTileTextures.get(texture);
+	public IndexedTileTexture getDecorationTileTexture(DecorationTile decoration) {
+		return this.decorationTileTextures.get(decoration);
 	}
 	
 	/**
 	 * Get Entity tile texture.
-	 * @param texture
+	 * @param entitiyTile
 	 * @return tile texture
 	 */
-	public Texture getEntityTileTexture(EntityTile texture) {
-		return this.entityTileTextures.get(texture);
+	public IndexedTileTexture getEntityTileTexture(EntityTile entitiyTile) {
+		return this.entityTileTextures.get(entitiyTile);
 	}
 	
 	/**
 	 * Get Block tile texture.
-	 * @param texture
+	 * @param block
 	 * @return tile texture
 	 */
-	public Texture getBlockTileTexture(BlockTile texture) {
-		return this.blockTileTextures.get(texture);
+	public IndexedTileTexture getBlockTileTexture(BlockTile block) {
+		return this.blockTileTextures.get(block);
 	}
 	
 	/**
 	 * Get misc tile texture.
-	 * @param texture
+	 * @param miscTile
 	 * @return tile texture
 	 */
-	public Texture getMiscTileTexture(MiscTile texture) {
-		return this.miscTileTextures.get(texture);
+	public IndexedTileTexture getMiscTileTexture(MiscTile miscTile) {
+		return this.miscTileTextures.get(miscTile);
 	}
 }

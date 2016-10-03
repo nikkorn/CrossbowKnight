@@ -75,13 +75,13 @@ public class EditableLevel extends Level {
 		// Draw all tile backgrounds.
 		for(Tile tile : getLevelTiles()) {
 			if(tile.getBackgroundTexture() != null) {
-				batch.draw(tile.getBackgroundTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
+				batch.draw(tile.getBackgroundTexture().getTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 		// Draw all tile decorations.
 		for(Tile tile : getLevelTiles()) {
 			if(tile.getDecorationTexture() != null) {
-				batch.draw(tile.getDecorationTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
+				batch.draw(tile.getDecorationTexture().getTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 		// Draw all level blocks.
@@ -99,7 +99,7 @@ public class EditableLevel extends Level {
 				float blockYPosition = (tile.getY() - tileOffsetY) * C.TILE_SIZE;
 				blockYPosition += (block.getFillType() == TileBlockFillType.TOP_HALF) ? C.TILE_SIZE / 2 : 0;
 				// Draw the block.
-				batch.draw(block.getBlockTexture(), blockXPosition, blockYPosition, blockWidth, blockHeight);
+				batch.draw(block.getBlockTexture().getTexture(), blockXPosition, blockYPosition, blockWidth, blockHeight);
 			}
 		}
 			

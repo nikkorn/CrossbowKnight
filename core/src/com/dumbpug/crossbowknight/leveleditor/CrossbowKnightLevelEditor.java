@@ -11,6 +11,7 @@ import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
 import com.dumbpug.crossbowknight.input.PlayerInput;
 import com.dumbpug.crossbowknight.level.Block;
 import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
+import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 
@@ -70,7 +71,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Input.Keys.Q)) { Gdx.app.exit(); }
 		
 		// For now, lets output our level on whatever is the cancel button in-game
-		if(playerInput.isCancelButtonPressed()) { outputRawLevel(); }
+		if(playerInput.isCancelButtonPressed()) { writeLevelToDisk(); }
 		
 		// Do we want to move our editor tile offset?
 		if(playerInput.isUpButtonPressed()) { editorTilePositionY++; }
@@ -143,7 +144,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				if(textureId >= TileTextures.BackgroundTile.values().length) {
 					System.out.println("no matching texture.");
 				} else {
-					Texture texture = TileTextures.getTileTextures().getBackgroundTileTexture(TileTextures.BackgroundTile.values()[textureId]);
+					IndexedTileTexture texture = TileTextures.getTileTextures().getBackgroundTileTexture(TileTextures.BackgroundTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
 						targetTile = level.addNewTileAt(x, y);
@@ -174,7 +175,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				if(textureId >= TileTextures.DecorationTile.values().length) {
 					System.out.println("no matching texture.");
 				} else {
-					Texture texture = TileTextures.getTileTextures().getDecorationTileTexture(TileTextures.DecorationTile.values()[textureId]);
+					IndexedTileTexture texture = TileTextures.getTileTextures().getDecorationTileTexture(TileTextures.DecorationTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
 						targetTile = level.addNewTileAt(x, y);
@@ -236,7 +237,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					break;
 				}
 				// Get the texture.
-				Texture texture = TileTextures.getTileTextures().getBlockTileTexture(TileTextures.BlockTile.values()[textureId]);
+				IndexedTileTexture texture = TileTextures.getTileTextures().getBlockTileTexture(TileTextures.BlockTile.values()[textureId]);
 				// Do we actually have an existing tile at this position?
 				if(targetTile == null) {
 					targetTile = level.addNewTileAt(x, y);
@@ -276,10 +277,11 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	}
 	
 	/**
-	 * Spit out the raw level JSON.
+	 * Write the current level to disk.
 	 */
-	private void outputRawLevel() {
-		System.out.println("Output");
+	private void writeLevelToDisk() {
+		EditableLevelWriter levelWriter = new EditableLevelWriter(this.level);
+		levelWriter.writeLevel(this.levelName);
 	}
 
 	@Override

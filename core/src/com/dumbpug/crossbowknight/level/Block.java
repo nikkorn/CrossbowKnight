@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.level;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 import com.dumbpug.nbp.NBPBoxType;
@@ -15,7 +16,7 @@ import com.dumbpug.nbp.NBPSensor;
  */
 public class Block extends NBPBox {
 	/** The texture for this block */
-	private Texture blockTexture = null;
+	private IndexedTileTexture blockTexture = null;
 	/** The tile fill type of this block */
 	private TileBlockFillType fillType;
 
@@ -92,13 +93,13 @@ public class Block extends NBPBox {
 	 * Get this blocks texture.
 	 * @return block texture.
      */
-	public Texture getBlockTexture() { return blockTexture; }
+	public IndexedTileTexture getBlockTexture() { return blockTexture; }
 
 	/**
 	 * Set this blocks texture.
 	 * @param blockTexture
      */
-	public void setBlockTexture(Texture blockTexture) { this.blockTexture = blockTexture; }
+	public void setBlockTexture(IndexedTileTexture blockTexture) { this.blockTexture = blockTexture; }
 	
 	/**
 	 * Get the block fill type for the parent tile.
@@ -121,7 +122,7 @@ public class Block extends NBPBox {
 	public void draw(SpriteBatch batch, float xOffset, float yOffset) {
 		// Draw the texture for this block.
 		if(blockTexture != null) {
-			batch.draw(blockTexture,
+			batch.draw(blockTexture.getTexture(),
 					(this.getX() * C.LAYOUT_MULTIPLIER) + xOffset,
 					(this.getY() * C.LAYOUT_MULTIPLIER) + yOffset,
 					(this.getWidth() * C.LAYOUT_MULTIPLIER),

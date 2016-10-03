@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.badlogic.gdx.graphics.Texture;
+import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 import org.json.JSONArray;
 import com.dumbpug.crossbowknight.C;
@@ -90,7 +91,7 @@ public class LevelFactory {
 			int bgType = tileBackgroundsJSONArray.getJSONObject(tileBackgroundIndex).getInt("typeId");
 			// Get our background texture.
 			TileTextures.BackgroundTile backgroundTile = TileTextures.BackgroundTile.values()[bgType];
-			Texture backgroundTexture = TileTextures.getTileTextures().getBackgroundTileTexture(backgroundTile);
+			IndexedTileTexture backgroundTexture = TileTextures.getTileTextures().getBackgroundTileTexture(backgroundTile);
 			// Does our map contain a tile at the same position as the current entry
 			if(tileMap.containsKey(xPos + "-" + yPos)) {
 				// Get our existing tile from the map.
@@ -115,7 +116,7 @@ public class LevelFactory {
 			int bgType = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("typeId");
 			// Get our decoration texture.
 			TileTextures.DecorationTile decorationTile = TileTextures.DecorationTile.values()[bgType];
-			Texture decorationTexture = TileTextures.getTileTextures().getDecorationTileTexture(decorationTile);
+			IndexedTileTexture decorationTexture = TileTextures.getTileTextures().getDecorationTileTexture(decorationTile);
 			// Does our map contain a tile at the same position as the current entry
 			if(tileMap.containsKey(xPos + "-" + yPos)) {
 				// Get our existing tile from the map.
@@ -170,7 +171,7 @@ public class LevelFactory {
 			}
 			// Set the texture for the block.
 			TileTextures.BlockTile blockTile = TileTextures.BlockTile.values()[bgType];
-			Texture blockTexture = TileTextures.getTileTextures().getBlockTileTexture(blockTile);
+			IndexedTileTexture blockTexture = TileTextures.getTileTextures().getBlockTileTexture(blockTile);
 			block.setBlockTexture(blockTexture);
 			// Does our map contain a tile at the same position as the current entry
 			if(tileMap.containsKey(xPos + "-" + yPos)) {

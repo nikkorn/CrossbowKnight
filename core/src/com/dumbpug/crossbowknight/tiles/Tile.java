@@ -14,9 +14,9 @@ public class Tile {
 	private int x;
 	private int y;
 	/** The background texture for this tile */
-	private Texture backgroundTexture = null;
+	private IndexedTileTexture backgroundTexture = null;
 	/** The decoration texture for this tile */
-	private Texture decorationTexture = null;
+	private IndexedTileTexture decorationTexture = null;
 	/** A physical block attached to this tile. */
 	private Block physicsBlock = null;
 	
@@ -24,25 +24,25 @@ public class Tile {
 	 * Get this tiles background texture.
 	 * @return background texture.
      */
-	public Texture getBackgroundTexture() { return backgroundTexture; }
+	public IndexedTileTexture getBackgroundTexture() { return backgroundTexture; }
 
 	/**
 	 * Set this tiles background texture.
 	 * @param backgroundTexture
      */
-	public void setBackgroundTexture(Texture backgroundTexture) { this.backgroundTexture = backgroundTexture; }
+	public void setBackgroundTexture(IndexedTileTexture backgroundTexture) { this.backgroundTexture = backgroundTexture; }
 	
 	/**
 	 * Get this tiles decoration texture.
 	 * @return decoration texture.
      */
-	public Texture getDecorationTexture() { return decorationTexture; }
+	public IndexedTileTexture getDecorationTexture() { return decorationTexture; }
 
 	/**
 	 * Set this tiles decoration texture.
 	 * @param decorationTexture
      */
-	public void setDecorationTexture(Texture decorationTexture) { this.decorationTexture = decorationTexture; }
+	public void setDecorationTexture(IndexedTileTexture decorationTexture) { this.decorationTexture = decorationTexture; }
 
 	/**
 	 * Get the x position of this tile.
@@ -89,7 +89,7 @@ public class Tile {
 	 */
 	public void drawBackground(SpriteBatch batch, float xOffset, float yOffset) {
 		if(backgroundTexture != null) {
-			batch.draw(backgroundTexture,
+			batch.draw(backgroundTexture.getTexture(),
 					(x * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + xOffset,
 					(y * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + yOffset,
 					(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER),
@@ -105,7 +105,7 @@ public class Tile {
 	 */
 	public void drawDecoration(SpriteBatch batch, float xOffset, float yOffset) {
 		if(decorationTexture != null) {
-			batch.draw(decorationTexture,
+			batch.draw(decorationTexture.getTexture(),
 					(x * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + xOffset,
 					(y * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + yOffset,
 					(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER),
