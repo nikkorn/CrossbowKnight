@@ -38,6 +38,11 @@ public abstract class State {
      * Render the state.
      */
     public abstract void renderState();
+    
+    /**
+     * Draw the state.
+     */
+    public abstract void drawState();
 
     /**
      * Get the name of this state.

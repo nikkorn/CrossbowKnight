@@ -14,6 +14,11 @@ public class Splash extends State {
     public void renderState() {
 
     }
+    
+    @Override
+  	public void drawState() {
+  		// TODO Auto-generated method stub
+  	}
 
     @Override
     public String getStateName() { return "splash"; }

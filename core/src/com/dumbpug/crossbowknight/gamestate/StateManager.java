@@ -91,5 +91,7 @@ public class StateManager {
         }
         // Render the current state.
         currentState.renderState();
+        // Draw the current state.
+        currentState.drawState();
     }
 }
