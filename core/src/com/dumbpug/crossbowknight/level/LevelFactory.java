@@ -3,7 +3,6 @@ package com.dumbpug.crossbowknight.level;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.badlogic.gdx.graphics.Texture;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 import org.json.JSONArray;

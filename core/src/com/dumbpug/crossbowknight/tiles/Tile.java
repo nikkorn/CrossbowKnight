@@ -1,6 +1,5 @@
 package com.dumbpug.crossbowknight.tiles;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.level.Block;

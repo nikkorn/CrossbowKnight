@@ -1,8 +1,8 @@
 [
    { "x":0, "y":0, "typeId":0, "tileFillType":0 },
-   { "x":1, "y":0, "typeId":8, "tileFillType":1 },
-   { "x":2, "y":0, "typeId":8, "tileFillType":1 },
+   { "x":2, "y":0, "typeId":10, "tileFillType":0 },
    { "x":3, "y":0, "typeId":0, "tileFillType":0 },
    { "x":4, "y":0, "typeId":0, "tileFillType":0 },
-   { "x":4, "y":1, "typeId":0, "tileFillType":0 }
+   { "x":4, "y":1, "typeId":0, "tileFillType":0 },
+   { "x":5, "y":1, "typeId":15, "tileFillType":1 },
 ]
