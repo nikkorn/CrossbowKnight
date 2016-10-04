@@ -1,5 +1,6 @@
 package com.dumbpug.crossbowknight.leveleditor;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -122,8 +123,17 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		System.out.println(" 8. resume");
 
 		System.out.print("option? : ");
-		int selection = inputScanner.nextInt();
-		int textureId;
+
+		int selection = 0;
+		int textureId = 0;
+
+		try {
+			selection = inputScanner.nextInt();
+		} catch (InputMismatchException ime) {
+			System.out.println("error: not a valid input.");
+			inputScanner.next();
+			return;
+		}
 
 		switch(selection) {
 			case 1:
@@ -138,7 +148,13 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 			case 2:
 				// ------ Set background texture. ------
 				System.out.print("texture id? : ");
-				textureId = inputScanner.nextInt();
+				try {
+					textureId = inputScanner.nextInt();
+				} catch (InputMismatchException ime) {
+					System.out.println("error: not a valid input.");
+					inputScanner.next();
+					return;
+				}
 				// Do we have a matching texture?
 				if(textureId >= TileTextures.BackgroundTile.values().length) {
 					System.out.println("no matching texture.");
@@ -169,7 +185,13 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 			case 4:
 				// ------ Set decoration texture. ------
 				System.out.print("texture id? : ");
-				textureId = inputScanner.nextInt();
+				try {
+					textureId = inputScanner.nextInt();
+				} catch (InputMismatchException ime) {
+					System.out.println("error: not a valid input.");
+					inputScanner.next();
+					return;
+				}
 				// Do we have a matching texture?
 				if(textureId >= TileTextures.DecorationTile.values().length) {
 					System.out.println("no matching texture.");
@@ -199,11 +221,24 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				break;
 			case 6:
 				// ------ Set block. ------
-				System.out.print("texture id? : ");
-				textureId = inputScanner.nextInt();
-				System.out.print("tile fill type? (1.top 2.bottom 3.left 4.right 5.full) : ");
 				TileBlockFillType fillType = null;
-				int fillTypeInput = inputScanner.nextInt();
+				int fillTypeInput          = 0;
+				System.out.print("texture id? : ");
+				try {
+					textureId = inputScanner.nextInt();
+				} catch (InputMismatchException ime) {
+					System.out.println("error: not a valid input.");
+					inputScanner.next();
+					return;
+				}
+				System.out.print("tile fill type? (1.top 2.bottom 3.left 4.right 5.full) : ");
+				try {
+					fillTypeInput = inputScanner.nextInt();
+				} catch (InputMismatchException ime) {
+					System.out.println("error: not a valid input.");
+					inputScanner.next();
+					return;
+				}
 				// Convert the fill type option to can actual fill type.
 				switch(fillTypeInput) {
 					case 1:
