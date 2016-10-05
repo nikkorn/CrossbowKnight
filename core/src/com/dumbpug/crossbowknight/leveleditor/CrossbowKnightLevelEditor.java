@@ -39,6 +39,11 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	private Tile activeTile = null;
 	/** The scanner used to read command line input */
 	private Scanner inputScanner; 
+	/** The last time a click was registered. We care about this
+	 * because we don't want to go to great depths to handle 
+	 * individual mouse clicks, but we also don't want 
+	 * lots of hits on each click. */
+	private long lastClick = System.currentTimeMillis(); 
 
 	@Override
 	public void create () {
@@ -94,19 +99,24 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		// Check for mouse click.
 	    // TODO Use a lastClick delay to stop repeat clicks.
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { 
-			if(Gdx.input.getX() > (Gdx.graphics.getWidth()/2)) {
-				// The mouse click happened within the menu, let the menu handle it.
-				levelEditorMenu.onMouseClick(Gdx.input.getX() - (Gdx.graphics.getWidth()/2), Gdx.input.getY());
-			} else {
-				// The mouse click happened on the grid. Set the clicked tile as active.
-				int tilePosX = ((int) (Gdx.input.getX() / C.TILE_SIZE)) + editorTilePositionX;
-				int tilePosY = ((int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) / C.TILE_SIZE)) + editorTilePositionY;
-				// Get the target tile.
-				Tile targetTile = level.getTileAt(tilePosX, tilePosY);
-				// Set the target tile as the active one.
-				this.activeTile = targetTile;
-				// Let the menu know that a new tile is now the active one.
-				levelEditorMenu.onTileSelect(targetTile);
+			// Can we register this as a click? (click cool-down over)
+			if((System.currentTimeMillis() - this.lastClick) > C.CLICK_COOLDOWN) {
+				if(Gdx.input.getX() > (Gdx.graphics.getWidth()/2)) {
+					// The mouse click happened within the menu, let the menu handle it.
+					levelEditorMenu.onMouseClick(Gdx.input.getX() - (Gdx.graphics.getWidth()/2), Gdx.input.getY());
+				} else {
+					// The mouse click happened on the grid. Set the clicked tile as active.
+					int tilePosX = ((int) (Gdx.input.getX() / C.TILE_SIZE)) + editorTilePositionX;
+					int tilePosY = ((int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) / C.TILE_SIZE)) + editorTilePositionY;
+					// Get the target tile.
+					Tile targetTile = level.getTileAt(tilePosX, tilePosY);
+					// Set the target tile as the active one.
+					this.activeTile = targetTile;
+					// Let the menu know that a new tile is now the active one.
+					levelEditorMenu.onTileSelect(targetTile);
+				}
+				// Reset the click cool-down.
+				this.lastClick = System.currentTimeMillis();
 			}
 		} 
 		
