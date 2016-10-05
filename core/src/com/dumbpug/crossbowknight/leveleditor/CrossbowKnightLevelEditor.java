@@ -28,11 +28,15 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	private SpriteBatch batch;
 	/** The level editor textures */
 	private LevelEditorTextures levelEditorTextures;
+	/** The level editor menu */
+	private LevelEditorMenu levelEditorMenu;
 	/** The editor tile offset. */
 	private int editorTilePositionX = 0;
 	private int editorTilePositionY = 0;
 	/** The editable level. */
 	private EditableLevel level;
+	/** The active tile. */
+	private Tile activeTile = null;
 	/** The scanner used to read command line input */
 	private Scanner inputScanner; 
 
@@ -42,6 +46,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		levelEditorTextures = new LevelEditorTextures();
 		playerInput         = new DesktopPlayerInput();
 		inputScanner        = new Scanner(System.in);
+		levelEditorMenu     = new LevelEditorMenu(levelEditorTextures);
 		Gdx.input.setInputProcessor(CrossbowKnightLevelEditor.playerInput);
 		// Try to read the level from disk. If this fails, create a blank level.
 		try {
@@ -85,17 +90,42 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 			int posY = ((int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) / C.TILE_SIZE)) + editorTilePositionY;
 			onClickOnGridTile(posX, posY);
 		}
-	
+		
+		// Check for mouse click.
+	    // TODO Use a lastClick delay to stop repeat clicks.
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { 
+			if(Gdx.input.getX() > (Gdx.graphics.getWidth()/2)) {
+				// The mouse click happened within the menu, let the menu handle it.
+				levelEditorMenu.onMouseClick(Gdx.input.getX() - (Gdx.graphics.getWidth()/2), Gdx.input.getY());
+			} else {
+				// The mouse click happened on the grid. Set the clicked tile as active.
+				int tilePosX = ((int) (Gdx.input.getX() / C.TILE_SIZE)) + editorTilePositionX;
+				int tilePosY = ((int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) / C.TILE_SIZE)) + editorTilePositionY;
+				// Get the target tile.
+				Tile targetTile = level.getTileAt(tilePosX, tilePosY);
+				// Set the target tile as the active one.
+				this.activeTile = targetTile;
+				// Let the menu know that a new tile is now the active one.
+				levelEditorMenu.onTileSelect(targetTile);
+			}
+		} 
+		
 		// Draw the editor.
 		batch.begin();
 		// Draw grid tiles.
-		for(int x = 0; x < (C.TILE_GRID_SIZE*2); x++) {
+		for(int x = 0; x < (C.TILE_GRID_SIZE); x++) {
 			for(int y = 0; y < C.TILE_GRID_SIZE; y++) {
 				batch.draw(levelEditorTextures.getGridTileTexture(), x*C.TILE_SIZE, y*C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 		// Draw the level.
 		level.draw(batch, editorTilePositionX, editorTilePositionY);
+		// Draw a marker around the active tile (if there is one).
+		if(this.activeTile != null) {
+			batch.draw(levelEditorTextures.getActiveTileMarker(), (activeTile.getX() - editorTilePositionX) * C.TILE_SIZE, (activeTile.getY() - editorTilePositionY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
+		}
+		// Draw the menu.
+		levelEditorMenu.draw(batch);
 		batch.end();
 	}
 	
