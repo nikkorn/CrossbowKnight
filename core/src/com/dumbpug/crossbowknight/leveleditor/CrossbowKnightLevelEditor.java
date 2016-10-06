@@ -97,13 +97,12 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		}
 		
 		// Check for mouse click.
-	    // TODO Use a lastClick delay to stop repeat clicks.
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) { 
 			// Can we register this as a click? (click cool-down over)
 			if((System.currentTimeMillis() - this.lastClick) > C.CLICK_COOLDOWN) {
 				if(Gdx.input.getX() > (Gdx.graphics.getWidth()/2)) {
 					// The mouse click happened within the menu, let the menu handle it.
-					levelEditorMenu.onMouseClick(Gdx.input.getX() - (Gdx.graphics.getWidth()/2), Gdx.input.getY());
+					levelEditorMenu.onMouseClick(Gdx.input.getX() , Gdx.input.getY());
 				} else {
 					// The mouse click happened on the grid. Set the clicked tile as active.
 					int tilePosX = ((int) (Gdx.input.getX() / C.TILE_SIZE)) + editorTilePositionX;
