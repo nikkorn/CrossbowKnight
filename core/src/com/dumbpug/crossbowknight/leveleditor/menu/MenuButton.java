@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.leveleditor;
+package com.dumbpug.crossbowknight.leveleditor.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Button for level editor.
  * @author nikolas.howard
  */
-public class LevelEditorMenuButton {
+public class MenuButton {
 	private int posX;
 	private int posY;
 	private int width;
@@ -26,7 +26,8 @@ public class LevelEditorMenuButton {
 		BACKGROUND,
 		DECORATION,
 		BLOCK,
-		CLEAR
+		CLEAR,
+		TILE
 	}
 	
 	/**
@@ -36,7 +37,7 @@ public class LevelEditorMenuButton {
 	 * @param width
 	 * @param height
 	 */
-	public LevelEditorMenuButton(Texture texture, ButtonType type, int x, int y, int width, int height) {
+	public MenuButton(Texture texture, ButtonType type, int x, int y, int width, int height) {
 		this.texture = texture;
 		this.type    = type;
 		this.posX    = x;

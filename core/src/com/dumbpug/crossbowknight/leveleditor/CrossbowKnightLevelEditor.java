@@ -11,6 +11,7 @@ import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
 import com.dumbpug.crossbowknight.input.PlayerInput;
 import com.dumbpug.crossbowknight.level.Block;
 import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
+import com.dumbpug.crossbowknight.leveleditor.menu.MainMenu;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
@@ -29,7 +30,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	/** The level editor textures */
 	private LevelEditorTextures levelEditorTextures;
 	/** The level editor menu */
-	private LevelEditorMenu levelEditorMenu;
+	private MainMenu levelEditorMenu;
 	/** The editor tile offset. */
 	private int editorTilePositionX = 0;
 	private int editorTilePositionY = 0;
@@ -51,7 +52,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		levelEditorTextures = new LevelEditorTextures();
 		playerInput         = new DesktopPlayerInput();
 		inputScanner        = new Scanner(System.in);
-		levelEditorMenu     = new LevelEditorMenu(levelEditorTextures);
+		levelEditorMenu     = new MainMenu(levelEditorTextures);
 		Gdx.input.setInputProcessor(CrossbowKnightLevelEditor.playerInput);
 		// Try to read the level from disk. If this fails, create a blank level.
 		try {
@@ -109,6 +110,10 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					int tilePosY = ((int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) / C.TILE_SIZE)) + editorTilePositionY;
 					// Get the target tile.
 					Tile targetTile = level.getTileAt(tilePosX, tilePosY);
+					// If this tile does not exist, add it.
+					if(targetTile == null) {
+						targetTile = level.addNewTileAt(tilePosX, tilePosY);
+					}
 					// Set the target tile as the active one.
 					this.activeTile = targetTile;
 					// Let the menu know that a new tile is now the active one.
