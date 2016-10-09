@@ -26,7 +26,7 @@ public class C {
 	
 	/** Physics */
 	public static final float PHYSICS_TO_GAME_RATIO          = 0.2f; //TODO  figure out
-	public static final float PHYSICS_GRAVITY                = 0.09f; 
+	public static final float PHYSICS_GRAVITY                = 0.09f;
 	
 	/** Player */
 	public static final float PLAYER_SIZE_WIDTH              = 10f;
