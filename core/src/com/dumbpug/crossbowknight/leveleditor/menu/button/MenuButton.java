@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.leveleditor.menu;
+package com.dumbpug.crossbowknight.leveleditor.menu.button;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,7 +17,7 @@ public class MenuButton {
 	private boolean isActive  = false;
 	private Texture texture;
 	private ButtonType type;
-	private Texture activeBox = new Texture("graphics/misc/LEVELEDITOR_ACTIVETILEMARKER.png");
+	private Texture activeBox = new Texture("graphics/leveleditor/LEVELEDITOR_ACTIVETILEMARKER.png");
 	
 	/**
 	 * Types of menu button.
@@ -27,7 +27,12 @@ public class MenuButton {
 		DECORATION,
 		BLOCK,
 		CLEAR,
-		TILE
+		TILE,
+		BLOCK_FILL_FULL,
+		BLOCK_FILL_LEFT,
+		BLOCK_FILL_RIGHT,
+		BLOCK_FILL_TOP,
+		BLOCK_FILL_BOTTOM
 	}
 	
 	/**

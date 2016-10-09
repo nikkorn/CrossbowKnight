@@ -5,7 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.leveleditor.LevelEditorTextures;
-import com.dumbpug.crossbowknight.leveleditor.menu.MenuButton.ButtonType;
+import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButton;
+import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButton.ButtonType;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -20,9 +21,13 @@ public class MainMenu {
 	/** The list of menu buttons */
 	private ArrayList<MenuButton> buttons;
 	/** The active sub menu button */
-	ButtonType activeSubMenuButtonType = ButtonType.BACKGROUND;
+	private ButtonType activeSubMenuButtonType = ButtonType.BACKGROUND;
+	/** The active tile. */
+	private Tile activeTile = null;
 	/** The sub menus. */
 	private BackgroundMenu backgroundMenu;
+	private DecorationMenu decorationMenu;
+	private BlockMenu blockMenu;
 	
 	/**
 	 * Create a new instance of LevelEditorMenu.
@@ -48,16 +53,22 @@ public class MainMenu {
 		getButton(activeSubMenuButtonType).setActive(true);
 		
 		// Create our sub menus.
-		backgroundMenu = new BackgroundMenu();
+		backgroundMenu = new BackgroundMenu(this);
+		decorationMenu = new DecorationMenu(this);
+		blockMenu      = new BlockMenu(this, this.levelEditorTextures);
 	}
 	
 	/**
 	 * Called on tile selection.
-	 * @param batch
+	 * @param selectedTile
 	 */
-    public void onTileSelect(Tile selectedTile) {
-		System.out.println("tile selected");
-	}
+    public void onTileSelect(Tile selectedTile) { this.activeTile = selectedTile; }
+
+	/**
+	 * Called on tile selection.
+	 * @return activeTile
+	 */
+	public Tile getActiveTile() { return this.activeTile; }
     
     /**
 	 * Called on mouse click.
@@ -89,13 +100,35 @@ public class MainMenu {
 						activeSubMenuButtonType = ButtonType.DECORATION;
 						break;
 					case CLEAR:
+						// Clear the active tile.
+						if(this.activeTile != null) {
+							this.activeTile.setBackgroundTexture(null);
+							this.activeTile.setDecorationTexture(null);
+							this.activeTile.setPhysicsBlock(null);
+						}
 						break;
 					default:
 						break;
     			}
-    		} 
+    		}
     	}
-    	// TODO This may be a click on a button within a sub menu.
+		// This may be a click on a button within a sub menu.
+		if(posX >= 600) {
+			// The click happened in the active sub menu, let it handle the click.
+			switch(this.activeSubMenuButtonType) {
+				case BACKGROUND:
+					backgroundMenu.onMouseClick(posX, posY);
+					break;
+				case DECORATION:
+					decorationMenu.onMouseClick(posX, posY);
+					break;
+				case BLOCK:
+					blockMenu.onMouseClick(posX, posY);
+					break;
+				default:
+					break;
+			}
+		}
 	}
     
     /**
@@ -128,15 +161,15 @@ public class MainMenu {
 			case BACKGROUND:
 				backgroundMenu.draw(batch);
 				break;
-			case BLOCK:
-				break;
 			case DECORATION:
+				decorationMenu.draw(batch);
+				break;
+			case BLOCK:
+				blockMenu.draw(batch);
 				break;
 			default:
 				// What the hell?
 				break;
     	}
-    	
-    	// ****
 	}
 }

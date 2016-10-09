@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.leveleditor.C;
-import com.dumbpug.crossbowknight.leveleditor.menu.MenuButton.ButtonType;
+import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButton.ButtonType;
+import com.dumbpug.crossbowknight.leveleditor.menu.button.TileMenuButton;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.TileTextures;
 
 public class BackgroundMenu {
 	/** The list of background tile buttons */
 	private ArrayList<TileMenuButton> backgroundTileButtons = new ArrayList<TileMenuButton>();
+	/** The main menu. */
+	private MainMenu mainMenu;
 	
 	/**
 	 * Create a new instance of the BackgroundMenu class.
 	 */
-	public BackgroundMenu() {
+	public BackgroundMenu(MainMenu mainMenu) {
+		this.mainMenu = mainMenu;
 		populateTileButtonList();
 	}
 	
@@ -26,9 +30,9 @@ public class BackgroundMenu {
 		int tilePosX  = 600;
 		int tilePosY  = Gdx.graphics.getHeight() - C.MENU_TILE_SIZE;
 		int tileIndex = 0;
-		
-		for(int x = 0; x < C.MENU_TILE_X_LIMIT; x++) {
-			for(int y = 0; y < C.MENU_TILE_Y_LIMIT; y++) {
+
+		for(int y = 0; y < C.MENU_TILE_Y_LIMIT; y++) {
+			for(int x = 0; x < C.MENU_TILE_X_LIMIT; x++) {
 				// Have we reached the limit of the background tiles?
 				if(tileIndex >= TileTextures.BackgroundTile.values().length) {
 					return;
@@ -52,7 +56,14 @@ public class BackgroundMenu {
 	 * @param posY relative to menu
 	 */
     public void onMouseClick(int posX , int posY) {
-    	
+		// Check buttons for a click.
+		for(TileMenuButton button :  backgroundTileButtons) {
+			if(button.isMouseClickOnButton(posX, posY)) {
+				if(this.mainMenu.getActiveTile() != null) {
+					this.mainMenu.getActiveTile().setBackgroundTexture(button.getIndexedTileTexture());
+				}
+			}
+		}
     }
     
     /**

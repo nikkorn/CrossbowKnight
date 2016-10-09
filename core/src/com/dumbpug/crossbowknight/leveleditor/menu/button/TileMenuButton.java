@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.leveleditor.menu;
+package com.dumbpug.crossbowknight.leveleditor.menu.button;
 
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 

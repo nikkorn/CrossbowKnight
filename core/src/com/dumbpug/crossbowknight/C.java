@@ -37,4 +37,7 @@ public class C {
 	public static final float PLAYER_MAX_WALKING_VELOCITY    = 1f;
 	public static final float PLAYER_WALKING_IMPULSE_VALUE   = 0.2f;
 	public static final float PLAYER_JUMPING_IMPULSE         = 1.7f;
+
+	/** HUD */
+	public static final int HUD_STATUS_BAR_HEIGHT            = Gdx.graphics.getHeight() / 8;
 }
