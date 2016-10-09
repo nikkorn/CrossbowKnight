@@ -67,7 +67,7 @@ public class EditableLevelWriter {
                 }
             }
             // Write the JSON array to the file.
-            backgroundFileWriter.write(backgroundTileArray.toString());
+            backgroundFileWriter.write(backgroundTileArray.length() == 0 ? "[]" : backgroundTileArray.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,13 +81,26 @@ public class EditableLevelWriter {
         PrintWriter decorationsFileWriter = null;
         try {
             decorationsFileWriter = new PrintWriter(new FileWriter(levelDir + "/decorations"));
-
-
+            JSONArray decorationTileArray = new JSONArray();
+            // Write every decoration tile to our JSON array.
+            for(Tile tile : level.getLevelTiles()) {
+                if(tile.getDecorationTexture() != null) {
+                    JSONObject decorationTileObject = new JSONObject();
+                    decorationTileObject.put("x", tile.getX());
+                    decorationTileObject.put("y", tile.getY());
+                    decorationTileObject.put("typeId", tile.getDecorationTexture().getTextureIndex());
+                    decorationTileArray.put(decorationTileObject);
+                }
+            }
+            // Write the JSON array to the file.
+            decorationsFileWriter.write(decorationTileArray.length() == 0 ? "[]" : decorationTileArray.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
         decorationsFileWriter.close();
     }
+
+    // { "x":0, "y":0, "typeId":7, "tileFillType":0 },
 
     /**
      * Write the blocks file.
@@ -96,8 +109,20 @@ public class EditableLevelWriter {
         PrintWriter blocksFileWriter = null;
         try {
             blocksFileWriter = new PrintWriter(new FileWriter(levelDir + "/blocks"));
-
-
+            JSONArray blockTileArray = new JSONArray();
+            // Write every decoration tile to our JSON array.
+            for(Tile tile : level.getLevelTiles()) {
+                if(tile.getPhysicsBlock() != null) {
+                    JSONObject blockTileObject = new JSONObject();
+                    blockTileObject.put("x", tile.getX());
+                    blockTileObject.put("y", tile.getY());
+                    blockTileObject.put("typeId", tile.getPhysicsBlock().getBlockTexture().getTextureIndex());
+                    blockTileObject.put("tileFillType", tile.getPhysicsBlock().getFillType().ordinal());
+                    blockTileArray.put(blockTileObject);
+                }
+            }
+            // Write the JSON array to the file.
+            blocksFileWriter.write(blockTileArray.length() == 0 ? "[]" : blockTileArray.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

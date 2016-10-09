@@ -75,7 +75,7 @@ public class LevelFactory {
 		File tileBlocksFile      = new File(C.SAVED_LEVELS_DIR + levelName + "/blocks");
 		File tileDecorationsFile = new File(C.SAVED_LEVELS_DIR + levelName + "/decorations");
 		// Error if we have missing resources.
-		if(!tileBackgroundsFile.exists() || !tileBackgroundsFile.exists() || !tileBackgroundsFile.exists()) {
+		if(!tileBackgroundsFile.exists() || !tileBlocksFile.exists() || !tileDecorationsFile.exists()) {
 			throw new RuntimeException("Missing map resources in '" + new File(C.SAVED_LEVELS_DIR + levelName).getAbsolutePath() + "'");
 		}
 		// Convert our map resources to JSON.	

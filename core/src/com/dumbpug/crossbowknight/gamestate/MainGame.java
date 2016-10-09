@@ -19,7 +19,7 @@ public class MainGame extends State {
 		// Create the game HUD.
 		this.hud = new HUD();
 		// Set up a test level.
-		testLevel = LevelFactory.getLevelFromDisk("MAIN_HALL");
+		testLevel = LevelFactory.getLevelFromDisk("DOOM_HALL");
 	}
 
     @Override
