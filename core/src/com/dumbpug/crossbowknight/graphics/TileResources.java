@@ -1,16 +1,17 @@
-package com.dumbpug.crossbowknight.tiles;
+package com.dumbpug.crossbowknight.graphics;
 
 import java.util.HashMap;
 import com.badlogic.gdx.graphics.Texture;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 
 /**
  * Holds tile textures.
  * @author nikolas.howard
  */
-public class TileTextures {
+public class TileResources {
 	/** Singleton instance of tile textures. */
-	private static TileTextures instance;
+	private static TileResources instance;
 	
 	/** Maps which hold all tile textures. */
 	private HashMap<BackgroundTile, IndexedTileTexture> backgroundTileTextures = new HashMap<BackgroundTile, IndexedTileTexture>();
@@ -108,7 +109,7 @@ public class TileTextures {
 	/**
 	 * Creates an instance of the TileTextures class.
 	 */
-	private TileTextures() {
+	private TileResources() {
 		// Populate our background tile indexed texture map.
 		for(BackgroundTile tile : BackgroundTile.values()) {
 			String tileTexturePath = C.GRAPHICS_WORLD_TILES_DIR + "/TILE_" + tile + ".png";
@@ -140,9 +141,9 @@ public class TileTextures {
 	 * Get our TileTextures singleton instance.
 	 * @return TileTextures
 	 */
-	public static TileTextures getTileTextures() {
+	public static TileResources getTileTextures() {
 		if(instance == null) {
-			instance = new TileTextures();
+			instance = new TileResources();
 		}
 		return instance;
 	}

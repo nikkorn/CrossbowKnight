@@ -4,10 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
-import com.dumbpug.crossbowknight.tiles.TileTextures;
+
 import org.json.JSONArray;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Helpers;
+import com.dumbpug.crossbowknight.graphics.TileResources;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -89,8 +90,8 @@ public class LevelFactory {
 			int yPos   = tileBackgroundsJSONArray.getJSONObject(tileBackgroundIndex).getInt("y");
 			int bgType = tileBackgroundsJSONArray.getJSONObject(tileBackgroundIndex).getInt("typeId");
 			// Get our background texture.
-			TileTextures.BackgroundTile backgroundTile = TileTextures.BackgroundTile.values()[bgType];
-			IndexedTileTexture backgroundTexture = TileTextures.getTileTextures().getBackgroundTileTexture(backgroundTile);
+			TileResources.BackgroundTile backgroundTile = TileResources.BackgroundTile.values()[bgType];
+			IndexedTileTexture backgroundTexture = TileResources.getTileTextures().getBackgroundTileTexture(backgroundTile);
 			// Does our map contain a tile at the same position as the current entry
 			if(tileMap.containsKey(xPos + "-" + yPos)) {
 				// Get our existing tile from the map.
@@ -114,8 +115,8 @@ public class LevelFactory {
 			int yPos   = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("y");
 			int bgType = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("typeId");
 			// Get our decoration texture.
-			TileTextures.DecorationTile decorationTile = TileTextures.DecorationTile.values()[bgType];
-			IndexedTileTexture decorationTexture = TileTextures.getTileTextures().getDecorationTileTexture(decorationTile);
+			TileResources.DecorationTile decorationTile = TileResources.DecorationTile.values()[bgType];
+			IndexedTileTexture decorationTexture = TileResources.getTileTextures().getDecorationTileTexture(decorationTile);
 			// Does our map contain a tile at the same position as the current entry
 			if(tileMap.containsKey(xPos + "-" + yPos)) {
 				// Get our existing tile from the map.
@@ -169,8 +170,8 @@ public class LevelFactory {
 				break;
 			}
 			// Set the texture for the block.
-			TileTextures.BlockTile blockTile = TileTextures.BlockTile.values()[bgType];
-			IndexedTileTexture blockTexture = TileTextures.getTileTextures().getBlockTileTexture(blockTile);
+			TileResources.BlockTile blockTile = TileResources.BlockTile.values()[bgType];
+			IndexedTileTexture blockTexture = TileResources.getTileTextures().getBlockTileTexture(blockTile);
 			block.setBlockTexture(blockTexture);
 			// Does our map contain a tile at the same position as the current entry
 			if(tileMap.containsKey(xPos + "-" + yPos)) {

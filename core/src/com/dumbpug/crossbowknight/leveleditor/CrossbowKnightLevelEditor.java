@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.graphics.TileResources;
 import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
 import com.dumbpug.crossbowknight.input.PlayerInput;
 import com.dumbpug.crossbowknight.level.Block;
@@ -14,7 +15,6 @@ import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
 import com.dumbpug.crossbowknight.leveleditor.menu.MainMenu;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.Tile;
-import com.dumbpug.crossbowknight.tiles.TileTextures;
 
 /**
  * Editor for building levels.
@@ -200,10 +200,10 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					return;
 				}
 				// Do we have a matching texture?
-				if(textureId >= TileTextures.BackgroundTile.values().length) {
+				if(textureId >= TileResources.BackgroundTile.values().length) {
 					System.out.println("no matching texture.");
 				} else {
-					IndexedTileTexture texture = TileTextures.getTileTextures().getBackgroundTileTexture(TileTextures.BackgroundTile.values()[textureId]);
+					IndexedTileTexture texture = TileResources.getTileTextures().getBackgroundTileTexture(TileResources.BackgroundTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
 						targetTile = level.addNewTileAt(x, y);
@@ -237,10 +237,10 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					return;
 				}
 				// Do we have a matching texture?
-				if(textureId >= TileTextures.DecorationTile.values().length) {
+				if(textureId >= TileResources.DecorationTile.values().length) {
 					System.out.println("no matching texture.");
 				} else {
-					IndexedTileTexture texture = TileTextures.getTileTextures().getDecorationTileTexture(TileTextures.DecorationTile.values()[textureId]);
+					IndexedTileTexture texture = TileResources.getTileTextures().getDecorationTileTexture(TileResources.DecorationTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
 						targetTile = level.addNewTileAt(x, y);
@@ -310,12 +310,12 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				// using the games level factory.
 				Block newBlock = new Block(0, 0, 0, 0, fillType);
 				// Do we have a matching texture?
-				if(textureId >= TileTextures.BlockTile.values().length) {
+				if(textureId >= TileResources.BlockTile.values().length) {
 					System.out.println("no matching texture.");
 					break;
 				}
 				// Get the texture.
-				IndexedTileTexture texture = TileTextures.getTileTextures().getBlockTileTexture(TileTextures.BlockTile.values()[textureId]);
+				IndexedTileTexture texture = TileResources.getTileTextures().getBlockTileTexture(TileResources.BlockTile.values()[textureId]);
 				// Do we actually have an existing tile at this position?
 				if(targetTile == null) {
 					targetTile = level.addNewTileAt(x, y);

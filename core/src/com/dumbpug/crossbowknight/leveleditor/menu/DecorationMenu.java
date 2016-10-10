@@ -3,11 +3,11 @@ package com.dumbpug.crossbowknight.leveleditor.menu;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.graphics.TileResources;
 import com.dumbpug.crossbowknight.leveleditor.C;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButton.ButtonType;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.TileMenuButton;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
-import com.dumbpug.crossbowknight.tiles.TileTextures;
 
 public class DecorationMenu {
     /** The list of decoration tile buttons */
@@ -34,11 +34,11 @@ public class DecorationMenu {
         for(int y = 0; y < C.MENU_TILE_Y_LIMIT; y++) {
             for(int x = 0; x < C.MENU_TILE_X_LIMIT; x++) {
                 // Have we reached the limit of the decoration tiles?
-                if(tileIndex >= TileTextures.DecorationTile.values().length) {
+                if(tileIndex >= TileResources.DecorationTile.values().length) {
                     return;
                 }
                 // Get the indexed texture of the current tile.
-                IndexedTileTexture texture = TileTextures.getTileTextures().getDecorationTileTexture(TileTextures.DecorationTile.values()[tileIndex]);
+                IndexedTileTexture texture = TileResources.getTileTextures().getDecorationTileTexture(TileResources.DecorationTile.values()[tileIndex]);
                 // Calculate the position of this tile.
                 int posX = tilePosX + (x*C.MENU_TILE_SIZE);
                 int posY = tilePosY - (y*C.MENU_TILE_SIZE);

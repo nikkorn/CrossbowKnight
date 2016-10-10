@@ -3,11 +3,11 @@ package com.dumbpug.crossbowknight.leveleditor.menu;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.graphics.TileResources;
 import com.dumbpug.crossbowknight.leveleditor.C;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButton.ButtonType;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.TileMenuButton;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
-import com.dumbpug.crossbowknight.tiles.TileTextures;
 
 public class BackgroundMenu {
 	/** The list of background tile buttons */
@@ -34,11 +34,11 @@ public class BackgroundMenu {
 		for(int y = 0; y < C.MENU_TILE_Y_LIMIT; y++) {
 			for(int x = 0; x < C.MENU_TILE_X_LIMIT; x++) {
 				// Have we reached the limit of the background tiles?
-				if(tileIndex >= TileTextures.BackgroundTile.values().length) {
+				if(tileIndex >= TileResources.BackgroundTile.values().length) {
 					return;
 				}
 				// Get the indexed texture of the current tile.
-				IndexedTileTexture texture = TileTextures.getTileTextures().getBackgroundTileTexture(TileTextures.BackgroundTile.values()[tileIndex]);
+				IndexedTileTexture texture = TileResources.getTileTextures().getBackgroundTileTexture(TileResources.BackgroundTile.values()[tileIndex]);
 				// Calculate the position of this tile.
 				int posX = tilePosX + (x*C.MENU_TILE_SIZE);
 				int posY = tilePosY - (y*C.MENU_TILE_SIZE);
