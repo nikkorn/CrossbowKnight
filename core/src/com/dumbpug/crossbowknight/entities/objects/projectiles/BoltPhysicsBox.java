@@ -1,5 +1,6 @@
 package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
+import com.dumbpug.crossbowknight.entities.PhysicsEntity;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 import com.dumbpug.nbp.NBPBoxType;
@@ -10,7 +11,7 @@ import com.dumbpug.nbp.NBPSensor;
  * The physics box which represents a bolt in our physics world.
  * @author nikolas.howard
  */
-public class BoltPhysicsBox extends NBPBox {
+public class BoltPhysicsBox extends PhysicsEntity {
 	/** The bolt. */
 	private Bolt bolt;
 	
@@ -71,4 +72,8 @@ public class BoltPhysicsBox extends NBPBox {
 		
 	}
 
+	@Override
+	public PhysicsEntityType getPhysicsEntityType() {
+		return PhysicsEntityType.PROJECTILE;
+	}
 }

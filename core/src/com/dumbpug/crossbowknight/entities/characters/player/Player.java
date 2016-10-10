@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.entities.objects.projectiles.BasicBolt;
+import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPPoint;
 import com.dumbpug.crossbowknight.entities.characters.Character;
@@ -39,6 +41,13 @@ public class Player extends Character {
 	 * Process input for this player.
 	 */
 	public void processInput() {
+		// Set players angle of focus. Will depend on whether we are running on the Ouya or desktop.
+		if(Ouya.runningOnOuya) {
+			// TODO Get angle of focus from analog stick position.
+		} else {
+			setAngleOfFocus((float) GameMath.GetAngleOfLineBetweenTwoPoints(Gdx.input.getX(), Gdx.input.getY(),
+					Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+		}
 		// Move our player.
 		if(CrossbowKnight.getPlayerInput().isRightButtonDown()) {
 			playerPhysicsBox.moveRight();
@@ -53,14 +62,21 @@ public class Player extends Character {
 				Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
 			}
 		}
-		// Set players angle of focus. Will depend on whether we are running on the Ouya or desktop.
-		if(Ouya.runningOnOuya) {
-			// TODO Get angle of focus from analog stick position.
-		} else {
-			setAngleOfFocus((float) GameMath.GetAngleOfLineBetweenTwoPoints(Gdx.input.getX(), Gdx.input.getY(),
-					Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+		// Check for a request to fire the players weapon.
+		if(CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
+			// TODO Find the point at the tip of the weapon (will be the projectile position)
+			// TODO Create the desired projectile!
+			float fireAngle = !(Gdx.input.getX() > (Gdx.graphics.getWidth()/2)) ? -this.getAngleOfFocus() : -(this.getAngleOfFocus() + 180);
+			BasicBolt bolt = new BasicBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), fireAngle, 4);
+			onWeaponFire(bolt);
 		}
 	}
+
+	/**
+	 * Called when a player has attempted to fire his weapon.
+	 * @param projectile
+     */
+	public void onWeaponFire(Projectile projectile) {}
     
     /**
 	 * Get this players current point of origin.

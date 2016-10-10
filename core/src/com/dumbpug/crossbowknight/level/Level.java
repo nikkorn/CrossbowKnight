@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.crossbowknight.hud.dialog.DialogBox;
 import com.dumbpug.crossbowknight.tiles.Tile;
+import com.dumbpug.crossbowknight.entities.characters.Character;
 
 /**
  * Represents a game level.
@@ -30,6 +33,8 @@ public class Level {
 	// ---------- Level Entities ---------
 	/** The Player. */
 	private Player player;
+	/** The Projectiles in the level. TODO Make a projectile list class dedicated to tracking these */
+	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	// -----------------------------------
 	
 	/**
@@ -50,8 +55,14 @@ public class Level {
 	 * Initialise the player.
 	 */
 	public void initialisePlayer() {
-		// Create our player.
-		player = new Player(50, 50); // TODO Add actual spawn point!!!
+		// Create our player. // TODO Add actual spawn point!!!
+		player = new Player(50, 50) {
+			@Override
+			public void onWeaponFire(Projectile projectile) {
+				super.onWeaponFire(projectile);
+				Level.this.onWeaponFire(this, projectile);
+			}
+		};
 		// Add our player to the level world.
 		this.levelWorld.addPlayer(player);
 	}
@@ -86,6 +97,22 @@ public class Level {
 	}
 
 	/**
+	 * Called whenever a player/enemy fires their current weapon.
+	 * @param character
+	 * @param projectile
+     */
+	public void onWeaponFire(Character character, Projectile projectile) {
+		// TODO We may need to check that generating projectile physics entities
+		// partly in static blocks doesn't cause a problem here.
+		// The player was able to fire! Play twang sound effect.
+		Audio.getSoundEffect(Audio.SoundEffect.BLIP_SELECT).play();
+		// Add our projectile.
+		projectiles.add(projectile);
+		// Add our player to the level world.
+		this.levelWorld.getPhysicsWorld().addBox(projectile.getPhysicsBox());
+	}
+
+	/**
 	 * Get the name of this level.
 	 * @return name
 	 */
@@ -114,6 +141,12 @@ public class Level {
 	 * @return player.
 	 */
 	public Player getPlayer() { return player; }
+
+	/**
+	 * Get the level  projectiles.
+	 * @return projectiles.
+	 */
+	public ArrayList<Projectile> getProjectiles() { return projectiles; }
 
 	/**
 	 * Get the current dialog box.

@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -51,7 +52,10 @@ public class LevelDrawer {
 	 * @param batch
 	 */
 	private void drawMiddleLayer(SpriteBatch batch) {
-		// TODO Auto-generated method stub
+		// Draw the level projectiles.
+		for(Projectile projectile : level.getProjectiles()) {
+			projectile.draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
+		}
 	}
 
 	/**
