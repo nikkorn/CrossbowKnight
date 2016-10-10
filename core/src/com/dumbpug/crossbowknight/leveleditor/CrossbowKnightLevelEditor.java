@@ -7,12 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.graphics.TileResources;
 import com.dumbpug.crossbowknight.input.DesktopPlayerInput;
 import com.dumbpug.crossbowknight.input.PlayerInput;
 import com.dumbpug.crossbowknight.level.Block;
 import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
 import com.dumbpug.crossbowknight.leveleditor.menu.MainMenu;
+import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.Tile;
 

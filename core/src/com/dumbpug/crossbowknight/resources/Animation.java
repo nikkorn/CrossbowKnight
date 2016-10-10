@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.graphics;
+package com.dumbpug.crossbowknight.resources;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

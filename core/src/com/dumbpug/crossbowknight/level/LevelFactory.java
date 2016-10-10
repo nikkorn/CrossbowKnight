@@ -8,7 +8,7 @@ import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import org.json.JSONArray;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Helpers;
-import com.dumbpug.crossbowknight.graphics.TileResources;
+import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**

@@ -3,9 +3,9 @@ package com.dumbpug.crossbowknight.leveleditor.menu;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.graphics.TileResources;
 import com.dumbpug.crossbowknight.leveleditor.C;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButton.ButtonType;
+import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.TileMenuButton;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 

@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.graphics;
+package com.dumbpug.crossbowknight.resources;
 
 import java.util.HashMap;
 import com.badlogic.gdx.graphics.Texture;

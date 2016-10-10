@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.graphics.Animation;
+import com.dumbpug.crossbowknight.resources.Animation;
 
 /**
  * Draws the player.

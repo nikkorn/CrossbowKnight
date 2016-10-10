@@ -2,7 +2,7 @@ package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.dumbpug.crossbowknight.graphics.EntityResources.Projectile;
+import com.dumbpug.crossbowknight.resources.EntityResources.Projectile;
 import com.dumbpug.nbp.NBPBloom;
 
 /**
