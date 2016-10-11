@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 
@@ -19,7 +21,10 @@ public abstract class Bolt extends Projectile {
 	 */
 	public Bolt(float x, float y, float angle, float velocity) {
 		// Set the bolt physics box.
-		boltPhysicsBox = new BoltPhysicsBox(this, x-(getBoltHeadSize()/2) , y-(getBoltHeadSize()/2), getBoltHeadSize(), getBoltHeadSize());
+		boltPhysicsBox = new BoltPhysicsBox(this, x-(getBoltHeadSize()/2),
+				y-(getBoltHeadSize()/2),
+				getBoltHeadSize() * (1f - C.PROJECTILE_BOLT_HITBOX_PADDING),
+				getBoltHeadSize() * (1f - C.PROJECTILE_BOLT_HITBOX_PADDING));
 		boltPhysicsBox.setAffectedByGravity(isAffectedByGravity());
 		boltPhysicsBox.applyVelocityInDirection(angle, velocity);
 	}
@@ -32,6 +37,19 @@ public abstract class Bolt extends Projectile {
 	 */
 	public void onPush(NBPBloom bloom, float angleOfForce, float force) {
 		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * Called when BoltPhysicsBox hits a static object.
+	 * @param collidingBox
+	 */
+	public void onStaticObjectHit(NBPBox collidingBox) {
+		// TODO Check to see if this arrow can rebound.
+		this.isStuck = true;
+		// We hit a static object, play a noise.
+		Audio.getSoundEffect(Audio.SoundEffect.LANDING_SOFT).play();
+		// Check whether we want to get rid our our bolts physics box.
+		boltPhysicsBox.markForDeletion();
 	}
 
 	/**

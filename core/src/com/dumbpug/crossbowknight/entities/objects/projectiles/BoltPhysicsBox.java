@@ -14,6 +14,9 @@ import com.dumbpug.nbp.NBPSensor;
 public class BoltPhysicsBox extends PhysicsEntity {
 	/** The bolt. */
 	private Bolt bolt;
+	/** The last angle of velocity of this physics entity 
+	 *  before the most recent update of the physics world. */
+	private float lastAngleOfVelocity = 0;
 	
 	/**
 	 * Create a new instance of the BoltPhysicsBox class.
@@ -27,6 +30,15 @@ public class BoltPhysicsBox extends PhysicsEntity {
 		super(x, y, width, height, NBPBoxType.KINETIC);
 		this.bolt = bolt;
 	}
+	
+	/**
+	 * Get the last angle of velocity for this object, taken
+	 * before the physics world update.
+	 * @return lastAngleOfVelocity
+	 */
+	public float getLastAngleOfVelocity() {
+		return lastAngleOfVelocity;
+	}
 
 	@Override
 	protected void onCollisonWithKineticBox(NBPBox collidingBox, NBPIntersectionPoint kinematicBoxOriginAtCollision) {
@@ -35,9 +47,8 @@ public class BoltPhysicsBox extends PhysicsEntity {
 
 	@Override
 	protected void onCollisonWithStaticBox(NBPBox collidingBox, NBPIntersectionPoint originAtCollision) {
-		// Has hit a block. Must stick there.
-		
-		// We we may no longer want this physics box as b 
+		// Has hit a block!
+		bolt.onStaticObjectHit(collidingBox);
 	}
 
 	@Override
@@ -56,20 +67,19 @@ public class BoltPhysicsBox extends PhysicsEntity {
 
 	@Override
 	protected void onBeforeUpdate() {
-		// TODO Auto-generated method stub
-		
+		// Grab the angle of velocity of this bolts physics box.
+		// We may need this to know its orientation before a collision.
+		this.lastAngleOfVelocity = (float) -(Math.atan2(getVelx(), getVely())/(Math.PI/180));
 	}
 
 	@Override
 	protected void onAfterUpdate() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void onDeletion() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

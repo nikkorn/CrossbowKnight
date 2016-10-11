@@ -40,6 +40,7 @@ public class C {
 
 	/** Projectiles */
 	public static final float PROJECTILE_BASE_BOLT_HEAD_SIZE    = 4f;
+	public static final float PROJECTILE_BOLT_HITBOX_PADDING    = 0.5f;
 
 	/** HUD */
 	public static final int HUD_STATUS_BAR_HEIGHT               = Gdx.graphics.getHeight() / 8;

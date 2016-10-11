@@ -62,6 +62,16 @@ public class CrossbowKnight extends ApplicationAdapter {
 		// For now, lets force exit on press of Q.
 		if(Gdx.input.isKeyPressed(Input.Keys.Q)) { Gdx.app.exit(); }
 		
+		// For now, force a pause on press of P
+		if(Gdx.input.isKeyPressed(Input.Keys.P)) { 
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		// Render the current state.
 		stateManager.renderCurrentState();
 	}

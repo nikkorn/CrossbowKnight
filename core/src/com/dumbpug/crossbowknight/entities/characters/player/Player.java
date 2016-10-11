@@ -66,8 +66,7 @@ public class Player extends Character {
 		if(CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
 			// TODO Find the point at the tip of the weapon (will be the projectile position)
 			// TODO Create the desired projectile!
-			float fireAngle = !(Gdx.input.getX() > (Gdx.graphics.getWidth()/2)) ? -this.getAngleOfFocus() : -(this.getAngleOfFocus() + 180);
-			BasicBolt bolt = new BasicBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), fireAngle, 4);
+			BasicBolt bolt = new BasicBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), (float) -Math.toRadians(this.getAngleOfFocus()), 3);
 			onWeaponFire(bolt);
 		}
 	}
