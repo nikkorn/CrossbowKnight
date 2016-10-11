@@ -10,7 +10,7 @@ public abstract class Character {
 	/** The health status of this character. */
 	private HealthStatus healthStatus;
 	/** The stats of this character. */
-	private Stats stats;
+	private Stats stats = new Stats();
 	
 	/**
 	 * Get health status.
@@ -38,7 +38,7 @@ public abstract class Character {
 	
 	/**
 	 * Set stats.
-	 * @param stats.
+	 * @param stats
 	 */
 	public void setStats(Stats stats) {
 		this.stats = stats;
@@ -47,8 +47,8 @@ public abstract class Character {
 	/**
 	 * Draw the character.
 	 * @param batch
-	 * @param offsetx
-	 * @param offsety
+	 * @param offsetX
+	 * @param offsetY
 	 */
 	public abstract void draw(SpriteBatch batch, float offsetX, float offsetY);
 }

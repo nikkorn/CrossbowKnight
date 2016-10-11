@@ -38,10 +38,17 @@ public class C {
 	public static final float PLAYER_WALKING_IMPULSE_VALUE      = 0.2f;
 	public static final float PLAYER_JUMPING_IMPULSE            = 1.7f;
 
+	/** Character */
+	public static final int CHARACTER_MAX_LEVEL                 = 100;
+
 	/** Projectiles */
 	public static final float PROJECTILE_BASE_BOLT_HEAD_SIZE    = 4f;
 	public static final float PROJECTILE_BOLT_HITBOX_PADDING    = 0.5f;
 
 	/** HUD */
 	public static final int HUD_STATUS_BAR_HEIGHT               = Gdx.graphics.getHeight() / 8;
+
+	/** Stats */
+	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 5;
+	public static final int STATS_LEVEL_XP_MODIFIER             = 10;
 }
