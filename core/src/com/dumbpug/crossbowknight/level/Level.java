@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
-import com.dumbpug.crossbowknight.hud.dialog.DialogBox;
+import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
 import com.dumbpug.crossbowknight.tiles.Tile;
-import com.dumbpug.crossbowknight.entities.characters.Character;
 
 /**
  * Represents a game level.
@@ -26,15 +24,13 @@ public class Level {
 	private LevelDrawer levelDrawer;
 	/** The level physics world. */
 	private LevelWorld levelWorld;
-	/** The current dialog box. */
-	private DialogBox currentDialogBox;
 	
 	// -----------------------------------
 	// ---------- Level Entities ---------
 	/** The Player. */
 	private Player player;
-	/** The Projectiles in the level. TODO Make a projectile list class dedicated to tracking these */
-	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	/** The Projectiles pool which holds all in-game projectiles for their lifetime. */
+	private ProjectilePool projectilePool;
 	// -----------------------------------
 	
 	/**
@@ -45,6 +41,8 @@ public class Level {
 		this.levelDrawer = new LevelDrawer(this);
 		// Create our level world..
 		this.levelWorld = new LevelWorld();
+		// Create our projectile pool.
+		this.projectilePool = new ProjectilePool(this);
 		// Initialise our player.
 		initialisePlayer();
 		// Set up our level camera.
@@ -58,9 +56,10 @@ public class Level {
 		// Create our player. // TODO Add actual spawn point!!!
 		player = new Player(50, 50) {
 			@Override
-			public void onWeaponFire(Projectile projectile) {
-				super.onWeaponFire(projectile);
-				Level.this.onWeaponFire(this, projectile);
+			public boolean onWeaponFire(Projectile projectile) {
+				// Attempt to ad this players fired projectile to the levels projectile pool.
+				// Also, return whether we were successfully able to do this.
+				return projectilePool.add(projectile);
 			}
 		};
 		// Add our player to the level world.
@@ -91,25 +90,8 @@ public class Level {
 	public void update() {
 		// ------------ Update the level world. -----------
 		levelWorld.update();
-		
-		// ---------------------- Handle input. ---------------------
+		// --------------- Handle input. ------------------
 		player.processInput();
-	}
-
-	/**
-	 * Called whenever a player/enemy fires their current weapon.
-	 * @param character
-	 * @param projectile
-     */
-	public void onWeaponFire(Character character, Projectile projectile) {
-		// TODO We may need to check that generating projectile physics entities
-		// partly in static blocks doesn't cause a problem here.
-		// The player was able to fire! Play twang sound effect.
-		Audio.getSoundEffect(Audio.SoundEffect.BLIP_SELECT).play();
-		// Add our projectile.
-		projectiles.add(projectile);
-		// Add our player to the level world.
-		this.levelWorld.getPhysicsWorld().addBox(projectile.getPhysicsBox());
 	}
 
 	/**
@@ -131,28 +113,22 @@ public class Level {
 	public LevelCamera getLevelCamera() { return camera; }
 	
 	/**
-	 * Get all level tiles.
-	 * @return level tiles.
-	 */
-	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
-	
-	/**
 	 * Get the player.
 	 * @return player.
 	 */
 	public Player getPlayer() { return player; }
 
 	/**
-	 * Get the level  projectiles.
-	 * @return projectiles.
+	 * Get the levels projectile pool.
+	 * @return projectile pool.
 	 */
-	public ArrayList<Projectile> getProjectiles() { return projectiles; }
-
+	public ProjectilePool getProjectilePool() { return this.projectilePool; }
+	
 	/**
-	 * Get the current dialog box.
-	 * @return dialog box.
-     */
-	public DialogBox getCurrentDialogBox() { return currentDialogBox; }
+	 * Get all level tiles.
+	 * @return level tiles.
+	 */
+	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
 
 	/**
 	 * Set all level tiles.
@@ -167,6 +143,12 @@ public class Level {
 			}
 		}
 	}
+	
+	/**
+	 * Get the level world.
+	 * @return level world.
+	 */
+	public LevelWorld getLevelWorld() { return this.levelWorld; }
 	
 	/**
 	 * Draw this level

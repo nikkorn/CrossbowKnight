@@ -1,7 +1,6 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -29,7 +28,6 @@ public class LevelDrawer {
 		drawMiddleLayer(batch);
 		drawForegroundLayer(batch);
 		drawCharacters(batch);
-		drawDialog(batch);
 	}
 
 	/**
@@ -53,9 +51,7 @@ public class LevelDrawer {
 	 */
 	private void drawMiddleLayer(SpriteBatch batch) {
 		// Draw the level projectiles.
-		for(Projectile projectile : level.getProjectiles()) {
-			projectile.draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
-		}
+		level.getProjectilePool().draw(batch);
 	}
 
 	/**
@@ -78,16 +74,5 @@ public class LevelDrawer {
 	private void drawCharacters(SpriteBatch batch) {
 		// Draw the player.
 		level.getPlayer().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
-	}
-
-	/**
-	 * Draw the current dialog (if there is one.)
-	 * @param batch
-     */
-	private void drawDialog(SpriteBatch batch) {
-		// Only draw the current dialog if there is one.
-		if(level.getCurrentDialogBox() != null) {
-			level.getCurrentDialogBox().draw(batch);
-		}
 	}
 }

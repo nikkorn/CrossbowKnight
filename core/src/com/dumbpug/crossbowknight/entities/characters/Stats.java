@@ -39,6 +39,18 @@ public class Stats {
      * @param xp
      */
     public void setXp(int xp) { this.xp = xp; }
+    
+    /**
+     * Add Xp and return a boolean indicating whether this
+     * additional Xp caused up to level up.
+     * @param xp
+     * @return levelled up.
+     */
+    public boolean addXp(int xp) {
+    	int level = getLevel();
+    	this.xp += xp;
+    	return level > getLevel();
+    }
 
     /**
      * Get the characters level based on their xp.

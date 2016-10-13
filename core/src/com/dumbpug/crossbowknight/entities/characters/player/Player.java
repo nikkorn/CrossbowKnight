@@ -67,15 +67,23 @@ public class Player extends Character {
 			// TODO Find the point at the tip of the weapon (will be the projectile position)
 			// TODO Create the desired projectile!
 			BasicBolt bolt = new BasicBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), (float) -Math.toRadians(this.getAngleOfFocus()), 3);
-			onWeaponFire(bolt);
+			// Attempt firing our weapon and get result.
+			boolean fireSuccess = onWeaponFire(bolt);
+			if(fireSuccess) {
+				Audio.getSoundEffect(Audio.SoundEffect.BLIP_HIGH).play();
+			} else {
+				Audio.getSoundEffect(Audio.SoundEffect.BLIP_LOW).play();
+			}
 		}
 	}
 
 	/**
 	 * Called when a player has attempted to fire his weapon.
+	 * Returns whether the fire attempt was a success.
 	 * @param projectile
+	 * @return success
      */
-	public void onWeaponFire(Projectile projectile) {}
+	public boolean onWeaponFire(Projectile projectile) { return false; }
     
     /**
 	 * Get this players current point of origin.
