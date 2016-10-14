@@ -2,6 +2,8 @@ package com.dumbpug.crossbowknight.resources;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 
 /**
  * The games font pack.
@@ -10,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class FontPack {
 	/** Singleton instance of FontPack. */
 	private static FontPack instance;
-	/** The games main font. */
-	private static BitmapFont MAIN_FONT;
+	/** The games main font generator. */
+	private static FreeTypeFontGenerator mainFontGenerator;
 	
 	/**
 	 * The games font types.
@@ -25,7 +27,7 @@ public class FontPack {
 	 * Create a new instance of the FontPack class.
 	 */
 	private FontPack() {
-		MAIN_FONT = new BitmapFont(Gdx.files.internal("fonts/main.fnt"), Gdx.files.internal("fonts/main.png"), false);
+		mainFontGenerator =  new FreeTypeFontGenerator(Gdx.files.internal("fonts/3Dventure.ttf"));
 	}
 	
 	/**
@@ -42,12 +44,13 @@ public class FontPack {
 	/**
 	 * Get a game font.
 	 * @param type
+	 * @param fontParameter
 	 * @return font
 	 */
-	public BitmapFont getFont(FontType type) {
+	public BitmapFont getFont(FontType type, FreeTypeFontParameter fontParameter) {
 		switch(type) {
 			case MAIN_FONT:
-				return MAIN_FONT;
+				return mainFontGenerator.generateFont(fontParameter);
 		}
 		return null;
 	}

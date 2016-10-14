@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
 import com.dumbpug.crossbowknight.resources.FontPack;
@@ -19,7 +20,7 @@ public class HUDAmmoBar {
     /** The currently selected projectile type. */
     private ProjectileType currentProjectileType = ProjectileType.BOLT_BASIC;
     /** The currently selected projectile ammo count. -1 = infinite. */
-    private int currentProjectileAmmo = -1;
+    private int currentProjectileAmmo = 12;
     /** The font with which to draw our ammo count. */
     BitmapFont ammoCountFont;
 
@@ -28,9 +29,11 @@ public class HUDAmmoBar {
      */
     public HUDAmmoBar() {
         // Load our resources.
-    	ammoCountFont =  FontPack.getFontPack().getFont(FontType.MAIN_FONT);
+    	FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+    	parameter.size = 23;
+    	ammoCountFont  =  FontPack.getFontPack().getFont(FontType.MAIN_FONT, parameter);
     	ammoCountFont.setColor(Color.BLACK);
-    	background    = new Texture("graphics/hud/ammobar/ammobar_background.png");
+    	background     = new Texture("graphics/hud/ammobar/ammobar_background.png");
     }
     
     /**
@@ -56,6 +59,6 @@ public class HUDAmmoBar {
 				break;
         }
         // TODO Draw the ammo count for the currently selected ammo.
-        ammoCountFont.draw(batch, currentProjectileAmmo + "", 20, 20);
+        ammoCountFont.draw(batch, currentProjectileAmmo + "", 63, 29);
     }
 }
