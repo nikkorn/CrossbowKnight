@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class HUD {
     /** The player status bar. */
     private HUDStatusBar statusBar;
+    /** The ammo details bar. */
+    private HUDAmmoBar ammoBar;
 
     /**
      * Create a new instance of HUD.
@@ -15,6 +17,8 @@ public class HUD {
     public HUD() {
         // Create our HUD status bar.
         this.statusBar = new HUDStatusBar();
+        // Create our HUD ammo bar.
+        this.ammoBar = new HUDAmmoBar();
     }
 
     /**
@@ -23,5 +27,6 @@ public class HUD {
      */
     public void draw(SpriteBatch batch) {
         this.statusBar.draw(batch);
+        this.ammoBar.draw(batch);
     }
 }

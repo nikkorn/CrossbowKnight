@@ -41,7 +41,7 @@ public class EntityResources {
 	/**
 	 * Get projectile texture.
 	 * @param projectileType
-	 * @return texture
+	 * @return sprite
 	 */
 	public Sprite getProjectileSprite(ProjectileType projectileType) {
 		return this.projectileSprite.get(projectileType);

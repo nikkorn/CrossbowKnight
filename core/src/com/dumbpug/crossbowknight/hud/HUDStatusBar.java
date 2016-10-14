@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 
 /**
- * The players status bar displayed in the top right of the screen.
+ * The players status bar displayed in the top left of the screen.
  * Created by nik on 09/10/16.
  */
 public class HUDStatusBar {
@@ -26,6 +26,7 @@ public class HUDStatusBar {
      * @param batch
      */
     public void draw(SpriteBatch batch) {
-        batch.draw(statusIcons, 0, Gdx.graphics.getHeight() - C.HUD_STATUS_BAR_HEIGHT, C.HUD_STATUS_BAR_HEIGHT*0.6f, C.HUD_STATUS_BAR_HEIGHT);
+        batch.draw(statusIcons, C.HUD_STATUS_BAR_MARGIN, Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT + C.HUD_STATUS_BAR_MARGIN),
+        		C.HUD_STATUS_BAR_HEIGHT*0.6f, C.HUD_STATUS_BAR_HEIGHT);
     }
 }

@@ -46,7 +46,10 @@ public class C {
 	public static final float PROJECTILE_BOLT_HITBOX_PADDING    = 0.5f;
 
 	/** HUD */
-	public static final int HUD_STATUS_BAR_HEIGHT               = Gdx.graphics.getHeight() / 8;
+	public static final int HUD_STATUS_BAR_HEIGHT               = Gdx.graphics.getHeight() / 7;
+	public static final int HUD_STATUS_BAR_MARGIN               = HUD_STATUS_BAR_HEIGHT / 6;
+	public static final int HUD_AMMO_BAR_HEIGHT                 = Gdx.graphics.getHeight() / 9;
+	public static final int HUD_AMMO_BAR_MARGIN                 = HUD_AMMO_BAR_HEIGHT / 6;
 
 	/** Stats */
 	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 5;
