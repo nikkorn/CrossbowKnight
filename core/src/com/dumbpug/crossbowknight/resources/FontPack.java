@@ -27,7 +27,7 @@ public class FontPack {
 	 * Create a new instance of the FontPack class.
 	 */
 	private FontPack() {
-		mainFontGenerator =  new FreeTypeFontGenerator(Gdx.files.internal("fonts/3Dventure.ttf"));
+		mainFontGenerator =  new FreeTypeFontGenerator(Gdx.files.internal("fonts/Blocktopia.ttf"));
 	}
 	
 	/**
