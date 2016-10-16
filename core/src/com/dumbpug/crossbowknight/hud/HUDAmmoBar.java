@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.entities.objects.pickups.Pickup;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
 import com.dumbpug.crossbowknight.resources.FontPack;
 import com.dumbpug.crossbowknight.resources.FontPack.FontType;
+import com.dumbpug.crossbowknight.resources.PickupResources;
 
 /**
  * The ammo bar displayed in the bottom left of the screen.
@@ -20,18 +22,23 @@ public class HUDAmmoBar {
     /** The currently selected projectile type. */
     private ProjectileType currentProjectileType = ProjectileType.BOLT_BASIC;
     /** The currently selected projectile ammo count. -1 = infinite. */
-    private int currentProjectileAmmo = 12;
+    private int currentProjectileAmmo = -1;
     /** The font with which to draw our ammo count. */
-    BitmapFont ammoCountFont;
+    private BitmapFont ammoCountFont;
+    /** The position an which to draw our ammo count. */
+    private float ammoCountPosX;
+    private float ammoCountPosY;
 
     /**
      * Create a new instance of HUDAmmoBar.
      */
     public HUDAmmoBar() {
+        ammoCountPosX = C.HUD_AMMO_BAR_MARGIN + (C.HUD_AMMO_BAR_WIDTH * 0.68f);
+        ammoCountPosY = C.HUD_AMMO_BAR_MARGIN + (C.HUD_AMMO_BAR_HEIGHT * 0.38f);
         // Load our resources.
     	FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-    	parameter.size = 23;
-    	ammoCountFont  =  FontPack.getFontPack().getFont(FontType.MAIN_FONT, parameter);
+    	parameter.size = C.FONT_SIZE_SMALL;
+    	ammoCountFont  = FontPack.getFontPack().getFont(FontType.MAIN_FONT, parameter);
     	ammoCountFont.setColor(Color.BLACK);
     	background     = new Texture("graphics/hud/ammobar/ammobar_background.png");
     }
@@ -52,13 +59,18 @@ public class HUDAmmoBar {
      */
     public void draw(SpriteBatch batch) {
     	// Draw the ammo bar background.
-        batch.draw(background, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_HEIGHT*1.68f, C.HUD_AMMO_BAR_HEIGHT);
-        // TODO Draw texture for the currently selected ammo.
+        batch.draw(background, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_WIDTH, C.HUD_AMMO_BAR_HEIGHT);
+        // Draw texture for the currently selected ammo.
+        Texture ammoTexture = null;
         switch(currentProjectileType) {
 			case BOLT_BASIC:
+                ammoTexture = PickupResources.getPickupResources().getPickupTexture(Pickup.PickupType.BOLT_BASIC);
 				break;
         }
-        // TODO Draw the ammo count for the currently selected ammo.
-        ammoCountFont.draw(batch, currentProjectileAmmo + "", 63, 29);
+        if(ammoTexture != null) {
+            batch.draw(ammoTexture, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_HEIGHT, C.HUD_AMMO_BAR_HEIGHT);
+        }
+        // Draw the ammo count for the currently selected ammo.
+        ammoCountFont.draw(batch, currentProjectileAmmo >= 0 ? currentProjectileAmmo+"" : "--", ammoCountPosX, ammoCountPosY);
     }
 }

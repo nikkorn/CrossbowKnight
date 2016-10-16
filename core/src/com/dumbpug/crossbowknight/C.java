@@ -49,7 +49,13 @@ public class C {
 	public static final int HUD_STATUS_BAR_HEIGHT               = Gdx.graphics.getHeight() / 7;
 	public static final int HUD_STATUS_BAR_MARGIN               = HUD_STATUS_BAR_HEIGHT / 6;
 	public static final int HUD_AMMO_BAR_HEIGHT                 = Gdx.graphics.getHeight() / 9;
+	public static final int HUD_AMMO_BAR_WIDTH                  = (int) (C.HUD_AMMO_BAR_HEIGHT * 1.68);
 	public static final int HUD_AMMO_BAR_MARGIN                 = HUD_AMMO_BAR_HEIGHT / 6;
+
+	/** Font */
+	public static final int FONT_SIZE_SMALL                   = (int) (4 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_MEDIUM                  = (int) (8 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_LARGE                   = (int) (12 * LAYOUT_MULTIPLIER);
 
 	/** Stats */
 	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 5;

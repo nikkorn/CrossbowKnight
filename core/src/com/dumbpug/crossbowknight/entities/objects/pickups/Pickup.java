@@ -11,15 +11,15 @@ public abstract class Pickup {
 	 * @author nikolas.howard
 	 */
 	public enum PickupType {
-		// Misc
-		GOLD,
-		KEY,
+		// --- Misc ---
+		//GOLD,
+		//KEY,
 		
-		// Projectiles
+		// --- Projectiles ---
 		BOLT_BASIC,
 		
-		// Consumables
-		HEALTH_POTION
+		// --- Consumables ---
+		//HEALTH_POTION
 	}
 	
 	/**
