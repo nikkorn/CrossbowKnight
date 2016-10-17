@@ -34,7 +34,7 @@ public class EditableLevelWriter {
      */
     public void writeLevel(String levelName) {
         // Create a unique id for the level.
-        String dateTime = new SimpleDateFormat("yyyy:MM:dd-HH:mm:ss").format(Calendar.getInstance().getTime());
+        String dateTime = new SimpleDateFormat("yyyyMMdd-HHmmss").format(Calendar.getInstance().getTime());
         levelDir = levelName + "-" + dateTime;
         // Make the level directory.
         new File(levelDir).mkdir();
@@ -99,8 +99,6 @@ public class EditableLevelWriter {
         }
         decorationsFileWriter.close();
     }
-
-    // { "x":0, "y":0, "typeId":7, "tileFillType":0 },
 
     /**
      * Write the blocks file.
