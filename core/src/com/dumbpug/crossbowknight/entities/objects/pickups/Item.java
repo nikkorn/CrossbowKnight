@@ -1,16 +1,16 @@
 package com.dumbpug.crossbowknight.entities.objects.pickups;
 
 /**
- * Base class for Pickups.
+ * Base class for Items.
  * @author nikolas.howard
  */
-public abstract class Pickup {
+public abstract class Item {
 	
 	/**
-	 * Type of pickups.
+	 * Type of item.
 	 * @author nikolas.howard
 	 */
-	public enum PickupType {
+	public enum ItemType {
 		// --- Misc ---
 		//GOLD,
 		//KEY,
@@ -23,7 +23,7 @@ public abstract class Pickup {
 	}
 	
 	/**
-	 * Called when the pickup was collected by the player.
+	 * Called when the item was collected by the player.
 	 */
 	public abstract void onPickup();
 	
@@ -31,5 +31,5 @@ public abstract class Pickup {
 	 * Get the type of the pickup.
 	 * @return
 	 */
-	public abstract PickupType getType();
+	public abstract ItemType getType();
 }

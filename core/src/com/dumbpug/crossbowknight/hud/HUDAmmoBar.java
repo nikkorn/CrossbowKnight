@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.entities.objects.pickups.Pickup;
+import com.dumbpug.crossbowknight.entities.objects.pickups.Item;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
 import com.dumbpug.crossbowknight.resources.FontPack;
 import com.dumbpug.crossbowknight.resources.FontPack.FontType;
-import com.dumbpug.crossbowknight.resources.PickupResources;
+import com.dumbpug.crossbowknight.resources.ItemResources;
 
 /**
  * The ammo bar displayed in the bottom left of the screen.
@@ -64,7 +64,7 @@ public class HUDAmmoBar {
         Texture ammoTexture = null;
         switch(currentProjectileType) {
 			case BOLT_BASIC:
-                ammoTexture = PickupResources.getPickupResources().getPickupTexture(Pickup.PickupType.BOLT_BASIC);
+                ammoTexture = ItemResources.getItemResources().getItemTexture(Item.ItemType.BOLT_BASIC);
 				break;
         }
         if(ammoTexture != null) {
