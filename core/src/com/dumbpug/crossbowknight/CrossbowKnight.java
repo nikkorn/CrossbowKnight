@@ -59,18 +59,8 @@ public class CrossbowKnight extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// For now, lets force exit on press of Q.
-		if(Gdx.input.isKeyPressed(Input.Keys.Q)) { Gdx.app.exit(); }
-		
-		// For now, force a pause on press of P
-		if(Gdx.input.isKeyPressed(Input.Keys.P)) { 
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		// For now, lets force exit on press of Escape.
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { Gdx.app.exit(); }
 		
 		// Render the current state.
 		stateManager.renderCurrentState();

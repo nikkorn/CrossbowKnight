@@ -30,5 +30,7 @@ public class GameMenuDrawer {
 	public void draw(SpriteBatch batch) {
 		// Draw the background.
 		batch.draw(background, C.INGAME_MENU_POS_X, C.INGAME_MENU_POS_Y, C.INGAME_MENU_WIDTH, C.INGAME_MENU_HEIGHT);
+		// Draw the current tab.
+		gameMenu.getGameMenuTabList().getCurrentMenuTab().draw(batch);
 	}
 }
