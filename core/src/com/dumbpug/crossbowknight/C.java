@@ -57,6 +57,9 @@ public class C {
 	public static final int INGAME_MENU_WIDTH                   = INGAME_MENU_HEIGHT * 2;
 	public static final int INGAME_MENU_POS_X                   = (Gdx.graphics.getWidth() / 2) - (INGAME_MENU_WIDTH / 2);
 	public static final int INGAME_MENU_POS_Y                   = (Gdx.graphics.getHeight() / 2) - (INGAME_MENU_HEIGHT / 2);
+	public static final int MENU_INVENTORY_ITEM_SLOT_WIDTH      = 6;
+	public static final int MENU_INVENTORY_ITEM_SLOT_HEIGHT     = 4;
+	public static final float MENU_INVENTORY_ITEM_SLOT_SIZE     = INGAME_MENU_HEIGHT * 0.15f;
 
 	/** Font */
 	public static final int FONT_SIZE_SMALL                     = (int) (4 * LAYOUT_MULTIPLIER);
