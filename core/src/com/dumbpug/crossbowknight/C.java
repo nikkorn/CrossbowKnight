@@ -40,6 +40,10 @@ public class C {
 
 	/** Character */
 	public static final int CHARACTER_MAX_LEVEL                 = 100;
+	
+	/** Inventory */
+	public static final int INVENTORY_MAX_SLOT_QUANTITY         = 99;
+	public static final int INVENTORY_MAX_SIZE                  = 24;
 
 	/** Projectiles */
 	public static final float PROJECTILE_BASE_BOLT_HEAD_SIZE    = 4f;

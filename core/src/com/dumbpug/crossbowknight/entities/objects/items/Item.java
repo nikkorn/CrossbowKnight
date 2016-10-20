@@ -5,7 +5,7 @@ package com.dumbpug.crossbowknight.entities.objects.items;
  * @author nikolas.howard
  */
 public abstract class Item {
-	/** The quantity of this item. -1 == not quantifiable. */
+	/** The quantity of this item. -1 == infinite. */
 	private int quantity = 1;
 
 	/**
@@ -23,6 +23,12 @@ public abstract class Item {
 		// --- Consumables ---
 		//HEALTH_POTION
 	}
+	
+	/**
+	 * Is this item quantifiable?
+	 * @return quantifiable
+     */
+	public boolean isQuantifiable() { return true; }
 
 	/**
 	 * Get the item quantity.
