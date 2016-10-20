@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.entities.objects.pickups.Item;
+import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
 import com.dumbpug.crossbowknight.resources.FontPack;
 import com.dumbpug.crossbowknight.resources.FontPack.FontType;

@@ -2,7 +2,7 @@ package com.dumbpug.crossbowknight.resources;
 
 import java.util.HashMap;
 import com.badlogic.gdx.graphics.Texture;
-import com.dumbpug.crossbowknight.entities.objects.pickups.Item.ItemType;
+import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
 
 /**
  * Holds item resources.
