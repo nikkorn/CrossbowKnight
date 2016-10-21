@@ -7,6 +7,9 @@ import com.badlogic.gdx.Gdx;
  * @author nikolas.howard
  */
 public class C {
+	/** Main Menu */
+	public static final int MAIN_MENU_ITEM_PADDING              = Gdx.graphics.getHeight() / 16;
+	
 	/** Layout */
 	public static final float LAYOUT_MULTIPLIER                 = Gdx.graphics.getHeight() / C.LAYOUT_SCREEN_HEIGHT;
 	public static final float LAYOUT_SCREEN_HEIGHT              = 100f;

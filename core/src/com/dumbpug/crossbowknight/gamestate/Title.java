@@ -30,7 +30,7 @@ public class Title extends State {
     	// If we have been displaying this title too long 
     	// then we need to change state to the splash screen.
     	if((System.currentTimeMillis() - firstRenderTime) > titleDuration) {
-    		this.changeState("game");
+    		this.changeState("main-menu");
     	}
     }
     
