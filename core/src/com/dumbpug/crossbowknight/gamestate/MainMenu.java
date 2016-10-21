@@ -74,7 +74,29 @@ public class MainMenu extends State {
     	if(CrossbowKnight.getPlayerInput().isAcceptButtonPressed()) {
     		// Play a different sound.
     		Audio.getSoundEffect(Audio.SoundEffect.BLIP_SELECT).play();
-    		// TODO Handle the selection!
+    		onSelection();
+    	}
+    }
+    
+    /**
+     * Called on a main menu item selection.
+     */
+    private void onSelection() {
+    	switch(selectedItem) {
+		case CONTINUE:
+			// TODO Continue from saved state.
+			this.changeState("game");
+			break;
+		case NEW_GAME:
+			// TODO Load new game.
+			break;
+		case OPTIONS:
+			// TODO Go to options state.
+			break;
+		case EXIT:
+			// Exit the game.
+			Gdx.app.exit();
+			break;
     	}
     }
     
@@ -138,16 +160,20 @@ public class MainMenu extends State {
     	int pointerOffset = (int) (C.FONT_SIZE_MEDIUM * 0.2f);
     	switch(selectedItem) {
 		case CONTINUE:
-			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING, (C.MAIN_MENU_ITEM_PADDING * 4) + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
+			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING + (Gdx.graphics.getHeight()*0.33f), 
+			(C.MAIN_MENU_ITEM_PADDING * 4) + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
 			break;
 		case NEW_GAME:
-			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING, (C.MAIN_MENU_ITEM_PADDING * 3) + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
+			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING + (Gdx.graphics.getHeight()*0.36f), 
+					(C.MAIN_MENU_ITEM_PADDING * 3) + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
 			break;
 		case OPTIONS:
-			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING, (C.MAIN_MENU_ITEM_PADDING * 2) + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
+			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING + (Gdx.graphics.getHeight()*0.29f), 
+					(C.MAIN_MENU_ITEM_PADDING * 2) + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
 			break;
 		case EXIT:
-			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING, C.MAIN_MENU_ITEM_PADDING + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
+			batch.draw(pointerFrame, C.MAIN_MENU_ITEM_PADDING + (Gdx.graphics.getHeight()*0.17f), 
+					C.MAIN_MENU_ITEM_PADDING + pointerOffset, C.FONT_SIZE_MEDIUM * 1.42f, C.FONT_SIZE_MEDIUM);
 			break;
     	}
     	batch.end();

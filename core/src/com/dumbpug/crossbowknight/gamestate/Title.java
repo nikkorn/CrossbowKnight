@@ -14,7 +14,7 @@ public class Title extends State {
 	/** The time we first rendered this state. */
 	private long firstRenderTime = -1;
 	/** The length of time we should show the splash. */
-	private long titleDuration = 500;
+	private long titleDuration = 2000;
 	
 	public Title() {
 		// Load our logo.
