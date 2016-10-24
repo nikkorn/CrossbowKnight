@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
-import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -29,8 +28,6 @@ public class Level {
 	// ---------- Level Entities ---------
 	/** The Player. */
 	private Player player;
-	/** The Projectiles pool which holds all in-game projectiles for their lifetime. */
-	private ProjectilePool projectilePool;
 	// -----------------------------------
 	
 	/**
@@ -41,8 +38,6 @@ public class Level {
 		this.levelDrawer = new LevelDrawer(this);
 		// Create our level world..
 		this.levelWorld = new LevelWorld();
-		// Create our projectile pool.
-		this.projectilePool = new ProjectilePool(this);
 		// Initialise our player.
 		initialisePlayer();
 		// Set up our level camera.
@@ -59,7 +54,7 @@ public class Level {
 			public boolean onWeaponFire(Projectile projectile) {
 				// Attempt to ad this players fired projectile to the levels projectile pool.
 				// Also, return whether we were successfully able to do this.
-				return projectilePool.add(projectile);
+				return levelWorld.getProjectilePool().add(projectile);
 			}
 		};
 		// Add our player to the level world.
@@ -117,12 +112,6 @@ public class Level {
 	 * @return player.
 	 */
 	public Player getPlayer() { return player; }
-
-	/**
-	 * Get the levels projectile pool.
-	 * @return projectile pool.
-	 */
-	public ProjectilePool getProjectilePool() { return this.projectilePool; }
 	
 	/**
 	 * Get all level tiles.

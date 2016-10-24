@@ -51,7 +51,7 @@ public class LevelDrawer {
 	 */
 	private void drawMiddleLayer(SpriteBatch batch) {
 		// Draw the level projectiles.
-		level.getProjectilePool().draw(batch);
+		level.getLevelWorld().getProjectilePool().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 	}
 
 	/**

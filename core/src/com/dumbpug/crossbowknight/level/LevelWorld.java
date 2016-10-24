@@ -2,6 +2,8 @@ package com.dumbpug.crossbowknight.level;
 
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.objects.items.ItemPool;
+import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
 import com.dumbpug.nbp.NBPWorld;
 
 /**
@@ -11,11 +13,19 @@ import com.dumbpug.nbp.NBPWorld;
 public class LevelWorld {
 	/** The physics world of our level */
 	private NBPWorld physicsWorld;
+	/** The pool for items which are currently present in the level world. */
+	private ItemPool itemPool;
+	/** The Projectiles pool which holds all in-game projectiles for their lifetime. */
+	private ProjectilePool projectilePool;
 	
 	/**
 	 * Create a new instance of the LevelWorld class.
 	 */
 	public LevelWorld() {
+		// Create our items list.
+		this.itemPool = new ItemPool(this);
+		// Create our projectile pool.
+		this.projectilePool = new ProjectilePool(this);
 		// Create our levels physics world.
 		this.physicsWorld = new NBPWorld(C.PHYSICS_GRAVITY);
 	}
@@ -30,6 +40,18 @@ public class LevelWorld {
 		// ...
 		
 	}
+	
+	/**
+	 * Get the level worlds item pool.
+	 * @return item pool.
+	 */
+	public ItemPool getItemPool() { return this.itemPool; }
+	
+	/**
+	 * Get the level worlds projectile pool.
+	 * @return projectile pool.
+	 */
+	public ProjectilePool getProjectilePool() { return this.projectilePool; }
 
 	/**
 	 * Get the physics world.

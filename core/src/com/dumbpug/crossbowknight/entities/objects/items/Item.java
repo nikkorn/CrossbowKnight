@@ -1,5 +1,7 @@
 package com.dumbpug.crossbowknight.entities.objects.items;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 /**
  * Base class for Items.
  * @author nikolas.howard
@@ -7,6 +9,8 @@ package com.dumbpug.crossbowknight.entities.objects.items;
 public abstract class Item {
 	/** The quantity of this item. -1 == infinite. */
 	private int quantity = 1;
+	/** The physics box that represents this item in the level world. */
+	private ItemPhysicsBox itemPhysicsBox = null;
 
 	/**
 	 * Type of item.
@@ -53,4 +57,26 @@ public abstract class Item {
 	 * @return type.
 	 */
 	public abstract ItemType getType();
+
+	/**
+	 * Get the physics box that represents this item in the level world.
+	 * @return itemPhysicsBox
+	 */
+	public ItemPhysicsBox getItemPhysicsBox() { return itemPhysicsBox; }
+
+	/**
+	 * Set the physics box that represents this item in the level world.
+	 * @param itemPhysicsBox
+	 */
+	public void setItemPhysicsBox(ItemPhysicsBox itemPhysicsBox) { this.itemPhysicsBox = itemPhysicsBox; }
+	
+	/**
+	 * Draw this item.
+	 * @param batch
+	 * @param levelCameraXOffset
+	 * @param levelCameraYOffset
+	 */
+    public void draw(SpriteBatch batch, float offsetx, float offsety) {
+        // TODO Draw the item!
+    }
 }

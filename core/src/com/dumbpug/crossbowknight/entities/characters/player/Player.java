@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.BasicBolt;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.nbp.NBPBloom;
@@ -84,6 +85,14 @@ public class Player extends Character {
 	 * @return success
      */
 	public boolean onWeaponFire(Projectile projectile) { return false; }
+	
+	/**
+	 * Called when a player picks up an item.
+	 * @param item
+	 */
+	public void onItemPickup(Item item) {
+		// TODO Handle this!!!!!!!
+	}
     
     /**
 	 * Get this players current point of origin.

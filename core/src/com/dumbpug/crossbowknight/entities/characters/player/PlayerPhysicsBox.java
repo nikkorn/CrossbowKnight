@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.entities.objects.items.ItemPhysicsBox;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 import com.dumbpug.nbp.NBPBoxType;
@@ -106,6 +107,15 @@ public class PlayerPhysicsBox extends NBPBox {
         // If the player can jump then he is touching the floor.
         return canJump;
     }
+    
+    /**
+     * Called by an ItemPhysicsBox instance when the player passes into its pickup sensor area.
+     * @param itemPhysicsBox
+     */
+	public void onItemPhysicsBoxInteraction(ItemPhysicsBox itemPhysicsBox) {
+		// Let the Player class know that it has picked up an item.
+		player.onItemPickup(itemPhysicsBox.getItem());
+	}
     
     @Override
     public void onSensorEntry(NBPSensor sensor, NBPBox enteredBox) {

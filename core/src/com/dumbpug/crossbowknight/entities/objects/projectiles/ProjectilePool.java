@@ -2,7 +2,7 @@ package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.level.Level;
+import com.dumbpug.crossbowknight.level.LevelWorld;
 import com.dumbpug.nbp.NBPBox;
 import com.dumbpug.nbp.NBPBoxType;
 import com.dumbpug.nbp.NBPMath;
@@ -14,15 +14,15 @@ import com.dumbpug.nbp.NBPMath;
 public class ProjectilePool {
 	/** The list of projectiles. */
 	private ArrayList<Projectile> projectiles;
-	/** The level. */
-	private Level level;
+	/** The level world. */
+	private LevelWorld levelWorld;
 	
 	/**
 	 * Create a new instance of the ProjectilePool class.
 	 */
-	public ProjectilePool(Level level) {
-		projectiles = new ArrayList<Projectile>();
-		this.level  = level;
+	public ProjectilePool(LevelWorld levelWorld) {
+		projectiles     = new ArrayList<Projectile>();
+		this.levelWorld = levelWorld;
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class ProjectilePool {
 		// Add our projectile.
 		projectiles.add(projectile);
 		// Add our projectile physics box to the level world.
-		level.getLevelWorld().getPhysicsWorld().addBox(projectile.getPhysicsBox());
+		levelWorld.getPhysicsWorld().addBox(projectile.getPhysicsBox());
 		// We were able to add our projectile.
 		return true;
 	}
@@ -51,7 +51,7 @@ public class ProjectilePool {
 	 * @return intersects
 	 */
 	private boolean doesProjectileIntersectStaticBox(Projectile projectile) {
-		for(NBPBox existingBox : level.getLevelWorld().getPhysicsWorld().getWorldBoxes()) {
+		for(NBPBox existingBox : levelWorld.getPhysicsWorld().getWorldBoxes()) {
 			if(existingBox.getType() == NBPBoxType.STATIC) {
 				if(NBPMath.doBoxesCollide(existingBox, projectile.getPhysicsBox())) {
 					return true;
@@ -65,10 +65,10 @@ public class ProjectilePool {
 	 * Draw everything in our projectile pool.
 	 * @param batch
 	 */
-	public void draw(SpriteBatch batch) {
-		// Draw the level projectiles.
+	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
+		// Draw the projectiles.
 		for(Projectile projectile : projectiles) {
-			projectile.draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
+			projectile.draw(batch, offsetX, offsetY);
 		}
 	}
 }
