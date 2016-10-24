@@ -53,6 +53,7 @@ public class C {
 	/** Inventory */
 	public static final int INVENTORY_MAX_SLOT_QUANTITY         = 99;
 	public static final int INVENTORY_MAX_SIZE                  = 24;
+	public static final float INVENTORY_SLOT_SIZE               = Gdx.graphics.getHeight() / 10.5f;
 
 	/** Projectiles */
 	public static final float PROJECTILE_BASE_BOLT_HEAD_SIZE    = 4f;
@@ -75,6 +76,7 @@ public class C {
 	public static final float MENU_INVENTORY_ITEM_SLOT_SIZE     = INGAME_MENU_HEIGHT * 0.15f;
 
 	/** Font */
+	public static final int FONT_SIZE_XSMALL                    = (int) (2 * LAYOUT_MULTIPLIER);
 	public static final int FONT_SIZE_SMALL                     = (int) (4 * LAYOUT_MULTIPLIER);
 	public static final int FONT_SIZE_MEDIUM                    = (int) (8 * LAYOUT_MULTIPLIER);
 	public static final int FONT_SIZE_LARGE                     = (int) (12 * LAYOUT_MULTIPLIER);

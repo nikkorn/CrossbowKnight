@@ -26,7 +26,7 @@ public class MainGame extends State {
 		// Set up a test level.
 		testLevel = LevelFactory.getLevelFromDisk("DOOM_HALL");
 		// Create the game menu.
-		this.gameMenu = new GameMenu();
+		this.gameMenu = new GameMenu(testLevel.getPlayer());
 	}
 
     @Override

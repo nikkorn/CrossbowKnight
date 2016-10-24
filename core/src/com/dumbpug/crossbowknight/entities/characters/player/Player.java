@@ -24,6 +24,8 @@ public class Player extends Character {
     private PlayerPhysicsBox playerPhysicsBox;
     /** The player drawer. */
     private PlayerDrawer playerDrawer;
+	/** The players inventory. */
+	private Inventory inventory;
     
 	/**
      * Initialise a new instance of the Player class.
@@ -36,6 +38,8 @@ public class Player extends Character {
         playerPhysicsBox.setName("PLAYER");
         // Create our player drawer.
         playerDrawer = new PlayerDrawer(this);
+		// Create our players inventory.
+		inventory = new Inventory();
     }
 
 	/**
@@ -91,7 +95,8 @@ public class Player extends Character {
 	 * @param item
 	 */
 	public void onItemPickup(Item item) {
-		// TODO Handle this!!!!!!!
+		// Add this item to the players inventory.
+		this.inventory.add(item);
 	}
     
     /**
@@ -102,6 +107,12 @@ public class Player extends Character {
 		// This players point of origin will match the origin of its physics box.
 		return playerPhysicsBox.getCurrentOriginPoint();
 	}
+
+	/**
+	 * Get the players inventory.
+	 * @return inventory.
+     */
+	public Inventory getInventory() { return this.inventory; }
 
 	/**
 	 * Called by physics entity when the player box lands on a static floor.

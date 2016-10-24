@@ -26,7 +26,7 @@ public class BasicBolt extends Ammo {
      * Is this item displayed in the inventory menu?
      * @return isDisplayedInInventory
      */
-    public boolean isDisplayedInInventory() { return false; }
+    public boolean isDisplayedInInventory() { return true; }
 
     /**
      * Get the type of the item.

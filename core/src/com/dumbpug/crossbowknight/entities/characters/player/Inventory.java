@@ -2,6 +2,7 @@ package com.dumbpug.crossbowknight.entities.characters.player;
 
 import java.util.ArrayList;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.entities.objects.items.BasicBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
 
@@ -23,6 +24,7 @@ public class Inventory {
 	public Inventory() {
 		// Create a new items list.
 		items = new ArrayList<Item>();
+		items.add(new BasicBolt()); // TODO Remove
 	}
 	
 	/**
@@ -88,6 +90,12 @@ public class Inventory {
 	public void remove(Item item) {
 		// TODO
 	}
+
+	/**
+	 * Get the inventory items.
+	 * @return items
+     */
+	public ArrayList<Item> getItems() { return items; }
 
 	/**
 	 * Get the number of keys.

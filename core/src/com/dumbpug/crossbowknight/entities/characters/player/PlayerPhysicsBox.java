@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPhysicsBox;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
@@ -113,6 +114,8 @@ public class PlayerPhysicsBox extends NBPBox {
      * @param itemPhysicsBox
      */
 	public void onItemPhysicsBoxInteraction(ItemPhysicsBox itemPhysicsBox) {
+        // Make a pickup sound.
+        Audio.getSoundEffect(Audio.SoundEffect.PICKUP).play();
 		// Let the Player class know that it has picked up an item.
 		player.onItemPickup(itemPhysicsBox.getItem());
 	}
