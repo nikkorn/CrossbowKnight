@@ -46,6 +46,8 @@ public class ItemPhysicsBox extends NBPBox {
         // Create the sensor.
         pickupAreaSensor = new NBPSensor(sensorPosX, this.getY(), C.ITEM_BOX_SIZE, C.ITEM_BOX_SIZE);
         pickupAreaSensor.setName("item_pickup_sensor");
+        // Attach the sensor to this physics box.
+        this.attachSensor(pickupAreaSensor);
 	}
 	
 	/**
@@ -60,6 +62,12 @@ public class ItemPhysicsBox extends NBPBox {
 	 * @return item
 	 */
 	public Item getItem() { return this.item; }
+	
+	/**
+	 * Get the sensor that represents the pickup area for this item.
+	 * @return pickupAreaSensor
+	 */
+	public NBPSensor getPickupSensor() { return this.pickupAreaSensor; }
 
 	@Override
 	protected void onCollisonWithStaticBox(NBPBox collidingBox, NBPIntersectionPoint originAtCollision) {

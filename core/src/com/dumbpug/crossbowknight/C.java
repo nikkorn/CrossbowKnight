@@ -45,7 +45,7 @@ public class C {
 	public static final int CHARACTER_MAX_LEVEL                 = 100;
 	
 	/** Items */
-	public static final float ITEM_BOX_SIZE                     = 10f;
+	public static final float ITEM_BOX_SIZE                     = 6f;
 	public static final float ITEM_BOX_FRICTION                 = 0.6f;
 	public static final float ITEM_BOX_RESTITUTION              = 0.3f;
 	public static final float ITEM_BOX_BOUNCE_SOUND_VELOCITY    = 1f;

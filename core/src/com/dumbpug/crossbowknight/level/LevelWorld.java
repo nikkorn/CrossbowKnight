@@ -36,6 +36,8 @@ public class LevelWorld {
 	public void update() {
 		// Firstly, update our physics world.
 		physicsWorld.update();
+		// Clear our item pool of any inactive items.
+		itemPool.removeInactiveItems();
 		
 		// ...
 		

@@ -93,7 +93,7 @@ public abstract class Item {
 	 */
     public void draw(SpriteBatch batch, float offsetx, float offsety) {
     	Texture itemTexture = ItemResources.getItemResources().getItemTexture(this.getType());
-		batch.draw(itemTexture, (itemPhysicsBox.getX()*C.LAYOUT_MULTIPLIER) + offsetx, (itemPhysicsBox.getY()*C.LAYOUT_MULTIPLIER) + offsety,
-				(itemPhysicsBox.getWidth()*C.LAYOUT_MULTIPLIER), (itemPhysicsBox.getHeight()*C.LAYOUT_MULTIPLIER));
+		batch.draw(itemTexture, (itemPhysicsBox.getPickupSensor().getX()*C.LAYOUT_MULTIPLIER) + offsetx, (itemPhysicsBox.getPickupSensor().getY()*C.LAYOUT_MULTIPLIER) + offsety,
+				(itemPhysicsBox.getPickupSensor().getWidth()*C.LAYOUT_MULTIPLIER), (itemPhysicsBox.getPickupSensor().getHeight()*C.LAYOUT_MULTIPLIER));
     }
 }
