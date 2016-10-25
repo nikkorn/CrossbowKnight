@@ -17,4 +17,16 @@ public class Gold extends Item {
      * @return type.
      */
     public Item.ItemType getType() { return Item.ItemType.GOLD; }
+    
+    /**
+	 * Get the name of the item. 
+	 * @return name
+	 */
+	public String getName() { return "Gold"; }
+
+	/**
+	 * Get the description of the item. 
+	 * @return description
+	 */
+	public String getDescription() { return ""; }
 }

@@ -82,8 +82,8 @@ public class InventoryMenuTabItemSlots {
 		/** The font with which to draw item quantities. */
 		private BitmapFont quantityCountFont;
 		/** The position of the item slot in the inventory tab. */
-		int slotPosX;
-		int slotPosY;
+		private int slotPosX;
+		private int slotPosY;
 		/** Is this slot selected? */
 		private boolean isSelected = false;
 		/** The item mapped to this slot. */

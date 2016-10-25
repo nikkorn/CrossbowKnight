@@ -17,4 +17,16 @@ public class Key extends Item {
      * @return type.
      */
     public ItemType getType() { return ItemType.KEY; }
+    
+    /**
+	 * Get the name of the item. 
+	 * @return name
+	 */
+	public String getName() { return "A Key"; }
+
+	/**
+	 * Get the description of the item. 
+	 * @return description
+	 */
+	public String getDescription() { return ""; }
 }

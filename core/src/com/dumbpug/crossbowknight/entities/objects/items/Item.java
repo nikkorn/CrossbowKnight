@@ -1,6 +1,9 @@
 package com.dumbpug.crossbowknight.entities.objects.items;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.resources.ItemResources;
 
 /**
  * Base class for Items.
@@ -25,7 +28,7 @@ public abstract class Item {
 		BOLT_BASIC,
 		
 		// --- Consumables ---
-		//HEALTH_POTION
+		HEALTH_POTION
 	}
 	
 	/**
@@ -57,6 +60,18 @@ public abstract class Item {
 	 * @return type.
 	 */
 	public abstract ItemType getType();
+	
+	/**
+	 * Get the name of the item. 
+	 * @return name
+	 */
+	public abstract String getName();
+	
+	/**
+	 * Get the description of the item. 
+	 * @return description
+	 */
+	public abstract String getDescription();
 
 	/**
 	 * Get the physics box that represents this item in the level world.
@@ -77,6 +92,8 @@ public abstract class Item {
 	 * @param levelCameraYOffset
 	 */
     public void draw(SpriteBatch batch, float offsetx, float offsety) {
-        // TODO Draw the item!
+    	Texture itemTexture = ItemResources.getItemResources().getItemTexture(this.getType());
+		batch.draw(itemTexture, (itemPhysicsBox.getX()*C.LAYOUT_MULTIPLIER) + offsetx, (itemPhysicsBox.getY()*C.LAYOUT_MULTIPLIER) + offsety,
+				(itemPhysicsBox.getWidth()*C.LAYOUT_MULTIPLIER), (itemPhysicsBox.getHeight()*C.LAYOUT_MULTIPLIER));
     }
 }

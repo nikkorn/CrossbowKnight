@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.objects.items.HealthPotion;
+import com.dumbpug.crossbowknight.entities.objects.items.ItemPhysicsBox;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
@@ -87,6 +90,14 @@ public class Level {
 		levelWorld.update();
 		// --------------- Handle input. ------------------
 		player.processInput();
+		
+		// TEST ADDING AN ITEM TO THE WORLD TODO REMOVE!
+		if(CrossbowKnight.getPlayerInput().isCycleLeftButtonPressed()) {
+			HealthPotion potion = new HealthPotion();
+			potion.setItemPhysicsBox(new ItemPhysicsBox(potion, player.getPlayerPhysicsBox().getX(), player.getPlayerPhysicsBox().getY() + 50));
+			levelWorld.getItemPool().add(potion);
+			System.out.println("ADDED");
+		}
 	}
 
 	/**

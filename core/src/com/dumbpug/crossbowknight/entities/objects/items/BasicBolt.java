@@ -33,4 +33,16 @@ public class BasicBolt extends Ammo {
      * @return type.
      */
     public ItemType getType() { return ItemType.BOLT_BASIC; }
+
+    /**
+	 * Get the name of the item. 
+	 * @return name
+	 */
+	public String getName() { return "Basic Bolt"; }
+
+	/**
+	 * Get the description of the item. 
+	 * @return description
+	 */
+	public String getDescription() { return "A very common crossbow bolt, not very powerful."; }
 }

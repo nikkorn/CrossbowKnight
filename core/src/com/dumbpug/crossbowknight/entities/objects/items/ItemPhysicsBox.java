@@ -28,6 +28,8 @@ public class ItemPhysicsBox extends NBPBox {
 	 */
 	public ItemPhysicsBox(Item item, float x, float y) {
 		super(x, y, C.ITEM_BOX_SIZE / 4, C.ITEM_BOX_SIZE / 4, NBPBoxType.KINETIC);
+		this.setRestitution(C.ITEM_BOX_RESTITUTION);
+		this.setFriction(C.ITEM_BOX_FRICTION);
 		this.item = item;
 		// Create the sensor which is the actual pickup area for the item.
 		// We cannot have the entire physics box being the pickup area as 
