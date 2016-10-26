@@ -51,7 +51,7 @@ public class CrossbowKnight extends ApplicationAdapter {
 		stateManager.addState(mainMenuState);
 		stateManager.addState(gameState);
 		// Set the entry state.
-		stateManager.setCurrentState(gameState);
+		stateManager.setCurrentState(titleState);
 	}
 
 	@Override

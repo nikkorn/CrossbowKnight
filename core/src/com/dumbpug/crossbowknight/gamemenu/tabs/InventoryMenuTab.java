@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.gamemenu.tabs;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.entities.characters.player.Inventory;
 
 /**
@@ -32,6 +33,11 @@ public class InventoryMenuTab implements GameMenuTab {
 		// Map the inventory items to the slots.
 		// TODO We should eventually only map the items to the slots when the inventory changes.
 		slots.mapItemsToSlots(inventory);
+		// Check whether the player wants to change their slot selection.
+		if(CrossbowKnight.getPlayerInput().isLeftButtonPressed()) { slots.selectionLeft(); }
+		if(CrossbowKnight.getPlayerInput().isRightButtonPressed()) { slots.selectionRight(); }
+		if(CrossbowKnight.getPlayerInput().isUpButtonPressed()) { slots.selectionUp(); }
+		if(CrossbowKnight.getPlayerInput().isDownButtonPressed()) { slots.selectionDown(); }
 	}
 	
 	@Override
