@@ -75,7 +75,7 @@ public class ItemPhysicsBox extends NBPBox {
 		// if this items velocity is above some minimum value.
 		// This is to stop this sound being played for every frame
 		// that it is resting on a static box.
-		if(this.getVelx() > C.ITEM_BOX_BOUNCE_SOUND_VELOCITY && this.getVely() > C.ITEM_BOX_BOUNCE_SOUND_VELOCITY) {
+		if(this.getVelx() > C.ITEM_BOX_BOUNCE_SOUND_VELOCITY || this.getVely() > C.ITEM_BOX_BOUNCE_SOUND_VELOCITY) {
 			// Play the bounce sound
 			Audio.getSoundEffect(Audio.SoundEffect.BLIP_HIGH).play();
 		}

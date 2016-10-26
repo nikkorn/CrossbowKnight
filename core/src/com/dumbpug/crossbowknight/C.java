@@ -48,7 +48,7 @@ public class C {
 	public static final float ITEM_BOX_SIZE                     = 6f;
 	public static final float ITEM_BOX_FRICTION                 = 0.6f;
 	public static final float ITEM_BOX_RESTITUTION              = 0.3f;
-	public static final float ITEM_BOX_BOUNCE_SOUND_VELOCITY    = 1f;
+	public static final float ITEM_BOX_BOUNCE_SOUND_VELOCITY    = 0.2f;
 	
 	/** Inventory */
 	public static final int INVENTORY_MAX_SLOT_QUANTITY         = 99;
