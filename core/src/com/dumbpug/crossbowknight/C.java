@@ -76,7 +76,8 @@ public class C {
 	public static final float MENU_INVENTORY_ITEM_SLOT_SIZE     = INGAME_MENU_HEIGHT * 0.15f;
 
 	/** Font */
-	public static final int FONT_SIZE_XSMALL                    = (int) (2 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_XXSMALL                   = (int) (2 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_XSMALL                    = (int) (3 * LAYOUT_MULTIPLIER);
 	public static final int FONT_SIZE_SMALL                     = (int) (4 * LAYOUT_MULTIPLIER);
 	public static final int FONT_SIZE_MEDIUM                    = (int) (8 * LAYOUT_MULTIPLIER);
 	public static final int FONT_SIZE_LARGE                     = (int) (12 * LAYOUT_MULTIPLIER);

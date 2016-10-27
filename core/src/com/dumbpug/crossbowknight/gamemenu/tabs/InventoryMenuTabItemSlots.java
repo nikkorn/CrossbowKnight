@@ -38,7 +38,7 @@ public class InventoryMenuTabItemSlots {
 		Texture itemSlotQuantityOverlay  = new Texture("graphics/gamemenu/inventory/inventory_gamemenu_quantity_overlay.png");
 		Texture itemSlotSelectedOverlay  = new Texture("graphics/gamemenu/inventory/inventory_gamemenu_itemslot_selectedoverlay.png");
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = C.FONT_SIZE_XSMALL;
+		parameter.size = C.FONT_SIZE_XXSMALL;
 		BitmapFont quantityCountFont  = FontPack.getFontPack().getFont(FontPack.FontType.MAIN_FONT, parameter);
 		quantityCountFont.setColor(Color.BLACK);
 		for(int slotX = 0; slotX < C.MENU_INVENTORY_ITEM_SLOT_WIDTH; slotX++) {
