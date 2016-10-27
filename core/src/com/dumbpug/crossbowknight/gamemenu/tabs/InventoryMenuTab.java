@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Align;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
+import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Inventory;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
@@ -55,10 +56,22 @@ public class InventoryMenuTab implements GameMenuTab {
 		// TODO We should eventually only map the items to the slots when the inventory changes.
 		slots.mapItemsToSlots(inventory);
 		// Check whether the player wants to change their slot selection.
-		if(CrossbowKnight.getPlayerInput().isLeftButtonPressed()) { slots.selectionLeft(); }
-		if(CrossbowKnight.getPlayerInput().isRightButtonPressed()) { slots.selectionRight(); }
-		if(CrossbowKnight.getPlayerInput().isUpButtonPressed()) { slots.selectionUp(); }
-		if(CrossbowKnight.getPlayerInput().isDownButtonPressed()) { slots.selectionDown(); }
+		if(CrossbowKnight.getPlayerInput().isLeftButtonPressed()) { 
+			slots.selectionLeft(); 
+			Audio.getSoundEffect(Audio.SoundEffect.BLIP_LOW).play();
+		}
+		if(CrossbowKnight.getPlayerInput().isRightButtonPressed()) { 
+			slots.selectionRight(); 
+			Audio.getSoundEffect(Audio.SoundEffect.BLIP_LOW).play();
+		}
+		if(CrossbowKnight.getPlayerInput().isUpButtonPressed()) { 
+			slots.selectionUp(); 
+			Audio.getSoundEffect(Audio.SoundEffect.BLIP_LOW).play();
+		}
+		if(CrossbowKnight.getPlayerInput().isDownButtonPressed()) { 
+			slots.selectionDown(); 
+			Audio.getSoundEffect(Audio.SoundEffect.BLIP_LOW).play();
+		}
 	}
 	
 	@Override

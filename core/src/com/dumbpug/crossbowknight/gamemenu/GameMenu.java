@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.gamemenu;
 
 import com.dumbpug.crossbowknight.CrossbowKnight;
+import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.gamemenu.tabs.CharacterMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.EquipmentMenuTab;
@@ -53,8 +54,10 @@ public class GameMenu {
 		// Check whether the player wants to change the tab.
 		if(CrossbowKnight.getPlayerInput().isCycleLeftButtonPressed()) {
 			menuTabList.switchLeft();
+			Audio.getSoundEffect(Audio.SoundEffect.BLIP_SELECT).play();
 		} else if(CrossbowKnight.getPlayerInput().isCycleRightButtonPressed()) {
 			menuTabList.switchRight();
+			Audio.getSoundEffect(Audio.SoundEffect.BLIP_SELECT).play();
 		}
 		// Update the current tab.
 		this.menuTabList.getCurrentMenuTab().update();
