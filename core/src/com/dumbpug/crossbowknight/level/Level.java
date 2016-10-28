@@ -96,7 +96,6 @@ public class Level {
 			HealthPotion potion = new HealthPotion();
 			potion.setItemPhysicsBox(new ItemPhysicsBox(potion, player.getPlayerPhysicsBox().getX(), player.getPlayerPhysicsBox().getY() + 50));
 			levelWorld.getItemPool().add(potion);
-			System.out.println("ADDED");
 		}
 	}
 

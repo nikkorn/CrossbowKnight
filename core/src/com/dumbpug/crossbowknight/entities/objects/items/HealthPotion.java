@@ -16,5 +16,5 @@ public class HealthPotion extends Potion {
 	public String getName() { return "Health Potion"; }
 
 	@Override
-	public String getDescription() { return "A potion which restores health."; }
+	public String getDescription() { return "A potion which restores a small portion of health."; }
 }
