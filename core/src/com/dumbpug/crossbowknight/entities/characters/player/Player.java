@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.entities.characters.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
@@ -12,6 +13,7 @@ import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPPoint;
 import com.dumbpug.crossbowknight.entities.characters.Character;
+import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
 
 /**
  * Represents the player.
@@ -107,12 +109,16 @@ public class Player extends Character {
 		// This players point of origin will match the origin of its physics box.
 		return playerPhysicsBox.getCurrentOriginPoint();
 	}
-
+	
 	/**
-	 * Get the players inventory.
-	 * @return inventory.
-     */
-	public Inventory getInventory() { return this.inventory; }
+	 * Called when the player levels up.
+	 */
+	public void onLevelUp() {
+		// We have levelled up. The players max health should now reflect this change. 
+		this.getHealthStatus().setMaxHealth(C.CHARACTER_BASE_HEALTH + this.getStats().getAttributePoints(Attribute.VITALITY));
+		
+		// ...
+	}
 
 	/**
 	 * Called by physics entity when the player box lands on a static floor.
@@ -151,6 +157,12 @@ public class Player extends Character {
 	 * @return playerPhysicsBox
 	 */
 	public PlayerPhysicsBox getPlayerPhysicsBox() { return playerPhysicsBox; }
+	
+	/**
+	 * Get the players inventory.
+	 * @return inventory.
+     */
+	public Inventory getInventory() { return this.inventory; }
 	
 	/**
 	 * Get this players angle of focus.

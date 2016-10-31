@@ -1,14 +1,16 @@
 package com.dumbpug.crossbowknight.entities.characters;
 
+import com.dumbpug.crossbowknight.C;
+
 /**
  * Represents the health status of a character. 
  * @author nikolas.howard
  */
 public class HealthStatus {
 	/** The total health of the player. */
-    private int health;
+    private int health = C.CHARACTER_BASE_HEALTH;
     /** The maximum health of the player. */
-    private int maxHealth;
+    private int maxHealth = C.CHARACTER_BASE_HEALTH;
     
     /**
      * Apply damage.
@@ -38,23 +40,23 @@ public class HealthStatus {
      * Is health depleted.
      * @return depleted
      */
-    public boolean isHealthDepleted() {
-    	return health == 0;
-    }
+    public boolean isHealthDepleted() { return health == 0; }
 
     /**
      * Get the maximum health.
      * @return max health
      */
-	public int getMaxHealth() {
-		return maxHealth;
-	}
+	public int getMaxHealth() { return maxHealth; }
+	
+	/**
+	 * Get the current health.
+	 * @return health.
+	 */
+	public int getHealth() { return health; }
 
 	/**
      * Set the maximum health.
      * @param max health
      */
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
-	}
+	public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
 }

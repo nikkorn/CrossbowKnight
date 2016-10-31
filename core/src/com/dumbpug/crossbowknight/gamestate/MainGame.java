@@ -52,7 +52,7 @@ public class MainGame extends State {
 		// Draw the level.
 		testLevel.draw(batch);
 		// Draw the game HUD.
-		this.hud.draw(batch);
+		this.hud.draw(batch, testLevel.getPlayer());
 		// If the game menu is open then we need to draw it over the level.
 		if(isGameMenuOpen) {
 			gameMenu.getGameMenuDrawer().draw(batch);
