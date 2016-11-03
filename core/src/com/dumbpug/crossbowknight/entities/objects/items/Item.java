@@ -28,7 +28,9 @@ public abstract class Item {
 		BOLT_BASIC,
 		
 		// --- Consumables ---
-		HEALTH_POTION
+		HEALTH_POTION,
+		HEALTH_POTION_LARGE,
+		HEALTH_POTION_SUPER
 	}
 	
 	/**
