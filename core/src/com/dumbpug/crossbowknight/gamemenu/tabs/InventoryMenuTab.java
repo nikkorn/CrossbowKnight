@@ -31,7 +31,7 @@ public class InventoryMenuTab implements GameMenuTab {
 	/** The size of the gold/key icons. */
 	private float iconSize = C.INGAME_MENU_HEIGHT * 0.1f;
 	/** The width and position of the info box */
-	private float infoBoxWidth = C.INGAME_MENU_WIDTH * 0.33f;
+	private float infoBoxWidth = C.INGAME_MENU_WIDTH * 0.3f;
 	private float infoBoxPosX  = C.INGAME_MENU_POS_X + (C.INGAME_MENU_WIDTH * 0.65f);
 	private float infoBoxPosY  = C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.7f);
 

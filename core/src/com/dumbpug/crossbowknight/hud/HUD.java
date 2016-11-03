@@ -23,25 +23,14 @@ public class HUD {
         // Create our HUD ammo bar.
         this.ammoBar = new HUDAmmoBar();
     }
-    
-    /**
-     * Update the HUD with the player information.
-     * @param player
-     */
-    public void update(Player player) {
-    	// TODO Update the players health.
-    	// TODO If the player has a shield equipped, update the shield bar.
-    	// TODO Update the bow tension bar.
-    	// TODO Update the ammo bar with the current ammo.
-    	// TODO Update the item bar with the current item.
-    }
 
     /**
      * Draw the HUD.
      * @param batch
+     * @param player
      */
-    public void draw(SpriteBatch batch) {
-        this.statusBar.draw(batch);
-        this.ammoBar.draw(batch);
+    public void draw(SpriteBatch batch, Player player) {
+        this.statusBar.draw(batch, player);
+        this.ammoBar.draw(batch, player);
     }
 }

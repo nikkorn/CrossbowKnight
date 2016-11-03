@@ -1,13 +1,20 @@
 package com.dumbpug.crossbowknight.level;
 
 import java.util.ArrayList;
+import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.objects.items.BasicBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.Gold;
 import com.dumbpug.crossbowknight.entities.objects.items.HealthPotion;
+import com.dumbpug.crossbowknight.entities.objects.items.HealthPotionLarge;
+import com.dumbpug.crossbowknight.entities.objects.items.HealthPotionSuper;
+import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPhysicsBox;
+import com.dumbpug.crossbowknight.entities.objects.items.Key;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
@@ -91,11 +98,38 @@ public class Level {
 		// --------------- Handle input. ------------------
 		player.processInput();
 		
+		// ...
+		
 		// TEST ADDING AN ITEM TO THE WORLD TODO REMOVE!
 		if(CrossbowKnight.getPlayerInput().isCycleLeftButtonPressed()) {
-			HealthPotion potion = new HealthPotion();
-			potion.setItemPhysicsBox(new ItemPhysicsBox(potion, player.getPlayerPhysicsBox().getX(), player.getPlayerPhysicsBox().getY() + 50));
-			levelWorld.getItemPool().add(potion);
+			Item item = null;
+			// Randomly generate an item!
+			Item.ItemType type = Item.ItemType.values()[new Random().nextInt(Item.ItemType.values().length)];
+			switch(type) {
+			case BOLT_BASIC:
+				item = new BasicBolt();
+				break;
+			case GOLD:
+				item = new Gold();
+				item.setQuantity(new Random().nextInt(100));
+				break;
+			case HEALTH_POTION:
+				item = new HealthPotion();
+				break;
+			case HEALTH_POTION_LARGE:
+				item = new HealthPotionLarge();
+				break;
+			case HEALTH_POTION_SUPER:
+				item = new HealthPotionSuper();
+				break;
+			case KEY:
+				item = new Key();
+				break;
+			default:
+				break;
+			}
+			item.setItemPhysicsBox(new ItemPhysicsBox(item, player.getPlayerPhysicsBox().getX(), player.getPlayerPhysicsBox().getY() + 50));
+			levelWorld.getItemPool().add(item);
 		}
 	}
 

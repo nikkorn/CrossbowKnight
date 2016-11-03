@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public abstract class Character {
 	/** The health status of this character. */
-	private HealthStatus healthStatus;
+	private HealthStatus healthStatus = new HealthStatus();
 	/** The stats of this character. */
 	private Stats stats = new Stats();
 	

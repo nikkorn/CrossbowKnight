@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
 import com.dumbpug.crossbowknight.resources.FontPack;
@@ -57,7 +58,7 @@ public class HUDAmmoBar {
      * Draw the HUD.
      * @param batch
      */
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, Player player) {
     	// Draw the ammo bar background.
         batch.draw(background, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_WIDTH, C.HUD_AMMO_BAR_HEIGHT);
         // Draw texture for the currently selected ammo.

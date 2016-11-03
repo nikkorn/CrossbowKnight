@@ -43,6 +43,7 @@ public class C {
 
 	/** Character */
 	public static final int CHARACTER_MAX_LEVEL                 = 100;
+	public static final int CHARACTER_BASE_HEALTH               = 50;
 	
 	/** Items */
 	public static final float ITEM_BOX_SIZE                     = 6f;
@@ -65,6 +66,8 @@ public class C {
 	public static final int HUD_AMMO_BAR_HEIGHT                 = Gdx.graphics.getHeight() / 9;
 	public static final int HUD_AMMO_BAR_WIDTH                  = (int) (C.HUD_AMMO_BAR_HEIGHT * 1.68);
 	public static final int HUD_AMMO_BAR_MARGIN                 = HUD_AMMO_BAR_HEIGHT / 6;
+	public static final int HUD_SUB_STATUS_BAR_HEIGHT           = HUD_STATUS_BAR_HEIGHT / 4;
+	public static final int HUD_SUB_STATUS_BAR_SECTION_WIDTH    = HUD_SUB_STATUS_BAR_HEIGHT / 4;
 	
 	/** In-Game Menu */
 	public static final int INGAME_MENU_HEIGHT                  = Gdx.graphics.getHeight() / 2;
