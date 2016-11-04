@@ -1,8 +1,10 @@
 package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.resources.EntityResources;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 
@@ -21,10 +23,10 @@ public abstract class Bolt extends Projectile {
 	 */
 	public Bolt(float x, float y, float angle, float velocity) {
 		// Set the bolt physics box.
-		boltPhysicsBox = new BoltPhysicsBox(this, x-(getBoltHeadSize()/2),
-				y-(getBoltHeadSize()/2),
-				getBoltHeadSize() * (1f - C.PROJECTILE_BOLT_HITBOX_PADDING),
-				getBoltHeadSize() * (1f - C.PROJECTILE_BOLT_HITBOX_PADDING));
+		boltPhysicsBox = new BoltPhysicsBox(this, x-(C.PROJECTILE_BOLT_HEAD_SIZE/2),
+				y-(C.PROJECTILE_BOLT_HEAD_SIZE/2),
+				C.PROJECTILE_BOLT_HEAD_SIZE * (1f - C.PROJECTILE_BOLT_HITBOX_PADDING),
+				C.PROJECTILE_BOLT_HEAD_SIZE * (1f - C.PROJECTILE_BOLT_HITBOX_PADDING));
 		boltPhysicsBox.setAffectedByGravity(isAffectedByGravity());
 		boltPhysicsBox.applyVelocityInDirection(angle, velocity);
 	}
@@ -74,19 +76,28 @@ public abstract class Bolt extends Projectile {
 	 * Get the texture for this bolt.
 	 * @return texture.
 	 */
-	public abstract Sprite getBoltSprite();
+	 public Sprite getBoltSprite() { return EntityResources.getEntityResources().getProjectileSprite(this.getProjectileType()); }
 
 	/**
 	 * Get the base damage of this bolt.
 	 * @return bolt base damage.
 	 */
 	public abstract float getBaseDamage();
-
+	
 	/**
-	 * Get the size of the head of this bolt.
-	 * This defines the size of the bolt as well
-	 * as the size of the bolts physics entity
-	 * @return bolt head size.
+	 * Draw the bolt.
 	 */
-	public abstract float getBoltHeadSize();
+	@Override
+    public void draw(SpriteBatch batch, float levelCameraXOffset, float levelCameraYOffset) {
+        // Set the sprite up.
+    	float hitboxPadding = (C.PROJECTILE_BOLT_HEAD_SIZE-getPhysicsBox().getWidth())/2;
+    	float boltSpritePositionX = (getPhysicsBox().getX() - hitboxPadding) * C.LAYOUT_MULTIPLIER;
+    	float boltSpritePositionY = (getPhysicsBox().getY() - (C.PROJECTILE_BOLT_HEAD_SIZE + hitboxPadding)) * C.LAYOUT_MULTIPLIER;
+        getBoltSprite().setSize(C.PROJECTILE_BOLT_HEAD_SIZE * C.LAYOUT_MULTIPLIER, (C.PROJECTILE_BOLT_HEAD_SIZE*2) * C.LAYOUT_MULTIPLIER);
+        getBoltSprite().setOrigin(getBoltSprite().getWidth()/2, getBoltSprite().getWidth()*1.5f); // TODO May be 0.5f
+        getBoltSprite().setPosition(boltSpritePositionX + levelCameraXOffset, boltSpritePositionY + levelCameraYOffset);
+        getBoltSprite().setRotation((float) ((BoltPhysicsBox) this.getPhysicsBox()).getLastAngleOfVelocity());
+        // Draw the sprite.
+        getBoltSprite().draw(batch);
+    }
 }

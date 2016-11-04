@@ -57,7 +57,7 @@ public class C {
 	public static final float INVENTORY_SLOT_SIZE               = Gdx.graphics.getHeight() / 10.5f;
 
 	/** Projectiles */
-	public static final float PROJECTILE_BASE_BOLT_HEAD_SIZE    = 4f;
+	public static final float PROJECTILE_BOLT_HEAD_SIZE         = 4f;
 	public static final float PROJECTILE_BOLT_HITBOX_PADDING    = 0.5f;
 
 	/** HUD */

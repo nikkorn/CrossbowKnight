@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.objects.items.BarbedBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.BasicBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ExplosiveBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.Gold;
 import com.dumbpug.crossbowknight.entities.objects.items.HealthPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.HealthPotionLarge;
 import com.dumbpug.crossbowknight.entities.objects.items.HealthPotionSuper;
+import com.dumbpug.crossbowknight.entities.objects.items.HeavyBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPhysicsBox;
 import com.dumbpug.crossbowknight.entities.objects.items.Key;
@@ -108,6 +111,15 @@ public class Level {
 			switch(type) {
 			case BOLT_BASIC:
 				item = new BasicBolt();
+				break;
+			case BOLT_HEAVY:
+				item = new HeavyBolt();
+				break;
+			case BOLT_EXPLOSIVE:
+				item = new ExplosiveBolt();
+				break;
+			case BOLT_BARBED:
+				item = new BarbedBolt();
 				break;
 			case GOLD:
 				item = new Gold();

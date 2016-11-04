@@ -26,6 +26,9 @@ public abstract class Item {
 		
 		// --- Projectiles ---
 		BOLT_BASIC,
+		BOLT_HEAVY,
+		BOLT_EXPLOSIVE,
+		BOLT_BARBED,
 		
 		// --- Consumables ---
 		HEALTH_POTION,
