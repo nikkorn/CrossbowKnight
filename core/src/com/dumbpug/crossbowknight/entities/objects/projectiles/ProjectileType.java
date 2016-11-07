@@ -10,5 +10,7 @@ public enum ProjectileType {
     BOLT_RUBBER,
     BOLT_ANTIQUE,
     BOLT_EXPLOSIVE,
-    BOLT_BARBED
+    BOLT_BARBED,
+    BOLT_SLEEK,
+    BOLT_IGNITED
 }

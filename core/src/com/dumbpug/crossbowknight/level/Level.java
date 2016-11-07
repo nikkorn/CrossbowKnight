@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.objects.items.AntiqueBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.BarbedBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.BasicBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ExplosiveBolt;
@@ -15,9 +16,12 @@ import com.dumbpug.crossbowknight.entities.objects.items.HealthPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.HealthPotionLarge;
 import com.dumbpug.crossbowknight.entities.objects.items.HealthPotionSuper;
 import com.dumbpug.crossbowknight.entities.objects.items.HeavyBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.IgnitedBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPhysicsBox;
 import com.dumbpug.crossbowknight.entities.objects.items.Key;
+import com.dumbpug.crossbowknight.entities.objects.items.RubberBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.SleekBolt;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
@@ -114,6 +118,18 @@ public class Level {
 				break;
 			case BOLT_HEAVY:
 				item = new HeavyBolt();
+				break;
+			case BOLT_IGNITED:
+				item = new IgnitedBolt();
+				break;
+			case BOLT_SLEEK:
+				item = new SleekBolt();
+				break;
+			case BOLT_RUBBER:
+				item = new RubberBolt();
+				break;
+			case BOLT_ANTIQUE:
+				item = new AntiqueBolt();
 				break;
 			case BOLT_EXPLOSIVE:
 				item = new ExplosiveBolt();

@@ -29,6 +29,10 @@ public abstract class Item {
 		BOLT_HEAVY,
 		BOLT_EXPLOSIVE,
 		BOLT_BARBED,
+		BOLT_RUBBER,
+		BOLT_ANTIQUE,
+		BOLT_SLEEK,
+		BOLT_IGNITED,
 		
 		// --- Consumables ---
 		HEALTH_POTION,
