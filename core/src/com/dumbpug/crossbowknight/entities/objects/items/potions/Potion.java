@@ -1,4 +1,6 @@
-package com.dumbpug.crossbowknight.entities.objects.items;
+package com.dumbpug.crossbowknight.entities.objects.items.potions;
+
+import com.dumbpug.crossbowknight.entities.objects.items.Item;
 
 /**
  * Represents a potion item.

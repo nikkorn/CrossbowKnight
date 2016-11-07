@@ -1,8 +1,8 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
 import com.dumbpug.crossbowknight.audio.Audio;
-import com.dumbpug.crossbowknight.entities.objects.items.Ammo;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.Ammo;
 
 /**
  * Represents the items that are equipped to the player.

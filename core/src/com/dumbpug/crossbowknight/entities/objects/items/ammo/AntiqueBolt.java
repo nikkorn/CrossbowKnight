@@ -1,5 +1,7 @@
-package com.dumbpug.crossbowknight.entities.objects.items;
+package com.dumbpug.crossbowknight.entities.objects.items.ammo;
 
+import com.dumbpug.crossbowknight.entities.objects.items.Item;
+import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
 
 /**

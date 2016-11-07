@@ -28,6 +28,8 @@ public class Player extends Character {
     private PlayerDrawer playerDrawer;
 	/** The players inventory. */
 	private Inventory inventory;
+	/** The players equipment. */
+	private EquippedItems equipment;
     
 	/**
      * Initialise a new instance of the Player class.
@@ -42,6 +44,8 @@ public class Player extends Character {
         playerDrawer = new PlayerDrawer(this);
 		// Create our players inventory.
 		inventory = new Inventory();
+		// Create our players equipped items helper.
+		equipment = new EquippedItems(this);
     }
 
 	/**
@@ -73,6 +77,7 @@ public class Player extends Character {
 		if(CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
 			// TODO Find the point at the tip of the weapon (will be the projectile position)
 			// TODO Create the desired projectile!
+			// TODO Use the primary equipped ammo.
 			BasicBolt bolt = new BasicBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), (float) -Math.toRadians(this.getAngleOfFocus()), 3);
 			// Attempt firing our weapon and get result.
 			boolean fireSuccess = onWeaponFire(bolt);
@@ -163,6 +168,12 @@ public class Player extends Character {
 	 * @return inventory.
      */
 	public Inventory getInventory() { return this.inventory; }
+	
+	/**
+	 * Get the players equipment.
+	 * @return equipment
+	 */
+	public EquippedItems getEquipment() { return equipment; }
 	
 	/**
 	 * Get this players angle of focus.
