@@ -7,8 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
-import com.dumbpug.crossbowknight.entities.objects.items.Item;
-import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.Ammo;
 import com.dumbpug.crossbowknight.resources.FontPack;
 import com.dumbpug.crossbowknight.resources.FontPack.FontType;
 import com.dumbpug.crossbowknight.resources.ItemResources;
@@ -20,10 +19,6 @@ import com.dumbpug.crossbowknight.resources.ItemResources;
 public class HUDAmmoBar {
     /** The background for the HUD ammo bar. */
     private static Texture background;
-    /** The currently selected projectile type. */
-    private ProjectileType currentProjectileType = ProjectileType.BOLT_BASIC;
-    /** The currently selected projectile ammo count. -1 = infinite. */
-    private int currentProjectileAmmo = -1;
     /** The font with which to draw our ammo count. */
     private BitmapFont ammoCountFont;
     /** The position an which to draw our ammo count. */
@@ -43,16 +38,6 @@ public class HUDAmmoBar {
     	ammoCountFont.setColor(Color.BLACK);
     	background     = new Texture("graphics/hud/ammobar/ammobar_background.png");
     }
-    
-    /**
-     * Set the current ammo type and count.
-     * @param type
-     * @param ammo
-     */
-    public void setCurrentAmmoStatus(ProjectileType type, int ammo) {
-    	this.currentProjectileType = type;
-    	this.currentProjectileAmmo = ammo;
-    }
 
     /**
      * Draw the HUD.
@@ -61,17 +46,13 @@ public class HUDAmmoBar {
     public void draw(SpriteBatch batch, Player player) {
     	// Draw the ammo bar background.
         batch.draw(background, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_WIDTH, C.HUD_AMMO_BAR_HEIGHT);
-        // Draw texture for the currently selected ammo.
-        Texture ammoTexture = null;
-        switch(currentProjectileType) {
-			case BOLT_BASIC:
-                ammoTexture = ItemResources.getItemResources().getItemTexture(Item.ItemType.BOLT_BASIC);
-				break;
-        }
-        if(ammoTexture != null) {
+        // Draw texture for the currently selected ammo (if there is one).
+        Ammo ammo = player.getEquipment().getPrimaryAmmoSlot();
+        if(ammo != null) {
+        	Texture ammoTexture = ItemResources.getItemResources().getItemTexture(ammo.getType());
             batch.draw(ammoTexture, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_MARGIN, C.HUD_AMMO_BAR_HEIGHT, C.HUD_AMMO_BAR_HEIGHT);
+            // Draw the ammo count for the currently selected ammo.
+            ammoCountFont.draw(batch, ammo.getQuantity() >= 0 ? ammo.getQuantity()+"" : "--", ammoCountPosX, ammoCountPosY);
         }
-        // Draw the ammo count for the currently selected ammo.
-        ammoCountFont.draw(batch, currentProjectileAmmo >= 0 ? currentProjectileAmmo+"" : "--", ammoCountPosX, ammoCountPosY);
     }
 }

@@ -8,8 +8,7 @@ import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
-import com.dumbpug.crossbowknight.entities.objects.projectiles.BasicBolt;
-import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.AntiqueBolt;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPPoint;
 import com.dumbpug.crossbowknight.entities.characters.Character;
@@ -46,6 +45,11 @@ public class Player extends Character {
 		inventory = new Inventory();
 		// Create our players equipped items helper.
 		equipment = new EquippedItems(this);
+		
+		// TODO Remove!!!!!!
+		AntiqueBolt bolt = new AntiqueBolt();
+		bolt.setQuantity(5);
+		equipment.setPrimaryAmmoSlot(bolt);
     }
 
 	/**
@@ -75,27 +79,9 @@ public class Player extends Character {
 		}
 		// Check for a request to fire the players weapon.
 		if(CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
-			// TODO Find the point at the tip of the weapon (will be the projectile position)
-			// TODO Create the desired projectile!
-			// TODO Use the primary equipped ammo.
-			BasicBolt bolt = new BasicBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), (float) -Math.toRadians(this.getAngleOfFocus()), 3);
-			// Attempt firing our weapon and get result.
-			boolean fireSuccess = onWeaponFire(bolt);
-			if(fireSuccess) {
-				Audio.getSoundEffect(Audio.SoundEffect.BLIP_HIGH).play();
-			} else {
-				Audio.getSoundEffect(Audio.SoundEffect.BLIP_LOW).play();
-			}
+			equipment.useAmmo();
 		}
 	}
-
-	/**
-	 * Called when a player has attempted to fire his weapon.
-	 * Returns whether the fire attempt was a success.
-	 * @param projectile
-	 * @return success
-     */
-	public boolean onWeaponFire(Projectile projectile) { return false; }
 	
 	/**
 	 * Called when a player picks up an item.

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
+import com.dumbpug.crossbowknight.entities.characters.player.EquipmentUsage;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.items.Gold;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
@@ -22,7 +23,6 @@ import com.dumbpug.crossbowknight.entities.objects.items.ammo.SleekBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionLarge;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionSuper;
-import com.dumbpug.crossbowknight.entities.objects.projectiles.Projectile;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -66,14 +66,9 @@ public class Level {
 	 */
 	public void initialisePlayer() {
 		// Create our player. // TODO Add actual spawn point!!!
-		player = new Player(50, 50) {
-			@Override
-			public boolean onWeaponFire(Projectile projectile) {
-				// Attempt to ad this players fired projectile to the levels projectile pool.
-				// Also, return whether we were successfully able to do this.
-				return levelWorld.getProjectilePool().add(projectile);
-			}
-		};
+		player = new Player(50, 50);
+		// Set our players equipment usage helper.
+		player.getEquipment().setEquipmentUsage(new EquipmentUsage(this));
 		// Add our player to the level world.
 		this.levelWorld.addPlayer(player);
 	}

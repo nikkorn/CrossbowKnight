@@ -9,6 +9,11 @@ import com.dumbpug.crossbowknight.entities.objects.items.ammo.Ammo;
  * @author nikolas.howard
  */
 public class EquippedItems {
+	/** The player. */
+	private Player player;
+	/** The equipment usage helper. */
+	private EquipmentUsage equipmentUsage = null;
+	
 	/** The equipped item slots. */
 	private Item primaryItemSlot = null;
 	private Item secondaryItemSlot = null;
@@ -28,9 +33,6 @@ public class EquippedItems {
 	// private CrossbowString string = null;
 	// private CrossbowLimbs limbs = null;
 	// private CrossbowSight sight = null;
-	
-	/** The player. */
-	private Player player;
 	
 	/**
 	 * Create a new instance of the EquippedItems class.
@@ -78,22 +80,23 @@ public class EquippedItems {
 			if(primaryItemSlot.isQuantifiable()) {
 				// Does the item have an infinite quantity?
 				if(primaryItemSlot.getQuantity() == -1) {
-					// Use the item!
-					EquipmentUsage.onItemUse(this.player, primaryItemSlot);
+					// Use the item! (can fail)
+					equipmentUsage.onItemUse(this.player, primaryItemSlot);
 				} else {
-					// Decrement the item quantity.
-					primaryItemSlot.setQuantity(primaryItemSlot.getQuantity() - 1);
-					// Use the item!
-					EquipmentUsage.onItemUse(this.player, primaryItemSlot);
-					// If the new quantity is 0 then remove it from slot/inventory.
-					if(primaryItemSlot.getQuantity() == 0) {
-						// We have used the last unit of this item.
-						itemSlotFreed = true;
+					// Use the item (can fail, if so don't decrement item quantity)
+					if(equipmentUsage.onItemUse(this.player, primaryItemSlot)) {
+						// Decrement the item quantity.
+						primaryItemSlot.setQuantity(primaryItemSlot.getQuantity() - 1);
+						// If the new quantity is 0 then remove it from slot/inventory.
+						if(primaryItemSlot.getQuantity() == 0) {
+							// We have used the last unit of this item.
+							itemSlotFreed = true;
+						}
 					}
 				}
 			} else {
-				// We have used our single unit of this item.
-				itemSlotFreed = true;
+				// Attempt to use our single unit of this item.
+				itemSlotFreed = equipmentUsage.onItemUse(this.player, primaryItemSlot);
 			}
 			// Was the item slot freed up?
 			if(itemSlotFreed) {
@@ -121,22 +124,23 @@ public class EquippedItems {
 			if(primaryAmmoSlot.isQuantifiable()) {
 				// Does the ammo have an infinite quantity?
 				if(primaryAmmoSlot.getQuantity() == -1) {
-					// Use the ammo!
-					EquipmentUsage.onAmmoUse(this.player, primaryAmmoSlot);
+					// Attempt to use the ammo! (can fail)
+					equipmentUsage.onAmmoUse(this.player, primaryAmmoSlot);
 				} else {
-					// Decrement the ammo quantity.
-					primaryAmmoSlot.setQuantity(primaryAmmoSlot.getQuantity() - 1);
-					// Use the ammo!
-					EquipmentUsage.onAmmoUse(this.player, primaryAmmoSlot);
-					// If the new quantity is 0 then remove it from slot/inventory.
-					if(primaryAmmoSlot.getQuantity() == 0) {
-						// We have used the last unit of this ammo.
-						ammoSlotFreed = true;
+					// Use the ammo (can fail, if so don't decrement ammo quantity)
+					if(equipmentUsage.onAmmoUse(this.player, primaryAmmoSlot)) {
+						// Decrement the ammo quantity.
+						primaryAmmoSlot.setQuantity(primaryAmmoSlot.getQuantity() - 1);
+						// If the new quantity is 0 then remove it from slot/inventory.
+						if(primaryAmmoSlot.getQuantity() == 0) {
+							// We have used the last unit of this ammo.
+							ammoSlotFreed = true;
+						}
 					}
 				}
 			} else {
-				// We have used our single unit of this ammo.
-				ammoSlotFreed = true;
+				// Attempt to use up our single unit of ammo.
+				ammoSlotFreed = equipmentUsage.onAmmoUse(this.player, primaryAmmoSlot);
 			}
 			// Was the ammo slot freed up?
 			if(ammoSlotFreed) {
@@ -199,4 +203,16 @@ public class EquippedItems {
 	 * @returns ammo
 	 */
 	public Ammo getSecondaryAmmoSlot() { return this.secondaryAmmoSlot; }
+
+	/**
+	 * Get the equipment usage helper.
+	 * @return equipment usage helper
+	 */
+	public EquipmentUsage getEquipmentUsage() { return equipmentUsage; }
+
+	/**
+	 * Set the equipment usage helper.
+	 * @param equipment usage helper
+	 */
+	public void setEquipmentUsage(EquipmentUsage equipmentUsage) { this.equipmentUsage = equipmentUsage; }
 }
