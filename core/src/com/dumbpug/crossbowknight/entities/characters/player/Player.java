@@ -9,6 +9,7 @@ import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.AntiqueBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.BasicBolt;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPPoint;
 import com.dumbpug.crossbowknight.entities.characters.Character;
@@ -48,8 +49,9 @@ public class Player extends Character {
 		
 		// TODO Remove!!!!!!
 		AntiqueBolt bolt = new AntiqueBolt();
-		bolt.setQuantity(5);
+		bolt.setQuantity(10);
 		equipment.setPrimaryAmmoSlot(bolt);
+		equipment.setSecondaryAmmoSlot(new BasicBolt());
     }
 
 	/**
@@ -70,6 +72,7 @@ public class Player extends Character {
 		if(CrossbowKnight.getPlayerInput().isLeftButtonDown()) {
 			playerPhysicsBox.moveLeft();
 		}
+		// Make our player jump.
 		if(CrossbowKnight.getPlayerInput().isJumpButtonPressed()) {
 			// Attempt to jump.
 			if(playerPhysicsBox.jump()) {
@@ -77,6 +80,14 @@ public class Player extends Character {
 				Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
 			}
 		}
+		// Swap primary and secondary ammo slots.
+		if(CrossbowKnight.getPlayerInput().isCycleLeftButtonPressed()) {
+			this.equipment.swapAmmo();
+		}
+		// TODO Swap primary and secondary item slots.
+		// TODO Use item.
+		// TODO Check for shield button.
+		// TODO Check for cross-bow priming button.
 		// Check for a request to fire the players weapon.
 		if(CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
 			equipment.useAmmo();
