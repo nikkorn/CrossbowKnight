@@ -1,8 +1,5 @@
 package com.dumbpug.crossbowknight.entities.objects.items.potions;
 
-import com.dumbpug.crossbowknight.entities.objects.items.Item;
-import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
-
 /**
  * A large health potion item.
  * @author nikolas.howard
