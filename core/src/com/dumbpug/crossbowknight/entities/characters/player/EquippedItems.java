@@ -50,7 +50,7 @@ public class EquippedItems {
 			primaryItemSlot   = secondaryItemSlot;
 			secondaryItemSlot = primary;
 			// Play swap sound.
-			Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
+			Audio.getSoundEffect(Audio.SoundEffect.SWAP).play();
 		}
 	}
 	
@@ -59,12 +59,12 @@ public class EquippedItems {
 	 */
 	public void swapAmmo() {
 		// Only swap if we have something to swap.
-		if(primaryAmmoSlot != null || secondaryItemSlot != null) {
+		if(primaryAmmoSlot != null || secondaryAmmoSlot != null) {
 			Ammo primary      = primaryAmmoSlot;
 			primaryAmmoSlot   = secondaryAmmoSlot;
 			secondaryAmmoSlot = primary;
 			// Play swap sound.
-			Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
+			Audio.getSoundEffect(Audio.SoundEffect.SWAP).play();
 		}
 	}
 	

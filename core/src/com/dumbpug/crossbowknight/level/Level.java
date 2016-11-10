@@ -103,7 +103,7 @@ public class Level {
 		// ...
 		
 		// TEST ADDING AN ITEM TO THE WORLD TODO REMOVE!
-		if(CrossbowKnight.getPlayerInput().isCycleLeftButtonPressed()) {
+		if(CrossbowKnight.getPlayerInput().isAcceptButtonPressed()) {
 			Item item = null;
 			// Randomly generate an item!
 			Item.ItemType type = Item.ItemType.values()[new Random().nextInt(Item.ItemType.values().length)];
