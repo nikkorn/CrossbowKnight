@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.gamemenu.tabs;
+package com.dumbpug.crossbowknight.gamemenu.tabs.inventory;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Color;

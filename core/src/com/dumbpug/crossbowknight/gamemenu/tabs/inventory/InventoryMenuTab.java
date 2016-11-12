@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.gamemenu.tabs;
+package com.dumbpug.crossbowknight.gamemenu.tabs.inventory;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,6 +11,8 @@ import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Inventory;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
+import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTab;
+import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTabType;
 import com.dumbpug.crossbowknight.resources.FontPack;
 import com.dumbpug.crossbowknight.resources.ItemResources;
 

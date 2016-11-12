@@ -4,9 +4,9 @@ import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.gamemenu.tabs.CharacterMenuTab;
-import com.dumbpug.crossbowknight.gamemenu.tabs.EquipmentMenuTab;
+import com.dumbpug.crossbowknight.gamemenu.tabs.equipment.EquipmentMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTabList;
-import com.dumbpug.crossbowknight.gamemenu.tabs.InventoryMenuTab;
+import com.dumbpug.crossbowknight.gamemenu.tabs.inventory.InventoryMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.MapMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.SystemMenuTab;
 

@@ -1,6 +1,8 @@
-package com.dumbpug.crossbowknight.gamemenu.tabs;
+package com.dumbpug.crossbowknight.gamemenu.tabs.equipment;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTab;
+import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTabType;
 
 /**
  * In-Game menu tab for the player equipment.
