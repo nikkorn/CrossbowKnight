@@ -8,7 +8,7 @@ import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
-import com.dumbpug.crossbowknight.entities.objects.items.ammo.AntiqueBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.RubberBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.BasicBolt;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPPoint;
@@ -48,8 +48,8 @@ public class Player extends Character {
 		equipment = new EquippedItems(this);
 		
 		// TODO Remove!!!!!!
-		AntiqueBolt bolt = new AntiqueBolt();
-		bolt.setQuantity(10);
+		RubberBolt bolt = new RubberBolt();
+		bolt.setQuantity(15);
 		equipment.setPrimaryAmmoSlot(bolt);
 		equipment.setSecondaryAmmoSlot(new BasicBolt());
     }

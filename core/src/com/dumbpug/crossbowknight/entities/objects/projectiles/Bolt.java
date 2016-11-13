@@ -14,9 +14,9 @@ import com.dumbpug.nbp.NBPBox;
  */
 public abstract class Bolt extends Projectile {
 	/** The physics entity for this bolt. */
-	private BoltPhysicsBox boltPhysicsBox;
+	protected BoltPhysicsBox boltPhysicsBox;
 	/** Is the bolt stuck in something? */
-	private boolean isStuck = false;
+	protected boolean isStuck = false;
 
 	/**
 	 * Create a new instance of a child of the Bolt class.
