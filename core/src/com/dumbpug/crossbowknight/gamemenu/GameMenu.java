@@ -34,7 +34,7 @@ public class GameMenu {
 		gameMenuDrawer = new GameMenuDrawer(this);
 		// Create the menu tabs.
 		inventoryMenuTab = new InventoryMenuTab(player.getInventory());
-		equipmentMenuTab = new EquipmentMenuTab();
+		equipmentMenuTab = new EquipmentMenuTab(player.getInventory(), player.getEquipment());
 		characterMenuTab = new CharacterMenuTab();
 		mapMenuTab       = new MapMenuTab();
 		systemMenuTab    = new SystemMenuTab();
