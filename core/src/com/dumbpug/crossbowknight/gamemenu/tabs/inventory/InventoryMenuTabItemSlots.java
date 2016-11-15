@@ -96,7 +96,7 @@ public class InventoryMenuTabItemSlots {
 	 */
 	private ItemSlot getSelectedSlot() {
 		for(ItemSlot slot : itemSlots) {
-			if((slot.getPosX() == selectedSlotPosX) && (slot.getPosY() == selectedSlotPosY)) {
+			if((slot.getCoordX() == selectedSlotPosX) && (slot.getCoordY() == selectedSlotPosY)) {
 				return slot;
 			}
 		}

@@ -1,12 +1,17 @@
 package com.dumbpug.crossbowknight.gamemenu.tabs.equipment;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.EquippedItems;
 import com.dumbpug.crossbowknight.entities.characters.player.Inventory;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTabType;
+import com.dumbpug.crossbowknight.resources.FontPack;
 
 /**
  * In-Game menu tab for the player equipment.
@@ -19,6 +24,8 @@ public class EquipmentMenuTab implements GameMenuTab {
 	private Inventory inventory;
 	/** The players equipment. */
 	private EquippedItems equippedItems;
+	/** The font with which to make the sub-section headers. */
+	BitmapFont sectionHeaderFont;
 	
 	/**
 	 * Create a new instance of the EquipmentMenuTab.
@@ -28,6 +35,11 @@ public class EquipmentMenuTab implements GameMenuTab {
 		this.slots         = new EquipmentMenuTabItemSlots();
 		this.inventory     = inventory;
 		this.equippedItems = equippedItems;
+		// Make the section header font.
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size                                        = C.FONT_SIZE_SMALL;
+		sectionHeaderFont                                     = FontPack.getFontPack().getFont(FontPack.FontType.MAIN_FONT, parameter);
+		sectionHeaderFont.setColor(Color.WHITE);
 	}
 	
 	@Override
@@ -74,7 +86,11 @@ public class EquipmentMenuTab implements GameMenuTab {
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		// TODO Draw the equipment sub-section headings.
+		// Draw the equipment sub-section headings.
+		sectionHeaderFont.draw(batch, "Crossbow", C.INGAME_MENU_POS_X + (C.INGAME_MENU_WIDTH * 0.11f), C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.79f));
+		sectionHeaderFont.draw(batch, "Defense", C.INGAME_MENU_POS_X + (C.INGAME_MENU_WIDTH * 0.41f), C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.79f));
+		sectionHeaderFont.draw(batch, "Ammo", C.INGAME_MENU_POS_X + (C.INGAME_MENU_WIDTH * 0.635f), C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.79f));
+		sectionHeaderFont.draw(batch, "Items", C.INGAME_MENU_POS_X + (C.INGAME_MENU_WIDTH * 0.832f), C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.79f));
 		// TODO Draw the item selection menu.
 		// Draw the equipment slots.
 		slots.draw(batch);

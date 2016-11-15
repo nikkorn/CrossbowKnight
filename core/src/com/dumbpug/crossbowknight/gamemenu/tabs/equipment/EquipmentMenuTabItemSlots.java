@@ -23,7 +23,7 @@ public class EquipmentMenuTabItemSlots {
 	private float slotStartPositionY = C.INGAME_MENU_POS_Y + (C.INVENTORY_SLOT_SIZE/3f);
 	/** The position of the selected slot. */
 	private int selectedSlotPosX = 0;
-	private int selectedSlotPosY = C.MENU_INVENTORY_ITEM_SLOT_HEIGHT - 1;
+	private int selectedSlotPosY = 0;
 
 	/**
 	 * Create a new instance of the InventoryMenuTabItemSlots.
@@ -39,43 +39,73 @@ public class EquipmentMenuTabItemSlots {
 		Texture itemSlotQuantityOverlay = new Texture("graphics/gamemenu/inventory/inventory_gamemenu_quantity_overlay.png");
 		Texture itemSlotSelectedOverlay = new Texture("graphics/gamemenu/inventory/inventory_gamemenu_itemslot_selectedoverlay.png");
 		
+		// Add crossbow limb equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_limbs_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 0, 0, EquipmentSlotType.LIMBS, 0, C.INGAME_MENU_WIDTH * 0.16f));
+				
+		// Add crossbow stock equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_stock_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 1, 0, EquipmentSlotType.STOCK, C.INGAME_MENU_WIDTH * 0.16f, C.INGAME_MENU_WIDTH * 0.16f));
+		
+		// Add crossbow string equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_string_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 0, 1, EquipmentSlotType.STRING, 0, 0));
+		
+		// Add crossbow sight equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_sight_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 1, 1, EquipmentSlotType.SIGHT, C.INGAME_MENU_WIDTH * 0.16f, 0));
+		
+		// Add shield equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_shield_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 2, 0, EquipmentSlotType.SHIELD, C.INGAME_MENU_WIDTH * 0.37f, C.INGAME_MENU_WIDTH * 0.16f));
+		
+		// Add helmet equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_helmet_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 2, 1, EquipmentSlotType.HELMET, C.INGAME_MENU_WIDTH * 0.37f, 0));
+		
+		// Add primary ammo equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_ammo_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 3, 0, EquipmentSlotType.PRIMARY_AMMO, C.INGAME_MENU_WIDTH * 0.575f, C.INGAME_MENU_WIDTH * 0.16f));
+		
+		// Add secondary ammo equipment slot.
+		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_ammo_slot.png"), 
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 3, 1, EquipmentSlotType.SECONDARY_AMMO, C.INGAME_MENU_WIDTH * 0.575f, 0));
+		
 		// Add primary item equipment slot.
 		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_item_slot.png"), 
-			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 0, 1, EquipmentSlotType.PRIMARY_ITEM));
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 4, 0, EquipmentSlotType.PRIMARY_ITEM, C.INGAME_MENU_WIDTH * 0.78f, C.INGAME_MENU_WIDTH * 0.16f));
 		
 		// Add secondary item equipment slot.
 		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_item_slot.png"), 
-			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 0, 0, EquipmentSlotType.SECONDARY_ITEM));
-		
-		// ...
+			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 4, 1, EquipmentSlotType.SECONDARY_ITEM, C.INGAME_MENU_WIDTH * 0.78f, 0));
 	}
 	
 	/**
 	 * Move the slot selection up.
 	 */
 	public void selectionUp() {
-		selectedSlotPosY = (selectedSlotPosY == (C.MENU_INVENTORY_ITEM_SLOT_HEIGHT - 1)) ? 0 : selectedSlotPosY+1;
+		selectedSlotPosY = (selectedSlotPosY == (C.MENU_EQUIPMENT_ITEM_SLOT_HEIGHT - 1)) ? 0 : selectedSlotPosY+1;
 	}
 	
 	/**
 	 * Move the slot selection down.
 	 */
 	public void selectionDown() {
-		selectedSlotPosY = (selectedSlotPosY == 0) ? C.MENU_INVENTORY_ITEM_SLOT_HEIGHT - 1 : selectedSlotPosY-1;
+		selectedSlotPosY = (selectedSlotPosY == 0) ? C.MENU_EQUIPMENT_ITEM_SLOT_HEIGHT - 1 : selectedSlotPosY-1;
 	}
 	
 	/**
 	 * Move the slot selection left.
 	 */
 	public void selectionLeft() {
-		selectedSlotPosX = (selectedSlotPosX == 0) ? C.MENU_INVENTORY_ITEM_SLOT_WIDTH - 1 : selectedSlotPosX-1;
+		selectedSlotPosX = (selectedSlotPosX == 0) ? C.MENU_EQUIPMENT_ITEM_SLOT_WIDTH - 1 : selectedSlotPosX-1;
 	}
 	
 	/**
 	 * Move the slot selection right.
 	 */
 	public void selectionRight() {
-		selectedSlotPosX = (selectedSlotPosX == (C.MENU_INVENTORY_ITEM_SLOT_WIDTH - 1)) ? 0 : selectedSlotPosX+1;
+		selectedSlotPosX = (selectedSlotPosX == (C.MENU_EQUIPMENT_ITEM_SLOT_WIDTH - 1)) ? 0 : selectedSlotPosX+1;
 	}
 	
 	/**
@@ -84,7 +114,7 @@ public class EquipmentMenuTabItemSlots {
 	 */
 	private EquipmentItemSlot getSelectedSlot() {
 		for(EquipmentItemSlot slot : equippedItemSlots) {
-			if((slot.getPosX() == selectedSlotPosX) && (slot.getPosY() == selectedSlotPosY)) {
+			if((slot.getCoordX() == selectedSlotPosX) && (slot.getCoordY() == selectedSlotPosY)) {
 				return slot;
 			}
 		}
