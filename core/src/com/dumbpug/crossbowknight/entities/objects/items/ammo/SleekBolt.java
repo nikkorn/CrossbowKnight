@@ -37,4 +37,7 @@ public class SleekBolt extends Ammo {
 	 * @return description
 	 */
 	public String getDescription() { return "An impressively sharp bolt. It can often pass through multiple enemies."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.UNCOMMON; }
 }

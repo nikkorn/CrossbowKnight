@@ -37,4 +37,7 @@ public class ExplosiveBolt extends Ammo {
 	 * @return description
 	 */
 	public String getDescription() { return "A hefty bolt wich explodes upon impact."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.RARE; }
 }

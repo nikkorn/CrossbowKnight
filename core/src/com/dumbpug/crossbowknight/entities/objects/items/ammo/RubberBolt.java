@@ -37,4 +37,7 @@ public class RubberBolt extends Ammo {
 	 * @return description
 	 */
 	public String getDescription() { return "A strange bolt with rubber edges. It can bounce off of static objects."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.RARE; }
 }

@@ -37,4 +37,7 @@ public class HeavyBolt extends Ammo {
 	 * @return description
 	 */
 	public String getDescription() { return "A good quality bolt. It is very heavy and packs a real punch."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.UNCOMMON; }
 }

@@ -37,4 +37,7 @@ public class BarbedBolt extends Ammo {
 	 * @return description
 	 */
 	public String getDescription() { return "A nasty looking bolt. It was designed to impale enemies and cause damage over time."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.UNCOMMON; }
 }

@@ -37,4 +37,7 @@ public class IgnitedBolt extends Ammo {
 	 * @return description
 	 */
 	public String getDescription() { return "A rather heavy bolt which ungulfs enemies in flames."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.UNCOMMON; }
 }

@@ -37,4 +37,7 @@ public class AntiqueBolt extends Ammo {
 	 * @return description
 	 */
 	public String getDescription() { return "A very old and valuable bolt. The person who made this must have been very skilled."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.ULTRA_RARE; }
 }
