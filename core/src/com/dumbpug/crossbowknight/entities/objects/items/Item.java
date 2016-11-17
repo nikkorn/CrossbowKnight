@@ -14,6 +14,18 @@ public abstract class Item {
 	private int quantity = 1;
 	/** The physics box that represents this item in the level world. */
 	private ItemPhysicsBox itemPhysicsBox = null;
+	
+	/**
+	 * The levels of rarity at which an item can be.
+	 * @author nikolas.howard
+	 */
+	public enum ItemRarity {
+		COMMON,
+		UNCOMMON,
+		RARE,
+		ULTRA_RARE,
+		MYTHICAL
+	}
 
 	/**
 	 * Type of item.
@@ -37,7 +49,11 @@ public abstract class Item {
 		// --- Consumables ---
 		HEALTH_POTION,
 		HEALTH_POTION_LARGE,
-		HEALTH_POTION_SUPER
+		HEALTH_POTION_SUPER, 
+		CHAOS_POTION,
+		DEFENSE_POTION, 
+		STRENGTH_POTION, 
+		SKILL_POTION
 	}
 	
 	/**
@@ -45,6 +61,12 @@ public abstract class Item {
 	 * @return quantifiable
      */
 	public boolean isQuantifiable() { return true; }
+	
+	/**
+	 * Get the rarity of this item. Common by default.
+	 * @return item rarity
+     */
+	public ItemRarity getRarity() { return ItemRarity.COMMON; }
 
 	/**
 	 * Get the item quantity.

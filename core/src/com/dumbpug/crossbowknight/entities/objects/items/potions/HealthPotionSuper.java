@@ -17,4 +17,7 @@ public class HealthPotionSuper extends Potion {
 
 	@Override
 	public String getDescription() { return "A very valuable potion which restores a vast portion of health."; }
+	
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.RARE; }
 }

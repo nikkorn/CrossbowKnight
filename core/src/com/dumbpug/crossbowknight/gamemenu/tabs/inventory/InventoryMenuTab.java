@@ -1,5 +1,6 @@
 package com.dumbpug.crossbowknight.gamemenu.tabs.inventory;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -91,7 +92,35 @@ public class InventoryMenuTab implements GameMenuTab {
 		// If we have a slot selected which is mapped to an item, write the item info to the info box.
 		Item selectedItem = slots.getSelectedItem();
 		if(selectedItem != null) {
+			// Write the description.
 			font.draw(batch, selectedItem.getName() + "\n\n" + selectedItem.getDescription(), infoBoxPosX, infoBoxPosY, infoBoxWidth, Align.left, true);
+			// Get the rarity of this item.
+			String rarity = "";
+			switch(selectedItem.getRarity()) {
+				case COMMON:
+					rarity = "Common";
+					break;
+				case MYTHICAL:
+					font.setColor(Color.ORANGE);
+					rarity = "Mythical";
+					break;
+				case RARE:
+					font.setColor(Color.CYAN);
+					rarity = "Rare";
+					break;
+				case ULTRA_RARE:
+					font.setColor(Color.VIOLET);
+					rarity = "Ultra Rare";
+					break;
+				case UNCOMMON:
+					font.setColor(Color.LIME);
+					rarity = "Uncommon";
+					break;
+			}
+			// Write the rarity of this item.
+			font.draw(batch, rarity, infoBoxPosX, C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.16f));
+			// Set the font back to its default.
+			font.setColor(Color.WHITE);
 		}
 		// Draw the inventory slots.
 		slots.draw(batch);

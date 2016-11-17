@@ -29,4 +29,11 @@ public class Key extends Item {
 	 * @return description
 	 */
 	public String getDescription() { return ""; }
+	
+	/**
+	 * Keys are super rare to get from normal spawns as the game
+	 * would be too easy if they were common.
+	 */
+	@Override
+	public ItemRarity getRarity() { return ItemRarity.MYTHICAL; }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.entities.characters.player.EquippedItems;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.gamemenu.tabs.ItemSlot;
 import com.dumbpug.crossbowknight.resources.FontPack;
@@ -33,7 +34,7 @@ public class EquipmentMenuTabItemSlots {
 		equippedItemSlots = new ArrayList<EquipmentItemSlot>();
 		// Populate our equipment slots list.
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = C.FONT_SIZE_XXSMALL;
+		parameter.size = C.FONT_SIZE_XSMALL;
 		BitmapFont quantityCountFont  = FontPack.getFontPack().getFont(FontPack.FontType.MAIN_FONT, parameter);
 		quantityCountFont.setColor(Color.BLACK);
 		Texture itemSlotQuantityOverlay = new Texture("graphics/gamemenu/inventory/inventory_gamemenu_quantity_overlay.png");
@@ -78,6 +79,47 @@ public class EquipmentMenuTabItemSlots {
 		// Add secondary item equipment slot.
 		equippedItemSlots.add(new EquipmentItemSlot(new Texture("graphics/gamemenu/equipment/equipment_gamemenu_item_slot.png"), 
 			itemSlotQuantityOverlay, itemSlotSelectedOverlay, quantityCountFont, 4, 1, EquipmentSlotType.SECONDARY_ITEM, C.INGAME_MENU_WIDTH * 0.78f, 0));
+	}
+	
+	/**
+	 * Map the equipment items in an inventory to the item slots.
+	 * @param inventory
+     */
+	public void mapEquipmentToSlots(EquippedItems equipment) {
+		for(EquipmentItemSlot slot : equippedItemSlots) {
+			switch(slot.getEquipmentSlotType()) {
+				case PRIMARY_AMMO:
+					slot.setMappedItem(equipment.getPrimaryAmmoSlot());
+					break;
+				case PRIMARY_ITEM:
+					slot.setMappedItem(equipment.getPrimaryItemSlot());
+					break;
+				case SECONDARY_AMMO:
+					slot.setMappedItem(equipment.getSecondaryAmmoSlot());
+					break;
+				case SECONDARY_ITEM:
+					slot.setMappedItem(equipment.getSecondaryItemSlot());
+					break;
+				case HELMET:
+					//slot.setMappedItem(equipment.);
+					break;
+				case LIMBS:
+					//slot.setMappedItem(equipment);
+					break;
+				case SHIELD:
+					//slot.setMappedItem(equipment);
+					break;
+				case SIGHT:
+					//slot.setMappedItem(equipment);
+					break;
+				case STOCK:
+					//slot.setMappedItem(equipment);
+					break;
+				case STRING:
+					//slot.setMappedItem(equipment);
+					break;
+			}
+		}
 	}
 	
 	/**

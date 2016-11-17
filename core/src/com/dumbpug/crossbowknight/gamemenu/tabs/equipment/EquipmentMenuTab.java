@@ -44,6 +44,8 @@ public class EquipmentMenuTab implements GameMenuTab {
 	
 	@Override
 	public void update() {
+		// Map our equipment to our menu slots.
+		slots.mapEquipmentToSlots(equippedItems);
 		// Check whether the player wants to change their slot selection.
 		if(CrossbowKnight.getPlayerInput().isLeftButtonPressed()) { 
 			slots.selectionLeft(); 

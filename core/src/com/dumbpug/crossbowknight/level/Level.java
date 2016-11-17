@@ -20,9 +20,13 @@ import com.dumbpug.crossbowknight.entities.objects.items.ammo.HeavyBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.IgnitedBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.RubberBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.SleekBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.ChaosPotion;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.DefensePotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionLarge;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionSuper;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.SkillPotion;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.StrengthPotion;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -144,6 +148,18 @@ public class Level {
 				break;
 			case HEALTH_POTION_SUPER:
 				item = new HealthPotionSuper();
+				break;
+			case CHAOS_POTION:
+				item = new ChaosPotion();
+				break;
+			case DEFENSE_POTION:
+				item = new DefensePotion();
+				break;
+			case SKILL_POTION:
+				item = new SkillPotion();
+				break;
+			case STRENGTH_POTION:
+				item = new StrengthPotion();
 				break;
 			case KEY:
 				item = new Key();
