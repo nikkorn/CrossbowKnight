@@ -58,6 +58,8 @@ public class C {
 	
 	/** Equipment */
 	public static final float EQUIPMENT_SLOT_SIZE               = INVENTORY_SLOT_SIZE * 1.6f;
+	public static final float EQUIPMENT_SELECTION_VIEW_WIDTH    = EQUIPMENT_SLOT_SIZE * 2;
+	public static final float EQUIPMENT_SELECTION_VIEW_HEIGHT   = EQUIPMENT_SLOT_SIZE / 5;
 
 	/** Projectiles */
 	public static final float PROJECTILE_BOLT_HEAD_SIZE         = 4f;
