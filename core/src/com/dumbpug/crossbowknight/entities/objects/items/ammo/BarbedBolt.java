@@ -12,7 +12,7 @@ public class BarbedBolt extends Ammo {
      * Get the ammo projectile type.
      * @return projectile type.
      */
-    public ProjectileType getProjectileType() { return ProjectileType.BOLT_BASIC; }
+    public ProjectileType getProjectileType() { return ProjectileType.BOLT_BARBED; }
 
     /**
      * Is this item displayed in the inventory menu?

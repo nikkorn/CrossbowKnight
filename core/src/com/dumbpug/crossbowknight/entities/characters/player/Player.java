@@ -46,12 +46,6 @@ public class Player extends Character {
 		inventory = new Inventory();
 		// Create our players equipped items helper.
 		equipment = new EquippedItems(this);
-		
-		// TODO Remove!!!!!!
-		RubberBolt bolt = new RubberBolt();
-		bolt.setQuantity(15);
-		equipment.setPrimaryAmmoSlot(bolt);
-		equipment.setSecondaryAmmoSlot(new BasicBolt());
     }
 
 	/**

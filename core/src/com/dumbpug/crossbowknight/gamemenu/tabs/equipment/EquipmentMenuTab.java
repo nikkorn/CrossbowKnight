@@ -20,6 +20,8 @@ import com.dumbpug.crossbowknight.resources.FontPack;
 public class EquipmentMenuTab implements GameMenuTab {
 	/** The equipment menu slots. */
 	private EquipmentMenuTabItemSlots slots;
+	/** The equipment selection viewer. */
+	private EquipmentSelectionViewer equipmentSelectionViewer;
 	/** The players inventory. */
 	private Inventory inventory;
 	/** The players equipment. */
@@ -32,9 +34,10 @@ public class EquipmentMenuTab implements GameMenuTab {
 	 * @param inventory
      */
 	public EquipmentMenuTab(Inventory inventory, EquippedItems equippedItems) {
-		this.slots         = new EquipmentMenuTabItemSlots();
-		this.inventory     = inventory;
-		this.equippedItems = equippedItems;
+		this.slots                    = new EquipmentMenuTabItemSlots();
+		this.equipmentSelectionViewer = new EquipmentSelectionViewer(equippedItems);
+		this.inventory                = inventory;
+		this.equippedItems            = equippedItems;
 		// Make the section header font.
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size                                        = C.FONT_SIZE_SMALL;
@@ -46,6 +49,12 @@ public class EquipmentMenuTab implements GameMenuTab {
 	public void update() {
 		// Map our equipment to our menu slots.
 		slots.mapEquipmentToSlots(equippedItems);
+		// Is our selection viewer open?
+		if(this.equipmentSelectionViewer.isOpen()) {
+			// Our selection viewer is open, update it.
+			equipmentSelectionViewer.update();
+			return;
+		}
 		// Check whether the player wants to change their slot selection.
 		if(CrossbowKnight.getPlayerInput().isLeftButtonPressed()) { 
 			slots.selectionLeft(); 
@@ -76,7 +85,13 @@ public class EquipmentMenuTab implements GameMenuTab {
 	 * Called when the user presses the select button.
 	 */
 	private void onSelect() {
-		// TODO Stuff.
+		// A slot has been selected, open the selection viewer.
+		// Set the items that can be selected for this slot.
+		// TODO Change this so that we only pass the appropriate items.
+		equipmentSelectionViewer.setEquippableItems(inventory.getItems(), slots.getSelectedSlot().getEquipmentSlotType());
+		equipmentSelectionViewer.setPosition(slots.getSelectedSlot().getDrawablePosX() + C.INGAME_MENU_POS_X,
+				slots.getSelectedSlot().getDrawablePosY() + C.INGAME_MENU_POS_Y);
+		equipmentSelectionViewer.setOpen(true);
 	}
 	
 	/**
@@ -96,6 +111,11 @@ public class EquipmentMenuTab implements GameMenuTab {
 		// TODO Draw the item selection menu.
 		// Draw the equipment slots.
 		slots.draw(batch);
+		// Is our selection viewer open?
+		if(this.equipmentSelectionViewer.isOpen()) {
+			// Our selection viewer is open, draw it.
+			equipmentSelectionViewer.draw(batch);
+		}
 	}
 	
 	@Override

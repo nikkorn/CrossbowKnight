@@ -2,13 +2,17 @@ package com.dumbpug.crossbowknight.gamemenu.tabs.equipment;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.EquippedItems;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.Ammo;
+import com.dumbpug.crossbowknight.resources.FontPack;
+import com.dumbpug.crossbowknight.resources.ItemResources;
 
 /**
  * The viewer from which an item can be selected. 
@@ -28,8 +32,11 @@ public class EquipmentSelectionViewer {
 	private EquipmentSlotType equipmentSlotType = null;
 	/** The currently selected item index. */
 	private int selectionIndex = 0;
+	/** The viewer border size. */
+	private float borderSize = C.EQUIPMENT_SELECTION_VIEW_HEIGHT / 4;
 	/** Resources with which to draw this selection viewer. */
 	private Texture background;
+	private BitmapFont itemNameFont;
 	
 	/**
 	 * The direction in which selection can be moved.
@@ -47,6 +54,9 @@ public class EquipmentSelectionViewer {
 	public EquipmentSelectionViewer(EquippedItems equipment) { 
 		this.equipment  = equipment; 
 		this.background = new Texture("graphics/gamemenu/equipment/equipment_gamemenu_selectionviewer.png");
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = C.FONT_SIZE_XSMALL;
+		itemNameFont   = FontPack.getFontPack().getFont(FontPack.FontType.MAIN_FONT, parameter);
 	}
 	
 	/**
@@ -73,10 +83,21 @@ public class EquipmentSelectionViewer {
 	 * @param batch
 	 */
 	public void draw(SpriteBatch batch) {
+		// Get the selected item from the list.
+		Item selection = equippableItems.get(selectionIndex);
 		// Draw the background for this selection viewer.
 		batch.draw(this.background, posX, posY, C.EQUIPMENT_SELECTION_VIEW_WIDTH, C.EQUIPMENT_SELECTION_VIEW_HEIGHT);
-		
-		// ...
+		// Are we currently on the 'empty' selection slot.
+		if(selection != null) {
+			// Draw the item image.
+			Texture itemTexture = ItemResources.getItemResources().getItemTexture(selection.getType());
+			float itemImageSize = C.EQUIPMENT_SELECTION_VIEW_HEIGHT / 2;
+			batch.draw(itemTexture, posX, posY, itemImageSize, itemImageSize);
+			// Draw the item name.
+			itemNameFont.draw(batch, selection.getName(), posX, posY);
+		} else {
+			itemNameFont.draw(batch, "EMPTY", posX, posY);
+		}
 	}
 	
 	/**
@@ -160,7 +181,7 @@ public class EquipmentSelectionViewer {
 	 */
 	private void onCancel() {
 		// This viewer is no longer open.
-		this.isOpen = false;
+		this.setOpen(false);
 	}
 	
 	/**

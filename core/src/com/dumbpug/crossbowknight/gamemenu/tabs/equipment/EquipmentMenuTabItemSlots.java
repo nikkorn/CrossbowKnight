@@ -83,7 +83,7 @@ public class EquipmentMenuTabItemSlots {
 	
 	/**
 	 * Map the equipment items in an inventory to the item slots.
-	 * @param inventory
+	 * @param equipment
      */
 	public void mapEquipmentToSlots(EquippedItems equipment) {
 		for(EquipmentItemSlot slot : equippedItemSlots) {
@@ -154,7 +154,7 @@ public class EquipmentMenuTabItemSlots {
 	 * Get the equipment slot which is currently selected.
 	 * @return item slot.
 	 */
-	private EquipmentItemSlot getSelectedSlot() {
+	public EquipmentItemSlot getSelectedSlot() {
 		for(EquipmentItemSlot slot : equippedItemSlots) {
 			if((slot.getCoordX() == selectedSlotPosX) && (slot.getCoordY() == selectedSlotPosY)) {
 				return slot;
@@ -162,13 +162,6 @@ public class EquipmentMenuTabItemSlots {
 		}
 		return null;
 	}
-	
-	/**
-	 * Get the item which is currently selected.
-	 * Returns null if the slot is empty.
-	 * @return item
-	 */
-	public Item getSelectedItem() { return this.getSelectedSlot().getMappedItem(); }
 
 	/**
 	 * Draw the inventory item slots.
