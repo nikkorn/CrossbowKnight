@@ -1,10 +1,13 @@
 package com.dumbpug.crossbowknight.gamemenu.tabs.equipment;
 
 import java.util.ArrayList;
+
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Align;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.audio.Audio;
@@ -34,6 +37,10 @@ public class EquipmentSelectionViewer {
 	private int selectionIndex = 0;
 	/** The viewer border size. */
 	private float borderSize = C.EQUIPMENT_SELECTION_VIEW_HEIGHT / 4;
+	/** The height of the content to be displayed. */
+	float contentHeight = C.EQUIPMENT_SELECTION_VIEW_HEIGHT / 2;
+	/** The Y offset of the item name text. */
+	float itemNameYOffset = C.EQUIPMENT_SELECTION_VIEW_HEIGHT * 0.62f;
 	/** Resources with which to draw this selection viewer. */
 	private Texture background;
 	private BitmapFont itemNameFont;
@@ -55,7 +62,7 @@ public class EquipmentSelectionViewer {
 		this.equipment  = equipment; 
 		this.background = new Texture("graphics/gamemenu/equipment/equipment_gamemenu_selectionviewer.png");
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = C.FONT_SIZE_XSMALL;
+		parameter.size = C.FONT_SIZE_XXSMALL;
 		itemNameFont   = FontPack.getFontPack().getFont(FontPack.FontType.MAIN_FONT, parameter);
 	}
 	
@@ -91,12 +98,38 @@ public class EquipmentSelectionViewer {
 		if(selection != null) {
 			// Draw the item image.
 			Texture itemTexture = ItemResources.getItemResources().getItemTexture(selection.getType());
-			float itemImageSize = C.EQUIPMENT_SELECTION_VIEW_HEIGHT / 2;
-			batch.draw(itemTexture, posX, posY, itemImageSize, itemImageSize);
+			batch.draw(itemTexture, posX + (borderSize*2.2f), posY + borderSize, contentHeight, contentHeight);
+			// Get the item name.
+			String name = selection.getName();
+			// If this item is quantifiable then add the quantity.
+			if(selection.isQuantifiable()) {
+				String quanitity = (selection.getQuantity() < 0) ? "--" : selection.getQuantity() + "";
+				name += " (" + quanitity + ")";
+			}
+			// Change the font colour to reflect the rarity of the selection.
+			switch(selection.getRarity()) {
+				case COMMON:
+					itemNameFont.setColor(Color.WHITE);
+					break;
+				case MYTHICAL:
+					itemNameFont.setColor(Color.ORANGE);
+					break;
+				case RARE:
+					itemNameFont.setColor(Color.CYAN);
+					break;
+				case ULTRA_RARE:
+					itemNameFont.setColor(Color.VIOLET);
+					break;
+				case UNCOMMON:
+					itemNameFont.setColor(Color.LIME);
+					break;
+			}
 			// Draw the item name.
-			itemNameFont.draw(batch, selection.getName(), posX, posY);
+			itemNameFont.draw(batch, name, posX, posY + itemNameYOffset, C.EQUIPMENT_SELECTION_VIEW_WIDTH, Align.center, false);
+			// Set the font back to its default.
+			itemNameFont.setColor(Color.WHITE);
 		} else {
-			itemNameFont.draw(batch, "EMPTY", posX, posY);
+			itemNameFont.draw(batch, "EMPTY", posX, posY + itemNameYOffset, C.EQUIPMENT_SELECTION_VIEW_WIDTH, Align.center, false);
 		}
 	}
 	
@@ -215,7 +248,7 @@ public class EquipmentSelectionViewer {
 		// Set the equippable items.
 		this.equippableItems = equippableItems; 
 		// We need an entry in the equippable items list which represents an empty slot.
-		this.equippableItems.add(null);
+		this.equippableItems.add(null); // TODO Fix this shite!
 		// Set the slot type.
 		this.equipmentSlotType = equipmentSlotType;
 	}
