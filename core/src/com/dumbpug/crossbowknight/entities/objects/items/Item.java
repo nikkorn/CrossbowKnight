@@ -28,6 +28,22 @@ public abstract class Item {
 	}
 
 	/**
+	 * Category of item.
+	 * @author nikolas.howard
+	 */
+	public enum ItemCategory {
+		DEFAULT,
+		CONSUMABLE,
+		AMMO,
+		SHIELD,
+		HELMET,
+		LIMBS,
+		STRING,
+		STOCK,
+		SIGHT
+	}
+	
+	/**
 	 * Type of item.
 	 * @author nikolas.howard
 	 */
@@ -91,6 +107,12 @@ public abstract class Item {
 	 * @return type.
 	 */
 	public abstract ItemType getType();
+	
+	/**
+	 * Get the category of the item.
+	 * @return category.
+	 */
+	public abstract ItemCategory getCategory();
 	
 	/**
 	 * Get the name of the item. 

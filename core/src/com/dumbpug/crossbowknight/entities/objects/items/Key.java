@@ -19,6 +19,12 @@ public class Key extends Item {
     public ItemType getType() { return ItemType.KEY; }
     
     /**
+	 * Get the category of the item.
+	 * @return category.
+	 */
+	public ItemCategory getCategory() { return ItemCategory.DEFAULT; }
+    
+    /**
 	 * Get the name of the item. 
 	 * @return name
 	 */

@@ -1,5 +1,7 @@
 package com.dumbpug.crossbowknight.gamemenu.tabs.equipment;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,6 +14,8 @@ import com.dumbpug.crossbowknight.entities.characters.player.Inventory;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTabType;
 import com.dumbpug.crossbowknight.resources.FontPack;
+import com.dumbpug.crossbowknight.entities.objects.items.Item;
+import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemCategory;
 
 /**
  * In-Game menu tab for the player equipment.
@@ -86,9 +90,46 @@ public class EquipmentMenuTab implements GameMenuTab {
 	 */
 	private void onSelect() {
 		// A slot has been selected, open the selection viewer.
+		// We only want to be able to select the type of items which match the slot.
+		EquipmentSlotType slotType = slots.getSelectedSlot().getEquipmentSlotType();
+		ItemCategory itemCategory  = null;
+		switch(slotType) {
+			case HELMET:
+				itemCategory = ItemCategory.HELMET;
+				break;
+			case LIMBS:
+				itemCategory = ItemCategory.LIMBS;
+				break;
+			case PRIMARY_ITEM:
+			case SECONDARY_ITEM:
+				itemCategory = ItemCategory.CONSUMABLE;
+				break;
+			case PRIMARY_AMMO:
+			case SECONDARY_AMMO:
+				itemCategory = ItemCategory.AMMO;
+				break;
+			case SHIELD:
+				itemCategory = ItemCategory.SHIELD;
+				break;
+			case SIGHT:
+				itemCategory = ItemCategory.SIGHT;
+				break;
+			case STOCK:
+				itemCategory = ItemCategory.STOCK;
+				break;
+			case STRING:
+				itemCategory = ItemCategory.STRING;
+				break;
+		}
 		// Set the items that can be selected for this slot.
-		// TODO Change this so that we only pass the appropriate items.
-		equipmentSelectionViewer.setEquippableItems(inventory.getItems(), slots.getSelectedSlot().getEquipmentSlotType());
+		ArrayList<Item> appropriateItems = new ArrayList<Item>();
+		for(Item item : inventory.getItems()) {
+			if(item.getCategory() == itemCategory) {
+				appropriateItems.add(item);
+			}
+		}
+		// Set the equippable items for this slot.
+		equipmentSelectionViewer.setEquippableItems(appropriateItems, slots.getSelectedSlot().getEquipmentSlotType());
 		equipmentSelectionViewer.setPosition(slots.getSelectedSlot().getDrawablePosX() + C.INGAME_MENU_POS_X,
 				slots.getSelectedSlot().getDrawablePosY() + C.INGAME_MENU_POS_Y);
 		equipmentSelectionViewer.setOpen(true);

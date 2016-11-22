@@ -31,4 +31,10 @@ public abstract class Potion extends Item {
 	 * @return potency
 	 */
 	public PotionPotency getPotency() { return this.potency; }
+	
+	/**
+	 * Get the category of the item.
+	 * @return category.
+	 */
+	public ItemCategory getCategory() { return ItemCategory.CONSUMABLE; }
 }

@@ -19,6 +19,12 @@ public class Gold extends Item {
     public Item.ItemType getType() { return Item.ItemType.GOLD; }
     
     /**
+	 * Get the category of the item.
+	 * @return category.
+	 */
+	public ItemCategory getCategory() { return ItemCategory.DEFAULT; }
+    
+    /**
 	 * Get the name of the item. 
 	 * @return name
 	 */

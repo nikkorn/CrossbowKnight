@@ -248,7 +248,7 @@ public class EquipmentSelectionViewer {
 		// Set the equippable items.
 		this.equippableItems = equippableItems; 
 		// We need an entry in the equippable items list which represents an empty slot.
-		this.equippableItems.add(null); // TODO Fix this shite!
+		this.equippableItems.add(null);
 		// Set the slot type.
 		this.equipmentSlotType = equipmentSlotType;
 	}

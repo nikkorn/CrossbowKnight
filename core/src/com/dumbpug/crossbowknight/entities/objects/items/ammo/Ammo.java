@@ -14,4 +14,10 @@ public abstract class Ammo extends Item {
      * @return projectile type.
      */
     public abstract ProjectileType getProjectileType();
+    
+    /**
+	 * Get the category of the item.
+	 * @return category.
+	 */
+	public ItemCategory getCategory() { return ItemCategory.AMMO; }
 }
