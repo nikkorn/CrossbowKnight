@@ -96,4 +96,20 @@ public class C {
 	/** Stats */
 	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 5;
 	public static final int STATS_LEVEL_XP_MODIFIER             = 10;
+	
+	/** Procedural Generation */
+	public static final int PROC_GEN_TOKENS_RARITY_COMMON      = 60;
+	public static final int PROC_GEN_TOKENS_RARITY_UNCOMMON    = 25;
+	public static final int PROC_GEN_TOKENS_RARITY_RARE        = 15;
+	public static final int PROC_GEN_TOKENS_RARITY_ULTRA_RARE  = 8;
+	public static final int PROC_GEN_TOKENS_RARITY_MYTHICAL    = 3;
+	public static final int PROC_GEN_TOKENS_ITEM_NOTHING       = 60;
+	public static final int PROC_GEN_TOKENS_ITEM_CONSUMABLE    = 20;
+	public static final int PROC_GEN_TOKENS_ITEM_AMMO          = 25;
+	public static final int PROC_GEN_TOKENS_ITEM_HELMET        = 15;
+	public static final int PROC_GEN_TOKENS_ITEM_SHIELD        = 15;
+	public static final int PROC_GEN_TOKENS_ITEM_STOCK         = 10;
+	public static final int PROC_GEN_TOKENS_ITEM_STRING        = 10;
+	public static final int PROC_GEN_TOKENS_ITEM_SIGHT         = 5;
+	public static final int PROC_GEN_TOKENS_ITEM_LIMBS         = 10;
 }
