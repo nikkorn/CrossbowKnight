@@ -1,12 +1,28 @@
 package com.dumbpug.crossbowknight.entities.objects.items.dynamic;
 
 import java.util.Random;
+import java.util.Scanner;
+
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemCategory;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemRarity;
 import com.dumbpug.crossbowknight.entities.objects.items.Material;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.AntiqueBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.BarbedBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.BasicBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.ExplosiveBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.HeavyBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.IgnitedBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.RubberBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.SleekBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.ChaosPotion;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.DefensePotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotion;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionLarge;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionSuper;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.SkillPotion;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.StrengthPotion;
 
 /**
  * Generates dynamic items.
@@ -42,7 +58,7 @@ public class DynamicItemFactory {
 		itemCategoryTokens.addTokens(ItemCategory.SIGHT, C.PROC_GEN_TOKENS_ITEM_SIGHT);
 		itemCategoryTokens.addTokens(ItemCategory.LIMBS, C.PROC_GEN_TOKENS_ITEM_LIMBS);
 		// This entry represents a failed attempt to get an item.
-		itemCategoryTokens.addTokens(null, C.PROC_GEN_TOKENS_ITEM_NOTHING);
+		itemCategoryTokens.addTokens(ItemCategory.DEFAULT, C.PROC_GEN_TOKENS_ITEM_NOTHING);
 		// Create the rarity list.
 		rarityTokens = new DynamicItemFactoryTokenList<ItemRarity>();
 		rarityTokens.addTokens(ItemRarity.COMMON, C.PROC_GEN_TOKENS_RARITY_COMMON);
@@ -92,17 +108,26 @@ public class DynamicItemFactory {
 			case CONSUMABLE:
 				return generateConsumable();
 			case HELMET:
+				System.out.println("Generate Helmet!");
 				return null; // TODO
 			case LIMBS:
+				System.out.println("Generate Limbs!");
 				return null; // TODO
 			case SHIELD:
+				System.out.println("Generate Shield!");
 				return null; // TODO
 			case SIGHT:
+				System.out.println("Generate Sight!");
 				return null; // TODO
 			case STOCK:
+				System.out.println("Generate Stock!");
 				return null; // TODO
 			case STRING:
+				System.out.println("Generate String!");
 				return null; // TODO
+			case DEFAULT:
+				// We failed in getting an item!
+				return null;
 			default:
 				// We failed in getting an item!
 				return null; 
@@ -118,26 +143,33 @@ public class DynamicItemFactory {
 		ItemRarity rarity = rarityTokens.selectToken(random);
 		// Create an item generator list.
 		ItemGeneratorList itemGeneratorList = new ItemGeneratorList();
+		// We need to generate a quantity.
+		int quantity = random.nextInt(3) + 1;
 		// Generate an ammo item based on its rarity.
 		switch(rarity) {
 			case COMMON:
-				return itemGeneratorList
-					.add(() -> new HealthPotion())
-					.add(null)
-					.add(null)
-					.add(null)
-					.add(null)
-					.selectToken(random).generate();
+				break;
 			case UNCOMMON:
+				itemGeneratorList
+					.add(() -> new BasicBolt(), quantity)
+					.add(() -> new HeavyBolt(), quantity)
+					.add(() -> new SleekBolt(), quantity)
+					.add(() -> new BarbedBolt(), quantity)
+					.add(() -> new IgnitedBolt(), quantity);
 				break;
 			case RARE:
+				itemGeneratorList
+					.add(() -> new ExplosiveBolt(), quantity)
+					.add(() -> new RubberBolt(), quantity);
 				break;
 			case ULTRA_RARE:
+				itemGeneratorList
+					.add(() -> new AntiqueBolt(), quantity);
 				break;
 			case MYTHICAL:
 				break;
 		}
-		return null;
+		return itemGeneratorList.selectToken(random).generate();
 	}
 	
 	/**
@@ -147,24 +179,58 @@ public class DynamicItemFactory {
 	private Item generateConsumable() {
 		// Generate a rarity for this consumable.
 		ItemRarity rarity = rarityTokens.selectToken(random);
+		// Create an item generator list.
+		ItemGeneratorList itemGeneratorList = new ItemGeneratorList();
 		// Generate a consumable based on its rarity.
 		switch(rarity) {
 			case COMMON:
+				itemGeneratorList
+					.add(() -> new HealthPotion());
 				break;
 			case UNCOMMON:
+				itemGeneratorList
+					.add(() -> new HealthPotionLarge())
+					.add(() -> new DefensePotion());
 				break;
 			case RARE:
+				itemGeneratorList
+					.add(() -> new HealthPotionSuper())
+					.add(() -> new SkillPotion())
+					.add(() -> new StrengthPotion());
 				break;
 			case ULTRA_RARE:
+				itemGeneratorList
+					.add(() -> new ChaosPotion());
 				break;
 			case MYTHICAL:
 				break;
 		}
-		return null;
+		return itemGeneratorList.selectToken(random).generate();
 	}
 	
 	// ...
 	
+	/**
+	 * Test item generation.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		DynamicItemFactory dif = new DynamicItemFactory();
+		
+		Scanner scanner = new Scanner(System.in);
+		while(true) {
+			scanner.nextLine();
+			
+			Item item = dif.generateItem(true);
+			
+			if(item != null) {
+				System.out.println("Got      : " + item.getName());
+				System.out.println("Quantity : " + item.getQuantity());
+			} else {
+				System.out.println("No Item!");
+			}
+		}
+	}
 }
 	
 	
