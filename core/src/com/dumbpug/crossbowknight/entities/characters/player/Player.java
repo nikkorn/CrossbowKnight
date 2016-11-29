@@ -18,8 +18,6 @@ import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
  * @author nikolas.howard
  */
 public class Player extends Character {
-    /** The angle of focus for this player (where we are looking). */
-    private float angleOfFocus = 0f;
 	/** The physics box for this player. */
     private PlayerPhysicsBox playerPhysicsBox;
     /** The player drawer. */
@@ -28,6 +26,10 @@ public class Player extends Character {
 	private Inventory inventory;
 	/** The players equipment. */
 	private EquippedItems equipment;
+	/** The angle of focus for this player (where we are looking). */
+    private float angleOfFocus = 0f;
+    /** Whether the player is currently guarding. */
+    private boolean isGuarding = false;
     
 	/**
      * Initialise a new instance of the Player class.
@@ -78,10 +80,26 @@ public class Player extends Character {
 		}
 		// TODO Swap primary and secondary item slots.
 		// TODO Use item.
-		// TODO Check for shield button.
-		// TODO Check for cross-bow priming button.
+		
+		// Check for shield button being held.
+		if(CrossbowKnight.getPlayerInput().isSecondaryButtonDown()) {
+			// We can only be guarding if we have a shield equipped.
+			if(this.equipment.getShieldSlot() != null) {
+				// We are guarding.
+				this.isGuarding = true;
+				// Reset fire button input in case it was pressed.
+				CrossbowKnight.getPlayerInput().isFireButtonPressed();
+			} else {
+				// We can't guard without a shield.
+				this.isGuarding = false;
+			}
+		} else {
+			this.isGuarding = false;
+		}
+		
 		// Check for a request to fire the players weapon.
-		if(CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
+		// The player CANNOT fire if they are guarding with a shield.
+		if(!isGuarding && CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
 			equipment.useAmmo();
 		}
 	}
@@ -130,6 +148,12 @@ public class Player extends Character {
 		return (playerPhysicsBox.getVelx() < 0.2f && playerPhysicsBox.getVelx() > -0.2f) &&
 				(playerPhysicsBox.getVely() < 0.2f && playerPhysicsBox.getVely() > -0.2f);
 	}
+	
+	/**
+	 * Get whether the player is currently guarding.
+	 * @return is guarding.
+	 */
+	public boolean isGuarding() { return this.isGuarding; }
 
 	/**
 	 * Get whether the player is touching the floor (if false then the player is airborne).
