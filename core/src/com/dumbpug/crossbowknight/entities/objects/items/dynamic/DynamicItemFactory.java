@@ -2,7 +2,6 @@ package com.dumbpug.crossbowknight.entities.objects.items.dynamic;
 
 import java.util.Random;
 import java.util.Scanner;
-
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemCategory;
@@ -148,28 +147,66 @@ public class DynamicItemFactory {
 		// Generate an ammo item based on its rarity.
 		switch(rarity) {
 			case COMMON:
+				itemGeneratorList
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new BasicBolt();
+						}
+					});
 				break;
 			case UNCOMMON:
 				itemGeneratorList
-					.add(() -> new BasicBolt(), quantity)
-					.add(() -> new HeavyBolt(), quantity)
-					.add(() -> new SleekBolt(), quantity)
-					.add(() -> new BarbedBolt(), quantity)
-					.add(() -> new IgnitedBolt(), quantity);
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new HeavyBolt();
+						}
+					})
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new SleekBolt();
+						}
+					})
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new BarbedBolt();
+						}
+					})
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new IgnitedBolt();
+						}
+					});
 				break;
 			case RARE:
 				itemGeneratorList
-					.add(() -> new ExplosiveBolt(), quantity)
-					.add(() -> new RubberBolt(), quantity);
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new ExplosiveBolt();
+						}
+					})
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new RubberBolt();
+						}
+					});
 				break;
 			case ULTRA_RARE:
 				itemGeneratorList
-					.add(() -> new AntiqueBolt(), quantity);
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new AntiqueBolt();
+						}
+					});
 				break;
 			case MYTHICAL:
 				break;
 		}
-		return itemGeneratorList.selectToken(random).generate();
+		Item winningAmmo = itemGeneratorList.selectToken(random).generate();
+		// Set the quantity on the ammo if we have it and it is not infinite.
+		if(winningAmmo != null && winningAmmo.isQuantifiable() && (winningAmmo.getQuantity() != -1)) {
+			winningAmmo.setQuantity(quantity);
+		}
+		return winningAmmo;
 	}
 	
 	/**
@@ -185,22 +222,50 @@ public class DynamicItemFactory {
 		switch(rarity) {
 			case COMMON:
 				itemGeneratorList
-					.add(() -> new HealthPotion());
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new HealthPotion();
+						}
+					});
 				break;
 			case UNCOMMON:
 				itemGeneratorList
-					.add(() -> new HealthPotionLarge())
-					.add(() -> new DefensePotion());
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new HealthPotionLarge();
+						}
+					})
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new DefensePotion();
+						}
+					});
 				break;
 			case RARE:
 				itemGeneratorList
-					.add(() -> new HealthPotionSuper())
-					.add(() -> new SkillPotion())
-					.add(() -> new StrengthPotion());
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new HealthPotionSuper();
+						}
+					})
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new SkillPotion();
+						}
+					})
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new StrengthPotion();
+						}
+					});
 				break;
 			case ULTRA_RARE:
 				itemGeneratorList
-					.add(() -> new ChaosPotion());
+					.add(new IItemGenerator() {
+						public Item generate() {
+							return new ChaosPotion();
+						}
+					});
 				break;
 			case MYTHICAL:
 				break;
@@ -216,11 +281,10 @@ public class DynamicItemFactory {
 	 */
 	public static void main(String[] args) {
 		DynamicItemFactory dif = new DynamicItemFactory();
+		Scanner scanner        = new Scanner(System.in);
+		String input           = scanner.nextLine();
 		
-		Scanner scanner = new Scanner(System.in);
-		while(true) {
-			scanner.nextLine();
-			
+		while(!input.equals("exit")) {
 			Item item = dif.generateItem(true);
 			
 			if(item != null) {
@@ -229,7 +293,11 @@ public class DynamicItemFactory {
 			} else {
 				System.out.println("No Item!");
 			}
+			
+			input = scanner.nextLine();
 		}
+		
+		scanner.close();
 	}
 }
 	
