@@ -69,7 +69,10 @@ public abstract class Item {
 		CHAOS_POTION,
 		DEFENSE_POTION, 
 		STRENGTH_POTION, 
-		SKILL_POTION
+		SKILL_POTION,
+		
+		// --- Shields ---
+		SHIELD_WOOD_0
 	}
 	
 	/**

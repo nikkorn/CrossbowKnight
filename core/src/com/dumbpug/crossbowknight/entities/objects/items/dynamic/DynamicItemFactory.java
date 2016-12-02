@@ -6,6 +6,7 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemCategory;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemRarity;
+import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
 import com.dumbpug.crossbowknight.entities.objects.items.Material;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.AntiqueBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.BarbedBolt;
@@ -113,8 +114,7 @@ public class DynamicItemFactory {
 				System.out.println("Generate Limbs!");
 				return null; // TODO
 			case SHIELD:
-				System.out.println("Generate Shield!");
-				return null; // TODO
+				return generateShield();
 			case SIGHT:
 				System.out.println("Generate Sight!");
 				return null; // TODO
@@ -271,6 +271,49 @@ public class DynamicItemFactory {
 				break;
 		}
 		return itemGeneratorList.selectToken(random).generate();
+	}
+	
+	/**
+	 * Generate an shield item.
+	 * @return shield item.
+	 */
+	private Item generateShield() {
+		// Generate a rarity for this shield item.
+		Material material = materialTokens.selectToken(random);
+		// Generate an available item type id.
+		int itemTypeId = getRandomItemTypeId(ItemCategory.SHIELD, material);
+		// Create the shield item. 
+		Shield gemneratedShield = new Shield(itemTypeId, material);
+		// Generate a rarity for this shield item.
+		ItemRarity rarity = rarityTokens.selectToken(random);
+		gemneratedShield.setRarity(rarity);
+		
+		// TODO Generate some buffs and characteristics for the shield.
+		
+		// Return the shield.
+		return gemneratedShield;
+	}
+	
+	/**
+	 * Takes an item category and material and returns an available 
+	 * item type id for the combination.
+	 * @param category
+	 * @param material
+	 * @return available id
+	 */
+	private int getRandomItemTypeId(ItemCategory category, Material material) {
+		int matchingTypeCount       = 0;
+		String targetItemTypePrefix = category.toString().toLowerCase() + "_" + material.toString().toLowerCase() + "_";
+		for(ItemType type : Item.ItemType.values()) {
+			if(type.toString().toLowerCase().startsWith(targetItemTypePrefix)) {
+				matchingTypeCount++;
+			}
+		}
+		if(matchingTypeCount > 0) {
+			return random.nextInt(matchingTypeCount);
+		} else {
+			throw new RuntimeException("There are no item types with prefix " + targetItemTypePrefix);
+		}
 	}
 	
 	// ...

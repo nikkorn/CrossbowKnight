@@ -1,7 +1,6 @@
 package com.dumbpug.crossbowknight.entities.objects.items.dynamic;
 
 import java.util.Random;
-
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 
 /**

@@ -3,25 +3,22 @@ package com.dumbpug.crossbowknight.entities.objects.items.dynamic;
 import com.dumbpug.crossbowknight.entities.objects.items.Material;
 
 /**
- * Represents a shield item.
+ * Represents a helmet item.
  * Created by nik on 19/10/16.
  */
-public class Shield extends DynamicItem {
-	/** The total durability of the shield. */
-	/** The current durability of the shield. */
-	/** The defense buff of the shield. */
-	/** The material of the shield. */
+public abstract class Helmet extends DynamicItem {
+	/** The material of the helmet. */
 	private Material material;
 	
 	/**
-	 * Create a new instance of the Shield Class.
+	 * Create a new instance of the Helmet Class.
 	 * @param id
 	 * @param material
 	 */
-	public Shield(int id, Material material) {
+	public Helmet(int id, Material material) {
 		this.material = material;
 		// Set the type of this item, which can be deduced using its material and id.
-		this.setType(ItemType.valueOf("SHIELD_" + getMaterial() + "_" + id));
+		this.setType(ItemType.valueOf("HELMET_" + getMaterial() + "_" + id));
 	}
 	
 	/**
@@ -34,17 +31,11 @@ public class Shield extends DynamicItem {
 	 * Get the category of the item.
 	 * @return category.
 	 */
-	public ItemCategory getCategory() { return ItemCategory.SHIELD; }
+	public ItemCategory getCategory() { return ItemCategory.HELMET; }
 	
 	/**
 	 * Is this item quantifiable?
 	 * @return quantifiable
      */
 	public boolean isQuantifiable() { return false; }
-
-	/**
-	 * Is this item displayed in the inventory menu?
-	 * @return isDisplayedInInventory
-	 */
-	public boolean isDisplayedInInventory() { return true; }
 }
