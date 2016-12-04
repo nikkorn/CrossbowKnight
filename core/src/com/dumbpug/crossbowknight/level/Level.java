@@ -1,11 +1,10 @@
 package com.dumbpug.crossbowknight.level;
 
-import java.util.ArrayList;
 import java.util.Random;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
+import com.dumbpug.crossbowknight.camera.LevelCamera;
+import com.dumbpug.crossbowknight.camera.PlayerCameraPositionProvider;
 import com.dumbpug.crossbowknight.entities.characters.player.EquipmentUsage;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.items.Gold;
@@ -27,7 +26,6 @@ import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionLar
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionSuper;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.SkillPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.StrengthPotion;
-import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
  * Represents a game level.
@@ -36,8 +34,6 @@ import com.dumbpug.crossbowknight.tiles.Tile;
 public class Level {
 	/** The name of this level. */
 	private String name = "";
-	/** All tiles in this level. */
-	private ArrayList<Tile> levelTiles = new ArrayList<Tile>();
 	/** The level camera. */
 	private LevelCamera camera;
 	/** The level drawer. */
@@ -62,7 +58,7 @@ public class Level {
 		// Initialise our player.
 		initialisePlayer();
 		// Set up our level camera.
-		setupCamera();
+		this.camera = new LevelCamera(new PlayerCameraPositionProvider(player));
 	}
 	
 	/**
@@ -75,24 +71,6 @@ public class Level {
 		player.getEquipment().setEquipmentUsage(new EquipmentUsage(this));
 		// Add our player to the level world.
 		this.levelWorld.addPlayer(player);
-	}
-	
-	/**
-	 * Set up the camera.
-	 */
-	public void setupCamera() {
-		// Create our level camera. our camera is completely dependent
-		// on the position of the character and the size of the screen.
-		this.camera = new LevelCamera(new LevelCameraPositionProvider() {
-			@Override
-			public float getXPositon() { 
-				return -((player.getCurrentOriginPoint().getX() * C.LAYOUT_MULTIPLIER) - (Gdx.graphics.getWidth()/2)); 
-			} 
-			@Override
-			public float getYPositon() { 
-				return -((player.getCurrentOriginPoint().getY() * C.LAYOUT_MULTIPLIER) - (Gdx.graphics.getHeight()/2)); 
-			}
-		});
 	}
 	
 	/**
@@ -167,8 +145,10 @@ public class Level {
 			default:
 				break;
 			}
-			item.setItemPhysicsBox(new ItemPhysicsBox(item, player.getPlayerPhysicsBox().getX(), player.getPlayerPhysicsBox().getY() + 50));
-			levelWorld.getItemPool().add(item);
+			if(item != null) {
+				item.setItemPhysicsBox(new ItemPhysicsBox(item, player.getPlayerPhysicsBox().getX(), player.getPlayerPhysicsBox().getY() + 50));
+				levelWorld.getItemPool().add(item);
+			}
 		}
 	}
 
@@ -195,26 +175,6 @@ public class Level {
 	 * @return player.
 	 */
 	public Player getPlayer() { return player; }
-	
-	/**
-	 * Get all level tiles.
-	 * @return level tiles.
-	 */
-	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
-
-	/**
-	 * Set all level tiles.
-	 * @param levelTiles
-	 */
-	public void setLevelTiles(ArrayList<Tile> levelTiles) { 
-		this.levelTiles = levelTiles; 
-		// Now that we have set our tiles, we can add and tile blocks to our physics world.
-		for(Tile tile : levelTiles) {
-			if(tile.getPhysicsBlock() != null) {
-				this.levelWorld.getPhysicsWorld().addBox(tile.getPhysicsBlock());
-			}
-		}
-	}
 	
 	/**
 	 * Get the level world.

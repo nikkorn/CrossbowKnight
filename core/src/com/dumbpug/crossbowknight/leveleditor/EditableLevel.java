@@ -15,7 +15,7 @@ public class EditableLevel extends Level {
 	public EditableLevel() {
 		super();
 		// Set our empty level tiles list.
-		this.setLevelTiles(new ArrayList<Tile>());
+		this.getLevelWorld().setLevelTiles(new ArrayList<Tile>());
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class EditableLevel extends Level {
 	 * @return
 	 */
 	public Tile getTileAt(int x, int y) {
-		for(Tile tile: this.getLevelTiles()) {
+		for(Tile tile: this.getLevelWorld().getLevelTiles()) {
 			if(tile.getX() == x && tile.getY() == y) {
 				return tile;
 			}
@@ -44,7 +44,7 @@ public class EditableLevel extends Level {
 		Tile tile = new Tile();
 		tile.setX(x);
 		tile.setY(y);
-		this.getLevelTiles().add(tile);
+		this.getLevelWorld().getLevelTiles().add(tile);
 		return tile;
 	}
 	
@@ -53,7 +53,7 @@ public class EditableLevel extends Level {
 	 * @param tile
 	 */
 	public void removeTile(Tile tile) {
-		this.getLevelTiles().remove(tile);
+		this.getLevelWorld().getLevelTiles().remove(tile);
 	}
 	
 	/**
@@ -73,19 +73,19 @@ public class EditableLevel extends Level {
 	 */
 	public void draw(SpriteBatch batch, int tileOffsetX, int tileOffsetY) {
 		// Draw all tile backgrounds.
-		for(Tile tile : getLevelTiles()) {
+		for(Tile tile : getLevelWorld().getLevelTiles()) {
 			if(tile.getBackgroundTexture() != null) {
 				batch.draw(tile.getBackgroundTexture().getTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 		// Draw all tile decorations.
-		for(Tile tile : getLevelTiles()) {
+		for(Tile tile : getLevelWorld().getLevelTiles()) {
 			if(tile.getDecorationTexture() != null) {
 				batch.draw(tile.getDecorationTexture().getTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 		// Draw all level blocks.
-		for(Tile tile : getLevelTiles()) {
+		for(Tile tile : getLevelWorld().getLevelTiles()) {
 			Block block = tile.getPhysicsBlock();
 			if(block != null) {
 				// Get the size of this block relative to the size of the editor.

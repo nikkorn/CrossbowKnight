@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.level;
+package com.dumbpug.crossbowknight.camera;
 
 /**
  * Represents our level camera.
@@ -6,13 +6,13 @@ package com.dumbpug.crossbowknight.level;
  */
 public class LevelCamera {
 	/** The position provider for this camera */
-	private LevelCameraPositionProvider positonProvider;
+	private ICameraPositionProvider positonProvider;
 	
 	/**
 	 * Creates a new instance of the LevelCamera class.
 	 * @param levelCameraPositionProvider
 	 */
-	public LevelCamera(LevelCameraPositionProvider levelCameraPositionProvider) {
+	public LevelCamera(ICameraPositionProvider levelCameraPositionProvider) {
 		this.positonProvider = levelCameraPositionProvider;
 	}
 	

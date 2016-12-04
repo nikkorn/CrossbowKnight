@@ -38,7 +38,7 @@ public class LevelFactory {
 	 */
 	protected static void buildLevelFromDisk(Level level, String levelName) {
 		// Set the level tiles.
-		level.setLevelTiles(LevelFactory.readLevelTilesFromDisk(levelName));
+		level.getLevelWorld().setLevelTiles(LevelFactory.readLevelTilesFromDisk(levelName));
 		
 		//...
 	}

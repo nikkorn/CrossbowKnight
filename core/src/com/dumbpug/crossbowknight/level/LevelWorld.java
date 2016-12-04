@@ -4,13 +4,18 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPool;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
+import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.nbp.NBPWorld;
+
+import java.util.ArrayList;
 
 /**
  * Represents the physical world.
  * @author nikolas.howard
  */
 public class LevelWorld {
+	/** All tiles in this level. */
+	private ArrayList<Tile> levelTiles = new ArrayList<Tile>();
 	/** The physics world of our level */
 	private NBPWorld physicsWorld;
 	/** The pool for items which are currently present in the level world. */
@@ -42,6 +47,26 @@ public class LevelWorld {
 		// ...
 		
 	}
+
+	/**
+	 * Set all level tiles.
+	 * @param levelTiles
+	 */
+	public void setLevelTiles(ArrayList<Tile> levelTiles) {
+		this.levelTiles = levelTiles;
+		// Now that we have set our tiles, we can add and tile blocks to our physics world.
+		for(Tile tile : levelTiles) {
+			if(tile.getPhysicsBlock() != null) {
+				this.getPhysicsWorld().addBox(tile.getPhysicsBlock());
+			}
+		}
+	}
+
+	/**
+	 * Get all level tiles.
+	 * @return level tiles.
+	 */
+	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
 	
 	/**
 	 * Get the level worlds item pool.
