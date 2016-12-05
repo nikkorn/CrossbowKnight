@@ -15,8 +15,8 @@ public abstract class DynamicItem extends Item {
 	private ItemType type = null;
 	/** The category of the item. */
 	private ItemCategory category = null;
-	/** The rarity of the item. */
-	private ItemRarity rarity = null;
+	/** The rarity of the item, default is common. */
+	private ItemRarity rarity = ItemRarity.COMMON;
 	
 	/**
 	 * Set the name of this dynamic item.
