@@ -28,8 +28,11 @@ public class C {
 	public static final String SAVED_LEVELS_DIR                 = "levels/";
 
 	/** Physics */
-	public static final float PHYSICS_TO_GAME_RATIO             = 0.2f; //TODO  figure out
 	public static final float PHYSICS_GRAVITY                   = 0.09f;
+
+	/** Particles */
+	public static final long PARTICLES_DEFAULT_LIFE             = 1500;
+	public static final int PARTICLES_LIMIT                     = 50;
 	
 	/** Player */
 	public static final float PLAYER_SIZE_WIDTH                 = 10f;

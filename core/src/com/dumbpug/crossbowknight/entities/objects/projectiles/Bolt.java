@@ -40,25 +40,27 @@ public abstract class Bolt extends Projectile {
 	public void onPush(NBPBloom bloom, float angleOfForce, float force) {
 		// TODO Auto-generated method stub
 	}
+
+	/**
+	 * Called when BoltPhysicsBox hits a kinematic object (player/enemy).
+	 * @param collidingBox
+	 */
+	public void onKinematicObjectHit(NBPBox collidingBox) {
+		// Handle the hitting of a kinematic object. Potentially an enemy or the player.
+	}
 	
 	/**
 	 * Called when BoltPhysicsBox hits a static object.
 	 * @param collidingBox
 	 */
 	public void onStaticObjectHit(NBPBox collidingBox) {
-		// TODO Check to see if this arrow can rebound.
+		// By default, all bolts will stick when they hit a static object.
 		this.isStuck = true;
 		// We hit a static object, play a noise.
 		Audio.getSoundEffect(Audio.SoundEffect.LANDING_SOFT).play();
 		// Check whether we want to get rid our our bolts physics box.
 		boltPhysicsBox.markForDeletion();
 	}
-
-	/**
-	 * The number of rebounds off of static blocks this bolt gets.
-	 * @return number of rebounds.
-     */
-	protected int numberOfRebounds() { return 0; }
 
 	/**
 	 * Is this bolt stuck in something?

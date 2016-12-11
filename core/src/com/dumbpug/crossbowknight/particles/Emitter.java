@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.particles;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 
 /**
  * A particle emitter.

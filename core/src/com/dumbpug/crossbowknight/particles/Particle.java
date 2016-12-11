@@ -1,24 +1,34 @@
 package com.dumbpug.crossbowknight.particles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 
 /**
+ * Represents a Particle.
  * Created by nik on 12/11/16.
  */
 public abstract class Particle {
-	/** The position of this particle. */
-	private float posX, posY;
 	/** The life of this particle in millis. */
 	private long life = C.PARTICLES_DEFAULT_LIFE;
 	/** The time this particle was created. */
 	private long timeOfCreation = System.currentTimeMillis();
     
-    public Particle() {}
-    
     /**
      * Update the particle.
      */
     abstract void update();
+
+	/**
+	 * Get the X position of this particle.
+	 * @return x position.
+     */
+	abstract float getPositionX();
+
+	/**
+	 * Get the Y position of this particle.
+	 * @return y position.
+	 */
+	abstract float getPositionY();
 
     /**
      * Draw the particle.
@@ -28,13 +38,11 @@ public abstract class Particle {
     
     /**
      * Called when this particle is first created.
-     * @param batch
      */
     abstract void onCreation();
     
     /**
      * Called when this particle dies.
-     * @param batch
      */
     abstract void onEnd();
 
@@ -46,7 +54,7 @@ public abstract class Particle {
 	
 	/**
      * Get the remaining life of this particle in millis.
-     * @return life
+     * @return remaining life
      */
 	public long getRemainingLife() { 
 		long remainingLife = life - (System.currentTimeMillis() - timeOfCreation);

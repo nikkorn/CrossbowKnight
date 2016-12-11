@@ -13,11 +13,11 @@ import com.dumbpug.nbp.NBPBoxType;
  */
 public class ExplosionParticle extends Particle {
 	/** The sprite for this particle. */
-	private static Sprite explosionParticleSprite = new Sprite(new Texture("graphics/hud/ammobar/ammobar_background.png"));
+	private static Sprite explosionParticleSprite = new Sprite(new Texture("graphics/particles/explosion_particle.png"));
 	/** The physics box for this particle. */
 	private ParticlePhysicsBox particlePhysicsBox;
 	/** The size of the particle in the world. */
-	private float particleSize = 5f;
+	private float explosionParticleSize = 3f;
 	/** The level camera, needed for drawing particles in correct positions. */
 	private LevelCamera camera;
 	
@@ -30,7 +30,7 @@ public class ExplosionParticle extends Particle {
 	 * @param level
 	 */
 	ExplosionParticle(float posX, float posY, float velX, float velY, Level level) {
-		particlePhysicsBox = new ParticlePhysicsBox(posX, posY, particleSize, particleSize, NBPBoxType.KINETIC);
+		particlePhysicsBox = new ParticlePhysicsBox(posX, posY, explosionParticleSize, explosionParticleSize, NBPBoxType.KINETIC);
 		particlePhysicsBox.setVelx(velX);
 		particlePhysicsBox.setVely(velY);
 		level.getLevelWorld().getPhysicsWorld().addBox(particlePhysicsBox);
@@ -41,9 +41,15 @@ public class ExplosionParticle extends Particle {
 	void update() {}
 
 	@Override
+	float getPositionX() { return particlePhysicsBox.getX(); }
+
+	@Override
+	float getPositionY() { return particlePhysicsBox.getY(); }
+
+	@Override
 	void draw(SpriteBatch batch) {
-		explosionParticleSprite.setX(particlePhysicsBox.getX() + camera.getX()); // TOOD Add camera pos
-		explosionParticleSprite.setY(particlePhysicsBox.getY() + camera.getY()); // TOOD Add camera pos
+		explosionParticleSprite.setX(getPositionX() + camera.getX());
+		explosionParticleSprite.setY(getPositionY() + camera.getY());
 		// TODO Set scale based on life.
 		// TODO Set opacity based on life.
 		explosionParticleSprite.draw(batch);

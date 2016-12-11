@@ -5,6 +5,7 @@ import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPool;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
 import com.dumbpug.crossbowknight.particles.Emitter;
+import com.dumbpug.crossbowknight.particles.EmitterPool;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.nbp.NBPWorld;
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class LevelWorld {
 	private ItemPool itemPool;
 	/** The Projectiles pool which holds all in-game projectiles for their lifetime. */
 	private ProjectilePool projectilePool;
-	/** The active particle emitters in the level world. */ //TODO Replace with pool.
-	private ArrayList<Emitter> emitters;
+	/** The Emitter pool which holds all the active emitters in the level world. */
+	private EmitterPool emitterPool;
 	
 	/**
 	 * Create a new instance of the LevelWorld class.
@@ -35,7 +36,7 @@ public class LevelWorld {
 		// Create our projectile pool.
 		this.projectilePool = new ProjectilePool(this);
 		// Create our emitters list.
-		this.emitters = new ArrayList<Emitter>();
+		this.emitterPool = new EmitterPool();
 		// Create our levels physics world.
 		this.physicsWorld = new NBPWorld(C.PHYSICS_GRAVITY);
 	}
@@ -49,15 +50,7 @@ public class LevelWorld {
 		// Clear our item pool of any inactive items.
 		itemPool.removeInactiveItems();
 		// Update our Emitters.
-		Iterator<Emitter> emitterIterator = emitters.iterator();
-		while (emitterIterator.hasNext()) {
-			Emitter currentEmitter = emitterIterator.next();
-		    if (currentEmitter.isAlive()) {
-		    	currentEmitter.update();
-		    } else {
-		    	emitterIterator.remove();
-		    }
-		}
+		emitterPool.update();
 		
 		// ...
 		
@@ -96,10 +89,10 @@ public class LevelWorld {
 	public ProjectilePool getProjectilePool() { return this.projectilePool; }
 	
 	/**
-	 * Get the level worlds emitters.
-	 * @return emitters.
+	 * Get the level worlds emitter pool.
+	 * @return emitter pool.
 	 */
-	public ArrayList<Emitter> getEmitters() { return this.emitters; }
+	public EmitterPool getEmitterPool() { return this.emitterPool; }
 
 	/**
 	 * Get the physics world.

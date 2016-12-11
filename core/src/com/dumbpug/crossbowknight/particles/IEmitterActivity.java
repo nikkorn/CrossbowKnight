@@ -10,5 +10,5 @@ public interface IEmitterActivity {
 	 * Do the activity
 	 * @param emitter
 	 */
-	public void act(Emitter emitter);
+	void act(Emitter emitter);
 }

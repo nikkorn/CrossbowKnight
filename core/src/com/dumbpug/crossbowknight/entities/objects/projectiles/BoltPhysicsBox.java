@@ -43,6 +43,7 @@ public class BoltPhysicsBox extends PhysicsEntity {
 	@Override
 	protected void onCollisonWithKineticBox(NBPBox collidingBox, NBPIntersectionPoint kinematicBoxOriginAtCollision) {
 		// Could have hit an enemy/player/other projectile.
+		bolt.onKinematicObjectHit(collidingBox);
 	}
 
 	@Override

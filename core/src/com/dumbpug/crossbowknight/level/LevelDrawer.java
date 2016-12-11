@@ -1,7 +1,6 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.particles.Emitter;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -69,9 +68,7 @@ public class LevelDrawer {
 			}
 		}
 		// Draw all emitter particles.
-		for(Emitter emitter : level.getLevelWorld().getEmitters()) {
-			emitter.draw();
-		}
+		level.getLevelWorld().getEmitterPool().draw();
 	}
 	
 	/**
