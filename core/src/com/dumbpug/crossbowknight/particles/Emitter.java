@@ -66,6 +66,12 @@ public class Emitter {
 	public void setEmitterActivity(IEmitterActivity emitterActivity) { this.emitterActivity = emitterActivity; }
 	
 	/**
+	 * Get the emitter details.
+	 * @return emitter details.
+	 */
+	public EmitterDetails getEmitterDetails() { return this.emitterDetails; }
+	
+	/**
 	 * Removes the emitter activity.
 	 */
 	public void disposeOfActivity() { this.emitterActivity = null; }
@@ -75,7 +81,7 @@ public class Emitter {
 	 */
 	public void spawnParticle() {
 		// We can only spawn a particle if we have no hit out limit.
-		if(particles.size() > C.PARTICLES_LIMIT) {
+		if(particles.size() < C.PARTICLES_LIMIT) {
 			// Generate a new particle.
 			Particle newParticle = particleGenerator.generate(emitterDetails);
 			// Add it to our collection of particles.

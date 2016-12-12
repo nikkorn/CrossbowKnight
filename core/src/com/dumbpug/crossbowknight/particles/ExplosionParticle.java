@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.particles;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.nbp.NBPBoxType;
@@ -30,7 +31,7 @@ public class ExplosionParticle extends Particle {
 	 * @param level
 	 */
 	ExplosionParticle(float posX, float posY, float velX, float velY, Level level) {
-		particlePhysicsBox = new ParticlePhysicsBox(posX, posY, explosionParticleSize, explosionParticleSize, NBPBoxType.KINETIC);
+ 		particlePhysicsBox = new ParticlePhysicsBox(posX, posY, explosionParticleSize, explosionParticleSize, NBPBoxType.KINETIC);
 		particlePhysicsBox.setVelx(velX);
 		particlePhysicsBox.setVely(velY);
 		level.getLevelWorld().getPhysicsWorld().addBox(particlePhysicsBox);
@@ -48,8 +49,8 @@ public class ExplosionParticle extends Particle {
 
 	@Override
 	void draw(SpriteBatch batch) {
-		explosionParticleSprite.setX(getPositionX() + camera.getX());
-		explosionParticleSprite.setY(getPositionY() + camera.getY());
+		explosionParticleSprite.setX((getPositionX()*C.LAYOUT_MULTIPLIER) + camera.getX());
+		explosionParticleSprite.setY((getPositionY()*C.LAYOUT_MULTIPLIER) + camera.getY());
 		// TODO Set scale based on life.
 		// TODO Set opacity based on life.
 		explosionParticleSprite.draw(batch);

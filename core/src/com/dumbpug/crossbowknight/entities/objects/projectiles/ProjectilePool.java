@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.level.LevelWorld;
 import com.dumbpug.nbp.NBPBox;
@@ -42,6 +43,19 @@ public class ProjectilePool {
 		levelWorld.getPhysicsWorld().addBox(projectile.getPhysicsBox());
 		// We were able to add our projectile.
 		return true;
+	}
+	
+	/**
+	 * Remove any inactive projectiles from the pool.
+	 */
+	public void removeInactiveProjectiles() {
+		Iterator<Projectile> projectileIterator = projectiles.iterator();
+        while (projectileIterator.hasNext()) {
+        	Projectile currentProjectile = projectileIterator.next();
+            if (!currentProjectile.isActive()) {
+            	projectileIterator.remove();
+            }
+        }
 	}
 	
 	/**

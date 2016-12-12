@@ -45,6 +45,26 @@ public class ExplosionParticleGenerator implements IParticleGenerator, IEmitterA
 		emitter.spawnParticle();
 		emitter.spawnParticle();
 		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
+		emitter.spawnParticle();
 		// We want this emitter to die after all of our explosion particles die.
 		emitter.setAliveOnlyIfHasParticles(true);
 		// We have no need to carry out this activity again as we have created all 

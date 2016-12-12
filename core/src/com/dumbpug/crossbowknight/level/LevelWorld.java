@@ -4,12 +4,10 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPool;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
-import com.dumbpug.crossbowknight.particles.Emitter;
 import com.dumbpug.crossbowknight.particles.EmitterPool;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.nbp.NBPWorld;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Represents the physical world.
@@ -49,6 +47,8 @@ public class LevelWorld {
 		physicsWorld.update();
 		// Clear our item pool of any inactive items.
 		itemPool.removeInactiveItems();
+		// Remove any inactive projectiles from the projectile pool.
+		projectilePool.removeInactiveProjectiles();
 		// Update our Emitters.
 		emitterPool.update();
 		

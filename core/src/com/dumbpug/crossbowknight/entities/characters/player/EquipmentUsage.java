@@ -81,7 +81,7 @@ public class EquipmentUsage {
 				bolt = new BasicBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
 				break;
 			case BOLT_EXPLOSIVE:
-				bolt = new ExplosiveBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
+				bolt = new ExplosiveBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity, level);
 				break;
 			case BOLT_HEAVY:
 				bolt = new HeavyBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
