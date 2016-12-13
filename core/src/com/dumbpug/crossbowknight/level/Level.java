@@ -110,6 +110,7 @@ public class Level {
 				break;
 			case BOLT_EXPLOSIVE:
 				item = new ExplosiveBolt();
+				item.setQuantity(50);
 				break;
 			case BOLT_BARBED:
 				item = new BarbedBolt();

@@ -18,7 +18,7 @@ public class ExplosionParticle extends Particle {
 	/** The physics box for this particle. */
 	private ParticlePhysicsBox particlePhysicsBox;
 	/** The size of the particle in the world. */
-	private float explosionParticleSize = 3f;
+	private float explosionParticleSize = 2f;
 	/** The level camera, needed for drawing particles in correct positions. */
 	private LevelCamera camera;
 	
@@ -58,11 +58,12 @@ public class ExplosionParticle extends Particle {
 
 	@Override
 	void onCreation() {
-		// TODO Auto-generated method stub
+		// TODO Make explosion sound!
 	}
 
 	@Override
 	void onEnd() {
-		// TODO Auto-generated method stub
+		// On end we need to mark the particle physics box for deletion.
+		particlePhysicsBox.markForDeletion();
 	}
 }
