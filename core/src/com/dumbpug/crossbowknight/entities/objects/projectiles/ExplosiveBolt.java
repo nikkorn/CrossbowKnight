@@ -38,8 +38,8 @@ public class ExplosiveBolt extends Bolt {
         // Create an explosion emitter/particle generator.
     	ExplosionParticleGenerator explosionParticleGenerator = new ExplosionParticleGenerator(level);
     	Emitter explosionEmitter = new Emitter(explosionParticleGenerator, CrossbowKnight.getSpriteBatch());
-    	explosionEmitter.getEmitterDetails().positionX = this.boltPhysicsBox.getLastPosX();
-    	explosionEmitter.getEmitterDetails().positionY = this.boltPhysicsBox.getLastPosY();
+    	explosionEmitter.getEmitterDetails().positionX = this.boltPhysicsBox.getX();
+    	explosionEmitter.getEmitterDetails().positionY = this.boltPhysicsBox.getY();
     	explosionEmitter.setEmitterActivity(explosionParticleGenerator);
     	// Add the explosion emitter to the level world.
     	level.getLevelWorld().getEmitterPool().add(explosionEmitter);

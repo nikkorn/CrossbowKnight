@@ -2,7 +2,9 @@ package com.dumbpug.crossbowknight.hud;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Align;
@@ -10,6 +12,7 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.resources.FontPack;
 import com.dumbpug.crossbowknight.resources.FontPack.FontType;
+import com.dumbpug.nbp.NBPBox;
 
 /**
  * Developer HUD.
@@ -22,6 +25,8 @@ public class DevHUD {
     private Level currentLevel = null;
     /** Is this HUD open? */
     private boolean isOpen = false;
+    /** The sprite to use when highlighting world physics boxes. */
+    private Sprite nbpBoxHighlighter = new Sprite(new Texture("graphics/misc/nbp_box.png"));
     
     /**
      * Create a new instance of the DevHUD class.
@@ -57,6 +62,15 @@ public class DevHUD {
      * @param batch
      */
     public void draw(SpriteBatch batch) {
+    	// Highlight world boxes if a level is set.
+    	if(currentLevel != null) {
+    		for(NBPBox worldBox : currentLevel.getLevelWorld().getPhysicsWorld().getWorldBoxes()) {
+    			nbpBoxHighlighter.setX((worldBox.getX() * C.LAYOUT_MULTIPLIER) + currentLevel.getLevelCamera().getX());
+    			nbpBoxHighlighter.setY((worldBox.getY() * C.LAYOUT_MULTIPLIER) + currentLevel.getLevelCamera().getY());
+    			nbpBoxHighlighter.setSize(worldBox.getWidth() * C.LAYOUT_MULTIPLIER, worldBox.getHeight() * C.LAYOUT_MULTIPLIER);
+    			nbpBoxHighlighter.draw(batch);
+    		}
+    	}
     	String details = "";
     	// Add the game FPS.
     	details += "FPS                         : " + Gdx.graphics.getFramesPerSecond() + "\n";

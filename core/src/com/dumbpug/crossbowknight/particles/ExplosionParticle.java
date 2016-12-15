@@ -18,7 +18,7 @@ public class ExplosionParticle extends Particle {
 	/** The physics box for this particle. */
 	private ParticlePhysicsBox particlePhysicsBox;
 	/** The size of the particle in the world. */
-	private float explosionParticleSize = 2f;
+	private float explosionParticleSize = 0.2f;
 	/** The level camera, needed for drawing particles in correct positions. */
 	private LevelCamera camera;
 	
@@ -34,6 +34,8 @@ public class ExplosionParticle extends Particle {
  		particlePhysicsBox = new ParticlePhysicsBox(posX, posY, explosionParticleSize, explosionParticleSize, NBPBoxType.KINETIC);
 		particlePhysicsBox.setVelx(velX);
 		particlePhysicsBox.setVely(velY);
+		particlePhysicsBox.setRestitution(0.5f);
+		particlePhysicsBox.setFriction(0.5f);
 		level.getLevelWorld().getPhysicsWorld().addBox(particlePhysicsBox);
 		this.camera = level.getLevelCamera();
 	}

@@ -29,9 +29,9 @@ public class ExplosionParticleGenerator implements IParticleGenerator, IEmitterA
 	 */
 	public Particle generate(EmitterDetails emitterDetails) {
 		// Create a particle at the emitter position. Passing random x/y velocity.
-		float randomVelx = (random.nextFloat()*4f) - 2f;
-		float randomVely = (random.nextFloat()*4f) - 2f;
-		return new ExplosionParticle(emitterDetails.positionX - 10, emitterDetails.positionY, randomVelx, randomVely, level);
+		float randomVelx = (random.nextFloat()*2f) - 1f;
+		float randomVely = (random.nextFloat()*2f) - 1f;
+		return new ExplosionParticle(emitterDetails.positionX, emitterDetails.positionY, randomVelx, randomVely, level);
 	}
 
 	/**
