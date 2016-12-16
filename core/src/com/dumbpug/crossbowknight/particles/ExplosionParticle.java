@@ -1,5 +1,6 @@
 package com.dumbpug.crossbowknight.particles;
 
+import java.util.Random;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,10 @@ public class ExplosionParticle extends Particle {
 	private float explosionParticleSize = 0.2f;
 	/** The level camera, needed for drawing particles in correct positions. */
 	private LevelCamera camera;
+	/** The scale of this particles sprite. */
+	private float scale = 1f;
+	/** The RNG used to randomise particle characteristics. */
+	private static Random random = new Random();
 	
 	/**
 	 * Create a new instance of the ExplosionParticle class.
@@ -31,12 +36,16 @@ public class ExplosionParticle extends Particle {
 	 * @param level
 	 */
 	ExplosionParticle(float posX, float posY, float velX, float velY, Level level) {
+		// Set up the particle physics box.
  		particlePhysicsBox = new ParticlePhysicsBox(posX, posY, explosionParticleSize, explosionParticleSize, NBPBoxType.KINETIC);
 		particlePhysicsBox.setVelx(velX);
 		particlePhysicsBox.setVely(velY);
 		particlePhysicsBox.setRestitution(0.5f);
 		particlePhysicsBox.setFriction(0.5f);
 		level.getLevelWorld().getPhysicsWorld().addBox(particlePhysicsBox);
+		// Set the life of this particle.
+		this.setLife((random.nextInt(3) + 1) * 200);
+		// Set the level camera.
 		this.camera = level.getLevelCamera();
 	}
 
@@ -53,8 +62,11 @@ public class ExplosionParticle extends Particle {
 	void draw(SpriteBatch batch) {
 		explosionParticleSprite.setX((getPositionX()*C.LAYOUT_MULTIPLIER) + camera.getX());
 		explosionParticleSprite.setY((getPositionY()*C.LAYOUT_MULTIPLIER) + camera.getY());
-		// TODO Set scale based on life.
+		// Set scale based on life.
+		explosionParticleSprite.setScale(scale += 0.1f);
 		// TODO Set opacity based on life.
+		explosionParticleSprite.setAlpha(this.getRemainingLife() / (float) this.getLife());
+		// Draw the particle.
 		explosionParticleSprite.draw(batch);
 	}
 

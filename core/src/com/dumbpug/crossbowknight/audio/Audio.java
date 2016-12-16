@@ -28,7 +28,8 @@ public class Audio {
 		LANDING_HEAVY,
 		LANDING_SOFT,
 		PICKUP,
-		SWAP
+		SWAP,
+		EXPLOSION
 	}
 	
 	/** 

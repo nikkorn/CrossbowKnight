@@ -29,8 +29,9 @@ public class ExplosionParticleGenerator implements IParticleGenerator, IEmitterA
 	 */
 	public Particle generate(EmitterDetails emitterDetails) {
 		// Create a particle at the emitter position. Passing random x/y velocity.
-		float randomVelx = (random.nextFloat()*2f) - 1f;
-		float randomVely = (random.nextFloat()*2f) - 1f;
+		float randomVelx = (random.nextFloat()*3f) - 1.5f;
+		float randomVely = (random.nextFloat()*3f) - 1.5f;
+		// TODO Based on the velocity of the box entity which spawned this explosion (if there was one) modify the random velocity.
 		return new ExplosionParticle(emitterDetails.positionX, emitterDetails.positionY, randomVelx, randomVely, level);
 	}
 
@@ -40,13 +41,6 @@ public class ExplosionParticleGenerator implements IParticleGenerator, IEmitterA
 	@Override
 	public void act(Emitter emitter) {
 		// Generate some explosion particles.
-		emitter.spawnParticle();
-		emitter.spawnParticle();
-		emitter.spawnParticle();
-		emitter.spawnParticle();
-		emitter.spawnParticle();
-		emitter.spawnParticle();
-		emitter.spawnParticle();
 		emitter.spawnParticle();
 		emitter.spawnParticle();
 		emitter.spawnParticle();

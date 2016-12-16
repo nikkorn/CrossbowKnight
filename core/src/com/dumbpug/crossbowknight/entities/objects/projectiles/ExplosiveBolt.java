@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
 import com.dumbpug.crossbowknight.CrossbowKnight;
+import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.audio.Audio.SoundEffect;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.particles.Emitter;
 import com.dumbpug.crossbowknight.particles.ExplosionParticleGenerator;
@@ -43,6 +45,8 @@ public class ExplosiveBolt extends Bolt {
     	explosionEmitter.setEmitterActivity(explosionParticleGenerator);
     	// Add the explosion emitter to the level world.
     	level.getLevelWorld().getEmitterPool().add(explosionEmitter);
+    	// Play the explosion sound!
+    	Audio.getSoundEffect(SoundEffect.EXPLOSION).play();
     }
 
     @Override
