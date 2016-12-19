@@ -28,6 +28,7 @@ public class LevelDrawer {
 		drawMiddleLayer(batch);
 		drawForegroundLayer(batch);
 		drawCharacters(batch);
+		drawForegroundEffects(batch);
 	}
 
 	/**
@@ -67,8 +68,6 @@ public class LevelDrawer {
 				tile.getPhysicsBlock().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 			}
 		}
-		// Draw all emitter particles.
-		level.getLevelWorld().getEmitterPool().draw();
 	}
 	
 	/**
@@ -78,5 +77,14 @@ public class LevelDrawer {
 	private void drawCharacters(SpriteBatch batch) {
 		// Draw the player.
 		level.getPlayer().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
+	}
+	
+	/**
+	 * Draw effects (e.g. particles) at the top-most layer.
+	 * @param batch
+	 */
+	private void drawForegroundEffects(SpriteBatch batch) {
+		// Draw all emitter particles.
+		level.getLevelWorld().getEmitterPool().draw();
 	}
 }

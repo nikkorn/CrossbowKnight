@@ -19,7 +19,9 @@ public class ExplosionParticle extends Particle {
 	/** The physics box for this particle. */
 	private ParticlePhysicsBox particlePhysicsBox;
 	/** The size of the particle in the world. */
-	private float explosionParticleSize = 0.2f;
+	private static float explosionParticleSize = 0.2f;
+	/** The size of this particle sprite. */
+	private static float explosionParticleSpriteSize = 4 * C.LAYOUT_MULTIPLIER;
 	/** The level camera, needed for drawing particles in correct positions. */
 	private LevelCamera camera;
 	/** The scale of this particles sprite. */
@@ -60,6 +62,9 @@ public class ExplosionParticle extends Particle {
 
 	@Override
 	void draw(SpriteBatch batch) {
+		// Set the sprite size.
+		explosionParticleSprite.setSize(explosionParticleSpriteSize, explosionParticleSpriteSize);
+		// Set the sprite position.
 		explosionParticleSprite.setX((getPositionX()*C.LAYOUT_MULTIPLIER) + camera.getX());
 		explosionParticleSprite.setY((getPositionY()*C.LAYOUT_MULTIPLIER) + camera.getY());
 		// Set scale based on life.
