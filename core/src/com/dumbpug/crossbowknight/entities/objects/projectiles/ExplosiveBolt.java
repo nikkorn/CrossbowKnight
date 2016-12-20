@@ -49,7 +49,7 @@ public class ExplosiveBolt extends Bolt {
     	level.getLevelWorld().getEmitterPool().add(explosionEmitter);
     	// Add an explosion bloom to the physics world.
     	level.getLevelWorld().getPhysicsWorld().addBloom(new NBPBloom(this.boltPhysicsBox.getX(), 
-    			this.boltPhysicsBox.getY(), C.PROJECTILE_EXPLOSIVEBOLT_BLAST_RADIUS * C.LAYOUT_MULTIPLIER, C.PROJECTILE_EXPLOSIVEBOLT_BLAST_FORCE * C.LAYOUT_MULTIPLIER));
+    			this.boltPhysicsBox.getY(), C.PROJECTILE_EXPLOSIVEBOLT_BLAST_RADIUS, C.PROJECTILE_EXPLOSIVEBOLT_BLAST_FORCE));
     	// Play the explosion sound!
     	Audio.getSoundEffect(SoundEffect.EXPLOSION).play();
     }

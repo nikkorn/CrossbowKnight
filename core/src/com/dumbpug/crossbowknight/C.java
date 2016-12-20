@@ -68,8 +68,8 @@ public class C {
 	public static final float PROJECTILE_BOLT_HEAD_SIZE            = 4f;
 	public static final float PROJECTILE_BOLT_HITBOX_PADDING       = 0.5f;
 	public static final int PROJECTILE_RUBBERBOLT_BOUNCES          = 3;
-	public static final int PROJECTILE_EXPLOSIVEBOLT_BLAST_RADIUS  = 5;
-	public static final int PROJECTILE_EXPLOSIVEBOLT_BLAST_FORCE   = 1;
+	public static final int PROJECTILE_EXPLOSIVEBOLT_BLAST_RADIUS  = 30;
+	public static final int PROJECTILE_EXPLOSIVEBOLT_BLAST_FORCE   = 3;
 	
 	/** HUD */
 	public static final int HUD_STATUS_BAR_HEIGHT               = Gdx.graphics.getHeight() / 8;
