@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.particles;
+package com.dumbpug.crossbowknight.particles.explosion;
 
 import java.util.Random;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.level.Level;
+import com.dumbpug.crossbowknight.particles.Particle;
+import com.dumbpug.crossbowknight.particles.ParticlePhysicsBox;
 import com.dumbpug.nbp.NBPBoxType;
 
 /**
@@ -50,18 +52,15 @@ public class ExplosionParticle extends Particle {
 		// Set the level camera.
 		this.camera = level.getLevelCamera();
 	}
-
+	
 	@Override
-	void update() {}
+	public void update() {}
+	
+	public float getPositionX() { return particlePhysicsBox.getX(); }
+	
+	public float getPositionY() { return particlePhysicsBox.getY(); }
 
-	@Override
-	float getPositionX() { return particlePhysicsBox.getX(); }
-
-	@Override
-	float getPositionY() { return particlePhysicsBox.getY(); }
-
-	@Override
-	void draw(SpriteBatch batch) {
+	protected void draw(SpriteBatch batch) {
 		// Set the sprite size.
 		explosionParticleSprite.setSize(explosionParticleSpriteSize, explosionParticleSpriteSize);
 		// Set the sprite position.
@@ -69,19 +68,17 @@ public class ExplosionParticle extends Particle {
 		explosionParticleSprite.setY((getPositionY()*C.LAYOUT_MULTIPLIER) + camera.getY());
 		// Set scale based on life.
 		explosionParticleSprite.setScale(scale += 0.1f);
-		// TODO Set opacity based on life.
+		// Set opacity based on life.
 		explosionParticleSprite.setAlpha(this.getRemainingLife() / (float) this.getLife());
 		// Draw the particle.
 		explosionParticleSprite.draw(batch);
 	}
 
-	@Override
-	void onCreation() {
+	protected void onCreation() {
 		// TODO Make explosion sound!
 	}
 
-	@Override
-	void onEnd() {
+	protected void onEnd() {
 		// On end we need to mark the particle physics box for deletion.
 		particlePhysicsBox.markForDeletion();
 	}

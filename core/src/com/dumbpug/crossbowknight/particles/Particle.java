@@ -16,35 +16,35 @@ public abstract class Particle {
     /**
      * Update the particle.
      */
-    abstract void update();
+	public abstract void update();
 
 	/**
 	 * Get the X position of this particle.
 	 * @return x position.
      */
-	abstract float getPositionX();
+	public abstract float getPositionX();
 
 	/**
 	 * Get the Y position of this particle.
 	 * @return y position.
 	 */
-	abstract float getPositionY();
+	public abstract float getPositionY();
 
     /**
      * Draw the particle.
      * @param batch
      */
-    abstract void draw(SpriteBatch batch);
+    protected abstract void draw(SpriteBatch batch);
     
     /**
      * Called when this particle is first created.
      */
-    abstract void onCreation();
+    protected  abstract void onCreation();
     
     /**
      * Called when this particle dies.
      */
-    abstract void onEnd();
+    protected abstract void onEnd();
 
     /**
      * Get whether this particle is alive.

@@ -87,7 +87,7 @@ public class EquipmentUsage {
 				bolt = new HeavyBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
 				break;
 			case BOLT_IGNITED:
-				bolt = new IgnitedBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
+				bolt = new IgnitedBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity, level);
 				break;
 			case BOLT_RUBBER:
 				bolt = new RubberBolt(playerPhysicsBox.getX(), playerPhysicsBox.getY() + (playerPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);

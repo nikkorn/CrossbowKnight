@@ -1,10 +1,16 @@
 package com.dumbpug.crossbowknight.particles;
 
 /**
- * Details of an Emitter passed when generating a new particle.
+ * Concrete instance of IEmitterDetails.
  * @author nikolas.howard
  */
-public class EmitterDetails {
+public class EmitterDetails implements IEmitterDetails {
 	public float positionX = 0;
 	public float positionY = 0;
+	
+	@Override
+	public float positionX() { return positionX; }
+	
+	@Override
+	public float positionY() { return positionY; }
 }

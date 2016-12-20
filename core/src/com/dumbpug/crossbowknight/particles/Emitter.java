@@ -15,7 +15,7 @@ public class Emitter {
 	/** The SpriteBatch used to draw our particles. */
 	private SpriteBatch batch;
 	/** The EmitterDEtials object to be passed to our particle generator. */
-	private EmitterDetails emitterDetails = new EmitterDetails();
+	private IEmitterDetails emitterDetails = new EmitterDetails();
 	/** The Emitter Activity. If this is set it will be called at the start of each emitter update. */
 	private IEmitterActivity emitterActivity = null;
 	/** The list of particles. */
@@ -69,7 +69,13 @@ public class Emitter {
 	 * Get the emitter details.
 	 * @return emitter details.
 	 */
-	public EmitterDetails getEmitterDetails() { return this.emitterDetails; }
+	public IEmitterDetails getEmitterDetails() { return this.emitterDetails; }
+	
+	/**
+	 * Set the emitter details.
+	 * @param emitter details.
+	 */
+	public void setEmitterDetails(IEmitterDetails emitterDetails) { this.emitterDetails = emitterDetails; }
 	
 	/**
 	 * Removes the emitter activity.

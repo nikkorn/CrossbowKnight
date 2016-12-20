@@ -6,7 +6,8 @@ import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.audio.Audio.SoundEffect;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.particles.Emitter;
-import com.dumbpug.crossbowknight.particles.ExplosionParticleGenerator;
+import com.dumbpug.crossbowknight.particles.EmitterDetails;
+import com.dumbpug.crossbowknight.particles.explosion.ExplosionParticleGenerator;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 
@@ -42,8 +43,12 @@ public class ExplosiveBolt extends Bolt {
         // Create an explosion emitter/particle generator.
     	ExplosionParticleGenerator explosionParticleGenerator = new ExplosionParticleGenerator(level);
     	Emitter explosionEmitter = new Emitter(explosionParticleGenerator, CrossbowKnight.getSpriteBatch());
-    	explosionEmitter.getEmitterDetails().positionX = this.boltPhysicsBox.getX();
-    	explosionEmitter.getEmitterDetails().positionY = this.boltPhysicsBox.getY();
+    	// Set the emitter details. (position)
+    	EmitterDetails emitterDetails = new EmitterDetails();
+    	emitterDetails.positionX = this.boltPhysicsBox.getX();
+    	emitterDetails.positionY = this.boltPhysicsBox.getY();
+    	explosionEmitter.setEmitterDetails(emitterDetails);
+    	// Set the emitter activity.
     	explosionEmitter.setEmitterActivity(explosionParticleGenerator);
     	// Add the explosion emitter to the level world.
     	level.getLevelWorld().getEmitterPool().add(explosionEmitter);

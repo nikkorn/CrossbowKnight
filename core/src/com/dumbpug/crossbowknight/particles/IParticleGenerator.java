@@ -9,7 +9,7 @@ public interface IParticleGenerator {
 	/**
 	 * Generate a particle.
 	 * @param emitterDetails
-	 * @return
+	 * @return particle
 	 */
-	Particle generate(EmitterDetails emitterDetails);
+	Particle generate(IEmitterDetails emitterDetails);
 }

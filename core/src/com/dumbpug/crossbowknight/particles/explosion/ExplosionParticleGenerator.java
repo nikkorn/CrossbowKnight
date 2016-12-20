@@ -1,7 +1,12 @@
-package com.dumbpug.crossbowknight.particles;
+package com.dumbpug.crossbowknight.particles.explosion;
 
 import java.util.Random;
 import com.dumbpug.crossbowknight.level.Level;
+import com.dumbpug.crossbowknight.particles.Emitter;
+import com.dumbpug.crossbowknight.particles.IEmitterActivity;
+import com.dumbpug.crossbowknight.particles.IEmitterDetails;
+import com.dumbpug.crossbowknight.particles.IParticleGenerator;
+import com.dumbpug.crossbowknight.particles.Particle;
 
 /**
  * Generator for ExplosionParticle.
@@ -27,12 +32,12 @@ public class ExplosionParticleGenerator implements IParticleGenerator, IEmitterA
 	 * @param emitterDetails
 	 * @return ExplosionParticle
 	 */
-	public Particle generate(EmitterDetails emitterDetails) {
+	public Particle generate(IEmitterDetails emitterDetails) {
 		// Create a particle at the emitter position. Passing random x/y velocity.
 		float randomVelx = (random.nextFloat()*3f) - 1.5f;
 		float randomVely = (random.nextFloat()*3f) - 1.5f;
 		// TODO Based on the velocity of the box entity which spawned this explosion (if there was one) modify the random velocity.
-		return new ExplosionParticle(emitterDetails.positionX, emitterDetails.positionY, randomVelx, randomVely, level);
+		return new ExplosionParticle(emitterDetails.positionX(), emitterDetails.positionY(), randomVelx, randomVely, level);
 	}
 
 	/**
