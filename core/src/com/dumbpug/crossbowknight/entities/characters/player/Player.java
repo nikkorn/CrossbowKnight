@@ -8,8 +8,6 @@ import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
-import com.dumbpug.nbp.NBPBloom;
-import com.dumbpug.nbp.NBPPoint;
 import com.dumbpug.crossbowknight.entities.characters.Character;
 import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
 
@@ -18,8 +16,6 @@ import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
  * @author nikolas.howard
  */
 public class Player extends Character {
-	/** The physics box for this player. */
-    private PlayerPhysicsBox playerPhysicsBox;
     /** The player drawer. */
     private PlayerDrawer playerDrawer;
 	/** The players inventory. */
@@ -38,8 +34,7 @@ public class Player extends Character {
      */
     public Player(float x, float y) {
         // Initialise our players physics box.
-        playerPhysicsBox = new PlayerPhysicsBox(this, x, y);
-        playerPhysicsBox.setName("PLAYER");
+        this.characterPhysicsBox = new PlayerPhysicsBox(this, x, y);
         // Create our player drawer.
         playerDrawer = new PlayerDrawer(this);
 		// Create our players inventory.
@@ -61,15 +56,15 @@ public class Player extends Character {
 		}
 		// Move our player.
 		if(CrossbowKnight.getPlayerInput().isRightButtonDown()) {
-			playerPhysicsBox.moveRight();
+			this.characterPhysicsBox.moveRight();
 		}
 		if(CrossbowKnight.getPlayerInput().isLeftButtonDown()) {
-			playerPhysicsBox.moveLeft();
+			this.characterPhysicsBox.moveLeft();
 		}
 		// Make our player jump.
 		if(CrossbowKnight.getPlayerInput().isJumpButtonPressed()) {
 			// Attempt to jump.
-			if(playerPhysicsBox.jump()) {
+			if(this.characterPhysicsBox.jump()) {
 				// The player was able to jump! Play jump sound effect.
 				Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
 			}
@@ -112,15 +107,6 @@ public class Player extends Character {
 		// Add this item to the players inventory.
 		this.inventory.add(item);
 	}
-    
-    /**
-	 * Get this players current point of origin.
-	 * @return players point of origin.
-	 */
-	public NBPPoint getCurrentOriginPoint() {
-		// This players point of origin will match the origin of its physics box.
-		return playerPhysicsBox.getCurrentOriginPoint();
-	}
 	
 	/**
 	 * Called when the player levels up.
@@ -131,50 +117,12 @@ public class Player extends Character {
 		
 		// ...
 	}
-
-	/**
-	 * Called by physics entity when the player box lands on a static floor.
-	 */
-	public void onLanding() {
-		// We landed so play a thump!
-		Audio.getSoundEffect(Audio.SoundEffect.LANDING_SOFT).play();
-	}
-
-	/**
-	 * Get whether the player is currently idle (not moving at all)
-	 * @return is idle.
-	 */
-	public boolean isIdle() {
-		return (playerPhysicsBox.getVelx() < 0.2f && playerPhysicsBox.getVelx() > -0.2f) &&
-				(playerPhysicsBox.getVely() < 0.2f && playerPhysicsBox.getVely() > -0.2f);
-	}
 	
 	/**
 	 * Get whether the player is currently guarding.
 	 * @return is guarding.
 	 */
 	public boolean isGuarding() { return this.isGuarding; }
-
-	/**
-	 * Get whether the player is touching the floor (if false then the player is airborne).
-	 * @return is touching floor.
-	 */
-	public boolean isTouchingFloor() { return playerPhysicsBox.isTouchingFloor(); }
-
-	/**
-	 * Handles the player being pushed by a force bloom in the world.
-	 * @param bloom
-	 * @param angleOfForce
-	 * @param force
-	 * @param distance
-	 */
-	public void onPushedByForce(NBPBloom bloom, float angleOfForce, float force, float distance) { }
-
-	/**
-	 * Get this players physics box.
-	 * @return playerPhysicsBox
-	 */
-	public PlayerPhysicsBox getPlayerPhysicsBox() { return playerPhysicsBox; }
 	
 	/**
 	 * Get the players inventory.

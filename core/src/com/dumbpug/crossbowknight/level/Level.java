@@ -147,7 +147,7 @@ public class Level {
 				break;
 			}
 			if(item != null) {
-				item.setItemPhysicsBox(new ItemPhysicsBox(item, player.getPlayerPhysicsBox().getX(), player.getPlayerPhysicsBox().getY() + 50));
+				item.setItemPhysicsBox(new ItemPhysicsBox(item, player.getPhysicsBox().getX(), player.getPhysicsBox().getY() + 50));
 				levelWorld.getItemPool().add(item);
 			}
 		}

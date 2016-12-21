@@ -62,7 +62,7 @@ public class EquipmentUsage {
 	 */
 	public boolean onAmmoUse(Player player, Ammo ammo) {
 		// Get the players physics box.
-		PlayerPhysicsBox playerPhysicsBox = player.getPlayerPhysicsBox();
+		PlayerPhysicsBox playerPhysicsBox = (PlayerPhysicsBox) player.getPhysicsBox();
 		// Get the angle at which we will be firing the projectile.
 		float angleOfFire = (float) -Math.toRadians(player.getAngleOfFocus());
 		// Get the velocity of this shot.

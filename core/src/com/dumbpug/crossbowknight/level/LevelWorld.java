@@ -107,6 +107,6 @@ public class LevelWorld {
 	 * @param player
 	 */
 	public void addPlayer(Player player) {
-		this.physicsWorld.addBox(player.getPlayerPhysicsBox());
+		this.physicsWorld.addBox(player.getPhysicsBox());
 	}
 }
