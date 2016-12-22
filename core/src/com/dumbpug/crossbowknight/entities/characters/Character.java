@@ -2,6 +2,7 @@ package com.dumbpug.crossbowknight.entities.characters;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.effects.DamageEffects;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPPoint;
 
@@ -16,6 +17,16 @@ public abstract class Character {
 	private HealthStatus healthStatus = new HealthStatus();
 	/** The stats of this character. */
 	private Stats stats = new Stats();
+	/** The characters active damage effects. */
+	private DamageEffects damageEffects = new DamageEffects();
+	
+	/**
+	 * Update the character.
+	 */
+	public void update() {
+		// TODO Apply prolonged damage via damageEffects.
+		// STUFF
+	}
 	
 	/**
 	 * Get health status.
