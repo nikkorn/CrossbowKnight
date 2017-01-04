@@ -11,6 +11,18 @@ public class DamageEffect {
 	private DamageType type = DamageType.NORMAL;
 	
 	/**
+	 * Apply this damage effect to a character
+	 * @param character
+	 * @return whether the effect is finished.
+	 */
+	public boolean apply(com.dumbpug.crossbowknight.entities.characters.Character character) {
+		// Damage character with initial damage.
+		character.getHealthStatus().applyDamage(getIntiallyAppliedDamage());
+		// Damage effects which are not prolonged are only applied once.
+		return true;
+	}
+	
+	/**
 	 * Get amount of damage this effect causes when first applied. 
 	 * @return intiallyAppliedDamage.
 	 */

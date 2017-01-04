@@ -25,6 +25,8 @@ public class LevelWorld {
 	/** The Emitter pool which holds all the active emitters in the level world. */
 	private EmitterPool emitterPool;
 	
+	// TODO Add CharacterPool!!!!
+	
 	/**
 	 * Create a new instance of the LevelWorld class.
 	 */

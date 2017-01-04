@@ -37,17 +37,6 @@ public class ItemPool {
 	}
 	
 	/**
-	 * Draw everything in our item pool.
-	 * @param batch
-	 */
-	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
-		// Draw the items.
-		for(Item item : items) {
-			item.draw(batch, offsetX, offsetY);
-		}
-	}
-
-	/**
 	 * Iterate over the item pool and remove any items which 
 	 * are no longer needed. At the moment, these are items 
 	 * that have inactive physics boxes, likely due to the fact
@@ -60,6 +49,17 @@ public class ItemPool {
 		    if(!item.getItemPhysicsBox().isActive()) {
 		        iterator.remove();
 		    }
+		}
+	}
+	
+	/**
+	 * Draw everything in our item pool.
+	 * @param batch
+	 */
+	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
+		// Draw the items.
+		for(Item item : items) {
+			item.draw(batch, offsetX, offsetY);
 		}
 	}
 }
