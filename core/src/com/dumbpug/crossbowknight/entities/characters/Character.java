@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.effects.DamageEffect;
 import com.dumbpug.crossbowknight.effects.DamageEffects;
-import com.dumbpug.nbp.NBPBloom;
+import com.dumbpug.crossbowknight.forces.Force;
 import com.dumbpug.nbp.NBPPoint;
 
 /**
@@ -100,13 +100,24 @@ public abstract class Character {
 	public CharacterPhysicsBox<? extends Character> getPhysicsBox() { return characterPhysicsBox; }
 	
 	/**
-	 * Handles the character being pushed by a force bloom in the world.
-	 * @param bloom
-	 * @param angleOfForce
+	 * Handles the character being pushed by a force in the world.
 	 * @param force
+	 * @param angleOfForce
+	 * @param forceAmount
 	 * @param distance
 	 */
-	public void onPushedByForce(NBPBloom bloom, float angleOfForce, float force, float distance) {}
+	public void onPushedByForce(Force force, float angleOfForce, float forceAmount, float distance) {
+		// Based on what type of force this is we may need to take action.
+		switch(force.getForceType()) {
+			case EXPLOSION:
+				// Explosions have damage effects!
+				this.damageEffects.add(force.getDamageEffects());
+				break;
+			default:
+				// No idea what type of force this is.
+				break;
+		}
+	}
 	
 	/**
 	 * Draw the character.

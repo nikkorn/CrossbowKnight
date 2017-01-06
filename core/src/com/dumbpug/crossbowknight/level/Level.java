@@ -70,7 +70,7 @@ public class Level {
 		// Set our players equipment usage helper.
 		player.getEquipment().setEquipmentUsage(new EquipmentUsage(this));
 		// Add our player to the level world.
-		this.levelWorld.addPlayer(player);
+		this.levelWorld.getCharacterPool().add(player);
 	}
 	
 	/**
@@ -79,8 +79,6 @@ public class Level {
 	public void update() {
 		// ------------ Update the level world. -----------
 		levelWorld.update();
-		// --------------- Handle input. ------------------
-		player.processInput();
 		
 		// ...
 		

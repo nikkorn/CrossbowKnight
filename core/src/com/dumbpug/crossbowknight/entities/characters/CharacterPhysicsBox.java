@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.entities.characters;
 
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.forces.Force;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 import com.dumbpug.nbp.NBPBoxType;
@@ -156,7 +157,8 @@ public class CharacterPhysicsBox<TCharacter extends Character> extends NBPBox {
 
 	@Override
 	protected boolean onBloomPush(NBPBloom bloom, float angleOfForce, float force, float distance) {
-		character.onPushedByForce(bloom, angleOfForce, force, distance);
+		// All blooms in our physics world SHOULD be of type Force.
+		character.onPushedByForce((Force) bloom, angleOfForce, force, distance);
 		// Return true as we want the force to affect this character box.
 		return true;
 	}

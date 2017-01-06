@@ -1,9 +1,10 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.characters.CharacterPool;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPool;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
+import com.dumbpug.crossbowknight.forces.Force;
 import com.dumbpug.crossbowknight.particles.EmitterPool;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.nbp.NBPWorld;
@@ -24,15 +25,17 @@ public class LevelWorld {
 	private ProjectilePool projectilePool;
 	/** The Emitter pool which holds all the active emitters in the level world. */
 	private EmitterPool emitterPool;
-	
-	// TODO Add CharacterPool!!!!
+	/** The Character pool which holds all the living characters in the level world, including the player. */
+	private CharacterPool characterPool;
 	
 	/**
 	 * Create a new instance of the LevelWorld class.
 	 */
 	public LevelWorld() {
-		// Create our items list.
+		// Create our items pool.
 		this.itemPool = new ItemPool(this);
+		// Create our characters pool.
+		this.characterPool = new CharacterPool(this);
 		// Create our projectile pool.
 		this.projectilePool = new ProjectilePool(this);
 		// Create our emitters list.
@@ -47,6 +50,8 @@ public class LevelWorld {
 	public void update() {
 		// Firstly, update our physics world.
 		physicsWorld.update();
+		// Update our characters.
+		characterPool.update();
 		// Clear our item pool of any inactive items.
 		itemPool.removeInactiveItems();
 		// Remove any inactive projectiles from the projectile pool.
@@ -95,6 +100,18 @@ public class LevelWorld {
 	 * @return emitter pool.
 	 */
 	public EmitterPool getEmitterPool() { return this.emitterPool; }
+	
+	/**
+	 * Get the level worlds character pool.
+	 * @return character pool.
+	 */
+	public CharacterPool getCharacterPool() { return this.characterPool; }
+	
+	/**
+	 * Apply a force to this level world.
+	 * @param force
+	 */
+	public void applyForce(Force force) { this.getPhysicsWorld().addBloom(force); }
 
 	/**
 	 * Get the physics world.
@@ -102,13 +119,5 @@ public class LevelWorld {
 	 */
 	public NBPWorld getPhysicsWorld() {
 		return physicsWorld;
-	}
-
-	/**
-	 * Add the player to the physics world.
-	 * @param player
-	 */
-	public void addPlayer(Player player) {
-		this.physicsWorld.addBox(player.getPhysicsBox());
 	}
 }

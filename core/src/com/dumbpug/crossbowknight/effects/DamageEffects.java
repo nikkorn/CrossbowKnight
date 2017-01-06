@@ -18,6 +18,16 @@ public class DamageEffects {
 	public void add(DamageEffect damageEffect) { activeDamageEffects.add(damageEffect); }
 	
 	/**
+	 * Add a number of active damage effects.
+	 * @param damageEffect
+	 */
+	public void add(ArrayList<DamageEffect> damageEffects) { 
+		for(DamageEffect effect : damageEffects) {
+			activeDamageEffects.add(effect);
+		}
+	}
+	
+	/**
 	 * Apply any active damage effects to the character.
 	 * Any inactive effects will also be removed.
 	 * @param character
