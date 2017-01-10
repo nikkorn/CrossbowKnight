@@ -9,6 +9,8 @@ import com.dumbpug.crossbowknight.entities.objects.items.Material;
 public abstract class Helmet extends DynamicItem {
 	/** The material of the helmet. */
 	private Material material;
+	/** The defense buff of the shield. Cannot be more than 1 (100% damage absorbtion) */
+	private float defenseBuff = 0;
 	
 	/**
 	 * Create a new instance of the Helmet Class.
@@ -38,4 +40,23 @@ public abstract class Helmet extends DynamicItem {
 	 * @return quantifiable
      */
 	public boolean isQuantifiable() { return false; }
+
+	/**
+	 * Get the defense buff of this helmet. 
+	 * @return defense buff
+	 */
+	public float getDefenseBuff() { return defenseBuff; }
+
+	/**
+	 * Set the defense buff of this helmet.
+	 * A defense buff cannot be more than 1 (100% damage absorbtion)
+	 * @param defenseBuff
+	 */
+	public void setDefenseBuff(float defenseBuff) { 
+		if(defenseBuff > 1) {
+			this.defenseBuff = 1f; 
+		} else {
+			this.defenseBuff = defenseBuff; 
+		}
+	}
 }

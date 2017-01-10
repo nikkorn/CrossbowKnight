@@ -283,15 +283,17 @@ public class DynamicItemFactory {
 		// Generate an available item type id.
 		int itemTypeId = getRandomItemTypeId(ItemCategory.SHIELD, material);
 		// Create the shield item. 
-		Shield gemneratedShield = new Shield(itemTypeId, material);
+		Shield generatedShield = new Shield(itemTypeId, material);
 		// Generate a rarity for this shield item.
 		ItemRarity rarity = rarityTokens.selectToken(random);
-		gemneratedShield.setRarity(rarity);
+		generatedShield.setRarity(rarity);
 		
 		// TODO Generate some buffs and characteristics for the shield.
+		generatedShield.setTotalDurability(100);
+		generatedShield.setCurrentDurability(100);
 		
 		// Return the shield.
-		return gemneratedShield;
+		return generatedShield;
 	}
 	
 	/**

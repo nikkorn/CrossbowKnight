@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.entities.characters.player;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.Ammo;
+import com.dumbpug.crossbowknight.entities.objects.items.dynamic.Helmet;
 import com.dumbpug.crossbowknight.entities.objects.items.dynamic.Shield;
 
 /**
@@ -27,7 +28,7 @@ public class EquippedItems {
 	private Shield shield = null;
 	
 	/** The equipped helmet. */
-	// private Helmet helmet = null;
+	private Helmet helmet = null;
 	
 	/** The equipped crossbow parts. */
 	// private CrossbowStock stock = null;
@@ -228,4 +229,16 @@ public class EquippedItems {
 	 * @returns shield
 	 */
 	public Shield getShieldSlot() { return this.shield; }
+	
+	/**
+	 * Set the helmet slot.
+	 * @param helmet
+	 */
+	public void setHelmetSlot(Helmet helmet) { this.helmet = helmet; }
+	
+	/**
+	 * Get the helmet slot.
+	 * @returns helmet
+	 */
+	public Helmet getHelmetSlot() { return this.helmet; }
 }
