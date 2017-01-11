@@ -11,6 +11,7 @@ import com.dumbpug.crossbowknight.entities.objects.items.Gold;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ItemPhysicsBox;
 import com.dumbpug.crossbowknight.entities.objects.items.Key;
+import com.dumbpug.crossbowknight.entities.objects.items.Material;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.AntiqueBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.BarbedBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.BasicBolt;
@@ -19,6 +20,7 @@ import com.dumbpug.crossbowknight.entities.objects.items.ammo.HeavyBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.IgnitedBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.RubberBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.SleekBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.dynamic.Shield;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.ChaosPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.DefensePotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotion;
@@ -140,6 +142,13 @@ public class Level {
 				break;
 			case KEY:
 				item = new Key();
+				break;
+			case SHIELD_WOOD_0:
+				Shield shield = new Shield(0, Material.WOOD);
+				shield.setTotalDurability(100);
+				shield.setCurrentDurability(100);
+				shield.setDefenseBuff(0.1f);
+				item = shield;
 				break;
 			default:
 				break;

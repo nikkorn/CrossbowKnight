@@ -49,6 +49,18 @@ public class Shield extends DynamicItem {
 	}
 	
 	/**
+	 * Get the name of the shield. 
+	 * @return name
+	 */
+	public String getName() { return  "Shield of " + getMaterial().toString().toLowerCase(); }
+	
+	/**
+	 * Get the description of the shield. 
+	 * @return description
+	 */
+	public String getDescription() { return "A shield made of " + getMaterial().toString().toLowerCase() + "."; }
+	
+	/**
 	 * Get the material of this item.
 	 * @return material
 	 */

@@ -106,7 +106,7 @@ public class EquipmentMenuTabItemSlots {
 					//slot.setMappedItem(equipment);
 					break;
 				case SHIELD:
-					//slot.setMappedItem(equipment);
+					slot.setMappedItem(equipment.getShieldSlot());
 					break;
 				case SIGHT:
 					//slot.setMappedItem(equipment);

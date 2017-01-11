@@ -22,45 +22,38 @@ public class DamageEffect {
 	 * @param player
 	 * @return whether the effect is finished.
 	 */
-	public boolean apply(Player player) {
+	public boolean applyToPlayer(Player player) {
 		// Get the players equipped items.
 		EquippedItems playerEquipment = player.getEquipment();
 		// Get the initially applied damage.
 		float damage = getIntiallyAppliedDamage();
-		
 		// If the player is wearing a helmet, reduce the damage 
 		// according to the helmets defense modifier.
 		Helmet equippedHelmet = playerEquipment.getHelmetSlot();
 		if(equippedHelmet != null) {
 			damage -= (getIntiallyAppliedDamage() * equippedHelmet.getDefenseBuff());
 		}
-		
 		// If the player is holding a shield AND is guarding, reduce the damage 
 		// according to the shields defense modifier.
 		// The durability of the shield will also drop 10% of the damage take.
 		if(player.isGuarding()) {
 			// If the player is guarding then they must have a shield.
 			Shield shield = playerEquipment.getShieldSlot();
-			
 			// Get the amount of damage that blocking prevents.
 			float shieldDamageReduction = getIntiallyAppliedDamage() * shield.getDefenseBuff();
-			
 			// Check that the shield has the durability available for blocking.
 			if(shieldDamageReduction < shield.getCurrentDurability()) {
-				
 				// The shield will not break this time round.
 				shield.setCurrentDurability(shield.getCurrentDurability() - shieldDamageReduction); // TODO fix this
 				// Reduce the damage.
-				damage -= shieldDamageReduction;
-				
+				damage -= (getIntiallyAppliedDamage() - shieldDamageReduction);
 			} else {
 				// Blocking this damage effect will cause our shield to break!
-				
-				// TODO fix this
-				
+				shield.setCurrentDurability(0);
+				// If our shield broke while blocking, then we forget about our defenese buff.
+				damage -= getIntiallyAppliedDamage();
 			}
 		}
-		
 		// Damage character with resolved damage.
 		player.getHealthStatus().applyDamage((int) damage);
 		// Damage effects which are not prolonged are only applied once.

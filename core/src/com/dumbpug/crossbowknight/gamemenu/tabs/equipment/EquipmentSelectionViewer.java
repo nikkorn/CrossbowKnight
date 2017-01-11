@@ -14,6 +14,7 @@ import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.EquippedItems;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.Ammo;
+import com.dumbpug.crossbowknight.entities.objects.items.dynamic.Shield;
 import com.dumbpug.crossbowknight.resources.FontPack;
 import com.dumbpug.crossbowknight.resources.ItemResources;
 
@@ -193,7 +194,7 @@ public class EquipmentSelectionViewer {
 				// TODO slot.setMappedItem(equipment);
 				break;
 			case SHIELD:
-				// TODO slot.setMappedItem(equipment);
+				equipment.setShieldSlot((Shield) selection);
 				break;
 			case SIGHT:
 				// TODO slot.setMappedItem(equipment);
@@ -251,5 +252,7 @@ public class EquipmentSelectionViewer {
 		this.equippableItems.add(null);
 		// Set the slot type.
 		this.equipmentSlotType = equipmentSlotType;
+		// Set the selectionPosition. (TODO Set this to match the position of a selected item)
+		this.selectionIndex = 0;
 	}
 }

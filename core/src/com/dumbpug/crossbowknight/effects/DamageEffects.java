@@ -3,6 +3,8 @@ package com.dumbpug.crossbowknight.effects;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.dumbpug.crossbowknight.entities.characters.player.Player;
+
 /**
  * Represents a list of active damage effects.
  * @author nikolas.howard
@@ -36,7 +38,7 @@ public class DamageEffects {
 		for (Iterator<DamageEffect> iterator = activeDamageEffects.iterator(); iterator.hasNext();) {
 			DamageEffect effect = iterator.next();
 			// Apply the damage affect and determine whether the effect was made inactive during its application.
-			boolean wasMadeInactive = effect.apply(character);
+			boolean wasMadeInactive = character instanceof Player ? effect.applyToPlayer((Player) character) : effect.apply(character);
 			// If this effect is inactive, remove it.
 		    if(wasMadeInactive) {
 		        iterator.remove();
