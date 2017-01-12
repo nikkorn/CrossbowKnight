@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.entities.objects.items.dynamic.Shield;
 
 /**
  * The players status bar displayed in the top left of the screen.
@@ -22,7 +23,7 @@ public class HUDStatusBar {
     /** The positions of the individual status bars.  */
     private float statusBarPosX     = (C.HUD_STATUS_BAR_HEIGHT * 0.6f) + (C.HUD_STATUS_BAR_MARGIN * 2);
     private float healthBarPosY     = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.5f);
-    private float shieldBarPosY     = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.6f);
+    private float shieldBarPosY     = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 1.05f);
     private float bowTensionBarPosY = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.9f);
     
     /**
@@ -49,11 +50,16 @@ public class HUDStatusBar {
         		C.HUD_STATUS_BAR_HEIGHT*0.6f, C.HUD_STATUS_BAR_HEIGHT);
         // Draw the individual status bars.
         drawHealthBar(batch, player.getHealthStatus().getMaxHealth(), player.getHealthStatus().getHealth());
-        // TODO drawShieldBar(batch, player);
+        // Draw the shield durability bar if we have a shield equipped.
+        if(player.getEquipment().getShieldSlot() != null) {
+        	Shield equippedShield = player.getEquipment().getShieldSlot();
+        	
+        	drawShieldBar(batch, equippedShield.getTotalDurability(), equippedShield.getCurrentDurability());
+        }
         // TODO drawBowTensionBar(batch, player);
     }
-    
-    /**
+
+	/**
      * Draw the Health bar.
      * @param maxHealth
      * @param currentHealth
@@ -68,4 +74,21 @@ public class HUDStatusBar {
     	// Draw the end section of the bar.
     	batch.draw(statusBarEnd, statusBarPosX + (C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * (maxHealth+1)), healthBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, C.HUD_SUB_STATUS_BAR_HEIGHT);
     }
+    
+    /**
+     * Draw the equipped shield durability bar.
+     * @param batch
+     * @param totalDurability
+     * @param currentDurability
+     */
+    private void drawShieldBar(SpriteBatch batch, float totalDurability, float currentDurability) {
+    	// Draw the bar end.
+    	batch.draw(statusBarEnd, statusBarPosX, shieldBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, C.HUD_SUB_STATUS_BAR_HEIGHT);
+    	// Draw the empty section of the bar.
+    	batch.draw(statusBarEmpty, statusBarPosX + C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, shieldBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * totalDurability, C.HUD_SUB_STATUS_BAR_HEIGHT);
+    	// Draw the full section of the bar.
+    	batch.draw(statusBarShield, statusBarPosX + C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, shieldBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * currentDurability, C.HUD_SUB_STATUS_BAR_HEIGHT);
+    	// Draw the end section of the bar.
+    	batch.draw(statusBarEnd, statusBarPosX + (C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * (totalDurability+1)), shieldBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, C.HUD_SUB_STATUS_BAR_HEIGHT);
+	}
 }

@@ -35,25 +35,32 @@ public class DamageEffect {
 		}
 		// If the player is holding a shield AND is guarding, reduce the damage 
 		// according to the shields defense modifier.
-		// The durability of the shield will also drop 10% of the damage take.
+		// The durability of the shield will also drop a portion of the damage take, modified by shield integrity.
 		if(player.isGuarding()) {
 			// If the player is guarding then they must have a shield.
 			Shield shield = playerEquipment.getShieldSlot();
-			// Get the amount of damage that blocking prevents.
-			float shieldDamageReduction = getIntiallyAppliedDamage() * shield.getDefenseBuff();
+			// Get the amount of shield durability that blocking will deplete.
+			float shieldDurabilityLoss = ((getIntiallyAppliedDamage() * shield.getDefenseBuff()) * ((1f - shield.getIntegrity())*0.05f));
 			// Check that the shield has the durability available for blocking.
-			if(shieldDamageReduction < shield.getCurrentDurability()) {
+			if(shieldDurabilityLoss < shield.getCurrentDurability()) {
 				// The shield will not break this time round.
-				shield.setCurrentDurability(shield.getCurrentDurability() - shieldDamageReduction); // TODO fix this
+				shield.setCurrentDurability(shield.getCurrentDurability() - shieldDurabilityLoss);
 				// Reduce the damage.
-				damage -= (getIntiallyAppliedDamage() - shieldDamageReduction);
+				damage -= (getIntiallyAppliedDamage() * shield.getDefenseBuff());
 			} else {
 				// Blocking this damage effect will cause our shield to break!
 				shield.setCurrentDurability(0);
-				// If our shield broke while blocking, then we forget about our defenese buff.
-				damage -= getIntiallyAppliedDamage();
+				playerEquipment.setShieldSlot(null);
+				player.getInventory().remove(shield);
+				
+				// TODO play shield break sound!!!!
+				
+				// If our shield broke while blocking, then we forget about our defense buff.
 			}
 		}
+		
+		// TODO Take player stats into account.
+		
 		// Damage character with resolved damage.
 		player.getHealthStatus().applyDamage((int) damage);
 		// Damage effects which are not prolonged are only applied once.

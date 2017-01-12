@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.Item.ItemType;
@@ -82,11 +84,35 @@ public class Inventory {
 	}
 	
 	/**
-	 * Remove the item from the Inventory.
+	 * Remove the item from the Inventory, regardless of its quantity.
 	 * @param item
 	 */
 	public void remove(Item item) {
-		// TODO
+		for (Iterator<Item> iterator = items.iterator(); iterator.hasNext();) {
+		    Item currentItem = iterator.next();
+		    if(currentItem.equals(item)) {
+		        iterator.remove();
+		    }
+		}
+	}
+	
+	/**
+	 * Remove a quantity of item from the Inventory.
+	 * @param item
+	 */
+	public void remove(Item item, int quantity) {
+		for (Iterator<Item> iterator = items.iterator(); iterator.hasNext();) {
+		    Item currentItem = iterator.next();
+		    if(currentItem.equals(item)) {
+		    	if(item.isQuantifiable() && (quantity < item.getQuantity())) {
+		    		// We are just removing some of the items quantity so it doesn't actually need to be removed.
+		    		item.setQuantity(item.getQuantity() - quantity);
+		    	} else {
+		    		// Either this item is not quantifiable or we are removing all of the items quantity.
+		    		iterator.remove();
+		    	}
+		    }
+		}
 	}
 
 	/**

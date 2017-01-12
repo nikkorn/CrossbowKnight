@@ -13,6 +13,10 @@ public class Shield extends DynamicItem {
 	private float currentDurability = 0;
 	/** The defense buff of the shield. */
 	private float defenseBuff = 0;
+	/** The integrity of the shield. 
+	 * Denotes shield durability loss.
+	 * The greater the better.  */
+	private float integrity = 0;
 	/** The material of the shield. */
 	private Material material;
 	
@@ -107,4 +111,25 @@ public class Shield extends DynamicItem {
 	 * @param currentDurability
 	 */
 	public void setCurrentDurability(float currentDurability) { this.currentDurability = currentDurability; }
+
+	/**
+	 * Get the shield integrity.
+	 * Denotes shield durability loss.
+	 * @return integrity
+	 */
+	public float getIntegrity() { return integrity; }
+
+	/**
+	 * Set the shield integrity.
+	 * Denotes shield durability loss.
+	 * Integrity cannot be more than 1 (100% damage absorbtion)
+	 * @param integrity
+	 */
+	public void setIntegrity(float integrity) {
+		if(integrity > 1) {
+			this.integrity = 1f; 
+		} else {
+			this.integrity = integrity; 
+		}
+	}
 }

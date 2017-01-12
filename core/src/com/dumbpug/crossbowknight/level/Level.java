@@ -145,9 +145,10 @@ public class Level {
 				break;
 			case SHIELD_WOOD_0:
 				Shield shield = new Shield(0, Material.WOOD);
-				shield.setTotalDurability(100);
-				shield.setCurrentDurability(100);
-				shield.setDefenseBuff(0.1f);
+				shield.setTotalDurability(10);
+				shield.setCurrentDurability(10);
+				shield.setDefenseBuff(0.4f);
+				shield.setIntegrity(0.8f);
 				item = shield;
 				break;
 			default:
