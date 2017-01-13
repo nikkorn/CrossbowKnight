@@ -31,16 +31,16 @@ public class BurningParticle extends Particle {
 	 * Create a new instance of the BurningParticle class.
 	 * @param posX
 	 * @param posY
-	 * @param level
+	 * @param camera
 	 */
-	BurningParticle(float posX, float posY, Level level) {
+	BurningParticle(float posX, float posY, LevelCamera camera) {
 		// Set the position of the particle.
 		this.posX = posX;
 		this.posY = posY;
 		// Set the life of this particle.
 		this.setLife((random.nextInt(3) + 1) * 200);
 		// Set the level camera.
-		this.camera = level.getLevelCamera();
+		this.camera = camera;
 	}
 	
 	@Override

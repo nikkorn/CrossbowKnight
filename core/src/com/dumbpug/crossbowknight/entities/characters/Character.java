@@ -2,6 +2,7 @@ package com.dumbpug.crossbowknight.entities.characters;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.effects.DamageEffect;
 import com.dumbpug.crossbowknight.effects.DamageEffects;
 import com.dumbpug.crossbowknight.forces.Force;
@@ -20,6 +21,8 @@ public abstract class Character {
 	private Stats stats = new Stats();
 	/** The characters active damage effects. */
 	private DamageEffects damageEffects = new DamageEffects();
+	/** The character effect drawer. */
+	private CharacterEffectDrawer characterEffectDrawer = null;
 	
 	/**
 	 * Update the character.
@@ -60,6 +63,18 @@ public abstract class Character {
 	 * @param stats
 	 */
 	public void setStats(Stats stats) { this.stats = stats; }
+	
+	/**
+	 * Set the character effects drawer.
+	 * @param characterEffectDrawer
+	 */
+	public void setCharacterEffectsDrawer(CharacterEffectDrawer characterEffectDrawer) { this.characterEffectDrawer = characterEffectDrawer; }
+	
+	/**
+	 * Get the characters active damage effects.
+	 * @return damage effects
+	 */
+	public DamageEffects getDamageEffects() { return this.damageEffects; }
 	
 	/**
 	 * Called by physics entity when the player box lands on a static floor.
@@ -125,5 +140,20 @@ public abstract class Character {
 	 * @param offsetX
 	 * @param offsetY
 	 */
-	public abstract void draw(SpriteBatch batch, float offsetX, float offsetY);
+	public void draw(SpriteBatch batch, LevelCamera camera) {
+		// Draw the character.
+		drawCharacter(batch, camera);
+		// Draw any overlapping effects.
+		if(characterEffectDrawer != null) {
+			characterEffectDrawer.drawEffects(batch, camera.getX(), camera.getY());
+		}
+	}
+	
+	/**
+	 * Draw the character.
+	 * @param batch
+	 * @param offsetX
+	 * @param offsetY
+	 */
+	public abstract void drawCharacter(SpriteBatch batch, LevelCamera camera);
 }

@@ -76,7 +76,7 @@ public class LevelDrawer {
 	 */
 	private void drawCharacters(SpriteBatch batch) {
 		// Draw the characters.
-		level.getLevelWorld().getCharacterPool().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
+		level.getLevelWorld().getCharacterPool().draw(batch, level.getLevelCamera());
 	}
 	
 	/**

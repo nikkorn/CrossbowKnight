@@ -2,7 +2,6 @@ package com.dumbpug.crossbowknight.effects;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 
 /**
@@ -45,6 +44,38 @@ public class DamageEffects {
 		    }
 		}
 	}
+	
+	/**
+	 * Returns true if there are any active damage effects which mach the specified type.
+	 * @param type
+	 * @return is active
+	 */
+	public boolean isDamageEffectOfTypeActive(DamageType type) {
+		for(DamageEffect effect : activeDamageEffects) {
+			if(effect.getType() == type) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Get whether a bleeding damage effect is active.
+	 * @return
+	 */
+	public boolean isBleeding() { return isDamageEffectOfTypeActive(DamageType.BLEEDING); }
+	
+	/**
+	 * Get whether a burning damage effect is active.
+	 * @return
+	 */
+	public boolean isBurning() { return isDamageEffectOfTypeActive(DamageType.BURNING); }
+	
+	/**
+	 * Get whether a poison damage effect is active.
+	 * @return
+	 */
+	public boolean isPoisoned() { return isDamageEffectOfTypeActive(DamageType.POSISON); }
 	
 	/**
 	 * Clear all active damage effects.

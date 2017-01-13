@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.entities.characters;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.level.LevelWorld;
 
@@ -69,9 +70,9 @@ public class CharacterPool {
 	 * Draw all characters.
 	 * @param batch
 	 */
-	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
+	public void draw(SpriteBatch batch, LevelCamera camera) {
 		for(Character character : characters) {
-			character.draw(batch, offsetX, offsetY);
+			character.draw(batch, camera);
 		}
 	}
 }

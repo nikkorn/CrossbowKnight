@@ -25,7 +25,7 @@ public class IgnitedBolt extends Bolt {
 	public IgnitedBolt(float x, float y, float angle, float velocity, Level level) {
 		super(x, y, angle, velocity);
 		// Create an burning emitter/particle generator.
-    	BurningParticleGenerator burningParticleGenerator = new BurningParticleGenerator(level);
+    	BurningParticleGenerator burningParticleGenerator = new BurningParticleGenerator(level.getLevelCamera());
     	burningParticleEmitter = new Emitter(burningParticleGenerator, CrossbowKnight.getSpriteBatch());
     	// Set the emitter details. (position)
     	final BoltPhysicsBox ignitedBoltPhysicsBox = this.boltPhysicsBox;

@@ -7,6 +7,4 @@ import com.dumbpug.crossbowknight.entities.characters.Character;
  * @author nikolas.howard
  */
 public abstract class Enemy extends Character {
-
-	
 }

@@ -7,6 +7,7 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.characters.Character;
 import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
@@ -149,8 +150,8 @@ public class Player extends Character {
 	public void setAngleOfFocus(float angleOfFocus) { this.angleOfFocus = angleOfFocus; }
 
 	@Override
-	public void draw(SpriteBatch batch, float offsetX, float offsetY) {
+	public void drawCharacter(SpriteBatch batch, LevelCamera camera) {
 		// Let the player drawer take care of drawing.
-		playerDrawer.draw(batch, offsetX, offsetY);
+		playerDrawer.draw(batch, camera.getX(), camera.getY());
 	}
 }
