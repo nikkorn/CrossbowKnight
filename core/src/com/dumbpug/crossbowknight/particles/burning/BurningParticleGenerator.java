@@ -1,9 +1,7 @@
 package com.dumbpug.crossbowknight.particles.burning;
 
 import java.util.Random;
-
 import com.dumbpug.crossbowknight.camera.LevelCamera;
-import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.particles.Emitter;
 import com.dumbpug.crossbowknight.particles.IEmitterActivity;
 import com.dumbpug.crossbowknight.particles.IEmitterDetails;
@@ -32,7 +30,7 @@ public class BurningParticleGenerator implements IParticleGenerator, IEmitterAct
 	 * @param camera
 	 */
 	public BurningParticleGenerator(LevelCamera camera) {
-		this.camera  = camera;
+		this.camera = camera;
 		this.random = new Random();
 	}
 	

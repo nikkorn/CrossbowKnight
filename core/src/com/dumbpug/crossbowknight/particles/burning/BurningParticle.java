@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
-import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.particles.Particle;
 
 /**
@@ -61,7 +60,7 @@ public class BurningParticle extends Particle {
 		burningParticleSprite.setY((getPositionY()*C.LAYOUT_MULTIPLIER) + camera.getY());
 		// Set scale based on life.
 		burningParticleSprite.setScale(scale += 0.05f);
-		// TODO Set opacity based on life.
+		// Set opacity based on life.
 		burningParticleSprite.setAlpha(this.getRemainingLife() / (float) this.getLife());
 		// Draw the particle.
 		burningParticleSprite.draw(batch);
