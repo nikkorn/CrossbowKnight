@@ -21,10 +21,14 @@ public class EmitterPool {
      * Returns true if the item was successfully added.
      * @param emitter
      */
-    public void add(Emitter emitter) {
-        // Add our emitter.
-        emitters.add(emitter);
-    }
+    public void add(Emitter emitter) { emitters.add(emitter); }
+    
+    /**
+     * Return true if the emitter pool contains the specified emitter.
+     * @param emitter
+     * @return contains emitter.
+     */
+    public boolean contains(Emitter emitter) { return emitters.contains(emitter); }
 
     /**
     * Iterate over the emitter pool and update them before remove any emitters which are no longer active.

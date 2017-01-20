@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.camera.PlayerCameraPositionProvider;
+import com.dumbpug.crossbowknight.entities.characters.CharacterEffectDrawer;
 import com.dumbpug.crossbowknight.entities.characters.player.EquipmentUsage;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.entities.objects.items.Gold;
@@ -61,6 +62,8 @@ public class Level {
 		initialisePlayer();
 		// Set up our level camera.
 		this.camera = new LevelCamera(new PlayerCameraPositionProvider(player));
+		// In order to draw our player effects, we need a level camera.
+		player.setCharacterEffectsDrawer(new CharacterEffectDrawer(player, this.getLevelCamera()));
 	}
 	
 	/**

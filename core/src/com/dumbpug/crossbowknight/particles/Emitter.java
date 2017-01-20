@@ -18,6 +18,8 @@ public class Emitter {
 	private IEmitterDetails emitterDetails = new EmitterDetails();
 	/** The Emitter Activity. If this is set it will be called at the start of each emitter update. */
 	private IEmitterActivity emitterActivity = null;
+	/** Whether the emitter activity is completed. */
+	private boolean isEmitterActivityActive = false;
 	/** The list of particles. */
 	private ArrayList<Particle> particles = new ArrayList<Particle>();
 	/** whether this emitter is alive. */
@@ -63,7 +65,19 @@ public class Emitter {
 	 * Set the emitter activity to be executed at the start of ever emitter update.
 	 * @param emitterActivity
 	 */
-	public void setEmitterActivity(IEmitterActivity emitterActivity) { this.emitterActivity = emitterActivity; }
+	public void setEmitterActivity(IEmitterActivity emitterActivity) { 
+		this.emitterActivity         = emitterActivity; 
+		this.isEmitterActivityActive = true;
+	}
+	
+	/**
+	 * Reset the emitter along with the activity state.
+	 */
+	public void reset() {
+		if(this.getEmitterActivity() != null) {
+			this.isEmitterActivityActive = true;
+		}
+	}
 	
 	/**
 	 * Get the emitter details.
@@ -78,9 +92,9 @@ public class Emitter {
 	public void setEmitterDetails(IEmitterDetails emitterDetails) { this.emitterDetails = emitterDetails; }
 	
 	/**
-	 * Removes the emitter activity.
+	 * Marks the emitter activity as finished.
 	 */
-	public void disposeOfActivity() { this.emitterActivity = null; }
+	public void finishActivity() { this.isEmitterActivityActive = false; }
 	
 	/**
 	 * Spawn a new particle.
@@ -105,7 +119,7 @@ public class Emitter {
 			return;
 		}
 		// Do our activity if we have one.
-		if(emitterActivity != null) {
+		if(this.isEmitterActivityActive) {
 			emitterActivity.act(this);
 		}
 		// Remove dead particles.

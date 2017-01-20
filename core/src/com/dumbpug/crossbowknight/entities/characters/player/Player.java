@@ -8,6 +8,8 @@ import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
+import com.dumbpug.crossbowknight.effects.DamageType;
+import com.dumbpug.crossbowknight.effects.ProlongedDamageEffect;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.characters.Character;
 import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
@@ -97,6 +99,21 @@ public class Player extends Character {
 		// The player CANNOT fire if they are guarding with a shield.
 		if(!isGuarding && CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
 			equipment.useAmmo();
+			
+			
+			
+			// TODO REMOVE!!!!!!!!!!!!!!!!
+			ProlongedDamageEffect burny = new ProlongedDamageEffect();
+			burny.setIntiallyAppliedDamage(10);
+			burny.setDamageAppliedAtIntervals(2);
+			burny.setDurationInSeconds(6);
+			burny.setIntervalInSeconds(2);
+			burny.setType(DamageType.BURNING);
+			this.applyDamageEffect(burny);
+			// TODO REMOVE!!!!!!!!!!!!!!!!
+			
+			
+			
 		}
 	}
 	

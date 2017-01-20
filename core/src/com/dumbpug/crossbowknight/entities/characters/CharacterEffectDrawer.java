@@ -22,13 +22,13 @@ public class CharacterEffectDrawer {
 	/** The bleeding effect */
 	
 	/** The emitter pool for character effect emitters. */
-	private EmitterPool characterEffectEmitterPool;
+	private EmitterPool characterEffectEmitterPool = new EmitterPool();
 	
 	/**
 	 * Create a new instance of the CharacterEffectDrawer class.
 	 * @param character
 	 */
-	CharacterEffectDrawer(final Character character, LevelCamera camera) {
+	public CharacterEffectDrawer(final Character character, LevelCamera camera) {
 		this.character = character;
 		// Create an burning emitter/particle generator.
     	final BurningParticleGenerator burningParticleGenerator = new BurningParticleGenerator(camera, character.getPhysicsBox().getWidth(), character.getPhysicsBox().getHeight());
@@ -40,7 +40,7 @@ public class CharacterEffectDrawer {
 				burningParticleGenerator.act(emitter);
 				// If the character is no longer burning, stop the emitter activity.
 				if(!character.getDamageEffects().isBurning()) {
-					emitter.disposeOfActivity();
+					emitter.finishActivity();
 				}
 			}
     	});
@@ -68,13 +68,25 @@ public class CharacterEffectDrawer {
 	}
 	
 	/**
+	 * Update the effect emitter pool.
+	 */
+	public void updateEffectEmitters() { this.characterEffectEmitterPool.update(); }
+	
+	/**
 	 * Draw the visible effects which are afflicting the character at the time.
 	 * @param batch
 	 * @param offsetX
 	 * @param offsetY
 	 */
 	public void drawEffects(SpriteBatch batch, float offsetX, float offsetY) {
-		// TODO Check to make sure that we have effect emitters in our pool if we need them.
+		// Check to make sure that we have effect emitters in our pool if we need them.
+		if(character.getDamageEffects().isBurning() && !characterEffectEmitterPool.contains(burningParticleEmitter)) {
+			burningParticleEmitter.reset();
+			characterEffectEmitterPool.add(burningParticleEmitter);
+		}
+		
+		// ...
+		
 		// Draw our particle effects.
 		characterEffectEmitterPool.draw();
 	}

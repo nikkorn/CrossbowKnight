@@ -68,6 +68,6 @@ public class ExplosionParticleGenerator implements IParticleGenerator, IEmitterA
 		emitter.setAliveOnlyIfHasParticles(true);
 		// We have no need to carry out this activity again as we have created all 
 		// the particles we will need for this emitters lifetime.
-		emitter.disposeOfActivity();
+		emitter.finishActivity();
 	}
 }

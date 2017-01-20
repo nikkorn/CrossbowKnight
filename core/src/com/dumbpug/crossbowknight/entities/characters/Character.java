@@ -30,6 +30,9 @@ public abstract class Character {
 	public void update() {
 		// Apply any damage effects..
 		damageEffects.apply(this);
+		// Update the character effect emitter pool.
+		if(characterEffectDrawer != null) { characterEffectDrawer.updateEffectEmitters(); }
+		
 		
 		// ... 
 	}
