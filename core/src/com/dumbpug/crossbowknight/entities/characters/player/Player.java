@@ -100,7 +100,15 @@ public class Player extends Character {
 		if(!isGuarding && CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
 			equipment.useAmmo();
 			
-			
+			// TODO REMOVE!!!!!!!!!!!!!!!!
+			ProlongedDamageEffect poisony = new ProlongedDamageEffect();
+			poisony.setIntiallyAppliedDamage(10);
+			poisony.setDamageAppliedAtIntervals(2);
+			poisony.setDurationInSeconds(6);
+			poisony.setIntervalInSeconds(2);
+			poisony.setType(DamageType.POISON);
+			this.applyDamageEffect(poisony);
+			// TODO REMOVE!!!!!!!!!!!!!!!!
 			
 			// TODO REMOVE!!!!!!!!!!!!!!!!
 			ProlongedDamageEffect burny = new ProlongedDamageEffect();
@@ -111,8 +119,6 @@ public class Player extends Character {
 			burny.setType(DamageType.BURNING);
 			this.applyDamageEffect(burny);
 			// TODO REMOVE!!!!!!!!!!!!!!!!
-			
-			
 			
 		}
 	}

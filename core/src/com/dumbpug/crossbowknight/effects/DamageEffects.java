@@ -75,7 +75,7 @@ public class DamageEffects {
 	 * Get whether a poison damage effect is active.
 	 * @return
 	 */
-	public boolean isPoisoned() { return isDamageEffectOfTypeActive(DamageType.POSISON); }
+	public boolean isPoisoned() { return isDamageEffectOfTypeActive(DamageType.POISON); }
 	
 	/**
 	 * Clear all active damage effects.

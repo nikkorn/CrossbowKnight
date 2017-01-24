@@ -76,6 +76,7 @@ public class Emitter {
 	public void reset() {
 		if(this.getEmitterActivity() != null) {
 			this.isEmitterActivityActive = true;
+			this.isAlive                 = true;
 		}
 	}
 	

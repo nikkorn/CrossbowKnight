@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.particles.burning;
+package com.dumbpug.crossbowknight.particles.poisoning;
 
 import java.util.Random;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,14 +9,14 @@ import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.particles.Particle;
 
 /**
- * Represents a burning particle.
+ * Represents a poison particle.
  * @author nikolas.howard
  */
-public class BurningParticle extends Particle {
+public class PoisonParticle extends Particle {
 	/** The sprite for this particle. */
-	private static Sprite burningParticleSprite = new Sprite(new Texture("graphics/particles/explosion_particle.png"));
+	private static Sprite poisonParticleSprite = new Sprite(new Texture("graphics/particles/poison_particle.png"));
 	/** The size of this particle sprite. */
-	private static float burningParticleSpriteSize = 3 * C.LAYOUT_MULTIPLIER;
+	private static float poisonParticleSpriteSize = 2 * C.LAYOUT_MULTIPLIER;
 	/** The position of the particle. */
 	private float posX, posY;
 	/** The level camera, needed for drawing particles in correct positions. */
@@ -27,15 +27,15 @@ public class BurningParticle extends Particle {
 	private static Random random = new Random();
 	
 	/**
-	 * Create a new instance of the BurningParticle class.
+	 * Create a new instance of the PoisonParticle class.
 	 * @param posX
 	 * @param posY
 	 * @param camera
 	 */
-	public BurningParticle(float posX, float posY, LevelCamera camera) {
+	PoisonParticle(float posX, float posY, LevelCamera camera) {
 		// Set the position of the particle.
-		this.posX = posX - ((burningParticleSpriteSize/C.LAYOUT_MULTIPLIER)/2);
-		this.posY = posY - ((burningParticleSpriteSize/C.LAYOUT_MULTIPLIER)/2);
+		this.posX = posX - ((poisonParticleSpriteSize/C.LAYOUT_MULTIPLIER)/2);
+		this.posY = posY - ((poisonParticleSpriteSize/C.LAYOUT_MULTIPLIER)/2);
 		// Set the life of this particle.
 		this.setLife((random.nextInt(3) + 1) * 200);
 		// Set the level camera.
@@ -44,8 +44,8 @@ public class BurningParticle extends Particle {
 	
 	@Override
 	public void update() {
-		// Burning particles will rise slowly.
-		posY += 0.2f;
+		// Poisons particles will rise slowly.
+		posY += 0.1f;
 	}
 	
 	public float getPositionX() { return posX; }
@@ -54,16 +54,14 @@ public class BurningParticle extends Particle {
 
 	protected void draw(SpriteBatch batch) {
 		// Set the sprite size.
-		burningParticleSprite.setSize(burningParticleSpriteSize, burningParticleSpriteSize);
+		poisonParticleSprite.setSize(poisonParticleSpriteSize, poisonParticleSpriteSize);
 		// Set the sprite position.
-		burningParticleSprite.setX((getPositionX()*C.LAYOUT_MULTIPLIER) + camera.getX());
-		burningParticleSprite.setY((getPositionY()*C.LAYOUT_MULTIPLIER) + camera.getY());
+		poisonParticleSprite.setX((getPositionX()*C.LAYOUT_MULTIPLIER) + camera.getX());
+		poisonParticleSprite.setY((getPositionY()*C.LAYOUT_MULTIPLIER) + camera.getY());
 		// Set scale based on life.
-		burningParticleSprite.setScale(scale += 0.05f);
-		// Set opacity based on life.
-		burningParticleSprite.setAlpha(this.getRemainingLife() / (float) this.getLife());
+		poisonParticleSprite.setScale(scale += 0.01f);
 		// Draw the particle.
-		burningParticleSprite.draw(batch);
+		poisonParticleSprite.draw(batch);
 	}
 
 	protected void onCreation() {}

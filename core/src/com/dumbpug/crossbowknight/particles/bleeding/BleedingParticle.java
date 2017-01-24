@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.particles.burning;
+package com.dumbpug.crossbowknight.particles.bleeding;
 
 import java.util.Random;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +12,7 @@ import com.dumbpug.crossbowknight.particles.Particle;
  * Represents a burning particle.
  * @author nikolas.howard
  */
-public class BurningParticle extends Particle {
+public class BleedingParticle extends Particle {
 	/** The sprite for this particle. */
 	private static Sprite burningParticleSprite = new Sprite(new Texture("graphics/particles/explosion_particle.png"));
 	/** The size of this particle sprite. */
@@ -32,7 +32,7 @@ public class BurningParticle extends Particle {
 	 * @param posY
 	 * @param camera
 	 */
-	public BurningParticle(float posX, float posY, LevelCamera camera) {
+	BleedingParticle(float posX, float posY, LevelCamera camera) {
 		// Set the position of the particle.
 		this.posX = posX - ((burningParticleSpriteSize/C.LAYOUT_MULTIPLIER)/2);
 		this.posY = posY - ((burningParticleSpriteSize/C.LAYOUT_MULTIPLIER)/2);

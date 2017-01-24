@@ -9,5 +9,5 @@ public enum DamageType {
 	BURNING,
 	EXPLOSIVE,
 	BLEEDING,
-	POSISON
+	POISON
 }
