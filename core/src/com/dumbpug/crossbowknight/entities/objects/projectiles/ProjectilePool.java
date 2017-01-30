@@ -39,6 +39,8 @@ public class ProjectilePool {
 		}
 		// Add our projectile.
 		projectiles.add(projectile);
+		// Mark the projectile as having been launched.
+		projectile.markAsLaunched();
 		// Add our projectile physics box to the level world.
 		levelWorld.getPhysicsWorld().addBox(projectile.getPhysicsBox());
 		// We were able to add our projectile.

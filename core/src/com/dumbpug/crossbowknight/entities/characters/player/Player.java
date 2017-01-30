@@ -8,8 +8,6 @@ import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
-import com.dumbpug.crossbowknight.effects.DamageType;
-import com.dumbpug.crossbowknight.effects.ProlongedDamageEffect;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.characters.Character;
 import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
@@ -25,8 +23,6 @@ public class Player extends Character {
 	private Inventory inventory;
 	/** The players equipment. */
 	private EquippedItems equipment;
-	/** The angle of focus for this player (where we are looking). */
-    private float angleOfFocus = 0f;
     /** Whether the player is currently guarding. */
     private boolean isGuarding = false;
     
@@ -99,27 +95,6 @@ public class Player extends Character {
 		// The player CANNOT fire if they are guarding with a shield.
 		if(!isGuarding && CrossbowKnight.getPlayerInput().isFireButtonPressed()) {
 			equipment.useAmmo();
-			
-			// TODO REMOVE!!!!!!!!!!!!!!!!
-			ProlongedDamageEffect poisony = new ProlongedDamageEffect();
-			poisony.setIntiallyAppliedDamage(10);
-			poisony.setDamageAppliedAtIntervals(2);
-			poisony.setDurationInSeconds(6);
-			poisony.setIntervalInSeconds(2);
-			poisony.setType(DamageType.POISON);
-			this.applyDamageEffect(poisony);
-			// TODO REMOVE!!!!!!!!!!!!!!!!
-			
-			// TODO REMOVE!!!!!!!!!!!!!!!!
-			ProlongedDamageEffect burny = new ProlongedDamageEffect();
-			burny.setIntiallyAppliedDamage(10);
-			burny.setDamageAppliedAtIntervals(2);
-			burny.setDurationInSeconds(6);
-			burny.setIntervalInSeconds(2);
-			burny.setType(DamageType.BURNING);
-			this.applyDamageEffect(burny);
-			// TODO REMOVE!!!!!!!!!!!!!!!!
-			
 		}
 	}
 	
@@ -160,17 +135,6 @@ public class Player extends Character {
 	 */
 	public EquippedItems getEquipment() { return equipment; }
 	
-	/**
-	 * Get this players angle of focus.
-	 * @return angleOfFocus
-	 */
-	public float getAngleOfFocus() { return angleOfFocus; }
-
-	/**
-	 * Set this players angle of focus.
-	 * @param angleOfFocus
-	 */
-	public void setAngleOfFocus(float angleOfFocus) { this.angleOfFocus = angleOfFocus; }
 
 	@Override
 	public void drawCharacter(SpriteBatch batch, LevelCamera camera) {

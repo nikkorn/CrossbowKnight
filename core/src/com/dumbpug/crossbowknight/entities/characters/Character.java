@@ -5,6 +5,8 @@ import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.effects.DamageEffect;
 import com.dumbpug.crossbowknight.effects.DamageEffects;
+import com.dumbpug.crossbowknight.effects.DamageType;
+import com.dumbpug.crossbowknight.entities.objects.projectiles.Bolt;
 import com.dumbpug.crossbowknight.forces.Force;
 import com.dumbpug.nbp.NBPPoint;
 
@@ -23,6 +25,8 @@ public abstract class Character {
 	private DamageEffects damageEffects = new DamageEffects();
 	/** The character effect drawer. */
 	private CharacterEffectDrawer characterEffectDrawer = null;
+	/** The angle of focus for this character (where we are looking). */
+    private float angleOfFocus = 0f;
 	
 	/**
 	 * Update the character.
@@ -106,6 +110,18 @@ public abstract class Character {
 	}
 	
 	/**
+	 * Get this characters angle of focus.
+	 * @return angleOfFocus
+	 */
+	public float getAngleOfFocus() { return angleOfFocus; }
+
+	/**
+	 * Set this characters angle of focus.
+	 * @param angleOfFocus
+	 */
+	public void setAngleOfFocus(float angleOfFocus) { this.angleOfFocus = angleOfFocus; }
+	
+	/**
 	 * Get whether the character is touching the floor (if false then the character is airborne).
 	 * @return is touching floor.
 	 */
@@ -135,6 +151,20 @@ public abstract class Character {
 				// No idea what type of force this is.
 				break;
 		}
+	}
+	
+	/**
+	 * Called when the character has been hit by a bolt.
+	 * @param bolt
+	 */
+	public void onHitByBolt(Bolt bolt) {
+		// TODO Stick into character physics box (or delete if not appropriate) 
+		// TODO push character physics box a bit using bolt velocity (also take stats into account)
+		// TODO Hurt our character using a damage effect(taking stats into account)! 
+		DamageEffect testerDamageEffect = new DamageEffect();
+		testerDamageEffect.setType(DamageType.NORMAL);
+		testerDamageEffect.setIntiallyAppliedDamage(2);
+		this.applyDamageEffect(testerDamageEffect);
 	}
 	
 	/**

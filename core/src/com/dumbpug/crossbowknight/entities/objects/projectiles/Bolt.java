@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.entities.characters.CharacterPhysicsBox;
+import com.dumbpug.crossbowknight.entities.characters.Character;
 import com.dumbpug.crossbowknight.resources.EntityResources;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
@@ -46,7 +48,30 @@ public abstract class Bolt extends Projectile {
 	 * @param collidingBox
 	 */
 	public void onKinematicObjectHit(NBPBox collidingBox) {
-		// Handle the hitting of a kinematic object. Potentially an enemy or the player.
+		// We only care about collisions with bolts that are active.
+		if (this.isActive()) {
+			// The bolt has hit a game entity which could very well be a character. 
+			if(collidingBox instanceof CharacterPhysicsBox) {
+				// This bolt has hit a character.
+				Character hitCharacter = ((CharacterPhysicsBox<?>) collidingBox).getCharacter();
+				// In a scenario where a character has hit themselves, it will only
+				// count as a hit if the projectile launch life has passed a lauch threshold.
+				// This is required as we don't want to accidentaly hit ourselves when initially 
+				// launching a projectile.
+				if(hitCharacter == this.getOwner() && this.getLaunchLife() < C.PROJECTILE_LAUNCH_IMMUNITY_THRESHOLD) {
+					return;
+				}
+				// Hit the character with this bolt.
+				hitCharacter.onHitByBolt(this);
+				// The character has been hit, this bolt is no longer active.
+				// It can be attached to a character physics box at a later time though (if barbed e.g.).
+				this.setActive(false);
+				// We no longer need the physics box for this bolt.
+				boltPhysicsBox.markForDeletion();
+			}
+			
+			// TODO Handle hitting of something which is not a character.
+		}
 	}
 	
 	/**

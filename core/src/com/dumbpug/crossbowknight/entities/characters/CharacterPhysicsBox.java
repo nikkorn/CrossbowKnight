@@ -113,6 +113,12 @@ public class CharacterPhysicsBox<TCharacter extends Character> extends NBPBox {
         return canJump;
     }
     
+    /**
+     * Return the character which this physics box represents.
+     * @return character
+     */
+    public TCharacter getCharacter() { return this.character; }
+    
     @Override
     public void onSensorEntry(NBPSensor sensor, NBPBox enteredBox) {
         // Check that this sensor is the one we have placed at the bottom of the box.

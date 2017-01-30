@@ -65,6 +65,7 @@ public class C {
 	public static final float EQUIPMENT_SELECTION_VIEW_HEIGHT   = EQUIPMENT_SELECTION_VIEW_WIDTH / 5;
 
 	/** Projectiles */
+	public static final long PROJECTILE_LAUNCH_IMMUNITY_THRESHOLD = 500;
 	public static final float PROJECTILE_BOLT_HEAD_SIZE            = 4f;
 	public static final float PROJECTILE_BOLT_HITBOX_PADDING       = 0.5f;
 	public static final int PROJECTILE_RUBBERBOLT_BOUNCES          = 3;

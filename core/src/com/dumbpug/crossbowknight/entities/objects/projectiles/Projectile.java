@@ -17,6 +17,8 @@ public abstract class Projectile {
     private float modifiedDamage = 0;
     /** Is this projectile active? */
     private boolean isActive = true;
+    /** The time at which this projectile was fired. */
+    private long projectileLaunchTime = 0;
 
     /**
      * Get the type of this projectile.
@@ -59,6 +61,19 @@ public abstract class Projectile {
      * @return is active.
      */
     public boolean isActive() { return isActive; }
+    
+    /**
+     * Mark this projectile as launched.
+     * This will mark the start of this projectiles launch life.
+     */
+    public void markAsLaunched() { this.projectileLaunchTime = System.currentTimeMillis(); }
+    
+    /**
+     * Get the launch life of this projectile. As in the millis it has been flying for.
+     * If the projectile has never been launched, 0 will be returned.
+     * @return launch life
+     */
+    public long getLaunchLife() { return (this.projectileLaunchTime == 0) ? 0 : System.currentTimeMillis() - this.projectileLaunchTime; }
 
     /**
      * Set whether this projectile is active.
