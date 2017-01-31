@@ -4,6 +4,7 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.audio.Audio.SoundEffect;
+import com.dumbpug.crossbowknight.entities.characters.Character;
 import com.dumbpug.crossbowknight.forces.Explosion;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.particles.Emitter;
@@ -40,7 +41,38 @@ public class ExplosiveBolt extends Bolt {
     	// Make this projectile inactive and mark it for deletion from our physics world.
     	this.setActive(false);
     	this.boltPhysicsBox.markForDeletion();
-        // Create an explosion emitter/particle generator.
+        // Create an explosion!
+    	explode();
+    }
+	
+	/**
+	 * Called when a character has been hit by this bolt.
+	 * In the case that the hit character is the same as the 
+	 * owner of this bolt, this will only be called if this
+	 * projectile has passed its launch threshold.
+	 * @param character
+	 */
+	protected void onCharacterHit(Character character) {
+		// We have hit a character, we should explode!
+		explode();
+	}
+	
+	/**
+	 * Called when another bolt has been hit with this one.
+	 * @param boltPhysicsBox
+	 */
+	protected void onOtherProjectileHit(BoltPhysicsBox boltPhysicsBox) {
+		// We have hit another projectile, we should explode!
+		explode();
+		this.setActive(false);
+		this.boltPhysicsBox.markForDeletion();
+	}
+	
+	/**
+	 * Explode this bolt.
+	 */
+	public void explode() {
+		// Create an explosion emitter/particle generator.
     	ExplosionParticleGenerator explosionParticleGenerator = new ExplosionParticleGenerator(level);
     	Emitter explosionEmitter = new Emitter(explosionParticleGenerator, CrossbowKnight.getSpriteBatch());
     	// Set the emitter details. (position)
@@ -54,10 +86,10 @@ public class ExplosiveBolt extends Bolt {
     	level.getLevelWorld().getEmitterPool().add(explosionEmitter);
     	// Add an explosion bloom to the physics world.
     	level.getLevelWorld().applyForce(new Explosion(this.boltPhysicsBox.getX(), 
-    			this.boltPhysicsBox.getY(), C.PROJECTILE_EXPLOSIVEBOLT_BLAST_RADIUS, C.PROJECTILE_EXPLOSIVEBOLT_BLAST_FORCE, this.getBaseDamage()));
+    			this.boltPhysicsBox.getY(), C.PROJECTILE_EXPLOSIVEBOLT_BLAST_RADIUS, C.PROJECTILE_EXPLOSIVEBOLT_BLAST_FORCE, getBaseDamage()));
     	// Play the explosion sound!
     	Audio.getSoundEffect(SoundEffect.EXPLOSION).play();
-    }
+	}
 
     @Override
     public ProjectileType getProjectileType() { return ProjectileType.BOLT_EXPLOSIVE; }

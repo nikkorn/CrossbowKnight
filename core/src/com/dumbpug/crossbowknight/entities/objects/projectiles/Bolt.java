@@ -39,9 +39,7 @@ public abstract class Bolt extends Projectile {
 	 * @param angleOfForce
 	 * @param force
 	 */
-	public void onPush(NBPBloom bloom, float angleOfForce, float force) {
-		// TODO Auto-generated method stub
-	}
+	public void onPush(NBPBloom bloom, float angleOfForce, float force) {}
 
 	/**
 	 * Called when BoltPhysicsBox hits a kinematic object (player/enemy).
@@ -61,16 +59,20 @@ public abstract class Bolt extends Projectile {
 				if(hitCharacter == this.getOwner() && this.getLaunchLife() < C.PROJECTILE_LAUNCH_IMMUNITY_THRESHOLD) {
 					return;
 				}
-				// Hit the character with this bolt.
-				hitCharacter.onHitByBolt(this);
+				// Handle the character hit.
+				this.onCharacterHit(hitCharacter);
 				// The character has been hit, this bolt is no longer active.
 				// It can be attached to a character physics box at a later time though (if barbed e.g.).
 				this.setActive(false);
 				// We no longer need the physics box for this bolt.
 				boltPhysicsBox.markForDeletion();
+			} 
+			else if(collidingBox instanceof BoltPhysicsBox) {
+				// We have hit another projectile physics box. Handle this. 
+				this.onOtherProjectileHit((BoltPhysicsBox) collidingBox);
+			} else {
+				// TODO Handle hitting of something which is not a character or other projectile.
 			}
-			
-			// TODO Handle hitting of something which is not a character.
 		}
 	}
 	
@@ -86,6 +88,24 @@ public abstract class Bolt extends Projectile {
 		// Check whether we want to get rid our our bolts physics box.
 		boltPhysicsBox.markForDeletion();
 	}
+	
+	/**
+	 * Called when a character has been hit by this bolt.
+	 * In the case that the hit character is the same as the 
+	 * owner of this bolt, this will only be called if this
+	 * projectile has passed its launch threshold.
+	 * @param character
+	 */
+	protected void onCharacterHit(Character character) {
+		// Let the character know it was hit by this bolt.
+		character.onHitByBolt(this);
+	}
+	
+	/**
+	 * Called when another bolt has been hit with this one.
+	 * @param boltPhysicsBox
+	 */
+	protected void onOtherProjectileHit(BoltPhysicsBox boltPhysicsBox) {}
 
 	/**
 	 * Is this bolt stuck in something?

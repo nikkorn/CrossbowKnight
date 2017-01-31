@@ -36,9 +36,7 @@ public class BoltPhysicsBox extends PhysicsEntity {
 	 * before the physics world update.
 	 * @return lastAngleOfVelocity
 	 */
-	public float getLastAngleOfVelocity() {
-		return lastAngleOfVelocity;
-	}
+	public float getLastAngleOfVelocity() { return lastAngleOfVelocity; }
 
 	@Override
 	protected void onCollisonWithKineticBox(NBPBox collidingBox, NBPIntersectionPoint kinematicBoxOriginAtCollision) {
@@ -53,12 +51,10 @@ public class BoltPhysicsBox extends PhysicsEntity {
 	}
 
 	@Override
-	protected void onSensorEntry(NBPSensor sensor, NBPBox enteredBox) {
-	}
+	protected void onSensorEntry(NBPSensor sensor, NBPBox enteredBox) {}
 
 	@Override
-	protected void onSensorExit(NBPSensor sensor, NBPBox exitedBox) {
-	}
+	protected void onSensorExit(NBPSensor sensor, NBPBox exitedBox) {}
 
 	@Override
 	protected boolean onBloomPush(NBPBloom bloom, float angleOfForce, float force, float distance) {
@@ -74,17 +70,11 @@ public class BoltPhysicsBox extends PhysicsEntity {
 	}
 
 	@Override
-	protected void onAfterUpdate() {
-		// TODO Auto-generated method stub
-	}
+	protected void onAfterUpdate() {}
 
 	@Override
-	protected void onDeletion() {
-		// TODO Auto-generated method stub
-	}
+	protected void onDeletion() {}
 
 	@Override
-	public PhysicsEntityType getPhysicsEntityType() {
-		return PhysicsEntityType.PROJECTILE;
-	}
+	public PhysicsEntityType getPhysicsEntityType() { return PhysicsEntityType.PROJECTILE; }
 }
