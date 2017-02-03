@@ -11,8 +11,8 @@ public class HUD {
     private HUDStatusBar statusBar;
     /** The ammo details bar. */
     private HUDAmmoBar ammoBar;
-    
-    // TODO Create a HUD Item bar for item usages.
+    /** The consumables details bar. */
+    private HUDConsumablesBar consumablesBar;
 
     /**
      * Create a new instance of HUD.
@@ -22,6 +22,8 @@ public class HUD {
         this.statusBar = new HUDStatusBar();
         // Create our HUD ammo bar.
         this.ammoBar = new HUDAmmoBar();
+        // Create our HUD consumables bar.
+        this.consumablesBar = new HUDConsumablesBar();
     }
 
     /**
@@ -32,5 +34,6 @@ public class HUD {
     public void draw(SpriteBatch batch, Player player) {
         this.statusBar.draw(batch, player);
         this.ammoBar.draw(batch, player);
+        this.consumablesBar.draw(batch, player);
     }
 }

@@ -53,6 +53,7 @@ public class Player extends Character {
 			setAngleOfFocus((float) GameMath.GetAngleOfLineBetweenTwoPoints(Gdx.input.getX(), Gdx.input.getY(),
 					Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
 		}
+		
 		// Move our player.
 		if(CrossbowKnight.getPlayerInput().isRightButtonDown()) {
 			this.characterPhysicsBox.moveRight();
@@ -68,11 +69,16 @@ public class Player extends Character {
 				Audio.getSoundEffect(Audio.SoundEffect.JUMP).play();
 			}
 		}
+		
 		// Swap primary and secondary ammo slots.
 		if(CrossbowKnight.getPlayerInput().isCycleLeftButtonPressed()) {
 			this.equipment.swapAmmo();
 		}
-		// TODO Swap primary and secondary item slots.
+		// Swap primary and secondary ammo slots.
+		if(CrossbowKnight.getPlayerInput().isCycleRightButtonPressed()) {
+			this.equipment.swapItems();
+		}
+	
 		// TODO Use item.
 		
 		// Check for shield button being held.
