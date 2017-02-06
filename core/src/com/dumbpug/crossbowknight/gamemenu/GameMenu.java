@@ -3,7 +3,7 @@ package com.dumbpug.crossbowknight.gamemenu;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
-import com.dumbpug.crossbowknight.gamemenu.tabs.CharacterMenuTab;
+import com.dumbpug.crossbowknight.gamemenu.tabs.character.CharacterMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.equipment.EquipmentMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTabList;
 import com.dumbpug.crossbowknight.gamemenu.tabs.inventory.InventoryMenuTab;
@@ -35,7 +35,7 @@ public class GameMenu {
 		// Create the menu tabs.
 		inventoryMenuTab = new InventoryMenuTab(player.getInventory());
 		equipmentMenuTab = new EquipmentMenuTab(player.getInventory(), player.getEquipment());
-		characterMenuTab = new CharacterMenuTab();
+		characterMenuTab = new CharacterMenuTab(player);
 		mapMenuTab       = new MapMenuTab();
 		systemMenuTab    = new SystemMenuTab();
 		// Create the menu tab list.
