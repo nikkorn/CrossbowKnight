@@ -57,7 +57,7 @@ public class XpBar {
 		batch.draw(levelBoxLeft, posX, posY, C.MENU_CHARACTER_XP_BAR_HEIGHT, C.MENU_CHARACTER_XP_BAR_HEIGHT);
 		batch.draw(levelBoxRight, posX + (barWidth - C.MENU_CHARACTER_XP_BAR_HEIGHT), posY, C.MENU_CHARACTER_XP_BAR_HEIGHT, C.MENU_CHARACTER_XP_BAR_HEIGHT);
 		// Draw the filled part of the XP bar.
-		float barFillPercentage = currentXp == 0 ? 0f : ((float) currentXp) / ((float) (nextLevelXp - currentLevelXp));
+		float barFillPercentage = currentXp == 0 ? 0f : ((float) currentXp - currentLevelXp) / ((float) (nextLevelXp - currentLevelXp));
 		batch.draw(sectionFull, posX + C.MENU_CHARACTER_XP_BAR_HEIGHT, posY, barFillableWidth * barFillPercentage, C.MENU_CHARACTER_XP_BAR_HEIGHT);
 		// Draw the XP info.
 		secondaryFont.draw(batch, "xp: " + currentXp + " / " + nextLevelXp, posX, posY + C.MENU_CHARACTER_XP_BAR_HEIGHT, barWidth, Align.center, true);
