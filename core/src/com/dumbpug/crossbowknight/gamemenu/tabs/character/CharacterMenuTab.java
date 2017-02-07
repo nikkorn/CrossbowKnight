@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
+import com.dumbpug.crossbowknight.entities.characters.Stats;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTab;
 import com.dumbpug.crossbowknight.gamemenu.tabs.GameMenuTabType;
@@ -47,6 +48,10 @@ public class CharacterMenuTab implements GameMenuTab {
 		// Check for accept/cancel button presses.
 		if(CrossbowKnight.getPlayerInput().isAcceptButtonPressed()) { 
 			
+			// TODO Remove!!!!!!!
+			this.player.getStats().addXp(50);
+			// TODO Remove!!!!!!!
+			
 		}
 		if(CrossbowKnight.getPlayerInput().isCancelButtonPressed()) { 
 		
@@ -61,7 +66,9 @@ public class CharacterMenuTab implements GameMenuTab {
 		// ...
 		
 		// Draw the XP bar.
-		this.xpBar.draw(player.getStats().getLevel(), player.getStats().getLevel());
+		Stats stats      = player.getStats();
+		int currentLevel = stats.getLevel();
+		this.xpBar.draw(batch, currentLevel, stats.getXp(), stats.getXpRequiredForLevel(currentLevel-1), stats.getXpRequiredForLevel(currentLevel));
 	}
 	
 	@Override

@@ -66,6 +66,14 @@ public class Stats {
         }
         return lastLevel + 1;
     }
+    
+    /**
+     * Get the XP required to reach the specified level.
+     * @return The Required XP.
+     */
+    public int getXpRequiredForLevel(int level) {
+        return C.STATS_LEVEL_XP_MODIFIER*(level*(level*C.STATS_LEVEL_XP_MODIFIER));
+    }
 
     /**
      * Set the characters level.
