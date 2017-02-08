@@ -20,42 +20,34 @@ public class CharacterMenuTab implements GameMenuTab {
 	private Player player;
 	/** The XP bar. */
 	private XpBar xpBar;
-	
+	/** The attributes container. */
+	private AttributesBoxContainer attributesBox;
+
 	/**
 	 * Create a new instance of the CharacterMenuTab.
 	 * @param player
      */
 	public CharacterMenuTab(Player player) {
-		this.background  = new Texture("graphics/gamemenu/character/gamemenu_background.png");
-		this.player      = player;
-		this.xpBar       = new XpBar();
+		this.background    = new Texture("graphics/gamemenu/character/gamemenu_background.png");
+		this.player        = player;
+		this.xpBar         = new XpBar();
+		this.attributesBox = new AttributesBoxContainer(player.getStats());
 	}
 	
 	@Override
 	public void update() {
-		if(CrossbowKnight.getPlayerInput().isLeftButtonPressed()) { 
-			
-		}
-		if(CrossbowKnight.getPlayerInput().isRightButtonPressed()) { 
-			
-		}
 		if(CrossbowKnight.getPlayerInput().isUpButtonPressed()) { 
-			
+			attributesBox.selectionUp();
 		}
 		if(CrossbowKnight.getPlayerInput().isDownButtonPressed()) { 
-		
+			attributesBox.selectionDown();
 		}
-		// Check for accept/cancel button presses.
 		if(CrossbowKnight.getPlayerInput().isAcceptButtonPressed()) { 
-			
-			// TODO Remove!!!!!!!
-			this.player.getStats().addXp(50);
-			// TODO Remove!!!!!!!
-			
+			attributesBox.onSelection();
 		}
-		if(CrossbowKnight.getPlayerInput().isCancelButtonPressed()) { 
 		
-		}
+		// TODO Remove!!!!
+		this.player.getStats().addXp(1);
 	}
 
 	@Override
@@ -65,6 +57,8 @@ public class CharacterMenuTab implements GameMenuTab {
 		
 		// ...
 		
+		// Draw the attributes box.
+		attributesBox.draw(batch);
 		// Draw the XP bar.
 		Stats stats      = player.getStats();
 		int currentLevel = stats.getLevel();

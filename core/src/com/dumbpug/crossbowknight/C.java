@@ -92,6 +92,7 @@ public class C {
 	public static final int MENU_EQUIPMENT_ITEM_SLOT_WIDTH      = 5;
 	public static final int MENU_EQUIPMENT_ITEM_SLOT_HEIGHT     = 2;
 	public static final float MENU_CHARACTER_XP_BAR_HEIGHT      = INGAME_MENU_HEIGHT * 0.2f;
+	public static final float MENU_CHARACTER_ATTRIBUTE_HEIGHT   = INGAME_MENU_HEIGHT * 0.08f;
 
 	/** Font */
 	public static final int FONT_SIZE_XXSMALL                   = (int) (2 * LAYOUT_MULTIPLIER);
