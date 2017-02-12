@@ -12,5 +12,6 @@ public enum ProjectileType {
     BOLT_EXPLOSIVE,
     BOLT_BARBED,
     BOLT_SLEEK,
-    BOLT_IGNITED
+    BOLT_IGNITED,
+    BOLT_ZANY
 }

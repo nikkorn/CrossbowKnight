@@ -21,6 +21,7 @@ import com.dumbpug.crossbowknight.entities.objects.items.ammo.HeavyBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.IgnitedBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.RubberBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.SleekBolt;
+import com.dumbpug.crossbowknight.entities.objects.items.ammo.ZanyBolt;
 import com.dumbpug.crossbowknight.entities.objects.items.dynamic.Shield;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.ChaosPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.DefensePotion;
@@ -114,6 +115,9 @@ public class Level {
 			case BOLT_EXPLOSIVE:
 				item = new ExplosiveBolt();
 				item.setQuantity(50);
+				break;
+			case BOLT_ZANY:
+				item = new ZanyBolt();
 				break;
 			case BOLT_BARBED:
 				item = new BarbedBolt();

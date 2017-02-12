@@ -61,6 +61,7 @@ public abstract class Item {
 		BOLT_ANTIQUE,
 		BOLT_SLEEK,
 		BOLT_IGNITED,
+		BOLT_ZANY,
 		
 		// --- Consumables ---
 		HEALTH_POTION,
