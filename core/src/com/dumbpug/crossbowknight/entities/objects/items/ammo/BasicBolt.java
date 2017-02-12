@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.entities.objects.items.ammo;
 
+import com.dumbpug.crossbowknight.entities.objects.projectiles.Bolt;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
+import com.dumbpug.crossbowknight.level.Level;
 
 /**
  * Represents a Basic Bolt ammo item.
@@ -21,6 +23,15 @@ public class BasicBolt extends Ammo {
      * @return projectile type.
      */
     public ProjectileType getProjectileType() { return ProjectileType.BOLT_BASIC; }
+    
+    /**
+     * Get a projectile instance.
+     * @return A new projectile instance.
+     */
+    public Bolt getProjectile(float x, float y, float angle, float velocity, Level level)
+    {
+    	return new com.dumbpug.crossbowknight.entities.objects.projectiles.BasicBolt(x, y, angle, velocity);
+    }
 
     /**
      * Is this item displayed in the inventory menu?

@@ -70,39 +70,14 @@ public class EquipmentUsage {
 		// Get the velocity of this shot.
 		float shotVelocity = 3; // TODO alter this to take character stats amongst other things into account.
 		
+		float shotX = characterPhysicsBox.getX();
+		float shotY = characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2);
+		
 		// TODO Handle other projectile types.
 		
 		// Create the bolt.
-		Bolt bolt = null;
-		switch(ammo.getProjectileType()) {
-			case BOLT_ANTIQUE:
-				bolt = new AntiqueBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
-				break;
-			case BOLT_BARBED:
-				bolt = new BarbedBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
-				break;
-			case BOLT_BASIC:
-				bolt = new BasicBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
-				break;
-			case BOLT_EXPLOSIVE:
-				bolt = new ExplosiveBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity, level);
-				break;
-			case BOLT_HEAVY:
-				bolt = new HeavyBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
-				break;
-			case BOLT_IGNITED:
-				bolt = new IgnitedBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity, level);
-				break;
-			case BOLT_RUBBER:
-				bolt = new RubberBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
-				break;
-			case BOLT_SLEEK:
-				bolt = new SleekBolt(characterPhysicsBox.getX(), characterPhysicsBox.getY() + (characterPhysicsBox.getHeight()/2), angleOfFire, shotVelocity);
-				break;
-			default:
-				// Got a crazy unknown bolt type, this ammo usage attempt failed.
-				return false;
-		}
+		Bolt bolt = ammo.getProjectile(shotX, shotY, angleOfFire, shotVelocity, level);
+
 		// Set the owner of this bolt to be the character which fired it.
 		bolt.setOwner(character);
 		
