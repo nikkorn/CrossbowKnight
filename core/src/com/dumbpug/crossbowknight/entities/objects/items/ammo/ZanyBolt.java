@@ -1,20 +1,18 @@
 package com.dumbpug.crossbowknight.entities.objects.items.ammo;
 
 import java.util.Random;
-
-import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Bolt;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectileType;
 import com.dumbpug.crossbowknight.level.Level;
 
 /**
- * Represents a Basic Bolt ammo item.
- * Created by nik on 19/10/16.
+ * Represents a Zany Bolt ammo item.
+ * Created by Ben on 12/02/17.
  */
 public class ZanyBolt extends Ammo {
 
     /**
-     * Create a new instance of the BasicBolt class.
+     * Create a new instance of the ZanyBolt class.
      */
     public ZanyBolt() { }
 
