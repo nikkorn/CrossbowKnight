@@ -37,11 +37,11 @@ public class LevelDrawer {
 	 */
 	private void drawBackgroundLayer(SpriteBatch batch) {
 		// Draw all level tile backgrounds.
-		for(Tile tile : level.getLevelWorld().getLevelTiles()) {
+		for(Tile tile : level.getLevelWorld().getTiles()) {
 			tile.drawBackground(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 		}
 		// Draw all level tile decorations.
-		for(Tile tile : level.getLevelWorld().getLevelTiles()) {
+		for(Tile tile : level.getLevelWorld().getTiles()) {
 			tile.drawDecoration(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY()); 
 		}
 	}
@@ -63,7 +63,7 @@ public class LevelDrawer {
 	 */
 	private void drawForegroundLayer(SpriteBatch batch) {
 		// Draw all level blocks.
-		for(Tile tile : level.getLevelWorld().getLevelTiles()) {
+		for(Tile tile : level.getLevelWorld().getTiles()) {
 			if(tile.getPhysicsBlock() != null) {
 				tile.getPhysicsBlock().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 			}

@@ -17,10 +17,10 @@ import com.dumbpug.nbp.NBPPoint;
 public abstract class Character {
 	/** The physics box for this character. */
     protected CharacterPhysicsBox<? extends Character> characterPhysicsBox;
-	/** The health status of this character. */
-	private HealthStatus healthStatus = new HealthStatus();
 	/** The stats of this character. */
 	private Stats stats = new Stats();
+	/** The health status of this character. */
+	private HealthStatus healthStatus = new HealthStatus(stats);
 	/** The characters active damage effects. */
 	private DamageEffects damageEffects = new DamageEffects();
 	/** The character effect drawer. */

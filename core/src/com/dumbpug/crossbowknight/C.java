@@ -75,9 +75,9 @@ public class C {
 	/** HUD */
 	public static final int HUD_STATUS_BAR_HEIGHT               = Gdx.graphics.getHeight() / 8;
 	public static final int HUD_STATUS_BAR_MARGIN               = HUD_STATUS_BAR_HEIGHT / 6;
-	public static final int HUD_ITEM_BAR_HEIGHT                 = Gdx.graphics.getHeight() / 9;
-	public static final int HUD_ITEM_BAR_WIDTH                  = (int) (C.HUD_ITEM_BAR_HEIGHT * 1.68);
-	public static final int HUD_ITEM_BAR_MARGIN                 = HUD_ITEM_BAR_HEIGHT / 6;
+	public static final int HUD_ITEM_BAR_HEIGHT                 = Gdx.graphics.getHeight() / 8;
+	public static final int HUD_ITEM_BAR_WIDTH                  = (int) (HUD_ITEM_BAR_HEIGHT * 1.68);;
+	public static final int HUD_ITEM_BAR_MARGIN                 = HUD_ITEM_BAR_HEIGHT / 7;
 	public static final int HUD_SUB_STATUS_BAR_HEIGHT           = HUD_STATUS_BAR_HEIGHT / 4;
 	public static final int HUD_SUB_STATUS_BAR_SECTION_WIDTH    = HUD_SUB_STATUS_BAR_HEIGHT / 4;
 	
@@ -102,7 +102,7 @@ public class C {
 	public static final int FONT_SIZE_LARGE                     = (int) (12 * LAYOUT_MULTIPLIER);
 	
 	/** Stats */
-	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 5;
+	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 2;
 	public static final int STATS_LEVEL_XP_MODIFIER             = 10;
 	
 	/** Procedural Generation */

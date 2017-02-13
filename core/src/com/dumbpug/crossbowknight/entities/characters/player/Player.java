@@ -3,14 +3,12 @@ package com.dumbpug.crossbowknight.entities.characters.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.characters.Character;
-import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
 
 /**
  * Represents the player.
@@ -114,16 +112,6 @@ public class Player extends Character {
 	}
 	
 	/**
-	 * Called when the player levels up.
-	 */
-	public void onLevelUp() {
-		// We have levelled up. The players max health should now reflect this change. 
-		this.getHealthStatus().setMaxHealth(C.CHARACTER_BASE_HEALTH + this.getStats().getAttributePoints(Attribute.VITALITY));
-		
-		// ...
-	}
-	
-	/**
 	 * Get whether the player is currently guarding.
 	 * @return is guarding.
 	 */
@@ -141,10 +129,9 @@ public class Player extends Character {
 	 */
 	public EquippedItems getEquipment() { return equipment; }
 	
-
+	/**
+	 * Draw the player.
+	 */
 	@Override
-	public void drawCharacter(SpriteBatch batch, LevelCamera camera) {
-		// Let the player drawer take care of drawing.
-		playerDrawer.draw(batch, camera.getX(), camera.getY());
-	}
+	public void drawCharacter(SpriteBatch batch, LevelCamera camera) { playerDrawer.draw(batch, camera.getX(), camera.getY()); }
 }

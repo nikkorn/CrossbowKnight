@@ -148,4 +148,14 @@ public class Stats {
         int levelBasedAttributeValue = this.getLevel()*C.STATS_ATTRIBUTE_LEVEL_MODIFIER;
         return levelBasedAttributeValue + (this.getAttributeLevel(attribute)*C.STATS_ATTRIBUTE_LEVEL_MODIFIER);
     }
+    
+    //-----------------------------------------------------
+    // The statistics derived from our attribute levels. 
+    //-----------------------------------------------------
+    
+    /**
+     * Get the max health stat.
+     * @return max health stat
+     */
+    public int getMaxHealth() { return C.CHARACTER_BASE_HEALTH + getAttributePoints(Attribute.VITALITY); }
 }

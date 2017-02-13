@@ -21,7 +21,7 @@ public class CharacterMenuTab implements GameMenuTab {
 	/** The XP bar. */
 	private XpBar xpBar;
 	/** The attributes container. */
-	private AttributesBoxContainer attributesBox;
+	private SelectableAttributeBoxContainer attributesBox;
 
 	/**
 	 * Create a new instance of the CharacterMenuTab.
@@ -31,7 +31,7 @@ public class CharacterMenuTab implements GameMenuTab {
 		this.background    = new Texture("graphics/gamemenu/character/gamemenu_background.png");
 		this.player        = player;
 		this.xpBar         = new XpBar();
-		this.attributesBox = new AttributesBoxContainer(player.getStats());
+		this.attributesBox = new SelectableAttributeBoxContainer(player.getStats());
 	}
 	
 	@Override

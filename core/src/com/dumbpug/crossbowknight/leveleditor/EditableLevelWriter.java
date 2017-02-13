@@ -57,7 +57,7 @@ public class EditableLevelWriter {
             backgroundFileWriter = new PrintWriter(new FileWriter(levelDir + "/background"));
             JSONArray backgroundTileArray = new JSONArray();
             // Write every background tile to our JSON array.
-            for(Tile tile : level.getLevelWorld().getLevelTiles()) {
+            for(Tile tile : level.getLevelWorld().getTiles()) {
                 if(tile.getBackgroundTexture() != null) {
                     JSONObject backgroundTileObject = new JSONObject();
                     backgroundTileObject.put("x", tile.getX());
@@ -83,7 +83,7 @@ public class EditableLevelWriter {
             decorationsFileWriter = new PrintWriter(new FileWriter(levelDir + "/decorations"));
             JSONArray decorationTileArray = new JSONArray();
             // Write every decoration tile to our JSON array.
-            for(Tile tile : level.getLevelWorld().getLevelTiles()) {
+            for(Tile tile : level.getLevelWorld().getTiles()) {
                 if(tile.getDecorationTexture() != null) {
                     JSONObject decorationTileObject = new JSONObject();
                     decorationTileObject.put("x", tile.getX());
@@ -109,7 +109,7 @@ public class EditableLevelWriter {
             blocksFileWriter = new PrintWriter(new FileWriter(levelDir + "/blocks"));
             JSONArray blockTileArray = new JSONArray();
             // Write every decoration tile to our JSON array.
-            for(Tile tile : level.getLevelWorld().getLevelTiles()) {
+            for(Tile tile : level.getLevelWorld().getTiles()) {
                 if(tile.getPhysicsBlock() != null) {
                     JSONObject blockTileObject = new JSONObject();
                     blockTileObject.put("x", tile.getX());

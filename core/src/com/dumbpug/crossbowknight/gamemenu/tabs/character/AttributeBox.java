@@ -15,13 +15,13 @@ import com.dumbpug.crossbowknight.resources.FontPack;
  */
 public class AttributeBox {
 	/** The attribute that this box represents. */
-	private Attribute attribute;
+	protected Attribute attribute;
 	/** The player stats. */
-	private Stats stats;
+	protected Stats stats;
 	/** The position of this box. */
 	private float posX, posY;
 	/** The width of this box. */
-	private static float width  = C.INGAME_MENU_WIDTH * 0.45f;
+	private static float width = C.INGAME_MENU_WIDTH * 0.45f;
 	/** The width of the area in which the point count is displayed. */
 	private static float pointDisplayWidth  = width / 5f;
 	/** The font to use in drawing this attribute box. */
@@ -45,11 +45,6 @@ public class AttributeBox {
 	}
 	
 	/**
-	 * Called when the user attempts to increase the attribute points by one.
-	 */
-	public void select() { stats.setAttributeLevel(attribute, stats.getAttributeLevel(attribute) + 1); }
-	
-	/**
 	 * Draw this attribute box.
 	 * @param batch
 	 * @param isSelected
@@ -59,7 +54,5 @@ public class AttributeBox {
 		font.draw(batch, attribute.toString(), posX, posY, width, Align.left, true);
 		// Write the attribute level count.
 		font.draw(batch, stats.getAttributeLevel(attribute) + "", (posX + width) - (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT + pointDisplayWidth), posY, pointDisplayWidth, Align.center, true);
-		// TODO Draw the point increase button.
-		// TODO Draw the point increase selection overlay if we are selected.
 	}
 }

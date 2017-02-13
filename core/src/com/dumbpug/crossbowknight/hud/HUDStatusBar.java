@@ -49,7 +49,7 @@ public class HUDStatusBar {
         batch.draw(statusIcons, C.HUD_STATUS_BAR_MARGIN, Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT + C.HUD_STATUS_BAR_MARGIN),
         		C.HUD_STATUS_BAR_HEIGHT*0.6f, C.HUD_STATUS_BAR_HEIGHT);
         // Draw the individual status bars.
-        drawHealthBar(batch, player.getHealthStatus().getMaxHealth(), player.getHealthStatus().getHealth());
+        drawHealthBar(batch, player.getStats().getMaxHealth(), player.getHealthStatus().getHealth());
         // Draw the shield durability bar if we have a shield equipped.
         if(player.getEquipment().getShieldSlot() != null) {
         	Shield equippedShield = player.getEquipment().getShieldSlot();

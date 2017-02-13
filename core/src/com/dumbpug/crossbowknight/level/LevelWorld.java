@@ -67,8 +67,8 @@ public class LevelWorld {
 	 * Set all level tiles.
 	 * @param levelTiles
 	 */
-	public void setLevelTiles(ArrayList<Tile> levelTiles) {
-		this.levelTiles = levelTiles;
+	public void setTiles(ArrayList<Tile> tiles) {
+		this.levelTiles = tiles;
 		// Now that we have set our tiles, we can add and tile blocks to our physics world.
 		for(Tile tile : levelTiles) {
 			if(tile.getPhysicsBlock() != null) {
@@ -81,7 +81,7 @@ public class LevelWorld {
 	 * Get all level tiles.
 	 * @return level tiles.
 	 */
-	public ArrayList<Tile> getLevelTiles() { return levelTiles; }
+	public ArrayList<Tile> getTiles() { return levelTiles; }
 	
 	/**
 	 * Get the level worlds item pool.

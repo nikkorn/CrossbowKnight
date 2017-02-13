@@ -7,33 +7,33 @@ import com.dumbpug.crossbowknight.entities.characters.Stats;
 import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
 
 /**
- * Holds the attribute boxes for the character menu tab and handles selection.
+ * Holds the selectable attribute boxes for the character menu tab and handles selection.
  * @author nikolas.howard
  */
-public class AttributesBoxContainer {
+public class SelectableAttributeBoxContainer {
 	/** The player stats. */
 	private Stats stats;
 	/** The list of attributes. */
-	private ArrayList<AttributeBox> attributeBoxes = new ArrayList<AttributeBox>();
+	private ArrayList<SelectableAttributeBox> attributeBoxes = new ArrayList<SelectableAttributeBox>();
 	/** The index of the selected attribute box. */
 	private int selectedAttributeBoxIndex = 0;
 	
 	/**
-	 * Create a new instance of the AttributesBoxContainer class.
+	 * Create a new instance of the SelectableAttributeBoxContainer class.
 	 * @param stats
      */
-	public AttributesBoxContainer(Stats stats) {
+	public SelectableAttributeBoxContainer(Stats stats) {
 		this.stats = stats;
 		// Figure out the position on the screen from where to start positioning the attribute boxes.
 		float containerPositionX = C.INGAME_MENU_POS_X + (C.INGAME_MENU_WIDTH * 0.04f);
 		float containerPositionY = C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.37f);
 		// Create the attribute boxes.
-		attributeBoxes.add(new AttributeBox(Attribute.AGILITY, stats, containerPositionX, containerPositionY));
-		attributeBoxes.add(new AttributeBox(Attribute.MARKSMANSHIP, stats, containerPositionX, containerPositionY + C.MENU_CHARACTER_ATTRIBUTE_HEIGHT));
-		attributeBoxes.add(new AttributeBox(Attribute.LUCK, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 2)));
-		attributeBoxes.add(new AttributeBox(Attribute.DEFENSE, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 3)));
-		attributeBoxes.add(new AttributeBox(Attribute.STRENGTH, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 4)));
-		attributeBoxes.add(new AttributeBox(Attribute.VITALITY, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 5)));
+		attributeBoxes.add(new SelectableAttributeBox(Attribute.AGILITY, stats, containerPositionX, containerPositionY));
+		attributeBoxes.add(new SelectableAttributeBox(Attribute.MARKSMANSHIP, stats, containerPositionX, containerPositionY + C.MENU_CHARACTER_ATTRIBUTE_HEIGHT));
+		attributeBoxes.add(new SelectableAttributeBox(Attribute.LUCK, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 2)));
+		attributeBoxes.add(new SelectableAttributeBox(Attribute.DEFENSE, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 3)));
+		attributeBoxes.add(new SelectableAttributeBox(Attribute.STRENGTH, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 4)));
+		attributeBoxes.add(new SelectableAttributeBox(Attribute.VITALITY, stats, containerPositionX, containerPositionY + (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT * 5)));
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class AttributesBoxContainer {
 	 * @param batch
 	 */
 	public void draw(SpriteBatch batch) {
-		for(AttributeBox attribute : attributeBoxes) {
+		for(SelectableAttributeBox attribute : attributeBoxes) {
 			// Get whether this attribute is the currently selected one.
 			boolean isSelected = attribute == attributeBoxes.get(selectedAttributeBoxIndex);
 			// Draw the attribute.
