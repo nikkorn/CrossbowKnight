@@ -132,6 +132,12 @@ public abstract class Bolt extends Projectile {
 	public abstract float getBaseDamage();
 	
 	/**
+	 * Get the amount of stamina required to fire this bolt.
+	 * @return fire stamina cost.
+	 */
+	public int getFireStaminaCost() { return (int) C.PROJECTILE_BASE_FIRE_STAMINA_REQ; }
+	
+	/**
 	 * Draw the bolt.
 	 */
 	@Override

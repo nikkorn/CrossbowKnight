@@ -157,5 +157,34 @@ public class Stats {
      * Get the max health stat.
      * @return max health stat
      */
-    public int getMaxHealth() { return C.CHARACTER_BASE_HEALTH + getAttributePoints(Attribute.VITALITY); }
+    public int getMaxHealth() { return C.STATS_BASE_HEALTH + getAttributePoints(Attribute.VITALITY); }
+    
+    /**
+     * Get the max stamina stat.
+     * @return max stamina stat.
+     */
+    public int getMaxStamina() { 
+    	// Stamina is derived from both the strength and agility attributes.
+    	int staminaPoints = getAttributePoints(Attribute.STRENGTH) + (getAttributePoints(Attribute.AGILITY) / 2);
+    	return C.STATS_BASE_STAMINA + (staminaPoints/2);
+    }
+    
+    /**
+     * Get the stamina refill rate.
+     * @return stamina refill rate.
+     */
+    public float getStaminaRefillRate() { return C.STATS_BASE_STAMINA_REFILL_RATE; } // TODO Tweak
+    
+    /**
+     * Get the speed multiplier.
+     * @return speed multiplier.
+     */
+    public float getSpeedMultiplier() { return 1f; } // TODO Tweak
+    
+    /**
+     * Get the percentage of shots which will be critical shots.
+     * @return critical shot percentage.
+     */
+    public float getCriticalShotChance() { return 0.05f; } // TODO Tweak
+    
 }

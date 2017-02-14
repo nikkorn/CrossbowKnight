@@ -20,9 +20,7 @@ public class EquipmentUsage {
 	 * Create a new instance of the EqupimentUsage class.
 	 * @param level
 	 */
-	public EquipmentUsage(Level level) {
-		this.level = level;
-	}
+	public EquipmentUsage(Level level) { this.level = level; }
 	
 	/**
 	 * Called when an item is actually able to be used.
@@ -67,11 +65,17 @@ public class EquipmentUsage {
 		
 		// TODO Handle other projectile types.
 		
-		// Create the bolt.
+		// Create the bolt based on the ammo type.
 		Bolt bolt = ammo.getProjectile(shotX, shotY, angleOfFire, shotVelocity, level);
 
 		// Set the owner of this bolt to be the character which fired it.
 		bolt.setOwner(character);
+		
+		// Check whether we have the stamina required to fire this projectile.
+		if(!character.getStaminaStatus().expendStamina(bolt.getFireStaminaCost())) {
+			// We failed to fire this bolt as we do not have the stamina required.
+			return false;
+		}
 		
 		// TODO modify the bolts damage to reflect character stats.
 		

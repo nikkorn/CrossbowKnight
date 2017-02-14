@@ -21,6 +21,8 @@ public abstract class Character {
 	private Stats stats = new Stats();
 	/** The health status of this character. */
 	private HealthStatus healthStatus = new HealthStatus(stats);
+	/** The stamina status of this character. */
+	private StaminaStatus staminaStatus = new StaminaStatus(stats);
 	/** The characters active damage effects. */
 	private DamageEffects damageEffects = new DamageEffects();
 	/** The character effect drawer. */
@@ -32,6 +34,8 @@ public abstract class Character {
 	 * Update the character.
 	 */
 	public void update() {
+		// Tick our stamina status as it replenishes over time.
+		staminaStatus.tick();
 		// Apply any damage effects..
 		damageEffects.apply(this);
 		// Update the character effect emitter pool.
@@ -58,6 +62,18 @@ public abstract class Character {
 	 * @param healthStatus
 	 */
 	public void setHealthStatus(HealthStatus healthStatus) { this.healthStatus = healthStatus; }
+	
+	/**
+	 * Get stamina status.
+	 * @return stamina status.
+	 */
+	public StaminaStatus getStaminaStatus() { return this.staminaStatus; }
+	
+	/**
+	 * Set stamina status.
+	 * @param staminaStatus
+	 */
+	public void setStaminaStatus(StaminaStatus staminaStatus) { this.staminaStatus = staminaStatus; }
 	
 	/**
 	 * Get stats.

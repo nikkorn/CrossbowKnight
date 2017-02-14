@@ -40,13 +40,12 @@ public class C {
 
 	/** Character */
 	public static final int CHARACTER_MAX_LEVEL                       = 100;
-	public static final int CHARACTER_BASE_HEALTH                     = 50;
 	public static final float CHARACTER_PHYSICS_MAX_WALKING_VELOCITY  = 1f;
 	public static final float CHARACTER_PHYSICS_WALKING_IMPULSE_VALUE = 0.2f;
 	public static final float CHARACTER_JUMPING_IMPULSE               = 1.7f;
-	public static final float CHARACTER_PHYSICS_MAX_VELOCITY         = 1.6f;
-	public static final float CHARACTER_PHYSICS_FRICTION             = 0.75f;
-	public static final float CHARACTER_PHYSICS_RESTITUTION          = 0f;
+	public static final float CHARACTER_PHYSICS_MAX_VELOCITY          = 1.6f;
+	public static final float CHARACTER_PHYSICS_FRICTION              = 0.75f;
+	public static final float CHARACTER_PHYSICS_RESTITUTION           = 0f;
 	
 	/** Items */
 	public static final float ITEM_BOX_SIZE                     = 6f;
@@ -65,7 +64,8 @@ public class C {
 	public static final float EQUIPMENT_SELECTION_VIEW_HEIGHT   = EQUIPMENT_SELECTION_VIEW_WIDTH / 5;
 
 	/** Projectiles */
-	public static final long PROJECTILE_LAUNCH_IMMUNITY_THRESHOLD = 500;
+	public static final long PROJECTILE_LAUNCH_IMMUNITY_THRESHOLD  = 500;
+	public static final float PROJECTILE_BASE_FIRE_STAMINA_REQ     = 5f;
 	public static final float PROJECTILE_BOLT_HEAD_SIZE            = 4f;
 	public static final float PROJECTILE_BOLT_HITBOX_PADDING       = 0.5f;
 	public static final int PROJECTILE_RUBBERBOLT_BOUNCES          = 3;
@@ -104,6 +104,9 @@ public class C {
 	/** Stats */
 	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 2;
 	public static final int STATS_LEVEL_XP_MODIFIER             = 10;
+	public static final int STATS_BASE_HEALTH                   = 50;
+	public static final int STATS_BASE_STAMINA                  = 50;
+	public static final float STATS_BASE_STAMINA_REFILL_RATE    = 0.1f;
 	
 	/** Procedural Generation */
 	public static final int PROC_GEN_TOKENS_RARITY_COMMON       = 65;

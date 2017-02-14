@@ -1,5 +1,7 @@
 package com.dumbpug.crossbowknight.entities.objects.projectiles;
 
+import com.dumbpug.crossbowknight.C;
+
 /**
  * A very heavy bolt.
  * Created by nik on 10/10/16.
@@ -22,4 +24,7 @@ public class HeavyBolt extends Bolt {
 
 	@Override
 	public ProjectileType getProjectileType() { return ProjectileType.BOLT_HEAVY; }
+	
+	@Override
+	public int getFireStaminaCost() { return (int) (C.PROJECTILE_BASE_FIRE_STAMINA_REQ * 1.4f); }
 }

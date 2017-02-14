@@ -17,26 +17,26 @@ public class HUDStatusBar {
     private static Texture statusBarEnd;
     private static Texture statusBarEmpty;
     private static Texture statusBarHealth;
+    private static Texture statusBarStamina;
     private static Texture statusBarShield;
-    private static Texture statusBarBowTension;
     
     /** The positions of the individual status bars.  */
-    private float statusBarPosX     = (C.HUD_STATUS_BAR_HEIGHT * 0.6f) + (C.HUD_STATUS_BAR_MARGIN * 2);
-    private float healthBarPosY     = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.5f);
-    private float shieldBarPosY     = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 1.05f);
-    private float bowTensionBarPosY = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.9f);
+    private float statusBarPosX  = (C.HUD_STATUS_BAR_HEIGHT * 0.6f) + (C.HUD_STATUS_BAR_MARGIN * 2);
+    private float healthBarPosY  = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.5f);
+    private float staminaBarPosY = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.9f);
+    private float shieldBarPosY  = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 1.05f);
     
     /**
      * Create a new instance of HUDStatusBar.
      */
     public HUDStatusBar() {
         // Load our resources.
-        statusIcons         = new Texture("graphics/hud/statusbar/statusbar_icons.png");
-        statusBarEnd        = new Texture("graphics/hud/statusbar/status_bar_end.png");
-        statusBarEmpty      = new Texture("graphics/hud/statusbar/status_bar_empty_section.png");
-        statusBarHealth     = new Texture("graphics/hud/statusbar/status_bar_health_section.png");
-        statusBarShield     = new Texture("graphics/hud/statusbar/status_bar_shield_section.png");
-        statusBarBowTension = new Texture("graphics/hud/statusbar/status_bar_bow_tension_section.png");
+        statusIcons      = new Texture("graphics/hud/statusbar/statusbar_icons.png");
+        statusBarEnd     = new Texture("graphics/hud/statusbar/status_bar_end.png");
+        statusBarEmpty   = new Texture("graphics/hud/statusbar/status_bar_empty_section.png");
+        statusBarHealth  = new Texture("graphics/hud/statusbar/status_bar_health_section.png");
+        statusBarShield  = new Texture("graphics/hud/statusbar/status_bar_shield_section.png");
+        statusBarStamina = new Texture("graphics/hud/statusbar/status_bar_stamina_section.png");
     }
 
     /**
@@ -50,13 +50,12 @@ public class HUDStatusBar {
         		C.HUD_STATUS_BAR_HEIGHT*0.6f, C.HUD_STATUS_BAR_HEIGHT);
         // Draw the individual status bars.
         drawHealthBar(batch, player.getStats().getMaxHealth(), player.getHealthStatus().getHealth());
+        drawStaminaBar(batch, player.getStats().getMaxStamina(), player.getStaminaStatus().getStamina());
         // Draw the shield durability bar if we have a shield equipped.
         if(player.getEquipment().getShieldSlot() != null) {
         	Shield equippedShield = player.getEquipment().getShieldSlot();
-        	
         	drawShieldBar(batch, equippedShield.getTotalDurability(), equippedShield.getCurrentDurability());
         }
-        // TODO drawBowTensionBar(batch, player);
     }
 
 	/**
@@ -73,6 +72,22 @@ public class HUDStatusBar {
     	batch.draw(statusBarHealth, statusBarPosX + C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, healthBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * currentHealth, C.HUD_SUB_STATUS_BAR_HEIGHT);
     	// Draw the end section of the bar.
     	batch.draw(statusBarEnd, statusBarPosX + (C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * (maxHealth+1)), healthBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, C.HUD_SUB_STATUS_BAR_HEIGHT);
+    }
+    
+    /**
+     * Draw the stamina bar.
+     * @param maxStamina
+     * @param currentStamina
+     */
+    private void drawStaminaBar(SpriteBatch batch, int maxStamina, int currentStamina) {
+    	// Draw the bar end.
+    	batch.draw(statusBarEnd, statusBarPosX, staminaBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, C.HUD_SUB_STATUS_BAR_HEIGHT);
+    	// Draw the empty section of the bar.
+    	batch.draw(statusBarEmpty, statusBarPosX + C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, staminaBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * maxStamina, C.HUD_SUB_STATUS_BAR_HEIGHT);
+    	// Draw the full section of the bar.
+    	batch.draw(statusBarStamina, statusBarPosX + C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, staminaBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * currentStamina, C.HUD_SUB_STATUS_BAR_HEIGHT);
+    	// Draw the end section of the bar.
+    	batch.draw(statusBarEnd, statusBarPosX + (C.HUD_SUB_STATUS_BAR_SECTION_WIDTH * (maxStamina+1)), staminaBarPosY, C.HUD_SUB_STATUS_BAR_SECTION_WIDTH, C.HUD_SUB_STATUS_BAR_HEIGHT);
     }
     
     /**
