@@ -170,10 +170,10 @@ public class Stats {
     }
     
     /**
-     * Get the stamina refill rate.
-     * @return stamina refill rate.
+     * Get the stamina refill rate in milliseconds.
+     * @return stamina refill rate in milliseconds.
      */
-    public float getStaminaRefillRate() { return C.STATS_BASE_STAMINA_REFILL_RATE; } // TODO Tweak
+    public long getStaminaRefillRate() { return Math.max(0, C.STATS_BASE_STAMINA_REFILL_RATE - (getAttributePoints(Attribute.STRENGTH)*3)); }
     
     /**
      * Get the speed multiplier.

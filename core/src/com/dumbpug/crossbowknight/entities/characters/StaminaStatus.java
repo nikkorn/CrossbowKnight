@@ -25,9 +25,8 @@ public class StaminaStatus {
      * Called every game tick in order to slowly replenish stamina
      */
     public void tick() {
-    	// Check to see if we have passed an interval and need to replenish a unit of stamina. 
-		// TODO This needs to be made to work with game pausing.
-		if(lastReplenishTime < (System.currentTimeMillis() - (stats.getStaminaRefillRate()*1000)))  {
+    	// Check to see if we have passed an interval and need to replenish a unit of stamina.
+		if(lastReplenishTime < (System.currentTimeMillis() - stats.getStaminaRefillRate())) {
 			lastReplenishTime = System.currentTimeMillis();
 			applyStamina(1);
 		}
@@ -55,9 +54,9 @@ public class StaminaStatus {
     public void applyStamina(int stamina) {
     	int maxStamina = stats.getMaxStamina();
     	this.stamina += stamina;
-		if(stamina > maxStamina) {
+		if(this.stamina > maxStamina) {
 			// Can't have stamina over the max stamina. 
-			stamina = maxStamina;
+			this.stamina = maxStamina;
 		} 
     }
     

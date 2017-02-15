@@ -106,7 +106,7 @@ public class C {
 	public static final int STATS_LEVEL_XP_MODIFIER             = 10;
 	public static final int STATS_BASE_HEALTH                   = 50;
 	public static final int STATS_BASE_STAMINA                  = 50;
-	public static final float STATS_BASE_STAMINA_REFILL_RATE    = 0.1f;
+	public static final long STATS_BASE_STAMINA_REFILL_RATE     = 1000l;
 	
 	/** Procedural Generation */
 	public static final int PROC_GEN_TOKENS_RARITY_COMMON       = 65;
