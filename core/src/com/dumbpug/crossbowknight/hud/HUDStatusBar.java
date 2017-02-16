@@ -14,6 +14,7 @@ import com.dumbpug.crossbowknight.entities.objects.items.dynamic.Shield;
 public class HUDStatusBar {
     /** The resources for the HUD status bar. */
     private static Texture statusIcons;
+    private static Texture statusShieldIcon;
     private static Texture statusBarEnd;
     private static Texture statusBarEmpty;
     private static Texture statusBarHealth;
@@ -21,10 +22,10 @@ public class HUDStatusBar {
     private static Texture statusBarShield;
     
     /** The positions of the individual status bars.  */
-    private float statusBarPosX  = (C.HUD_STATUS_BAR_HEIGHT * 0.6f) + (C.HUD_STATUS_BAR_MARGIN * 2);
-    private float healthBarPosY  = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.5f);
-    private float staminaBarPosY = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.9f);
-    private float shieldBarPosY  = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 1.05f);
+    private float statusBarPosX  = (C.HUD_STATUS_BAR_HEIGHT * 0.4f) + C.HUD_STATUS_BAR_MARGIN;
+    private float healthBarPosY  = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 0.56f);
+    private float staminaBarPosY = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 1.024f);
+    private float shieldBarPosY  = Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT * 1.45f);
     
     /**
      * Create a new instance of HUDStatusBar.
@@ -32,6 +33,7 @@ public class HUDStatusBar {
     public HUDStatusBar() {
         // Load our resources.
         statusIcons      = new Texture("graphics/hud/statusbar/statusbar_icons.png");
+        statusShieldIcon = new Texture("graphics/hud/statusbar/statusbar_defense_icon.png");
         statusBarEnd     = new Texture("graphics/hud/statusbar/status_bar_end.png");
         statusBarEmpty   = new Texture("graphics/hud/statusbar/status_bar_empty_section.png");
         statusBarHealth  = new Texture("graphics/hud/statusbar/status_bar_health_section.png");
@@ -45,17 +47,21 @@ public class HUDStatusBar {
      * @param player
      */
     public void draw(SpriteBatch batch, Player player) {
-    	// Draw the Icons
-        batch.draw(statusIcons, C.HUD_STATUS_BAR_MARGIN, Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT + C.HUD_STATUS_BAR_MARGIN),
-        		C.HUD_STATUS_BAR_HEIGHT*0.6f, C.HUD_STATUS_BAR_HEIGHT);
         // Draw the individual status bars.
         drawHealthBar(batch, player.getStats().getMaxHealth(), player.getHealthStatus().getHealth());
         drawStaminaBar(batch, player.getStats().getMaxStamina(), player.getStaminaStatus().getStamina());
         // Draw the shield durability bar if we have a shield equipped.
         if(player.getEquipment().getShieldSlot() != null) {
         	Shield equippedShield = player.getEquipment().getShieldSlot();
+        	// Draw the shield bar.
         	drawShieldBar(batch, equippedShield.getTotalDurability(), equippedShield.getCurrentDurability());
+        	// Draw the shield icon.
+        	batch.draw(statusShieldIcon, C.HUD_STATUS_BAR_MARGIN, Gdx.graphics.getHeight() - ((C.HUD_STATUS_BAR_HEIGHT*1.5f) + C.HUD_STATUS_BAR_MARGIN),
+            		C.HUD_STATUS_BAR_HEIGHT*0.5f, C.HUD_STATUS_BAR_HEIGHT*0.5f);
         }
+        // Draw the Icons
+        batch.draw(statusIcons, C.HUD_STATUS_BAR_MARGIN, Gdx.graphics.getHeight() - (C.HUD_STATUS_BAR_HEIGHT + C.HUD_STATUS_BAR_MARGIN),
+        		C.HUD_STATUS_BAR_HEIGHT*0.5f, C.HUD_STATUS_BAR_HEIGHT);
     }
 
 	/**

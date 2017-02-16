@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Align;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.entities.characters.Stats;
-import com.dumbpug.crossbowknight.entities.characters.Stats.Attribute;
 import com.dumbpug.crossbowknight.resources.FontPack;
 
 /**
@@ -14,10 +12,8 @@ import com.dumbpug.crossbowknight.resources.FontPack;
  * @author nikolas.howard
  */
 public class AttributeBox {
-	/** The attribute that this box represents. */
-	protected Attribute attribute;
-	/** The player stats. */
-	protected Stats stats;
+	/** The name of the attribute that this box represents. */
+	protected String name;
 	/** The position of this box. */
 	private float posX, posY;
 	/** The width of this box. */
@@ -29,30 +25,34 @@ public class AttributeBox {
 	
 	/**
 	 * Create a new instance of the AttributeBox class.
-	 * @param attribute
+	 * @param name
 	 * @param stats
 	 * @param posX
 	 * @param posY
 	 */
-	public AttributeBox(Attribute attribute, Stats stats, float posX, float posY){
-		this.attribute = attribute;
-		this.stats     = stats;
-		this.posX      = posX;
-		this.posY      = posY;
+	public AttributeBox(String name, float posX, float posY){
+		this.name  = name;
+		this.posX  = posX;
+		this.posY  = posY;
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size   = C.FONT_SIZE_SMALL;
-		this.font        = FontPack.getFontPack().getFont(FontPack.FontType.MAIN_FONT, parameter);
+		parameter.size = C.FONT_SIZE_SMALL;
+		this.font      = FontPack.getFontPack().getFont(FontPack.FontType.MAIN_FONT, parameter);
 	}
+	
+	/**
+	 * Gets the value to display as the attribute value.
+	 * @return display value.
+	 */
+	public String getDisplayValue() { return ""; }
 	
 	/**
 	 * Draw this attribute box.
 	 * @param batch
-	 * @param isSelected
 	 */
-	public void draw(SpriteBatch batch, boolean isSelected) {
+	public void draw(SpriteBatch batch) {
 		// Write the attribute name.
-		font.draw(batch, attribute.toString(), posX, posY, width, Align.left, true);
+		font.draw(batch, name, posX, posY, width, Align.left, false);
 		// Write the attribute level count.
-		font.draw(batch, stats.getAttributeLevel(attribute) + "", (posX + width) - (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT + pointDisplayWidth), posY, pointDisplayWidth, Align.center, true);
+		font.draw(batch, getDisplayValue(), (posX + width) - (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT + pointDisplayWidth), posY, pointDisplayWidth, Align.center, false);
 	}
 }

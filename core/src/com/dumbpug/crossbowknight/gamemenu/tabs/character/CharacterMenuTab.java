@@ -1,5 +1,6 @@
 package com.dumbpug.crossbowknight.gamemenu.tabs.character;
 
+import java.text.DecimalFormat;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
@@ -21,29 +22,66 @@ public class CharacterMenuTab implements GameMenuTab {
 	/** The XP bar. */
 	private XpBar xpBar;
 	/** The attributes container. */
-	private SelectableAttributeBoxContainer attributesBox;
+	private SelectableAttributeBoxContainer selectableAttributesBox;
+	/** The non-selectable Stat attributes. */
+	private AttributeBox hpStatBox;
+	private AttributeBox staminaStatBox;
+	private AttributeBox staminaRefillRateStatBox;
+	private AttributeBox criticalHitPercentageStatBox;
 
 	/**
 	 * Create a new instance of the CharacterMenuTab.
 	 * @param player
      */
 	public CharacterMenuTab(Player player) {
-		this.background    = new Texture("graphics/gamemenu/character/gamemenu_background.png");
-		this.player        = player;
-		this.xpBar         = new XpBar();
-		this.attributesBox = new SelectableAttributeBoxContainer(player.getStats());
+		this.background              = new Texture("graphics/gamemenu/character/gamemenu_background.png");
+		this.player                  = player;
+		this.xpBar                   = new XpBar();
+		this.selectableAttributesBox = new SelectableAttributeBoxContainer(player.getStats());
+		createStatAttributeBoxes();
 	}
 	
+	/**
+	 * Create the Stat attribute boxes.
+	 */
+	private void createStatAttributeBoxes() {
+		final Stats stats = player.getStats();
+		// Figure out the position on the screen from where to start positioning the attribute boxes.
+		float containerPositionX = C.INGAME_MENU_POS_X + (C.INGAME_MENU_WIDTH * 0.525f);
+		float containerPositionY = C.INGAME_MENU_POS_Y + (C.INGAME_MENU_HEIGHT * 0.85f);
+		// Create the HP stat box.
+		hpStatBox = new AttributeBox("HP", containerPositionX, containerPositionY - C.MENU_CHARACTER_ATTRIBUTE_HEIGHT) {
+			@Override
+			public String getDisplayValue() { return player.getHealthStatus().getHealth() + "/" + stats.getMaxHealth(); }
+		};
+		// Create the Stamina stat box.
+		staminaStatBox = new AttributeBox("STAMINA", containerPositionX, containerPositionY - (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT*2)) {
+			@Override
+			public String getDisplayValue() { return player.getStaminaStatus().getStamina() + "/" + stats.getMaxStamina(); }
+		};
+		// Create the StaminaRefill stat box.
+		staminaRefillRateStatBox = new AttributeBox("STAMINA REFILL", containerPositionX, containerPositionY - (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT*3)) {
+			DecimalFormat twoDForm = new DecimalFormat("#.##");
+			@Override
+			public String getDisplayValue() { return Float.valueOf(twoDForm.format(1000 / stats.getStaminaRefillRate())) + "pps"; }
+		};
+		// Create the Critical Hit % stat box.
+		criticalHitPercentageStatBox = new AttributeBox("CRITICAL HIT", containerPositionX, containerPositionY - (C.MENU_CHARACTER_ATTRIBUTE_HEIGHT*4)) {
+			@Override
+			public String getDisplayValue() { return stats.getCriticalShotChance() + "%"; }
+		};
+	}
+
 	@Override
 	public void update() {
 		if(CrossbowKnight.getPlayerInput().isUpButtonPressed()) { 
-			attributesBox.selectionUp();
+			selectableAttributesBox.selectionUp();
 		}
 		if(CrossbowKnight.getPlayerInput().isDownButtonPressed()) { 
-			attributesBox.selectionDown();
+			selectableAttributesBox.selectionDown();
 		}
 		if(CrossbowKnight.getPlayerInput().isAcceptButtonPressed()) { 
-			attributesBox.onSelection();
+			selectableAttributesBox.onSelection();
 		}
 		
 		// TODO Remove!!!!
@@ -54,11 +92,13 @@ public class CharacterMenuTab implements GameMenuTab {
 	public void draw(SpriteBatch batch) {
 		// Draw the tabs background.
 		batch.draw(background, C.INGAME_MENU_POS_X, C.INGAME_MENU_POS_Y, C.INGAME_MENU_WIDTH, C.INGAME_MENU_HEIGHT);
-		
-		// ...
-		
-		// Draw the attributes box.
-		attributesBox.draw(batch);
+		// Draw the selectable attributes box container.
+		selectableAttributesBox.draw(batch);
+		// Draw the non-selectable attributes box container.
+		hpStatBox.draw(batch);
+		staminaStatBox.draw(batch);
+		staminaRefillRateStatBox.draw(batch);
+		criticalHitPercentageStatBox.draw(batch);
 		// Draw the XP bar.
 		Stats stats      = player.getStats();
 		int currentLevel = stats.getLevel();
