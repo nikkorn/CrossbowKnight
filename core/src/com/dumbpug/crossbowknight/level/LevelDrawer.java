@@ -2,6 +2,7 @@ package com.dumbpug.crossbowknight.level;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.tiles.Tile;
+import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
  * Responsible for drawing a level.
@@ -43,6 +44,13 @@ public class LevelDrawer {
 		// Draw all level tile decorations.
 		for(Tile tile : level.getLevelWorld().getTiles()) {
 			tile.drawDecoration(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY()); 
+		}
+		// Draw the level doors.
+		for(Tile tile : level.getLevelWorld().getTiles()) {
+			if(tile.getDoor() != null) {
+				Door door = tile.getDoor();
+				door.drawDoor(batch, tile.getX(), tile.getY(), level.getLevelCamera().getX(), level.getLevelCamera().getY());
+			}
 		}
 	}
 

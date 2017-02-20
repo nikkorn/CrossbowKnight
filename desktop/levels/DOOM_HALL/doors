@@ -1,1 +1,1 @@
-[{"x":5,"y":5,"typeId":0,"id":"doom-hall-exit","targetDoorId":"initial","targetLevel":"initial","locked":false}]
+[{"x":-3,"y":-1,"typeId":0,"id":"doom-hall-exit","targetDoorId":"initial","targetLevel":"initial","locked":true}]

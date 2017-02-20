@@ -2,6 +2,12 @@ package com.dumbpug.crossbowknight.tiles.door;
 
 import java.util.UUID;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.resources.TileResources;
+import com.dumbpug.crossbowknight.resources.TileResources.EntityTile;
+import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
+
 /**
  * Represents a door.
  * @author nikolas.howard
@@ -15,6 +21,9 @@ public class Door {
 	private DoorTarget target;
 	/** Whether this door is unlocked. */
 	private boolean isUnlocked = false;
+	/** The tile textures for this door. */
+	private IndexedTileTexture lockedTexture;
+	private IndexedTileTexture unlockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_OPEN);
 	
 	/**
 	 * Create a new instance of the Door class.
@@ -34,6 +43,26 @@ public class Door {
 	public Door(DoorType type, String id) {
 		this(type);
 		this.id = id;
+		// Set the door tile texture.
+		switch(type) {
+			case SINGLE:
+				lockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_1);
+				break;
+			case DOUBLE:
+				lockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_2);
+				break;
+			case TRIPLE:
+				lockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_3);
+				break;
+			case HOME:
+				lockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_HOME);
+				break;
+			case SHOP:
+				lockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_SHOP);
+				break;
+			default:
+				break;
+		}
 	}
 	
 	/**
@@ -115,4 +144,18 @@ public class Door {
 	 * @param type
 	 */
 	public void setType(DoorType type) { this.type = type; }
+	
+	/**
+	 * Draw the decoration of this tile.
+	 * @param batch
+	 * @param xOffset
+	 * @param yOffset
+	 */
+	public void drawDoor(SpriteBatch batch, float x, float y, float xOffset, float yOffset) {
+		batch.draw((this.isUnlocked ? unlockedTexture : lockedTexture).getTexture(),
+				(x * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + xOffset,
+				(y * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + yOffset,
+				(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER),
+				(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER));
+	}
 }
