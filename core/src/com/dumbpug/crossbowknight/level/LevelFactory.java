@@ -10,6 +10,9 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Helpers;
 import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.tiles.Tile;
+import com.dumbpug.crossbowknight.tiles.door.Door;
+import com.dumbpug.crossbowknight.tiles.door.DoorTarget;
+import com.dumbpug.crossbowknight.tiles.door.DoorType;
 
 /**
  * Creates levels.
@@ -75,6 +78,7 @@ public class LevelFactory {
 		File tileBackgroundsFile = new File(C.SAVED_LEVELS_DIR + levelName + "/background");
 		File tileBlocksFile      = new File(C.SAVED_LEVELS_DIR + levelName + "/blocks");
 		File tileDecorationsFile = new File(C.SAVED_LEVELS_DIR + levelName + "/decorations");
+		File tileDoorsFile       = new File(C.SAVED_LEVELS_DIR + levelName + "/doors");
 		// Error if we have missing resources.
 		if(!tileBackgroundsFile.exists() || !tileBlocksFile.exists() || !tileDecorationsFile.exists()) {
 			throw new RuntimeException("Missing map resources in '" + new File(C.SAVED_LEVELS_DIR + levelName).getAbsolutePath() + "'");
@@ -83,6 +87,7 @@ public class LevelFactory {
 		JSONArray tileBackgroundsJSONArray = Helpers.readJSONArrayFromFile(tileBackgroundsFile);
 		JSONArray tileDecorationsJSONArray = Helpers.readJSONArrayFromFile(tileDecorationsFile);
 		JSONArray tileBlocksJSONArray      = Helpers.readJSONArrayFromFile(tileBlocksFile);
+		JSONArray tileDoorsJSONArray       = Helpers.readJSONArrayFromFile(tileDoorsFile);
 
 		// Create tiles which have backgrounds.
 		for(int tileBackgroundIndex = 0; tileBackgroundIndex < tileBackgroundsJSONArray.length(); tileBackgroundIndex++) {
@@ -190,7 +195,38 @@ public class LevelFactory {
 			}
 		}
 
-		// ...
+		// Create level doors.
+		for(int tileDoorIndex = 0; tileDoorIndex < tileDoorsJSONArray.length(); tileDoorIndex++) {
+			int xPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("x");
+			int yPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("y");
+			int typeId          = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("typeId");
+			String id           = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("id");
+			String targetDoorId = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetDoorId");
+			String targetLevel  = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetLevel");
+			boolean locked      = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getBoolean("locked");
+			// Create the door.
+			Door door = new Door(DoorType.values()[typeId], id);
+			// Set the target of the door.
+			DoorTarget target = new DoorTarget();
+			target.doorId     = targetDoorId;
+			target.level      = targetLevel;
+			door.setTarget(target);
+			// Unlock the door if it is not locked.
+			if(!locked) {
+				door.unlock();
+			}
+			// Assign the door to the world tile it resides at.
+			if(tileMap.containsKey(xPos + "-" + yPos)) {
+				tileMap.get(xPos + "-" + yPos).setDoor(door);
+			} else {
+				Tile tile = new Tile();
+				tile.setX(xPos);
+				tile.setY(yPos);
+				tile.setDoor(door);
+				// Add our newly created tile to our map.
+				tileMap.put(xPos + "-" + yPos, tile);
+			}
+		}
 
 		// Return the tiles in our map as a list.
 		return new ArrayList<Tile>(tileMap.values());

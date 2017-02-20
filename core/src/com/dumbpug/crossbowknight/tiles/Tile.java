@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.tiles;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.level.Block;
+import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
  * Represents a world tile.
@@ -18,6 +19,8 @@ public class Tile {
 	private IndexedTileTexture decorationTexture = null;
 	/** A physical block attached to this tile. */
 	private Block physicsBlock = null;
+	/** The door attached to this tile. */
+	private Door door = null;
 	
 	/**
 	 * Get this tiles background texture.
@@ -79,6 +82,18 @@ public class Tile {
 	 * @param physicsBlock
 	 */
 	public void setPhysicsBlock(Block physicsBlock) { this.physicsBlock = physicsBlock; }
+	
+	/**
+	 * Get the door at this tile position.
+	 * @return door
+	 */
+	public Door getDoor() { return door; }
+
+	/**
+	 * Set the door at this position.
+	 * @param door
+	 */
+	public void setDoor(Door door) { this.door = door; }
 	
 	/**
 	 * Draw the background of this tile.

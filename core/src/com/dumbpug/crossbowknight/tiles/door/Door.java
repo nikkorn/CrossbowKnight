@@ -76,6 +76,11 @@ public class Door {
 	public boolean isLocked() { return getKeysRequiredToOpen() == 0 || isUnlocked; }
 	
 	/**
+	 * Unlock the door.
+	 */
+	public void unlock() { isUnlocked = true; }
+	
+	/**
 	 * Get the id of this door.
 	 * @return id
 	 */
