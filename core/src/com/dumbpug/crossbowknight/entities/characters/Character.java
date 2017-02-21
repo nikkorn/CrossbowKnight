@@ -142,6 +142,12 @@ public abstract class Character {
 	 * @return is touching floor.
 	 */
 	public boolean isTouchingFloor() { return characterPhysicsBox.isTouchingFloor(); }
+	
+	/**
+	 * Get whether this character is a player.
+	 * @return is player.
+	 */
+	public boolean isPlayer() { return false; }
 
 	/**
 	 * Get this characters physics box.

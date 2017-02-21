@@ -7,6 +7,7 @@ import com.dumbpug.crossbowknight.entities.objects.projectiles.ProjectilePool;
 import com.dumbpug.crossbowknight.forces.Force;
 import com.dumbpug.crossbowknight.particles.EmitterPool;
 import com.dumbpug.crossbowknight.tiles.Tile;
+import com.dumbpug.crossbowknight.tiles.TileInteractionFacilitator;
 import com.dumbpug.nbp.NBPWorld;
 import java.util.ArrayList;
 
@@ -27,6 +28,8 @@ public class LevelWorld {
 	private EmitterPool emitterPool;
 	/** The Character pool which holds all the living characters in the level world, including the player. */
 	private CharacterPool characterPool;
+	/** The tile interaction facilitator. */
+	private TileInteractionFacilitator tileInteractionFacilitator;
 	
 	/**
 	 * Create a new instance of the LevelWorld class.
@@ -117,7 +120,5 @@ public class LevelWorld {
 	 * Get the physics world.
 	 * @return physics world
 	 */
-	public NBPWorld getPhysicsWorld() {
-		return physicsWorld;
-	}
+	public NBPWorld getPhysicsWorld() { return physicsWorld; }
 }

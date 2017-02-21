@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
-
 import org.json.JSONArray;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Helpers;
