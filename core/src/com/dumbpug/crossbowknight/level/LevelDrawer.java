@@ -70,6 +70,8 @@ public class LevelDrawer {
 				tile.getPhysicsBlock().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 			}
 		}
+		// Draw any interfaces which are part of player/tile interactions.
+		level.getLevelWorld().getTileInteractionFacilitator().drawTileInteractionElements(batch);
 	}
 	
 	/**

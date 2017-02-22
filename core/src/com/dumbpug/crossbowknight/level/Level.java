@@ -30,6 +30,7 @@ import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionLar
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionSuper;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.SkillPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.StrengthPotion;
+import com.dumbpug.crossbowknight.tiles.TileInteractionFacilitator;
 
 /**
  * Represents a game level.
@@ -77,6 +78,8 @@ public class Level {
 		player.getEquipment().setEquipmentUsage(new EquipmentUsage(this));
 		// Add our player to the level world.
 		this.levelWorld.getCharacterPool().add(player);
+		// Set the level world tile interaction facilitator.
+		this.levelWorld.setTileInteractionFacilitator(new TileInteractionFacilitator(player, this.levelWorld));
 	}
 	
 	/**

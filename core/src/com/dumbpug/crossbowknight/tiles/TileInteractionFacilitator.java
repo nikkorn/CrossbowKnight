@@ -1,9 +1,9 @@
 package com.dumbpug.crossbowknight.tiles;
 
-import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
+import com.dumbpug.crossbowknight.level.LevelWorld;
 
 /**
  * Facilitates interactions between the player and interactive tiles such as doors and shops.
@@ -13,17 +13,17 @@ import com.dumbpug.crossbowknight.entities.characters.player.Player;
 public class TileInteractionFacilitator {
 	/** The player which can interact with interactive tiles. */
 	private Player player;
-	/** The world tiles. */
-	private ArrayList<Tile> tiles;
+	/** The level world. */
+	private LevelWorld world;
 	
 	/**
 	 * Create a new instance of the TileInteractionFacilitator class.
 	 * @param player
 	 * @param tiles
 	 */
-	public TileInteractionFacilitator(Player player, ArrayList<Tile> tiles) {
+	public TileInteractionFacilitator(Player player, LevelWorld world) {
 		this.player = player;
-		this.tiles  = tiles;
+		this.world  = world;
 		// Create the interaction resolver for the player.
 		createInteractionResolverForPlayer();
 	}
@@ -88,8 +88,15 @@ public class TileInteractionFacilitator {
 	 * Draw anything related to tile interactions.
 	 * @param batch
 	 */
-	public void draw(SpriteBatch batch) {
-		
+	public void drawTileInteractionElements(SpriteBatch batch) {
+		// TODO Remove!!!
+		if (getTileAtPlayerPosition() != null) {
+			if (getTileAtPlayerPosition().getType() == TileType.DOOR) {
+				System.out.println("At a door yo!");
+			} else {
+				System.out.println("Not at a door yo!");
+			}
+		}
 	}
 	
 	/**
@@ -99,7 +106,11 @@ public class TileInteractionFacilitator {
 	public Tile getTileAtPlayerPosition() {
 		int tilePosX = (int) (player.getPhysicsBox().getCurrentOriginPoint().getX() / C.LAYOUT_TILE_SIZE);
 		int tilePosY = (int) (player.getPhysicsBox().getCurrentOriginPoint().getY() / C.LAYOUT_TILE_SIZE);
-		for(Tile tile : tiles) {
+		
+		// TODO Remove!!!
+		System.out.println("tX: " + tilePosX + " tY: " + tilePosY);
+		
+		for(Tile tile : world.getTiles()) {
 			if(tile.getX() == tilePosX && tile.getY() == tilePosY) {
 				return tile;
 			}
