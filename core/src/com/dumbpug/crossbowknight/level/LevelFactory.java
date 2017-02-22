@@ -87,8 +87,34 @@ public class LevelFactory {
 		JSONArray tileDecorationsJSONArray = Helpers.readJSONArrayFromFile(tileDecorationsFile);
 		JSONArray tileBlocksJSONArray      = Helpers.readJSONArrayFromFile(tileBlocksFile);
 		JSONArray tileDoorsJSONArray       = Helpers.readJSONArrayFromFile(tileDoorsFile);
+		
+		// Create level door tiles.
+		for(int tileDoorIndex = 0; tileDoorIndex < tileDoorsJSONArray.length(); tileDoorIndex++) {
+			int xPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("x");
+			int yPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("y");
+			int typeId          = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("typeId");
+			String id           = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("id");
+			String targetDoorId = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetDoorId");
+			String targetLevel  = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetLevel");
+			boolean locked      = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getBoolean("locked");
+			// Create the door.
+			Door door = new Door(DoorType.values()[typeId], id);
+			door.setX(xPos);
+			door.setY(yPos);
+			// Set the target of the door.
+			DoorTarget target = new DoorTarget();
+			target.doorId     = targetDoorId;
+			target.level      = targetLevel;
+			door.setTarget(target);
+			// Unlock the door if it is not locked.
+			if(!locked) {
+				door.unlock();
+			}
+			// Add our newly created door tile to our map.
+			tileMap.put(xPos + "-" + yPos, door);
+		}
 
-		// Create tiles which have backgrounds.
+		// Create tiles which have backgrounds or assign to existing tiles.
 		for(int tileBackgroundIndex = 0; tileBackgroundIndex < tileBackgroundsJSONArray.length(); tileBackgroundIndex++) {
 			int xPos   = tileBackgroundsJSONArray.getJSONObject(tileBackgroundIndex).getInt("x");
 			int yPos   = tileBackgroundsJSONArray.getJSONObject(tileBackgroundIndex).getInt("y");
@@ -113,7 +139,7 @@ public class LevelFactory {
 			}
 		}
 
-		// Create tiles which have decorations.
+		// Create tiles which have decorations or assign to existing tiles.
 		for(int tileDecorationIndex = 0; tileDecorationIndex < tileDecorationsJSONArray.length(); tileDecorationIndex++) {
 			int xPos   = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("x");
 			int yPos   = tileDecorationsJSONArray.getJSONObject(tileDecorationIndex).getInt("y");
@@ -138,7 +164,7 @@ public class LevelFactory {
 			}
 		}
 
-		// Create tiles which have blocks.
+		// Create tiles which have blocks or assign to existing tiles.
 		for(int tileBlockIndex = 0; tileBlockIndex < tileBlocksJSONArray.length(); tileBlockIndex++) {
 			int xPos         = tileBlocksJSONArray.getJSONObject(tileBlockIndex).getInt("x");
 			int yPos         = tileBlocksJSONArray.getJSONObject(tileBlockIndex).getInt("y");
@@ -189,39 +215,6 @@ public class LevelFactory {
 				tile.setY(yPos);
 				// Set the physics block for this tile.
 				tile.setPhysicsBlock(block);
-				// Add our newly created tile to our map.
-				tileMap.put(xPos + "-" + yPos, tile);
-			}
-		}
-
-		// Create level doors.
-		for(int tileDoorIndex = 0; tileDoorIndex < tileDoorsJSONArray.length(); tileDoorIndex++) {
-			int xPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("x");
-			int yPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("y");
-			int typeId          = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("typeId");
-			String id           = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("id");
-			String targetDoorId = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetDoorId");
-			String targetLevel  = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetLevel");
-			boolean locked      = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getBoolean("locked");
-			// Create the door.
-			Door door = new Door(DoorType.values()[typeId], id);
-			// Set the target of the door.
-			DoorTarget target = new DoorTarget();
-			target.doorId     = targetDoorId;
-			target.level      = targetLevel;
-			door.setTarget(target);
-			// Unlock the door if it is not locked.
-			if(!locked) {
-				door.unlock();
-			}
-			// Assign the door to the world tile it resides at.
-			if(tileMap.containsKey(xPos + "-" + yPos)) {
-				tileMap.get(xPos + "-" + yPos).setDoor(door);
-			} else {
-				Tile tile = new Tile();
-				tile.setX(xPos);
-				tile.setY(yPos);
-				tile.setDoor(door);
 				// Add our newly created tile to our map.
 				tileMap.put(xPos + "-" + yPos, tile);
 			}

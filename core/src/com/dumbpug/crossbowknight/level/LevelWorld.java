@@ -29,7 +29,7 @@ public class LevelWorld {
 	/** The Character pool which holds all the living characters in the level world, including the player. */
 	private CharacterPool characterPool;
 	/** The tile interaction facilitator. */
-	private TileInteractionFacilitator tileInteractionFacilitator;
+	private TileInteractionFacilitator tileInteractionFacilitator = null;
 	
 	/**
 	 * Create a new instance of the LevelWorld class.
@@ -121,4 +121,16 @@ public class LevelWorld {
 	 * @return physics world
 	 */
 	public NBPWorld getPhysicsWorld() { return physicsWorld; }
+
+	/**
+	 * Get the tile interaction facilitator.
+	 * @return tile interaction facilitator
+	 */
+	public TileInteractionFacilitator getTileInteractionFacilitator() { return tileInteractionFacilitator; }
+
+	/**
+	 * Set the tile interaction facilitator.
+	 * @param tile interaction facilitator
+	 */
+	public void setTileInteractionFacilitator(TileInteractionFacilitator tileInteractionFacilitator) { this.tileInteractionFacilitator = tileInteractionFacilitator; }
 }

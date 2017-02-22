@@ -1,18 +1,19 @@
 package com.dumbpug.crossbowknight.tiles.door;
 
 import java.util.UUID;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.resources.TileResources.EntityTile;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
+import com.dumbpug.crossbowknight.tiles.Tile;
+import com.dumbpug.crossbowknight.tiles.TileType;
 
 /**
- * Represents a door.
+ * Represents a door tile.
  * @author nikolas.howard
  */
-public class Door {
+public class Door extends Tile {
 	/** The unique id of the door */
 	private String id; 
 	/** The type of this door. */
@@ -30,7 +31,7 @@ public class Door {
 	 * @param type
 	 */
 	public Door(DoorType type) {
-		this.setType(type);
+		this.setDoorType(type);
 		// Every door needs an ID.
 		this.id = UUID.randomUUID().toString();
 	}
@@ -72,7 +73,7 @@ public class Door {
 	 * @param connectingLevel
 	 */
 	public Door(Door connectingDoor, String connectingLevel) {
-		this.setType(type);
+		this.setDoorType(type);
 		// Target the connecting door.
 		DoorTarget target = new DoorTarget();
 		target.level      = connectingLevel;
@@ -135,23 +136,31 @@ public class Door {
 
 	/**
 	 * Get the type of this door.
-	 * @return type
+	 * @return door type
 	 */
-	public DoorType getType() { return type; }
-
-	/**
-	 * Set the type of this door.
-	 * @param type
-	 */
-	public void setType(DoorType type) { this.type = type; }
+	public DoorType getDoorType() { return type; }
 	
 	/**
-	 * Draw the decoration of this tile.
+	 * Set the type of this door.
+	 * @param door type
+	 */
+	public void setDoorType(DoorType type) { this.type = type; }
+	
+	/**
+	 * Set the type of this tile.
+	 * @param type
+	 */
+	public TileType getType() { return TileType.DOOR; }
+	
+	/**
+	 * Draw the top layer of this tile.
+	 * This is only supposed to be implemented by specific tile types (e.g doors).
 	 * @param batch
 	 * @param xOffset
 	 * @param yOffset
 	 */
-	public void drawDoor(SpriteBatch batch, float x, float y, float xOffset, float yOffset) {
+	public void drawTopLayer(SpriteBatch batch, float xOffset, float yOffset) {
+		// Draw the door.
 		batch.draw((this.isUnlocked ? unlockedTexture : lockedTexture).getTexture(),
 				(x * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + xOffset,
 				(y * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + yOffset,

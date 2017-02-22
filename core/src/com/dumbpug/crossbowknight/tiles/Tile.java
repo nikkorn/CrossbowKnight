@@ -3,7 +3,6 @@ package com.dumbpug.crossbowknight.tiles;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.level.Block;
-import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
  * Represents a world tile.
@@ -11,16 +10,14 @@ import com.dumbpug.crossbowknight.tiles.door.Door;
  */
 public class Tile {
 	/** X/Y position of this tile. */
-	private int x;
-	private int y;
+	protected int x;
+	protected int y;
 	/** The background texture for this tile */
 	private IndexedTileTexture backgroundTexture = null;
 	/** The decoration texture for this tile */
 	private IndexedTileTexture decorationTexture = null;
 	/** A physical block attached to this tile. */
 	private Block physicsBlock = null;
-	/** The door attached to this tile. */
-	private Door door = null;
 	
 	/**
 	 * Get this tiles background texture.
@@ -84,16 +81,10 @@ public class Tile {
 	public void setPhysicsBlock(Block physicsBlock) { this.physicsBlock = physicsBlock; }
 	
 	/**
-	 * Get the door at this tile position.
-	 * @return door
+	 * Get the type of this door.
+	 * @return type
 	 */
-	public Door getDoor() { return door; }
-
-	/**
-	 * Set the door at this position.
-	 * @param door
-	 */
-	public void setDoor(Door door) { this.door = door; }
+	public TileType getType() { return TileType.NORMAL; }
 	
 	/**
 	 * Draw the background of this tile.
@@ -126,4 +117,13 @@ public class Tile {
 					(C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER));
 		}
 	}
+	
+	/**
+	 * Draw the top layer of this tile.
+	 * This is only supposed to be implemented by specific tile types (e.g doors).
+	 * @param batch
+	 * @param xOffset
+	 * @param yOffset
+	 */
+	public void drawTopLayer(SpriteBatch batch, float xOffset, float yOffset) {}
 }

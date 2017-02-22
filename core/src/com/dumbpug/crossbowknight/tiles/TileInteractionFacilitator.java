@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.tiles;
 
 import java.util.ArrayList;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 
 /**
@@ -84,8 +86,9 @@ public class TileInteractionFacilitator {
 	
 	/**
 	 * Draw anything related to tile interactions.
+	 * @param batch
 	 */
-	public void draw() {
+	public void draw(SpriteBatch batch) {
 		
 	}
 	
@@ -94,6 +97,14 @@ public class TileInteractionFacilitator {
 	 * @return tile at player position.
 	 */
 	public Tile getTileAtPlayerPosition() {
-		return null; // TODO
+		int tilePosX = (int) (player.getPhysicsBox().getCurrentOriginPoint().getX() / C.LAYOUT_TILE_SIZE);
+		int tilePosY = (int) (player.getPhysicsBox().getCurrentOriginPoint().getY() / C.LAYOUT_TILE_SIZE);
+		for(Tile tile : tiles) {
+			if(tile.getX() == tilePosX && tile.getY() == tilePosY) {
+				return tile;
+			}
+		}
+		// We never found the tile we were after.
+		return null; 
 	}
 }
