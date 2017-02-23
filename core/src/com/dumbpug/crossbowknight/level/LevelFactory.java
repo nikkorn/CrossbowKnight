@@ -101,6 +101,7 @@ public class LevelFactory {
 			Door door = new Door(DoorType.values()[typeId], id);
 			door.setX(xPos);
 			door.setY(yPos);
+			System.out.println("Door at x: " + xPos + " y: " + yPos);
 			// Set the target of the door.
 			DoorTarget target = new DoorTarget();
 			target.doorId     = targetDoorId;

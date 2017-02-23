@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.level.LevelWorld;
+import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
  * Facilitates interactions between the player and interactive tiles such as doors and shops.
@@ -74,6 +75,13 @@ public class TileInteractionFacilitator {
 	 * @return whether we have resolved this action at the tile level.
 	 */
 	public boolean onSelect() {
+		if (getTileAtPlayerPosition() != null) {
+			if (getTileAtPlayerPosition().getType() == TileType.DOOR) {
+				Door door = (Door) getTileAtPlayerPosition();
+				door.unlock();
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -89,14 +97,7 @@ public class TileInteractionFacilitator {
 	 * @param batch
 	 */
 	public void drawTileInteractionElements(SpriteBatch batch) {
-		// TODO Remove!!!
-		if (getTileAtPlayerPosition() != null) {
-			if (getTileAtPlayerPosition().getType() == TileType.DOOR) {
-				System.out.println("At a door yo!");
-			} else {
-				System.out.println("Not at a door yo!");
-			}
-		}
+		
 	}
 	
 	/**
@@ -104,12 +105,11 @@ public class TileInteractionFacilitator {
 	 * @return tile at player position.
 	 */
 	public Tile getTileAtPlayerPosition() {
-		int tilePosX = (int) (player.getPhysicsBox().getCurrentOriginPoint().getX() / C.LAYOUT_TILE_SIZE);
-		int tilePosY = (int) (player.getPhysicsBox().getCurrentOriginPoint().getY() / C.LAYOUT_TILE_SIZE);
-		
-		// TODO Remove!!!
-		System.out.println("tX: " + tilePosX + " tY: " + tilePosY);
-		
+		float playerPosX = player.getPhysicsBox().getCurrentOriginPoint().getX();
+		float playerPosY = player.getPhysicsBox().getCurrentOriginPoint().getY();
+		int tilePosX     = (int) ((playerPosX < 0) ? Math.floor(playerPosX / C.LAYOUT_TILE_SIZE) : (playerPosX / C.LAYOUT_TILE_SIZE));
+		int tilePosY     = (int) ((playerPosY < 0) ? Math.floor(playerPosY / C.LAYOUT_TILE_SIZE) : (playerPosY / C.LAYOUT_TILE_SIZE));
+		// Look for our target tile.
 		for(Tile tile : world.getTiles()) {
 			if(tile.getX() == tilePosX && tile.getY() == tilePosY) {
 				return tile;
