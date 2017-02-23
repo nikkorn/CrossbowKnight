@@ -15,14 +15,17 @@ public class C {
 	public static final float LAYOUT_SCREEN_HEIGHT              = 100f;
 	public static final float LAYOUT_TILE_SIZE                  = 20f;
 
-	/** Dialog/Font */
-	public static final float DIALOG_HEIGHT                     = Gdx.graphics.getHeight() / 5f;
-	public static final float DIALOG_BORDER_SIZE                = DIALOG_HEIGHT / 5f;
-
 	/** Resources */
 	public static final String GRAPHICS_WORLD_TILES_DIR         = "graphics/tile_images";
 	public static final String AUDIO_SOUND_EFFECTS_DIR          = "audio/sounds";
 	public static final String AUDIO_MUSIC_DIR                  = "audio/music";
+	
+	/** Font */
+	public static final int FONT_SIZE_XXSMALL                   = (int) (2 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_XSMALL                    = (int) (3 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_SMALL                     = (int) (4 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_MEDIUM                    = (int) (8 * LAYOUT_MULTIPLIER);
+	public static final int FONT_SIZE_LARGE                     = (int) (12 * LAYOUT_MULTIPLIER);
 
 	/** Saved State */
 	public static final String SAVED_LEVELS_DIR                 = "levels/";
@@ -46,6 +49,14 @@ public class C {
 	public static final float CHARACTER_PHYSICS_MAX_VELOCITY          = 1.6f;
 	public static final float CHARACTER_PHYSICS_FRICTION              = 0.75f;
 	public static final float CHARACTER_PHYSICS_RESTITUTION           = 0f;
+	
+	/** Dialog/Font */
+	public static final int DIALOG_FONT_SIZE                    = FONT_SIZE_XSMALL;
+	public static final float DIALOG_WIDTH                      = Gdx.graphics.getWidth() / 2f;
+	public static final int DIALOG_LIST_MAX_LENGTH              = 3;
+	public static final int DIALOG_OFFSET_INTERVAL              = 6;
+	public static final float DIALOG_OFFSET_AMOUNT              = ((float) DIALOG_FONT_SIZE) / DIALOG_OFFSET_INTERVAL;
+	public static final long DIALOG_LIFE_DURATION               = 2000l;
 	
 	/** Items */
 	public static final float ITEM_BOX_SIZE                     = 6f;
@@ -93,13 +104,6 @@ public class C {
 	public static final int MENU_EQUIPMENT_ITEM_SLOT_HEIGHT     = 2;
 	public static final float MENU_CHARACTER_XP_BAR_HEIGHT      = INGAME_MENU_HEIGHT * 0.2f;
 	public static final float MENU_CHARACTER_ATTRIBUTE_HEIGHT   = INGAME_MENU_HEIGHT * 0.08f;
-
-	/** Font */
-	public static final int FONT_SIZE_XXSMALL                   = (int) (2 * LAYOUT_MULTIPLIER);
-	public static final int FONT_SIZE_XSMALL                    = (int) (3 * LAYOUT_MULTIPLIER);
-	public static final int FONT_SIZE_SMALL                     = (int) (4 * LAYOUT_MULTIPLIER);
-	public static final int FONT_SIZE_MEDIUM                    = (int) (8 * LAYOUT_MULTIPLIER);
-	public static final int FONT_SIZE_LARGE                     = (int) (12 * LAYOUT_MULTIPLIER);
 	
 	/** Stats */
 	public static final int STATS_ATTRIBUTE_LEVEL_MODIFIER      = 2;

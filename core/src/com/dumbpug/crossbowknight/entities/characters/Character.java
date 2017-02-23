@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.entities.characters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
+import com.dumbpug.crossbowknight.dialog.DialogList;
 import com.dumbpug.crossbowknight.effects.DamageEffect;
 import com.dumbpug.crossbowknight.effects.DamageEffects;
 import com.dumbpug.crossbowknight.effects.DamageType;
@@ -25,6 +26,8 @@ public abstract class Character {
 	private StaminaStatus staminaStatus = new StaminaStatus(stats);
 	/** The characters active damage effects. */
 	private DamageEffects damageEffects = new DamageEffects();
+	/** The characters dialog list. */
+	private DialogList dialogList = new DialogList();
 	/** The character effect drawer. */
 	private CharacterEffectDrawer characterEffectDrawer = null;
 	/** The angle of focus for this character (where we are looking). */
@@ -154,6 +157,12 @@ public abstract class Character {
 	 * @return characterPhysicsBox
 	 */
 	public CharacterPhysicsBox<? extends Character> getPhysicsBox() { return characterPhysicsBox; }
+	
+	/**
+	 * Get this characters dialog list.
+	 * @return dialog list
+	 */
+	public DialogList getDialogList() { return dialogList; }
 	
 	/**
 	 * Handles the character being pushed by a force in the world.

@@ -3,6 +3,7 @@ package com.dumbpug.crossbowknight.entities.characters;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
 import com.dumbpug.crossbowknight.entities.characters.player.Player;
 import com.dumbpug.crossbowknight.level.LevelWorld;
@@ -69,10 +70,24 @@ public class CharacterPool {
 	/**
 	 * Draw all characters.
 	 * @param batch
+	 * @param camera
 	 */
-	public void draw(SpriteBatch batch, LevelCamera camera) {
+	public void drawCharacters(SpriteBatch batch, LevelCamera camera) {
 		for(Character character : characters) {
 			character.draw(batch, camera);
+		}
+	}
+	
+	/**
+	 * Draw all character dialog lists.
+	 * @param batch
+	 * @param camera
+	 */
+	public void drawCharacterDialogs(SpriteBatch batch, LevelCamera camera) {
+		for(Character character : characters) {
+			float dialogPositionX = (character.getPhysicsBox().getX() * C.LAYOUT_MULTIPLIER) + camera.getX();
+			float dialogPositionY = (character.getPhysicsBox().getY() * C.LAYOUT_MULTIPLIER) + camera.getY();
+			character.getDialogList().draw(batch, dialogPositionX, dialogPositionY);
 		}
 	}
 }

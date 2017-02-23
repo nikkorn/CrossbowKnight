@@ -27,6 +27,7 @@ public class LevelDrawer {
 		drawForegroundLayer(batch);
 		drawCharacters(batch);
 		drawForegroundEffects(batch);
+		drawDialogs(batch);
 	}
 
 	/**
@@ -80,15 +81,24 @@ public class LevelDrawer {
 	 */
 	private void drawCharacters(SpriteBatch batch) {
 		// Draw the characters.
-		level.getLevelWorld().getCharacterPool().draw(batch, level.getLevelCamera());
+		level.getLevelWorld().getCharacterPool().drawCharacters(batch, level.getLevelCamera());
 	}
 	
 	/**
-	 * Draw effects (e.g. particles) at the top-most layer.
+	 * Draw effects (e.g. particles) at the front layer.
 	 * @param batch
 	 */
 	private void drawForegroundEffects(SpriteBatch batch) {
 		// Draw all emitter particles.
 		level.getLevelWorld().getEmitterPool().draw();
+	}
+	
+	/**
+	 * Draw dialogs at the top-most layer.
+	 * @param batch
+	 */
+	private void drawDialogs(SpriteBatch batch) {
+		// Draw the character dialogs.
+		level.getLevelWorld().getCharacterPool().drawCharacterDialogs(batch, level.getLevelCamera());
 	}
 }

@@ -7,6 +7,8 @@ import com.dumbpug.crossbowknight.CrossbowKnight;
 import com.dumbpug.crossbowknight.GameMath;
 import com.dumbpug.crossbowknight.audio.Audio;
 import com.dumbpug.crossbowknight.camera.LevelCamera;
+import com.dumbpug.crossbowknight.dialog.Dialog;
+import com.dumbpug.crossbowknight.dialog.DialogType;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.tiles.ITileInteractionResolver;
 import com.dumbpug.crossbowknight.entities.characters.Character;
@@ -106,6 +108,10 @@ public class Player extends Character {
 		if(tileInteractionResolver != null && tileInteractionResolver.cycleRight()) {
 			return;
 		}
+		
+		// TODO Remove!
+		this.getDialogList().add(new Dialog(DialogType.NEGATIVE, "SWAP ITEMS"));
+		
 		// This button press was not used to interact with a tile, handle it here.
 		this.equipment.swapItems();
 	}
@@ -114,6 +120,10 @@ public class Player extends Character {
 	public void onJump() {
 		// Check to see if this action can be resolved with our tile interaction resolver.
 		if(tileInteractionResolver != null && tileInteractionResolver.select()) {
+			
+			// TODO Remove!
+			this.getDialogList().add(new Dialog(DialogType.SPEECH, "I can't jump!"));
+			
 			return;
 		}
 		// This button press was not used to interact with a tile, handle it here and attempt to jump.
