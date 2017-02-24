@@ -37,9 +37,9 @@ public class HealthStatus {
      */
     public void applyHealth(int health) {
     	this.health += health;
-		if(health > stats.getMaxHealth()) {
+		if(this.health > stats.getMaxHealth()) {
 			// Can't have health over the max health. 
-			health = stats.getMaxHealth();
+			this.health = stats.getMaxHealth();
 		} 
     }
     

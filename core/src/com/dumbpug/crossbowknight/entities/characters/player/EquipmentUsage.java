@@ -1,8 +1,11 @@
 package com.dumbpug.crossbowknight.entities.characters.player;
 
 import com.dumbpug.crossbowknight.audio.Audio;
+import com.dumbpug.crossbowknight.dialog.Dialog;
+import com.dumbpug.crossbowknight.dialog.DialogType;
 import com.dumbpug.crossbowknight.entities.objects.items.Item;
 import com.dumbpug.crossbowknight.entities.objects.items.ammo.Ammo;
+import com.dumbpug.crossbowknight.entities.objects.items.potions.IHealingItem;
 import com.dumbpug.crossbowknight.entities.objects.projectiles.Bolt;
 import com.dumbpug.crossbowknight.entities.characters.Character;
 import com.dumbpug.crossbowknight.entities.characters.CharacterPhysicsBox;
@@ -32,17 +35,44 @@ public class EquipmentUsage {
 		// Use the item for real now.
 		switch(item.getType()) {
 			case HEALTH_POTION:
-				break;
 			case HEALTH_POTION_LARGE:
-				break;
 			case HEALTH_POTION_SUPER:
+				// Using this item will replenish an amount of HP.
+				int amountOfHP = ((IHealingItem)item).getHP();
+				character.getHealthStatus().applyHealth(amountOfHP);
+				// Add a character dialog for this action.
+				character.getDialogList().add(new Dialog(DialogType.BUFF, "+" + amountOfHP + "HP"));
 				break;
 			case KEY:
 				break;
 			default:
 				break;
 		}
-		// TODO Play an item usage sound!
+		// Play an item usage sound based on the item category.
+		switch(item.getCategory()) {
+			case AMMO:
+				break;
+			case CONSUMABLE:
+				Audio.getSoundEffect(Audio.SoundEffect.LEVEL_UP).play(); // TODO Replace! 
+				break;
+			case DEFAULT:
+				break;
+			case HELMET:
+				break;
+			case LIMBS:
+				break;
+			case SHIELD:
+				break;
+			case SIGHT:
+				break;
+			case STOCK:
+				break;
+			case STRING:
+				break;
+			default:
+				break;
+		}
+		// Item use was a success.
 		return true;
 	}
 	
@@ -83,7 +113,7 @@ public class EquipmentUsage {
 		boolean ammoUsageSuccess = level.getLevelWorld().getProjectilePool().add(bolt);
 		// If the ammo was fired play a sound.
 		if(ammoUsageSuccess) { 
-			Audio.getSoundEffect(Audio.SoundEffect.JUMP).play(); 
+			Audio.getSoundEffect(Audio.SoundEffect.JUMP).play(); // TODO Replace! 
 		}
 		// Return whether the ammo usage was a success.
 		return ammoUsageSuccess;

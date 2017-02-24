@@ -85,11 +85,11 @@ public class Player extends Character {
 			this.isGuarding = false;
 		}
 		
-		// TODO Use item.
-		
 		// Check for a request to fire the players weapon.
 		// The player CANNOT fire if they are guarding with a shield.
 		if(!isGuarding && CrossbowKnight.getPlayerInput().isFireButtonPressed()) { equipment.useAmmo(); }
+		// Use item. TODO Replace for better key.
+		if(CrossbowKnight.getPlayerInput().isDownButtonPressed()) { equipment.useItem(); }
 	}
 	
 	/** Called when the Player presses the cycle left button. */

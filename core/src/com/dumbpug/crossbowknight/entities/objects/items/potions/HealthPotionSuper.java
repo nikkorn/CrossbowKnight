@@ -4,7 +4,7 @@ package com.dumbpug.crossbowknight.entities.objects.items.potions;
  * A large health potion item.
  * @author nikolas.howard
  */
-public class HealthPotionSuper extends Potion {
+public class HealthPotionSuper extends Potion implements IHealingItem {
 
 	@Override
 	public boolean isDisplayedInInventory() { return true; }
@@ -20,4 +20,7 @@ public class HealthPotionSuper extends Potion {
 	
 	@Override
 	public ItemRarity getRarity() { return ItemRarity.RARE; }
+	
+	@Override
+	public int getHP() { return 100; }
 }
