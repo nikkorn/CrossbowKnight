@@ -138,6 +138,14 @@ public class Player extends Character {
 	 * @param item
 	 */
 	public void onItemPickup(Item item) {
+		// Based on the type of the item we may want to display some info via character dialogs.
+		switch(item.getType()) {
+			case GOLD:
+				this.getDialogList().add(new Dialog(DialogType.POSITIVE, "+" + item.getQuantity() + "G"));
+			default:
+				// No need to display any info.
+				break;
+		}
 		// Add this item to the players inventory.
 		this.inventory.add(item);
 	}

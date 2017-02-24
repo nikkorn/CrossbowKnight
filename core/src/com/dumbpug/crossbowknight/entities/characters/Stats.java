@@ -49,7 +49,7 @@ public class Stats {
     public boolean addXp(int xp) {
     	int level = getLevel();
     	this.xp += xp;
-    	return level > getLevel();
+    	return level < getLevel();
     }
 
     /**

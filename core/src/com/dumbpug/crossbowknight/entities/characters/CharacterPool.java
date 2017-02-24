@@ -85,8 +85,8 @@ public class CharacterPool {
 	 */
 	public void drawCharacterDialogs(SpriteBatch batch, LevelCamera camera) {
 		for(Character character : characters) {
-			float dialogPositionX = (character.getPhysicsBox().getX() * C.LAYOUT_MULTIPLIER) + camera.getX();
-			float dialogPositionY = (character.getPhysicsBox().getY() * C.LAYOUT_MULTIPLIER) + camera.getY();
+			float dialogPositionX = ((character.getPhysicsBox().getX() + (character.getPhysicsBox().getWidth()/2)) * C.LAYOUT_MULTIPLIER) + camera.getX();
+			float dialogPositionY = ((character.getPhysicsBox().getY() + character.getPhysicsBox().getHeight())* C.LAYOUT_MULTIPLIER) + camera.getY();
 			character.getDialogList().draw(batch, dialogPositionX, dialogPositionY);
 		}
 	}

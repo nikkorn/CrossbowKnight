@@ -29,7 +29,8 @@ public class Audio {
 		LANDING_SOFT,
 		PICKUP,
 		SWAP,
-		EXPLOSION
+		EXPLOSION,
+		LEVEL_UP
 	}
 	
 	/** 
