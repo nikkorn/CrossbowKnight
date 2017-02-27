@@ -1,6 +1,8 @@
 package com.dumbpug.crossbowknight.leveleditor;
 
 import java.util.ArrayList;
+
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.level.Block;
 import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
@@ -8,6 +10,8 @@ import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 public class EditableLevel extends Level {
+	/** The level connectors. */
+	private ArrayList<Connector> connectors = new ArrayList<Connector>();
 	
 	/**
 	 * Create a new instance of EditableLevel.
@@ -49,6 +53,14 @@ public class EditableLevel extends Level {
 	}
 	
 	/**
+	 * Add a new level connector
+	 * @param connecter
+	 */
+	public void addConnector(Connector connecter) {
+		this.connectors.add(connecter);
+	}
+	
+	/**
 	 * Remove a level tile.
 	 * @param tile
 	 */
@@ -68,10 +80,11 @@ public class EditableLevel extends Level {
 	/**
 	 * Draw the editable level.
 	 * @param batch
+	 * @param levelEditorTextures
 	 * @param tileOffsetX
 	 * @param tileOffsetY
 	 */
-	public void draw(SpriteBatch batch, int tileOffsetX, int tileOffsetY) {
+	public void draw(SpriteBatch batch, LevelEditorTextures levelEditorTextures, int tileOffsetX, int tileOffsetY) {
 		// Draw all tile backgrounds.
 		for(Tile tile : getLevelWorld().getTiles()) {
 			if(tile.getBackgroundTexture() != null) {
@@ -100,6 +113,18 @@ public class EditableLevel extends Level {
 				blockYPosition += (block.getFillType() == TileBlockFillType.TOP_HALF) ? C.TILE_SIZE / 2 : 0;
 				// Draw the block.
 				batch.draw(block.getBlockTexture().getTexture(), blockXPosition, blockYPosition, blockWidth, blockHeight);
+			}
+		}
+		
+		// Draw connectors.
+		for(Connector connector : connectors) {
+			// Get the correct texture based on the connector type 
+			Texture texture = connector.getConnecterType() == ConnectorType.ENTRANCE ? 
+					levelEditorTextures.getConnectorEntranceTexture() : 
+					levelEditorTextures.getConnectorExitTexture();
+			// Draw the texture for each tile the connector covers.
+			for(int heightOffset = 0; heightOffset < connector.getTileHeight(); heightOffset++) {
+				batch.draw(texture, (connector.getTilePositionX() - tileOffsetX) * C.TILE_SIZE, ((connector.getTilePositionY() + heightOffset) - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 			

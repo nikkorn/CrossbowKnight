@@ -6,6 +6,8 @@ public class LevelEditorTextures {
 	private Texture gridTile;
 	private Texture menuBg;
 	private Texture activeTileMarker;
+	private Texture connectorEntrance;
+	private Texture connectorExit;
 	
 	/** buttons. */
 	private Texture backgroundBtn;
@@ -31,6 +33,8 @@ public class LevelEditorTextures {
 		blockFillRightBtn  = new Texture("graphics/leveleditor/LEVELEDITOR_BLK_FILL_RIGHT.png");
 		blockFillTopBtn    = new Texture("graphics/leveleditor/LEVELEDITOR_BLK_FILL_TOP.png");
 		blockFillBottomBtn = new Texture("graphics/leveleditor/LEVELEDITOR_BLK_FILL_BOTTOM.png");
+		connectorEntrance  = new Texture("graphics/leveleditor/LEVELEDITOR_CONNECTER_ENTRANCE.png");
+		connectorExit      = new Texture("graphics/leveleditor/LEVELEDITOR_CONNECTER_EXIT.png");
 	}
 	
 	public Texture getGridTileTexture() { return gridTile; }
@@ -49,4 +53,7 @@ public class LevelEditorTextures {
 	public Texture getBlockFillRightButtonTexture() { return this.blockFillRightBtn; }
 	public Texture getBlockFillTopButtonTexture() { return this.blockFillTopBtn; }
 	public Texture getBlockFillBottomButtonTexture() { return this.blockFillBottomBtn; }
+	
+	public Texture getConnectorEntranceTexture() { return this.connectorEntrance; }
+	public Texture getConnectorExitTexture() { return this.connectorExit; }
 }

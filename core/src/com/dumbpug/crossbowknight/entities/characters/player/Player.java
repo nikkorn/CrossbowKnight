@@ -141,7 +141,7 @@ public class Player extends Character {
 		// Based on the type of the item we may want to display some info via character dialogs.
 		switch(item.getType()) {
 			case GOLD:
-				this.getDialogList().add(new Dialog(DialogType.POSITIVE, "+" + item.getQuantity() + "G"));
+				this.getDialogList().add(new Dialog(DialogType.POSITIVE, "+" + item.getQuantity() + "G "));
 			default:
 				// No need to display any info.
 				break;

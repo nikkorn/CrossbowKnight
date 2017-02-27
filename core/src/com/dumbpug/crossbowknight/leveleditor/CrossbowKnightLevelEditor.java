@@ -133,7 +133,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 			}
 		}
 		// Draw the level.
-		level.draw(batch, editorTilePositionX, editorTilePositionY);
+		level.draw(batch, levelEditorTextures, editorTilePositionX, editorTilePositionY);
 		// Draw a marker around the active tile (if there is one).
 		if(this.activeTile != null) {
 			batch.draw(levelEditorTextures.getActiveTileMarker(), (activeTile.getX() - editorTilePositionX) * C.TILE_SIZE, (activeTile.getY() - editorTilePositionY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
@@ -164,7 +164,11 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		System.out.println(" 5. clear decoration texture");
 		System.out.println(" 6. set block");
 		System.out.println(" 7. clear block");
-		System.out.println(" 8. resume");
+		System.out.println(" 8. create connector");
+		System.out.println(" 9. delete connector");
+		System.out.println(" 10. toggle special tile marker (door/chest)");
+		System.out.println(" 11. toggle enemy tile marker");
+		System.out.println(" 12. resume");
 
 		System.out.print("option? : ");
 
@@ -345,6 +349,44 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				}
 				break;
 			case 8:
+				// ------ Create Connector. ------
+				int connectorTypeId = 0;
+				System.out.print("entrance (0) or exit (1)? : ");
+				try {
+					connectorTypeId = inputScanner.nextInt();
+					// Check that this is a valid connector type id.
+					if(!(connectorTypeId == 0 || connectorTypeId == 1))
+					{
+						System.out.println("error: not a valid input.");
+						return;
+					}
+				} catch (InputMismatchException ime) {
+					System.out.println("error: not a valid input.");
+					inputScanner.next();
+					return;
+				}
+				int height = 1;
+				System.out.print("connector tile height? : ");
+				try {
+					height = inputScanner.nextInt();
+				} catch (InputMismatchException ime) {
+					System.out.println("error: not a valid input.");
+					inputScanner.next();
+					return;
+				}
+				// Add the connector.
+				level.addConnector(new Connector(ConnectorType.values()[connectorTypeId], activeTile.getX(), activeTile.getY(), height));
+				break;
+			case 9:
+				// Delete connector.
+				break;
+			case 10:
+				// Toggle special.
+				break;
+			case 11:
+				// Toggle enemy.
+				break;
+			case 12:
 				// Do nothing!
 				break;
 			default:
