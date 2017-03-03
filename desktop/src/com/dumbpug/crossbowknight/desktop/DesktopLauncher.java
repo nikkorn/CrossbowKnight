@@ -17,9 +17,9 @@ public class DesktopLauncher {
 			new LwjglApplication(new CrossbowKnightLevelEditor(levelName), config);
 		} else {
 			LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-			//config.fullscreen = true;
-			//config.height     = 200;
-			//config.width      = 0;
+			config.fullscreen = true;
+			config.height     = 200;
+			config.width      = 0;
 			new LwjglApplication(new CrossbowKnight(), config);
 		}
 	}

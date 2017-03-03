@@ -9,6 +9,7 @@ import com.dumbpug.crossbowknight.hud.DevHUD;
 import com.dumbpug.crossbowknight.hud.HUD;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
+import com.dumbpug.crossbowknight.level.LevelGenerator;
 
 /**
  * Represents the main games state.
@@ -22,6 +23,8 @@ public class MainGame extends State {
 	private GameMenu gameMenu;
 	/** The current level. */
 	private Level level;
+	/** The level generator. */
+	private LevelGenerator levelGenerator;
 	/** Is the game menu open. */
 	private boolean isGameMenuOpen = false;
 	
@@ -35,6 +38,8 @@ public class MainGame extends State {
 		this.hud = new HUD();
 		// Set up a test level.
 		this.setLevel(LevelFactory.getLevelFromDisk("DOOM_HALL"));
+		// Create our level generator.
+		this.levelGenerator = new LevelGenerator();
 		// Create the game menu.
 		this.gameMenu = new GameMenu(level.getPlayer());
 	}

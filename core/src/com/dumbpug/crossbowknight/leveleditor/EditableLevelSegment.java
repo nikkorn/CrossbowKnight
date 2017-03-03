@@ -1,42 +1,17 @@
 package com.dumbpug.crossbowknight.leveleditor;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.level.Block;
 import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
-import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
-public class EditableLevel extends Level {
-	/** The level connectors. */
-	private ArrayList<Connector> connectors = new ArrayList<Connector>();
-	
-	/**
-	 * Create a new instance of EditableLevel.
-	 */
-	public EditableLevel() {
-		super();
-		// Set our empty level tiles list.
-		this.getLevelWorld().setTiles(new ArrayList<Tile>());
-	}
-	
-	/**
-	 * Get a tile at a specific x/y position.
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	public Tile getTileAt(int x, int y) {
-		for(Tile tile: this.getLevelWorld().getTiles()) {
-			if(tile.getX() == x && tile.getY() == y) {
-				return tile;
-			}
-		}
-		// Didn't find the tile.
-		return null;
-	}
+/**
+ * Represents a level segment to which we can add tiles.
+ * @author nikolas.howard
+ *
+ */
+public class EditableLevelSegment extends LevelSegment {
 	
 	/**
 	 * Add a new tile at the x/y position.
@@ -48,34 +23,15 @@ public class EditableLevel extends Level {
 		Tile tile = new Tile();
 		tile.setX(x);
 		tile.setY(y);
-		this.getLevelWorld().getTiles().add(tile);
+		this.getTiles().add(tile);
 		return tile;
 	}
 	
 	/**
-	 * Add a new level connector
-	 * @param connecter
-	 */
-	public void addConnector(Connector connecter) {
-		this.connectors.add(connecter);
-	}
-	
-	/**
-	 * Remove a level tile.
+	 * Remove a segment tile.
 	 * @param tile
 	 */
-	public void removeTile(Tile tile) {
-		this.getLevelWorld().getTiles().remove(tile);
-	}
-	
-	/**
-	 * Returns true if this tile has nothing on it.
-	 * @param targetTile
-	 * @return is blank
-	 */
-	public boolean isTileBlank(Tile targetTile) {
-		return (targetTile.getBackgroundTexture() == null && targetTile.getDecorationTexture() == null && targetTile.getPhysicsBlock() == null);
-	}
+	public void removeTile(Tile tile) { this.getTiles().remove(tile); }
 	
 	/**
 	 * Draw the editable level.
@@ -86,19 +42,19 @@ public class EditableLevel extends Level {
 	 */
 	public void draw(SpriteBatch batch, LevelEditorTextures levelEditorTextures, int tileOffsetX, int tileOffsetY) {
 		// Draw all tile backgrounds.
-		for(Tile tile : getLevelWorld().getTiles()) {
+		for(Tile tile : this.getTiles()) {
 			if(tile.getBackgroundTexture() != null) {
 				batch.draw(tile.getBackgroundTexture().getTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 		// Draw all tile decorations.
-		for(Tile tile : getLevelWorld().getTiles()) {
+		for(Tile tile : this.getTiles()) {
 			if(tile.getDecorationTexture() != null) {
 				batch.draw(tile.getDecorationTexture().getTexture(), (tile.getX() - tileOffsetX) * C.TILE_SIZE, (tile.getY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
 		// Draw all level blocks.
-		for(Tile tile : getLevelWorld().getTiles()) {
+		for(Tile tile : this.getTiles()) {
 			Block block = tile.getPhysicsBlock();
 			if(block != null) {
 				// Get the size of this block relative to the size of the editor.
@@ -115,9 +71,8 @@ public class EditableLevel extends Level {
 				batch.draw(block.getBlockTexture().getTexture(), blockXPosition, blockYPosition, blockWidth, blockHeight);
 			}
 		}
-		
 		// Draw connectors.
-		for(Connector connector : connectors) {
+		for(Connector connector : this.getConnectors()) {
 			// Get the correct texture based on the connector type 
 			Texture texture = connector.getConnecterType() == ConnectorType.ENTRANCE ? 
 					levelEditorTextures.getConnectorEntranceTexture() : 
@@ -127,8 +82,5 @@ public class EditableLevel extends Level {
 				batch.draw(texture, (connector.getTilePositionX() - tileOffsetX) * C.TILE_SIZE, ((connector.getTilePositionY() + heightOffset) - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
 		}
-			
-		// ...
-		
 	}
 }

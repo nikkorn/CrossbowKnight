@@ -22,7 +22,7 @@ import com.dumbpug.crossbowknight.tiles.Tile;
  */
 public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	/** The name of the level. */
-	private String levelName;
+	private String segmentName;
 	/** The input processor. */
 	private static PlayerInput playerInput;
 	/** The games sprite batch. */
@@ -35,7 +35,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	private int editorTilePositionX = 0;
 	private int editorTilePositionY = 0;
 	/** The editable level. */
-	private EditableLevel level;
+	private EditableLevelSegment segment;
 	/** The active tile. */
 	private Tile activeTile = null;
 	/** The scanner used to read command line input */
@@ -56,22 +56,20 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(CrossbowKnightLevelEditor.playerInput);
 		// Try to read the level from disk. If this fails, create a blank level.
 		try {
-			level = EditableLevelFactory.getEditableLevelFromDisk(levelName);
+			segment = EditableLevelSegmentFactory.getEditableSegmentFromDisk(segmentName);
 		} catch(Exception e) {
 			// We were not able to read the level from disk. So we should
 			// assume that we are making a new level.
-			System.out.println("No existing level '" + levelName + "', creating new level.");
-			level = new EditableLevel();
+			System.out.println("No existing level '" + segmentName + "', creating new level.");
+			segment = new EditableLevelSegment();
 		}
 	}
 	
 	/**
 	 * Creates a new instance of CrossbowKnightLevelEditor.
-	 * @param levelName
+	 * @param segmentName
 	 */
-	public CrossbowKnightLevelEditor(String levelName) {
-		this.levelName = levelName;
-	}
+	public CrossbowKnightLevelEditor(String segmentName) { this.segmentName = segmentName; }
 
 	@Override
 	public void render () {
@@ -109,10 +107,10 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					int tilePosX = ((int) (Gdx.input.getX() / C.TILE_SIZE)) + editorTilePositionX;
 					int tilePosY = ((int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) / C.TILE_SIZE)) + editorTilePositionY;
 					// Get the target tile.
-					Tile targetTile = level.getTileAt(tilePosX, tilePosY);
+					Tile targetTile = segment.getTileAt(tilePosX, tilePosY);
 					// If this tile does not exist, add it.
 					if(targetTile == null) {
-						targetTile = level.addNewTileAt(tilePosX, tilePosY);
+						targetTile = segment.addNewTileAt(tilePosX, tilePosY);
 					}
 					// Set the target tile as the active one.
 					this.activeTile = targetTile;
@@ -133,7 +131,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 			}
 		}
 		// Draw the level.
-		level.draw(batch, levelEditorTextures, editorTilePositionX, editorTilePositionY);
+		segment.draw(batch, levelEditorTextures, editorTilePositionX, editorTilePositionY);
 		// Draw a marker around the active tile (if there is one).
 		if(this.activeTile != null) {
 			batch.draw(levelEditorTextures.getActiveTileMarker(), (activeTile.getX() - editorTilePositionX) * C.TILE_SIZE, (activeTile.getY() - editorTilePositionY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
@@ -150,7 +148,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	 */
 	public void onClickOnGridTile(int x, int y) {
 		// Get the target tile.
-		Tile targetTile = level.getTileAt(x, y);
+		Tile targetTile = segment.getTileAt(x, y);
 
 		System.out.print("Selected ");
 		System.out.print("X: " + x);
@@ -187,7 +185,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 			case 1:
 				// ------ Clear tile. ------
 				if(targetTile != null) {
-					level.removeTile(targetTile);
+					segment.removeTile(targetTile);
 					System.out.println("tile cleared.");
 				} else {
 					System.out.println("no tile to clear.");
@@ -210,7 +208,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					IndexedTileTexture texture = TileResources.getTileTextures().getBackgroundTileTexture(TileResources.BackgroundTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
-						targetTile = level.addNewTileAt(x, y);
+						targetTile = segment.addNewTileAt(x, y);
 					}
 					// Set the texture.
 					targetTile.setBackgroundTexture(texture);
@@ -223,8 +221,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					targetTile.setBackgroundTexture(null);
 					System.out.println("texture cleared.");
 					// If our tile has nothing on it, then remove it.
-					if(level.isTileBlank(targetTile)) {
-						level.removeTile(targetTile);
+					if(segment.isTileBlank(targetTile)) {
+						segment.removeTile(targetTile);
 					}
 				} else {
 					System.out.println("no tile.");
@@ -247,7 +245,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					IndexedTileTexture texture = TileResources.getTileTextures().getDecorationTileTexture(TileResources.DecorationTile.values()[textureId]);
 					// Do we actually have an existing tile at this position?
 					if(targetTile == null) {
-						targetTile = level.addNewTileAt(x, y);
+						targetTile = segment.addNewTileAt(x, y);
 					}
 					// Set the texture.
 					targetTile.setDecorationTexture(texture);
@@ -260,8 +258,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					targetTile.setDecorationTexture(null);
 					System.out.println("texture cleared.");
 					// If our tile has nothing on it, then remove it.
-					if(level.isTileBlank(targetTile)) {
-						level.removeTile(targetTile);
+					if(segment.isTileBlank(targetTile)) {
+						segment.removeTile(targetTile);
 					}
 				} else {
 					System.out.println("no tile.");
@@ -322,7 +320,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				IndexedTileTexture texture = TileResources.getTileTextures().getBlockTileTexture(TileResources.BlockTile.values()[textureId]);
 				// Do we actually have an existing tile at this position?
 				if(targetTile == null) {
-					targetTile = level.addNewTileAt(x, y);
+					targetTile = segment.addNewTileAt(x, y);
 				}
 				// Set the texture on the block.
 				newBlock.setBlockTexture(texture);
@@ -338,8 +336,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 						targetTile.setPhysicsBlock(null);
 						System.out.println("block cleared.");
 						// If our tile has nothing on it, then remove it.
-						if(level.isTileBlank(targetTile)) {
-							level.removeTile(targetTile);
+						if(segment.isTileBlank(targetTile)) {
+							segment.removeTile(targetTile);
 						}
 					} else {
 						System.out.println("no block attached to tile.");
@@ -375,7 +373,7 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					return;
 				}
 				// Add the connector.
-				level.addConnector(new Connector(ConnectorType.values()[connectorTypeId], activeTile.getX(), activeTile.getY(), height));
+				segment.addConnector(new Connector(ConnectorType.values()[connectorTypeId], activeTile.getX(), activeTile.getY(), height));
 				break;
 			case 9:
 				// Delete connector.
@@ -400,8 +398,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	 * Write the current level to disk.
 	 */
 	private void writeLevelToDisk() {
-		EditableLevelWriter levelWriter = new EditableLevelWriter(this.level);
-		levelWriter.writeLevel(this.levelName);
+		EditableLevelSegmentWriter levelWriter = new EditableLevelSegmentWriter(this.segment);
+		levelWriter.writeSegment(this.segmentName);
 	}
 
 	@Override
