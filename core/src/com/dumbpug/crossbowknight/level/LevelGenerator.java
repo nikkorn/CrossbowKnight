@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.leveleditor.LevelSegment;
 import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
