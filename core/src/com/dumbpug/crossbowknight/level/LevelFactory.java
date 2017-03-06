@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.leveleditor.Connector;
 import com.dumbpug.crossbowknight.leveleditor.LevelSegment;
 
 /**
@@ -34,12 +35,14 @@ public class LevelFactory {
 	public static LevelSegment getLevelSegmentFromDisk(String segmentName) {
 		// Initialise a new Level.
 		LevelSegment levelSegment = new LevelSegment();
+		
 		// Populate level segment object from disk.
 		levelSegment.setTiles(LevelReader.readLevelTilesFromDisk(segmentName, C.SAVED_LEVEL_SEGMENTS_DIR));
 		
-		// TODO Read level segment entry points
-		
-		// TODO Read level segment exit points
+		// Read level connectors.
+		for(Connector connector : LevelReader.readLevelConnectorsFromDisk(segmentName, C.SAVED_LEVEL_SEGMENTS_DIR)) {
+			levelSegment.addConnector(connector);
+		}
 		
 		// TODO Read special tiles
 		

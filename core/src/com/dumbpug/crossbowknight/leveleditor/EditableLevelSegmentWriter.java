@@ -33,7 +33,7 @@ public class EditableLevelSegmentWriter {
     public void writeSegment(String segmentName) {
         // Create a unique id for the segment.
         String dateTime = new SimpleDateFormat("yyyyMMdd-HHmmss").format(Calendar.getInstance().getTime());
-        segmentDir = segment + "-" + dateTime;
+        segmentDir = segmentName + "-" + dateTime;
         // Make the segment directory.
         new File(segmentDir).mkdir();
         // Write 'background' file.
@@ -42,6 +42,8 @@ public class EditableLevelSegmentWriter {
         writeDecorationsFile();
         // Write 'background' file.
         writeBlocksFile();
+        // Write the connectors file.
+        writeConnectorsFile();
         // We have finished writing the file.
         System.out.println("Wrote level : '" + segmentDir + "'");
     }
@@ -128,7 +130,7 @@ public class EditableLevelSegmentWriter {
     /**
      * Writes the connectors file.
      */
-    public void writeConnectorsFile() {
+    private void writeConnectorsFile() {
     	 PrintWriter connectorsFileWriter = null;
          try {
         	 connectorsFileWriter     = new PrintWriter(new FileWriter(segmentDir + "/connectors"));
@@ -138,7 +140,7 @@ public class EditableLevelSegmentWriter {
                  JSONObject connectorObject = new JSONObject();
                  connectorObject.put("x", connector.getTilePositionX());
                  connectorObject.put("y", connector.getTilePositionY());
-                 connectorObject.put("typeId", connector.getConnecterType());
+                 connectorObject.put("type", connector.getConnecterType());
                  connectorObject.put("height", connector.getTileHeight());
                  connectorArray.put(connectorObject);
              }

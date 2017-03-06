@@ -8,6 +8,8 @@ import org.json.JSONArray;
 
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Helpers;
+import com.dumbpug.crossbowknight.leveleditor.Connector;
+import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
 import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.Tile;
@@ -21,10 +23,6 @@ import com.dumbpug.crossbowknight.tiles.door.DoorType;
  */
 public class LevelReader {
 
-	// TODO Read level segment entry points
-	
-	// TODO Read level segment exit points
-	
 	// TODO Read special tiles
 	
 	// TODO Read enemy tiles
@@ -44,38 +42,42 @@ public class LevelReader {
 		File tileDoorsFile       = new File(path + levelName + "/doors");
 		// Error if we have missing resources.
 		if(!tileBackgroundsFile.exists() || !tileBlocksFile.exists() || !tileDecorationsFile.exists()) {
-			throw new RuntimeException("Missing map resources in '" + new File(C.SAVED_LEVELS_DIR + levelName).getAbsolutePath() + "'");
+			throw new RuntimeException("Missing map resources in '" + path + "/" + levelName + "'");
 		}
 		// Convert our map resources to JSON.	
 		JSONArray tileBackgroundsJSONArray = Helpers.readJSONArrayFromFile(tileBackgroundsFile);
 		JSONArray tileDecorationsJSONArray = Helpers.readJSONArrayFromFile(tileDecorationsFile);
 		JSONArray tileBlocksJSONArray      = Helpers.readJSONArrayFromFile(tileBlocksFile);
-		JSONArray tileDoorsJSONArray       = Helpers.readJSONArrayFromFile(tileDoorsFile);
 		
-		// Create level door tiles.
-		for(int tileDoorIndex = 0; tileDoorIndex < tileDoorsJSONArray.length(); tileDoorIndex++) {
-			int xPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("x");
-			int yPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("y");
-			int typeId          = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("typeId");
-			String id           = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("id");
-			String targetDoorId = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetDoorId");
-			String targetLevel  = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetLevel");
-			boolean locked      = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getBoolean("locked");
-			// Create the door.
-			Door door = new Door(DoorType.values()[typeId], id);
-			door.setX(xPos);
-			door.setY(yPos);
-			// Set the target of the door.
-			DoorTarget target = new DoorTarget();
-			target.doorId     = targetDoorId;
-			target.level      = targetLevel;
-			door.setTarget(target);
-			// Unlock the door if it is not locked.
-			if(!locked) {
-				door.unlock();
+		// Read door tiles from disk if there are any.
+		if(tileDoorsFile.exists()) {
+			JSONArray tileDoorsJSONArray = Helpers.readJSONArrayFromFile(tileDoorsFile);
+			
+			// Create level door tiles.
+			for(int tileDoorIndex = 0; tileDoorIndex < tileDoorsJSONArray.length(); tileDoorIndex++) {
+				int xPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("x");
+				int yPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("y");
+				int typeId          = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("typeId");
+				String id           = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("id");
+				String targetDoorId = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetDoorId");
+				String targetLevel  = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getString("targetLevel");
+				boolean locked      = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getBoolean("locked");
+				// Create the door.
+				Door door = new Door(DoorType.values()[typeId], id);
+				door.setX(xPos);
+				door.setY(yPos);
+				// Set the target of the door.
+				DoorTarget target = new DoorTarget();
+				target.doorId     = targetDoorId;
+				target.level      = targetLevel;
+				door.setTarget(target);
+				// Unlock the door if it is not locked.
+				if(!locked) {
+					door.unlock();
+				}
+				// Add our newly created door tile to our map.
+				tileMap.put(xPos + "-" + yPos, door);
 			}
-			// Add our newly created door tile to our map.
-			tileMap.put(xPos + "-" + yPos, door);
 		}
 
 		// Create tiles which have backgrounds or assign to existing tiles.
@@ -186,5 +188,31 @@ public class LevelReader {
 
 		// Return the tiles in our map as a list.
 		return new ArrayList<Tile>(tileMap.values());
+	}
+	
+	/**
+	 * Read level segment connectors from disk.
+	 * @param levelName
+	 * @return level segment connectors.
+	 */
+	public static ArrayList<Connector> readLevelConnectorsFromDisk(String levelName, String path) {
+		// Create a map of connectors.
+		ArrayList<Connector> connectors = new ArrayList<Connector>();
+		// Ensure that we have the resources necessary to create our tiles.
+		File connectorsFile = new File(path + levelName + "/connectors");
+		// Read connectors from disk if there are any.
+		if(connectorsFile.exists()) {
+			JSONArray connectorsJSONArray = Helpers.readJSONArrayFromFile(connectorsFile);
+			// Create each connector from file.
+			for(int connectorIndex = 0; connectorIndex < connectorsJSONArray.length(); connectorIndex++) {
+				int xPos            = connectorsJSONArray.getJSONObject(connectorIndex).getInt("x");
+				int yPos            = connectorsJSONArray.getJSONObject(connectorIndex).getInt("y");
+				ConnectorType type  = ConnectorType.valueOf(connectorsJSONArray.getJSONObject(connectorIndex).getString("type"));
+				int height          = connectorsJSONArray.getJSONObject(connectorIndex).getInt("height");
+				// Create the connector and add it to the list of connectors.
+				connectors.add(new Connector(type, xPos, yPos, height));
+			}
+		}
+		return connectors;
 	}
 }

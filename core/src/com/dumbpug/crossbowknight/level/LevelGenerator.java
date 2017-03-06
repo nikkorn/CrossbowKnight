@@ -2,7 +2,6 @@ package com.dumbpug.crossbowknight.level;
 
 import java.io.File;
 import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.leveleditor.LevelSegment;

@@ -29,7 +29,7 @@ public class C {
 
 	/** Saved State */
 	public static final String SAVED_LEVELS_DIR                 = "levels/";
-	public static final String SAVED_LEVEL_SEGMENTS_DIR         = "levels/segments";
+	public static final String SAVED_LEVEL_SEGMENTS_DIR         = "levels/segments/";
 
 	/** Physics */
 	public static final float PHYSICS_GRAVITY                   = 0.09f;
