@@ -1,5 +1,6 @@
 package com.dumbpug.crossbowknight.leveleditor;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -116,6 +117,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 					this.activeTile = targetTile;
 					// Let the menu know that a new tile is now the active one.
 					levelEditorMenu.onTileSelect(targetTile);
+					// Spit out the position to the console.
+					System.out.println("click: x: " + tilePosX + " y: " + tilePosY);
 				}
 				// Reset the click cool-down.
 				this.lastClick = System.currentTimeMillis();
@@ -398,6 +401,17 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 	 * Write the current level to disk.
 	 */
 	private void writeLevelToDisk() {
+		// Clear up any blank tiles.
+		ArrayList<Tile> blankTiles = new ArrayList<Tile>();
+		for(Tile tile : segment.getTiles()) {
+			if(segment.isTileBlank(tile)) {
+				blankTiles.add(tile);
+			}
+		}
+		for(Tile tile : blankTiles) {
+			segment.removeTile(tile);
+		}
+	    // Write our level segment to disk.
 		EditableLevelSegmentWriter levelWriter = new EditableLevelSegmentWriter(this.segment);
 		levelWriter.writeSegment(this.segmentName);
 	}

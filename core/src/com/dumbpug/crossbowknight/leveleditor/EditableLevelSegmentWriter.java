@@ -60,8 +60,8 @@ public class EditableLevelSegmentWriter {
             for(Tile tile : segment.getTiles()) {
                 if(tile.getBackgroundTexture() != null) {
                     JSONObject backgroundTileObject = new JSONObject();
-                    backgroundTileObject.put("x", tile.getX());
-                    backgroundTileObject.put("y", tile.getY());
+                    backgroundTileObject.put("x", applyXOffset(tile.getX()));
+                    backgroundTileObject.put("y", applyYOffset(tile.getY()));
                     backgroundTileObject.put("typeId", tile.getBackgroundTexture().getTextureIndex());
                     backgroundTileArray.put(backgroundTileObject);
                 }
@@ -86,8 +86,8 @@ public class EditableLevelSegmentWriter {
             for(Tile tile : segment.getTiles()) {
                 if(tile.getDecorationTexture() != null) {
                     JSONObject decorationTileObject = new JSONObject();
-                    decorationTileObject.put("x", tile.getX());
-                    decorationTileObject.put("y", tile.getY());
+                    decorationTileObject.put("x", applyXOffset(tile.getX()));
+                    decorationTileObject.put("y", applyYOffset(tile.getY()));
                     decorationTileObject.put("typeId", tile.getDecorationTexture().getTextureIndex());
                     decorationTileArray.put(decorationTileObject);
                 }
@@ -112,8 +112,8 @@ public class EditableLevelSegmentWriter {
             for(Tile tile : segment.getTiles()) {
                 if(tile.getPhysicsBlock() != null) {
                     JSONObject blockTileObject = new JSONObject();
-                    blockTileObject.put("x", tile.getX());
-                    blockTileObject.put("y", tile.getY());
+                    blockTileObject.put("x", applyXOffset(tile.getX()));
+                    blockTileObject.put("y", applyYOffset(tile.getY()));
                     blockTileObject.put("typeId", tile.getPhysicsBlock().getBlockTexture().getTextureIndex());
                     blockTileObject.put("tileFillType", tile.getPhysicsBlock().getFillType().ordinal());
                     blockTileArray.put(blockTileObject);
@@ -138,8 +138,8 @@ public class EditableLevelSegmentWriter {
              // Write every connector tile to our JSON array.
              for(Connector connector : segment.getConnectors()) {
                  JSONObject connectorObject = new JSONObject();
-                 connectorObject.put("x", connector.getTilePositionX());
-                 connectorObject.put("y", connector.getTilePositionY());
+                 connectorObject.put("x", applyXOffset(connector.getTilePositionX()));
+                 connectorObject.put("y", applyYOffset(connector.getTilePositionY()));
                  connectorObject.put("type", connector.getConnecterType());
                  connectorObject.put("height", connector.getTileHeight());
                  connectorArray.put(connectorObject);
@@ -151,4 +151,18 @@ public class EditableLevelSegmentWriter {
          }
          connectorsFileWriter.close();
     }
+    
+    /**
+     * Apply the X offset needed to position segment tiles with left-most tile at zero.
+     * @param pos
+     * @return offset position
+     */
+    private int applyXOffset(int pos) { return pos + segment.getXZeroOffset(); }
+    
+    /**
+     * Apply the Y offset needed to position segment tiles with lowest tile at zero.
+     * @param pos
+     * @return offset position
+     */
+    private int applyYOffset(int pos) { return pos + segment.getYZeroOffset(); }
 }

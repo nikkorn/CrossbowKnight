@@ -35,6 +35,48 @@ public class EditableLevelSegment extends LevelSegment {
 	public void removeTile(Tile tile) { this.getTiles().remove(tile); }
 	
 	/**
+	 * Get the X offset of the tiles in this segment.
+	 * This is the number of tile spaces on the X axis that all tiles would need to move to be at zero.
+	 * @return offset
+	 */
+	public int getXZeroOffset() {
+		// Go over every tile in this segment and get the left-most x position.
+		// TODO May eventually need to include connector positions.
+		boolean firstPositionSet  = false;
+		int smallestTileXPosition = 0;
+		for(Tile tile : this.getTiles()) {
+			if(!firstPositionSet) {
+				smallestTileXPosition = tile.getX();
+				firstPositionSet      = true;
+			} else if(tile.getX() < smallestTileXPosition) {
+				smallestTileXPosition = tile.getX();
+			}
+		}
+		return 0 - smallestTileXPosition;
+	}
+	
+	/**
+	 * Get the Y offset of the tiles in this segment.
+	 * This is the number of tile spaces on the Y axis that all tiles would need to move to be at zero.
+	 * @return offset
+	 */
+	public int getYZeroOffset() {
+		// Go over every tile in this segment and get the lowest y position.
+		// TODO May eventually need to include connector positions.
+		boolean firstPositionSet  = false;
+		int smallestTileYPosition = 0;
+		for(Tile tile : this.getTiles()) {
+			if(!firstPositionSet) {
+				smallestTileYPosition = tile.getY();
+				firstPositionSet      = true;
+			} else if(tile.getY() < smallestTileYPosition) {
+				smallestTileYPosition = tile.getY();
+			}
+		}
+		return 0 - smallestTileYPosition;
+	}
+	
+	/**
 	 * Draw the editable level.
 	 * @param batch
 	 * @param levelEditorTextures
