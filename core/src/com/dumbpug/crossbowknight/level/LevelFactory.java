@@ -1,6 +1,7 @@
 package com.dumbpug.crossbowknight.level;
 
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.level.generator.LevelSegment;
 import com.dumbpug.crossbowknight.leveleditor.Connector;
 
 /**

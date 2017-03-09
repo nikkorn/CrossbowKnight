@@ -9,7 +9,7 @@ import com.dumbpug.crossbowknight.hud.DevHUD;
 import com.dumbpug.crossbowknight.hud.HUD;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
-import com.dumbpug.crossbowknight.level.LevelGenerator;
+import com.dumbpug.crossbowknight.level.generator.LevelGenerator;
 
 /**
  * Represents the main games state.

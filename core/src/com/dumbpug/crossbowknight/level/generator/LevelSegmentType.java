@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.level;
+package com.dumbpug.crossbowknight.level.generator;
 
 /**
  * Defines the type of a level segment.

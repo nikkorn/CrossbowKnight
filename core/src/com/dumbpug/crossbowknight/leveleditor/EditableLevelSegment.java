@@ -3,8 +3,8 @@ package com.dumbpug.crossbowknight.leveleditor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.level.Block;
-import com.dumbpug.crossbowknight.level.LevelSegment;
 import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
+import com.dumbpug.crossbowknight.level.generator.LevelSegment;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**

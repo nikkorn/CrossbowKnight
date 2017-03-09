@@ -1,4 +1,4 @@
-package com.dumbpug.crossbowknight.level;
+package com.dumbpug.crossbowknight.level.generator;
 
 import java.util.ArrayList;
 
