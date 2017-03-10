@@ -1,9 +1,9 @@
 package com.dumbpug.crossbowknight.level.generator;
 
 import java.util.ArrayList;
-
 import com.dumbpug.crossbowknight.leveleditor.Connector;
 import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
+import com.dumbpug.crossbowknight.leveleditor.Marker;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -13,6 +13,8 @@ import com.dumbpug.crossbowknight.tiles.Tile;
 public class LevelSegment {
 	/** The segment connectors. */
 	private ArrayList<Connector> connectors = new ArrayList<Connector>();
+	/** The segment markers. */
+	private ArrayList<Marker> markers = new ArrayList<Marker>();
 	/** The tiles in this segment. */
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	
@@ -66,6 +68,18 @@ public class LevelSegment {
 	 * @return connectors.
 	 */
 	public ArrayList<Connector> getConnectors() { return this.connectors; }
+	
+	/**
+	 * Add a new level marker
+	 * @param marker
+	 */
+	public void addMarker(Marker marker) { this.markers.add(marker); }
+	
+	/**
+	 * Get the level markers.
+	 * @return markers.
+	 */
+	public ArrayList<Marker> getMarkers() { return this.markers; }
 	
 	/**
 	 * Get the structural type of this level segment.

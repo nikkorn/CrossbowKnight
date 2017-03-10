@@ -8,6 +8,8 @@ public class LevelEditorTextures {
 	private Texture activeTileMarker;
 	private Texture connectorEntrance;
 	private Texture connectorExit;
+	private Texture specialMarker;
+	private Texture enemyMarker;
 	
 	/** buttons. */
 	private Texture backgroundBtn;
@@ -35,6 +37,8 @@ public class LevelEditorTextures {
 		blockFillBottomBtn = new Texture("graphics/leveleditor/LEVELEDITOR_BLK_FILL_BOTTOM.png");
 		connectorEntrance  = new Texture("graphics/leveleditor/LEVELEDITOR_CONNECTER_ENTRANCE.png");
 		connectorExit      = new Texture("graphics/leveleditor/LEVELEDITOR_CONNECTER_EXIT.png");
+		specialMarker      = new Texture("graphics/leveleditor/LEVELEDITOR_SPECIAL_TILE.png");
+		enemyMarker        = new Texture("graphics/leveleditor/LEVELEDITOR_ENEMY_TILE.png");
 	}
 	
 	public Texture getGridTileTexture() { return gridTile; }
@@ -56,4 +60,7 @@ public class LevelEditorTextures {
 	
 	public Texture getConnectorEntranceTexture() { return this.connectorEntrance; }
 	public Texture getConnectorExitTexture() { return this.connectorExit; }
+	
+	public Texture getSpecialMarkerTexture() { return this.specialMarker; }
+	public Texture getEnemyMarkerTexture() { return this.enemyMarker; }
 }

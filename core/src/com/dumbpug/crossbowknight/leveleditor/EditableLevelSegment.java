@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.level.Block;
 import com.dumbpug.crossbowknight.level.Block.TileBlockFillType;
 import com.dumbpug.crossbowknight.level.generator.LevelSegment;
+import com.dumbpug.crossbowknight.leveleditor.Marker.MarkerType;
 import com.dumbpug.crossbowknight.tiles.Tile;
 
 /**
@@ -124,6 +125,15 @@ public class EditableLevelSegment extends LevelSegment {
 			for(int heightOffset = 0; heightOffset < connector.getTileHeight(); heightOffset++) {
 				batch.draw(texture, (connector.getTilePositionX() - tileOffsetX) * C.TILE_SIZE, ((connector.getTilePositionY() + heightOffset) - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 			}
+		}
+		// Draw markers.
+		for(Marker marker : this.getMarkers()) {
+			// Get the correct texture based on the marker type 
+			Texture texture = marker.getMarkerType() == MarkerType.ENEMY ? 
+					levelEditorTextures.getEnemyMarkerTexture() : 
+					levelEditorTextures.getSpecialMarkerTexture();
+			// Draw the texture for the marker.
+			batch.draw(texture, (marker.getTilePositionX() - tileOffsetX) * C.TILE_SIZE, (marker.getTilePositionY() - tileOffsetY) * C.TILE_SIZE, C.TILE_SIZE, C.TILE_SIZE);
 		}
 	}
 }

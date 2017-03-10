@@ -167,9 +167,8 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 		System.out.println(" 7. clear block");
 		System.out.println(" 8. create connector");
 		System.out.println(" 9. delete connector");
-		System.out.println(" 10. toggle special tile marker (door/chest)");
-		System.out.println(" 11. toggle enemy tile marker");
-		System.out.println(" 12. resume");
+		System.out.println(" 10. toggle marker");
+		System.out.println(" 11. resume");
 
 		System.out.print("option? : ");
 
@@ -382,12 +381,30 @@ public class CrossbowKnightLevelEditor extends ApplicationAdapter {
 				// Delete connector.
 				break;
 			case 10:
-				// Toggle special.
+				// ------ Toggle marker ------
+				
+				// TODO If a marker is at this position, delete it and return.
+				
+				// Create marker.
+				int markerTypeId = 0;
+				System.out.print("special (0) or enemy (1)? : ");
+				try {
+					markerTypeId = inputScanner.nextInt();
+					// Check that this is a valid marker type id.
+					if(!(markerTypeId == 0 || markerTypeId == 1))
+					{
+						System.out.println("error: not a valid input.");
+						return;
+					}
+				} catch (InputMismatchException ime) {
+					System.out.println("error: not a valid input.");
+					inputScanner.next();
+					return;
+				}
+				// Add the marker.
+				segment.addMarker(new Marker(Marker.MarkerType.values()[markerTypeId], activeTile.getX(), activeTile.getY()));
 				break;
 			case 11:
-				// Toggle enemy.
-				break;
-			case 12:
 				// Do nothing!
 				break;
 			default:
