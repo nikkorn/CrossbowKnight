@@ -10,6 +10,7 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Helpers;
 import com.dumbpug.crossbowknight.leveleditor.Connector;
 import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
+import com.dumbpug.crossbowknight.leveleditor.Marker;
 import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.Tile;
@@ -214,5 +215,30 @@ public class LevelReader {
 			}
 		}
 		return connectors;
+	}
+	
+	/**
+	 * Read level segment markers from disk.
+	 * @param levelName
+	 * @return level segment markers.
+	 */
+	public static ArrayList<Marker> readLevelMarkersFromDisk(String levelName, String path) {
+		// Create a map of markers.
+		ArrayList<Marker> markers = new ArrayList<Marker>();
+		// Ensure that we have the resources necessary to create our tiles.
+		File markersFile = new File(path + levelName + "/markers");
+		// Read markers from disk if there are any.
+		if(markersFile.exists()) {
+			JSONArray markersJSONArray = Helpers.readJSONArrayFromFile(markersFile);
+			// Create each marker from file.
+			for(int markerIndex = 0; markerIndex < markersJSONArray.length(); markerIndex++) {
+				int xPos               = markersJSONArray.getJSONObject(markerIndex).getInt("x");
+				int yPos               = markersJSONArray.getJSONObject(markerIndex).getInt("y");
+				Marker.MarkerType type = Marker.MarkerType.valueOf(markersJSONArray.getJSONObject(markerIndex).getString("type"));
+				// Create the marker and add it to the list of markers.
+				markers.add(new Marker(type, xPos, yPos));
+			}
+		}
+		return markers;
 	}
 }

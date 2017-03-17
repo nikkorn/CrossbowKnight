@@ -44,6 +44,8 @@ public class EditableLevelSegmentWriter {
         writeBlocksFile();
         // Write the connectors file.
         writeConnectorsFile();
+        // Write the markers file.
+        writeMarkersFile();
         // We have finished writing the file.
         System.out.println("Wrote level : '" + segmentDir + "'");
     }
@@ -150,6 +152,30 @@ public class EditableLevelSegmentWriter {
              e.printStackTrace();
          }
          connectorsFileWriter.close();
+    }
+    
+    /**
+     * Writes the markers file.
+     */
+    private void writeMarkersFile() {
+    	 PrintWriter markersFileWriter = null;
+         try {
+        	 markersFileWriter      = new PrintWriter(new FileWriter(segmentDir + "/markers"));
+             JSONArray markersArray = new JSONArray();
+             // Write every connector tile to our JSON array.
+             for(Marker marker : segment.getMarkers()) {
+                 JSONObject markerObject = new JSONObject();
+                 markerObject.put("x", applyXOffset(marker.getTilePositionX()));
+                 markerObject.put("y", applyYOffset(marker.getTilePositionY()));
+                 markerObject.put("type", marker.getMarkerType());
+                 markersArray.put(markerObject);
+             }
+             // Write the JSON array to the file.
+             markersFileWriter.write(markersArray.length() == 0 ? "[]" : markersArray.toString());
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+         markersFileWriter.close();
     }
     
     /**
