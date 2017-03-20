@@ -7,6 +7,9 @@ import com.badlogic.gdx.Gdx;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
+import com.dumbpug.crossbowknight.leveleditor.Connector;
+import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
+import com.dumbpug.crossbowknight.lotto.Lotto;
 import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
@@ -61,11 +64,12 @@ public class LevelGenerator {
 		// TODO Get a random LEFT_EDGE segment to start with. Must have a door!
 		// TODO Pass it into our initial segment partition.
 		SegmentPartition initialPartition = new SegmentPartition();
-		initialPartition.segments.add(this.grabRandomSegmentOfType(LevelSegmentType.LEFT_EDGE));
+		initialPartition.segments.add(this.grabRandomSegmentOfType(LevelSegmentType.LEFT_EDGE, 0));
 		partitions.add(initialPartition);
 		
-		// Create segment partitions until we rach our max depth.
-		for(int depth = 0; depth < levelTotalDepth; depth++) {
+		// Create segment partitions until we reach our max depth.
+		int depth = 0;
+		while(depth < levelTotalDepth) {
 			// Generate a new partition.
 			SegmentPartition next = this.generateSegmentPartition(partitions.get(depth), depth == levelTotalDepth - 1);
 			
@@ -74,8 +78,9 @@ public class LevelGenerator {
 			// This may happen forever, so if we generate a partition like a 100 times an it always
 			// clashes with previous ones then discard the last partition in the partitions list, minus the depth, and try again.
 			
-			// TODO if the new partition does not clash with any others, add it to our partitions list and carry on to the next depth.
+			// If the new partition does not clash with any others, add it to our partitions list and carry on to the next depth.
 			partitions.add(next);
+			depth++;
 		}
 		
 		Level level = new Level();
@@ -90,23 +95,72 @@ public class LevelGenerator {
 	 * @return next segment partition
 	 */
 	private SegmentPartition generateSegmentPartition(SegmentPartition current, boolean atDepthLimit) {
-		
-		// TODO Will need to pass in all partitions as segments of different lengths can cross over partitions.
-		
-		return null;
+		// Create our new partition.
+		SegmentPartition newPartition = new SegmentPartition();
+		// For each segment in the last partition, create a new segment which connects to each exit connector.
+		for(LevelSegment segment : current.segments) {
+			for (Connector connector : segment.getConnectors()) {
+				// We only care about exit connectors of the previous segment.
+				if(connector.getConnecterType() == ConnectorType.ENTRANCE) {
+					continue;
+				}
+				// Determine the type of level segment we want. If we are at the depth limit then this has to be a right edge.
+				LevelSegmentType type = LevelSegmentType.RIGHT_EDGE;
+				if(!atDepthLimit) {
+					// Generate either a corridor or a fork type. Favour corridors.
+					type = new Lotto<LevelSegmentType>()
+						.add(LevelSegmentType.FORK, 1)
+						.add(LevelSegmentType.CORRIDOR, 2)
+						.draw();
+				}
+				// Get a random segment of this type where the entrance connector height matches the current exit connector height.
+				LevelSegment connectingSegment = this.grabRandomSegmentOfType(type, connector.getTileHeight());
+				// Get the entrance connector of this segment.
+				Connector connectingSegmentEntrance = this.getEntranceConnectorOfSegment(connectingSegment);
+				// We need to offset the connecting segment based on the position of the previous one and the position of the connectors. TODO Check this!
+				connectingSegment.setOffsetX(segment.getOffsetX() + connector.getTilePositionX() + connectingSegmentEntrance.getTilePositionX() + 1);
+				connectingSegment.setOffsetY(segment.getOffsetY() + connector.getTilePositionY() + connectingSegmentEntrance.getTilePositionY());
+				// Add this new segment to our new partition.
+				newPartition.segments.add(connectingSegment);
+			}
+		}
+		return newPartition;
+	}
+	
+	/**
+	 * Get the entrance connector of a segment. It is assumed that segment is not a left edge.
+	 * @param segment
+	 * @return entrance connector
+	 */
+	private Connector getEntranceConnectorOfSegment(LevelSegment segment) {
+		for(Connector connector : segment.getConnectors()) {
+			if(connector.getConnecterType() == ConnectorType.ENTRANCE) {
+				return connector;
+			}
+		}
+		throw new RuntimeException("segment has no entrance connector.");
 	}
 	
 	/** 
 	 * Grab a random segment matching the specified type.
 	 * @param type
+	 * @param entranceConnectorHeight If > 0, then we need the segments entrance connector to have this as a height.
 	 * @return segment
 	 */
-	private LevelSegment grabRandomSegmentOfType(LevelSegmentType type) {
+	private LevelSegment grabRandomSegmentOfType(LevelSegmentType type, int entranceConnectorHeight) {
 		// Get a list of all segments which match the specified type.
 		ArrayList<LevelSegment> matchingSegments = new ArrayList<LevelSegment>();
 		for(LevelSegment segment : this.segments) {
 			if(segment.getLevelSegmentType() == type) {
-				matchingSegments.add(segment);
+				// If entranceConnectorHeight > 0  then we are looking to a segment with an 
+				// entrance connector with a height matching entranceConnectorHeight.
+				if(entranceConnectorHeight > 0) {
+					if(this.getEntranceConnectorOfSegment(segment).getTileHeight() == entranceConnectorHeight) {
+						matchingSegments.add(segment);
+					}
+				} else {
+					matchingSegments.add(segment);
+				}
 			}
 		}
 		// We cannot continue if we don't have a single segment with a matching type.

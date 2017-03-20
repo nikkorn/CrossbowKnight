@@ -17,6 +17,8 @@ public class LevelSegment {
 	private ArrayList<Marker> markers = new ArrayList<Marker>();
 	/** The tiles in this segment. */
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
+	/** The offset of this level segment. Used by the level generator. */
+	private int offsetX, offsetY = 0;
 	
 	/**
 	 * Get a tile at a specific x/y position.
@@ -114,4 +116,28 @@ public class LevelSegment {
 			}
 		}
 	}
+
+	/**
+	 * Get the Y offset.
+	 * @return y offset
+	 */
+	public int getOffsetY() { return offsetY; }
+
+	/**
+	 * Set the Y offset.
+	 * @param offsetY
+	 */
+	public void setOffsetY(int offsetY) { this.offsetY = offsetY; }
+
+	/**
+	 * Get the X offset.
+	 * @return x offset
+	 */
+	public int getOffsetX() { return offsetX; }
+
+	/**
+	 * Set the X offset.
+	 * @param offsetX
+	 */
+	public void setOffsetX(int offsetX) { this.offsetX = offsetX; }
 }
