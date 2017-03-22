@@ -40,6 +40,10 @@ public class MainGame extends State {
 		this.setLevel(LevelFactory.getLevelFromDisk("DOOM_HALL"));
 		// Create our level generator.
 		this.levelGenerator = new LevelGenerator();
+		
+		// TODO Remove!
+		this.levelGenerator.generateLevel(null, null);
+		
 		// Create the game menu.
 		this.gameMenu = new GameMenu(level.getPlayer());
 	}

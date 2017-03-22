@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.Debug;
+import com.dumbpug.crossbowknight.Debug.Type;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
 import com.dumbpug.crossbowknight.leveleditor.Connector;
 import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
 import com.dumbpug.crossbowknight.lotto.Lotto;
+import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
@@ -59,10 +62,12 @@ public class LevelGenerator {
 		// Create our segment partition list.
 		ArrayList<SegmentPartition> partitions = new ArrayList<SegmentPartition>();
 		// Determine the segment depth of this level.
-		int levelTotalDepth   = 5; // TODO Randomise.
+		int levelTotalDepth = 4; // TODO Randomise.
+		// The number of times we hit our fail limit in trying to generate a partition.
+		int overallFailCount = 0;
 		
-		// TODO Get a random LEFT_EDGE segment to start with. Must have a door!
-		// TODO Pass it into our initial segment partition.
+		// Get a random LEFT_EDGE segment to start with. Must have a door!
+		// Pass it into our initial segment partition.
 		SegmentPartition initialPartition = new SegmentPartition();
 		initialPartition.segments.add(this.grabRandomSegmentOfType(LevelSegmentType.LEFT_EDGE, 0));
 		partitions.add(initialPartition);
@@ -70,17 +75,54 @@ public class LevelGenerator {
 		// Create segment partitions until we reach our max depth.
 		int depth = 0;
 		while(depth < levelTotalDepth) {
-			// Generate a new partition.
-			SegmentPartition next = this.generateSegmentPartition(partitions.get(depth), depth == levelTotalDepth - 1);
+			// Whether we were successful in creating a partition at the current depth.
+			boolean success = false;
+			// The number of time we have failed to create a partition at the current depth.
+			int partitionGenerationFailCount = 0;
+			// Try to generate a partition at the current depth as long as we haven't failed too many times and we haven't already succeeded.
+			while(partitionGenerationFailCount <= C.PROC_GEN_PARTITION_CREATE_RETRY && !success) {
+				
+				// If we have hit our retry limit then we need to remove the last partition.
+				if(partitionGenerationFailCount == C.PROC_GEN_PARTITION_CREATE_RETRY) {
+					// Remove last partition (cannot be our first).
+					if(partitions.size() > 1) {
+						partitions.remove(partitions.size() - 1);
+					}
+					// We have gone down a depth if we are not already at the bottom depth.
+					if(depth > 0) {
+						depth--;
+					}
+					continue;
+				}
+				
+				// Generate a new partition.
+				SegmentPartition next = this.generateSegmentPartition(partitions.get(depth), depth == levelTotalDepth - 1);
+				
+				// Add it to our partition list.
+				partitions.add(next);
+				
+				// Check for failure due to overlaps.
+				boolean failure = doPartitionSegmentTilesOverlap(partitions);
+				
+				// If we had a failure, update our failure count and remove the last partition.
+				if(failure) {
+					partitionGenerationFailCount++;
+					partitions.remove(next);
+				} else {
+					// If the new partition does not clash with any others, add it to our partitions list and carry on to the next depth.
+					depth++;
+					success = true;
+				}
+			}
 			
-			// TODO Check that no tiles in any segments in the new partition overlap any other segment tiles.
-			// If any do, keep generating a new partition until they do not.
-			// This may happen forever, so if we generate a partition like a 100 times an it always
-			// clashes with previous ones then discard the last partition in the partitions list, minus the depth, and try again.
-			
-			// If the new partition does not clash with any others, add it to our partitions list and carry on to the next depth.
-			partitions.add(next);
-			depth++;
+			// Check to see whether we hit out fail limit in attempting to create a partition at the current depth.
+			if(!success) {
+				if(++overallFailCount == C.PROC_GEN_PARTITION_CREATE_RETRY) {
+					// We failed to create our level and cannot go on.
+					Debug.out(Type.ERROR, "Reached fail limit when attempting to generate level.");
+					System.exit(1);
+				}
+			}
 		}
 		
 		Level level = new Level();
@@ -118,8 +160,8 @@ public class LevelGenerator {
 				// Get the entrance connector of this segment.
 				Connector connectingSegmentEntrance = this.getEntranceConnectorOfSegment(connectingSegment);
 				// We need to offset the connecting segment based on the position of the previous one and the position of the connectors. TODO Check this!
-				connectingSegment.setOffsetX(segment.getOffsetX() + connector.getTilePositionX() + connectingSegmentEntrance.getTilePositionX() + 1);
-				connectingSegment.setOffsetY(segment.getOffsetY() + connector.getTilePositionY() + connectingSegmentEntrance.getTilePositionY());
+				connectingSegment.setOffsetX(((segment.getOffsetX() + connector.getTilePositionX()) - connectingSegmentEntrance.getTilePositionX()) + 1);
+				connectingSegment.setOffsetY((segment.getOffsetY() + connector.getTilePositionY()) - connectingSegmentEntrance.getTilePositionY());
 				// Add this new segment to our new partition.
 				newPartition.segments.add(connectingSegment);
 			}
@@ -170,5 +212,43 @@ public class LevelGenerator {
 		}
 		// Randomly select one of these matching segments to return.
 		return matchingSegments.get(random.nextInt(matchingSegments.size()));
+	}
+	
+	/**
+	 * Returns true if any tiles in any segments overlap.
+	 * @param existingPartitions
+	 * @param newPartition
+	 * @return overlap
+	 */
+	private boolean doPartitionSegmentTilesOverlap(ArrayList<SegmentPartition> partitions) {
+		// The unique tile position list.
+		UniqueTilePositionList positions = new UniqueTilePositionList();
+		for(SegmentPartition partition : partitions) {
+			for(UniqueTilePosition utp : this.getTilePositionsFromSegmentPartition(partition)) {
+				positions.add(utp);
+			}
+		}
+		// Return whether we had any overlaps.
+		return positions.hasOverlaps();
+	}
+	
+	/**
+	 * Generate a list of unique tile positions from all segment tiles in a partition. Taking segment offset into account.
+	 * @param partition
+	 * @return list of unique tile positions
+	 */
+	private ArrayList<UniqueTilePosition> getTilePositionsFromSegmentPartition(SegmentPartition partition) {
+		ArrayList<UniqueTilePosition> positions = new ArrayList<UniqueTilePosition>();
+		for(LevelSegment segment : partition.segments) {
+			for(Tile tile : segment.getTiles()) {
+				// Create a unique tile position for this tiles position.
+				UniqueTilePosition position = new UniqueTilePosition();
+				position.x    = tile.getX() + segment.getOffsetX();
+				position.y    = tile.getY() + segment.getOffsetY();
+				position.tile = tile;
+				positions.add(position);
+			}
+		}
+		return positions;
 	}
 }

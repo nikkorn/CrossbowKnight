@@ -7,6 +7,9 @@ import com.badlogic.gdx.Gdx;
  * @author nikolas.howard
  */
 public class C {
+	/** Debugging */
+	public static final boolean WRITE_DEBUG_OUTPUT              = true;
+	
 	/** Main Menu */
 	public static final int MAIN_MENU_ITEM_PADDING              = Gdx.graphics.getHeight() / 16;
 	
@@ -135,4 +138,5 @@ public class C {
 	public static final int PROC_GEN_TOKENS_ITEM_STRING         = 10;
 	public static final int PROC_GEN_TOKENS_ITEM_SIGHT          = 5;
 	public static final int PROC_GEN_TOKENS_ITEM_LIMBS          = 5;
+	public static final int PROC_GEN_PARTITION_CREATE_RETRY     = 200;
 }
