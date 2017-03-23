@@ -21,6 +21,22 @@ public class LevelSegment {
 	private int offsetX, offsetY = 0;
 	
 	/**
+	 * Create an instance of the LevelSegment class.
+	 */
+	public LevelSegment() {}
+	
+	/**
+	 * Create an instance of the LevelSegment class.
+	 * Copying various properties from another instance.
+	 * @param another
+	 */
+	public LevelSegment(LevelSegment another) {
+		this.connectors = another.getConnectors();
+		this.markers    = another.getMarkers();
+		this.tiles      = another.getTiles();
+	}
+	
+	/**
 	 * Get a tile at a specific x/y position.
 	 * @param x
 	 * @param y

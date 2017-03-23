@@ -40,7 +40,7 @@ public class UniqueTilePositionList {
 	 */
 	public boolean hasOverlaps() {
 		// If we are writing to debug window. Draw a representation of how the tiles have overlapped.
-		if(overlapHappened && C.WRITE_DEBUG_OUTPUT) {
+		if(C.WRITE_DEBUG_OUTPUT) {
 			drawStateToDebug();
 		}
 		return overlapHappened;

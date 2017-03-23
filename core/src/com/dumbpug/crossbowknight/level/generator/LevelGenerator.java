@@ -23,7 +23,7 @@ public class LevelGenerator {
 	/** The segments to use in the construction of a level. */
 	private ArrayList<LevelSegment> segments = new ArrayList<LevelSegment>();
 	/** The RNG to use in level generation. */
-	private Random random = new Random(12345);
+	private Random random = new Random();
 	
 	/**
 	 * Create a new instance of the LevelGenerator class.
@@ -62,7 +62,7 @@ public class LevelGenerator {
 		// Create our segment partition list.
 		ArrayList<SegmentPartition> partitions = new ArrayList<SegmentPartition>();
 		// Determine the segment depth of this level.
-		int levelTotalDepth = 4; // TODO Randomise.
+		int levelTotalDepth = 10; // TODO Randomise.
 		// The number of times we hit our fail limit in trying to generate a partition.
 		int overallFailCount = 0;
 		
@@ -73,7 +73,7 @@ public class LevelGenerator {
 		partitions.add(initialPartition);
 		
 		// Create segment partitions until we reach our max depth.
-		int depth = 0;
+		int depth = 1;
 		while(depth < levelTotalDepth) {
 			// Whether we were successful in creating a partition at the current depth.
 			boolean success = false;
@@ -96,7 +96,7 @@ public class LevelGenerator {
 				}
 				
 				// Generate a new partition.
-				SegmentPartition next = this.generateSegmentPartition(partitions.get(depth), depth == levelTotalDepth - 1);
+				SegmentPartition next = this.generateSegmentPartition(partitions.get(depth - 1), depth == levelTotalDepth - 1);
 				
 				// Add it to our partition list.
 				partitions.add(next);
@@ -150,9 +150,10 @@ public class LevelGenerator {
 				LevelSegmentType type = LevelSegmentType.RIGHT_EDGE;
 				if(!atDepthLimit) {
 					// Generate either a corridor or a fork type. Favour corridors.
-					type = new Lotto<LevelSegmentType>()
-						.add(LevelSegmentType.FORK, 1)
-						.add(LevelSegmentType.CORRIDOR, 2)
+					type = new Lotto<LevelSegmentType>(random)
+						.add(LevelSegmentType.RIGHT_EDGE, 1)
+						.add(LevelSegmentType.FORK, 2)
+						.add(LevelSegmentType.CORRIDOR, 3)
 						.draw();
 				}
 				// Get a random segment of this type where the entrance connector height matches the current exit connector height.
@@ -210,8 +211,8 @@ public class LevelGenerator {
 			System.out.println("Error: no matching segments with type of " + type);
 			System.exit(1);
 		}
-		// Randomly select one of these matching segments to return.
-		return matchingSegments.get(random.nextInt(matchingSegments.size()));
+		// Randomly select a copy of one of these matching segments to return.
+		return new LevelSegment(matchingSegments.get(random.nextInt(matchingSegments.size())));
 	}
 	
 	/**
