@@ -9,6 +9,7 @@ import com.dumbpug.crossbowknight.Debug;
 import com.dumbpug.crossbowknight.Debug.Type;
 import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
+import com.dumbpug.crossbowknight.level.LevelWorld;
 import com.dumbpug.crossbowknight.leveleditor.Connector;
 import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
 import com.dumbpug.crossbowknight.lotto.Lotto;
@@ -16,10 +17,10 @@ import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
- * Responsible for procedurally generating levels using level segments.
+ * Responsible for procedurally generating level worlds using level segments.
  * @author nikolas.howard
  */
-public class LevelGenerator {
+public class LevelWorldGenerator {
 	/** The segments to use in the construction of a level. */
 	private ArrayList<LevelSegment> segments = new ArrayList<LevelSegment>();
 	/** The RNG to use in level generation. */
@@ -28,14 +29,14 @@ public class LevelGenerator {
 	/**
 	 * Create a new instance of the LevelGenerator class.
 	 */
-	public LevelGenerator() {
+	public LevelWorldGenerator() {
 		// Read all level segments from disk.
 		populateSegmentsList();
 	}
 	
 	/** 
 	 * Read all level segments into our segments list
-	 * for later use in generating complete levels.
+	 * for later use in generating complete level worlds.
 	 */
 	private void populateSegmentsList() {
 		// Get the directory in which the level segments are stored on disk.
@@ -53,12 +54,12 @@ public class LevelGenerator {
 	}
 	
 	/**
-	 * Randomly generate a level.
+	 * Randomly generate a level world.
 	 * @param sourceDoor
 	 * @param sourceLevel
 	 * @return level
 	 */
-	public Level generateLevel(Door sourceDoor, Level sourceLevel) {
+	public LevelWorld generateLevelWorld(Door sourceDoor, Level sourceLevel) {
 		// Create our segment partition list.
 		ArrayList<SegmentPartition> partitions = new ArrayList<SegmentPartition>();
 		// Determine the segment depth of this level.
@@ -125,9 +126,9 @@ public class LevelGenerator {
 			}
 		}
 		
-		Level level = new Level();
+		LevelWorld levelWorld = new LevelWorld();
 		// TODO Fill level with stuff.
-		return level;
+		return levelWorld;
 	}
 	
 	/**

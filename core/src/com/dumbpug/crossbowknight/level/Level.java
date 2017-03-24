@@ -37,8 +37,6 @@ import com.dumbpug.crossbowknight.tiles.TileInteractionFacilitator;
  * @author nikolas.howard
  */
 public class Level {
-	/** The name of this level. */
-	private String name = "";
 	/** The level camera. */
 	private LevelCamera camera;
 	/** The level drawer. */
@@ -170,18 +168,6 @@ public class Level {
 			}
 		}
 	}
-
-	/**
-	 * Get the name of this level.
-	 * @return name
-	 */
-	public String getName() { return name; }
-
-	/**
-	 * Set the name of this level.
-	 * @param name
-	 */
-	public void setName(String name) { this.name = name; }
 	
 	/**
 	 * Get the level camera.

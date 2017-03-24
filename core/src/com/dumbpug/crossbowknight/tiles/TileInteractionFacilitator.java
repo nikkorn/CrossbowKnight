@@ -76,10 +76,24 @@ public class TileInteractionFacilitator {
 	 */
 	public boolean onSelect() {
 		if (getTileAtPlayerPosition() != null) {
-			if (getTileAtPlayerPosition().getType() == TileType.DOOR) {
-				Door door = (Door) getTileAtPlayerPosition();
-				door.unlock();
-				return true;
+			// The way that we interact with this tile depends on its type.
+			switch(getTileAtPlayerPosition().getType()) {
+				case DOOR:
+					Door door = (Door) getTileAtPlayerPosition();
+					// TODO Improve to take key use into account.
+					// If a door is locked...
+					if(door.isLocked()) {
+						// ... unlock it, otherwise ...
+						door.unlock();
+					} else {
+						// ... go through it.
+						this.world.onDoorUse(door);
+					}
+					return true;
+				case NORMAL:
+					break;
+				default:
+					break;
 			}
 		}
 		return false;
@@ -88,17 +102,13 @@ public class TileInteractionFacilitator {
 	/**
 	 * Update anything related to tile interactions.
 	 */
-	public void update() {
-		
-	}
+	public void update() {}
 	
 	/**
 	 * Draw anything related to tile interactions.
 	 * @param batch
 	 */
-	public void drawTileInteractionElements(SpriteBatch batch) {
-		
-	}
+	public void drawTileInteractionElements(SpriteBatch batch) {}
 	
 	/**
 	 * Get the tile that the player is in front of.

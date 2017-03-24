@@ -8,6 +8,7 @@ import com.dumbpug.crossbowknight.forces.Force;
 import com.dumbpug.crossbowknight.particles.EmitterPool;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.TileInteractionFacilitator;
+import com.dumbpug.crossbowknight.tiles.door.Door;
 import com.dumbpug.nbp.NBPWorld;
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ import java.util.ArrayList;
  * @author nikolas.howard
  */
 public class LevelWorld {
+	/** The name of this level. */
+	private String name = "";
 	/** All tiles in this level. */
 	private ArrayList<Tile> levelTiles = new ArrayList<Tile>();
 	/** The physics world of our level */
@@ -79,6 +82,14 @@ public class LevelWorld {
 			}
 		}
 	}
+	
+	/**
+	 * Called when a door is used.
+	 * @param door
+	 */
+	public void onDoorUse(Door door) {
+		System.out.println("Used a door!");
+	}
 
 	/**
 	 * Get all level tiles.
@@ -121,6 +132,18 @@ public class LevelWorld {
 	 * @return physics world
 	 */
 	public NBPWorld getPhysicsWorld() { return physicsWorld; }
+	
+	/**
+	 * Get the name of this level world.
+	 * @return name
+	 */
+	public String getName() { return name; }
+
+	/**
+	 * Set the name of this level world.
+	 * @param name
+	 */
+	public void setName(String name) { this.name = name; }
 
 	/**
 	 * Get the tile interaction facilitator.

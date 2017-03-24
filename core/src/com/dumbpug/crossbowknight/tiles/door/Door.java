@@ -70,13 +70,13 @@ public class Door extends Tile {
 	 * Create a new instance of the Door class.
 	 * Where this door is the target of a different door.
 	 * @param connectingDoor
-	 * @param connectingLevel
+	 * @param connectingLevelWorld
 	 */
-	public Door(Door connectingDoor, String connectingLevel) {
+	public Door(Door connectingDoor, String connectingLevelWorld) {
 		this.setDoorType(type);
 		// Target the connecting door.
 		DoorTarget target = new DoorTarget();
-		target.level      = connectingLevel;
+		target.levelWorld = connectingLevelWorld;
 		target.doorId     = connectingDoor.id;
 		this.setTarget(target);
 	}
@@ -103,7 +103,7 @@ public class Door extends Tile {
 	 * Get whether this door is locked.
 	 * @return is locked
 	 */
-	public boolean isLocked() { return getKeysRequiredToOpen() == 0 || isUnlocked; }
+	public boolean isLocked() { return getKeysRequiredToOpen() == 0 || !isUnlocked; }
 	
 	/**
 	 * Unlock the door.
