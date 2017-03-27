@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Debug;
 import com.dumbpug.crossbowknight.Debug.Type;
-import com.dumbpug.crossbowknight.level.Level;
 import com.dumbpug.crossbowknight.level.LevelFactory;
 import com.dumbpug.crossbowknight.level.LevelWorld;
 import com.dumbpug.crossbowknight.leveleditor.Connector;
@@ -59,7 +58,7 @@ public class LevelWorldGenerator {
 	 * @param sourceLevel
 	 * @return level
 	 */
-	public LevelWorld generateLevelWorld(Door sourceDoor, Level sourceLevel) {
+	public LevelWorld generateLevelWorld(Door sourceDoor, LevelWorld sourceLevelWorld) {
 		// Create our segment partition list.
 		ArrayList<SegmentPartition> partitions = new ArrayList<SegmentPartition>();
 		// Determine the segment depth of this level.

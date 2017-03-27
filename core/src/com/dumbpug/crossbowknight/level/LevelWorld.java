@@ -33,6 +33,10 @@ public class LevelWorld {
 	private CharacterPool characterPool;
 	/** The tile interaction facilitator. */
 	private TileInteractionFacilitator tileInteractionFacilitator = null;
+	/** When the player uses a door, it is set here.
+	 * On the next level tick this level world will 
+	 * be swapped out for this doors target. */
+	private Door activeDoor = null;
 	
 	/**
 	 * Create a new instance of the LevelWorld class.
@@ -89,6 +93,21 @@ public class LevelWorld {
 	 */
 	public void onDoorUse(Door door) {
 		System.out.println("Used a door!");
+		setActiveDoor(door);
+	}
+	
+	/**
+	 * Called by level when this world needs to be reset to its original state.
+	 */
+	public void reset() {
+		// TODO Remove character from character pool.
+		// TODO Remove character box from physics world.
+		// TODO Clear projectile pool.
+		// TODO Clear emitter pool.
+		// TODO Maybe reset characters.
+		
+		// Remove any active door use.
+		setActiveDoor(null);
 	}
 
 	/**
@@ -156,4 +175,16 @@ public class LevelWorld {
 	 * @param tile interaction facilitator
 	 */
 	public void setTileInteractionFacilitator(TileInteractionFacilitator tileInteractionFacilitator) { this.tileInteractionFacilitator = tileInteractionFacilitator; }
+
+	/**
+	 * Get the door the player has requested to use. null if no door is being used. 
+	 * @return active door
+	 */
+	public Door getActiveDoor() { return activeDoor; }
+
+	/**
+	 * Set the door the player has requested to use. null if no door is being used. 
+	 * @return active door
+	 */
+	public void setActiveDoor(Door activeDoor) { this.activeDoor = activeDoor; }
 }

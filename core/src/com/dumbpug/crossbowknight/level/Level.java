@@ -30,7 +30,9 @@ import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionLar
 import com.dumbpug.crossbowknight.entities.objects.items.potions.HealthPotionSuper;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.SkillPotion;
 import com.dumbpug.crossbowknight.entities.objects.items.potions.StrengthPotion;
+import com.dumbpug.crossbowknight.level.generator.LevelWorldGenerator;
 import com.dumbpug.crossbowknight.tiles.TileInteractionFacilitator;
+import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
  * Represents a game level.
@@ -41,8 +43,12 @@ public class Level {
 	private LevelCamera camera;
 	/** The level drawer. */
 	private LevelDrawer levelDrawer;
+	/** The level world generator. */
+	private LevelWorldGenerator levelWorldGenerator;
 	/** The level physics world. */
 	private LevelWorld levelWorld;
+	/** The level world list. */
+	private LevelWorldList worlds;
 	
 	// -----------------------------------
 	// ---------- Level Entities ---------
@@ -56,8 +62,12 @@ public class Level {
 	public Level() {
 		// Create our level drawer.
 		this.levelDrawer = new LevelDrawer(this);
-		// Create our level world..
+		// Create our level world.
 		this.levelWorld = new LevelWorld();
+		// Create our level world list.
+		this.worlds = new LevelWorldList();
+		// Create our level world generator.
+		this.levelWorldGenerator = new LevelWorldGenerator();
 		// Initialise our player.
 		initialisePlayer();
 		// Set up our level camera.
@@ -84,6 +94,8 @@ public class Level {
 	 * Update the level.
 	 */
 	public void update() {
+		// ------------ Check for Door usage (Player moving to new LevelWorld). -----------
+		handleLevelWorldSwitch();
 		// ------------ Update the level world. -----------
 		levelWorld.update();
 		
@@ -168,7 +180,29 @@ public class Level {
 			}
 		}
 	}
-	
+
+	/**
+	 * Check whether we need to switch to another level world.
+	 */
+	private void handleLevelWorldSwitch() {
+		Door activeDoor = levelWorld.getActiveDoor();
+		// If we have an active door then we need to move to another level world.
+		if(activeDoor != null) {
+			// Try to get the target level world from our world list.
+			LevelWorld targetLevelWorld = worlds.getByName(activeDoor.getTarget().levelWorld);
+			// If we couldn't get this level world then it doesn't already exist. 
+			// In this case generate it, using the active door to connect to a door in the generated world.
+			targetLevelWorld = levelWorldGenerator.generateLevelWorld(activeDoor, levelWorld);
+			// We need to reset the level world we are coming from so that it is fresh for if we revisit it.
+			levelWorld.reset();
+			
+			// TODO Add the player to the new level world at the position of the connecting door.
+			
+			// Set the target level world as the active one.
+			worlds.setActive(targetLevelWorld);
+		}
+	}
+
 	/**
 	 * Get the level camera.
 	 * @return level camera.
