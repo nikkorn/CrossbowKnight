@@ -46,7 +46,7 @@ public class ExplosionParticle extends Particle {
 		particlePhysicsBox.setVely(velY);
 		particlePhysicsBox.setRestitution(0.5f);
 		particlePhysicsBox.setFriction(0.5f);
-		level.getLevelWorld().getPhysicsWorld().addBox(particlePhysicsBox);
+		level.getActiveLevelWorld().getPhysicsWorld().addBox(particlePhysicsBox);
 		// Set the life of this particle.
 		this.setLife((random.nextInt(3) + 1) * 200);
 		// Set the level camera.

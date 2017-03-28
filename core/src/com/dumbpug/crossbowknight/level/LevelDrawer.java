@@ -22,12 +22,15 @@ public class LevelDrawer {
 	 * @param batch
 	 */
 	public void draw(SpriteBatch batch) {
-		drawBackgroundLayer(batch);
-		drawMiddleLayer(batch);
-		drawForegroundLayer(batch);
-		drawCharacters(batch);
-		drawForegroundEffects(batch);
-		drawDialogs(batch);
+		// If we have no active level world then we cannot draw anything.
+		if(level.getActiveLevelWorld() != null) {
+			drawBackgroundLayer(batch);
+			drawMiddleLayer(batch);
+			drawForegroundLayer(batch);
+			drawCharacters(batch);
+			drawForegroundEffects(batch);
+			drawDialogs(batch);
+		}
 	}
 
 	/**
@@ -36,15 +39,15 @@ public class LevelDrawer {
 	 */
 	private void drawBackgroundLayer(SpriteBatch batch) {
 		// Draw all level tile backgrounds.
-		for(Tile tile : level.getLevelWorld().getTiles()) {
+		for(Tile tile : level.getActiveLevelWorld().getTiles()) {
 			tile.drawBackground(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 		}
 		// Draw all level tile decorations.
-		for(Tile tile : level.getLevelWorld().getTiles()) {
+		for(Tile tile : level.getActiveLevelWorld().getTiles()) {
 			tile.drawDecoration(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY()); 
 		}
 		// Draw the top layers of our tiles.
-		for(Tile tile : level.getLevelWorld().getTiles()) {
+		for(Tile tile : level.getActiveLevelWorld().getTiles()) {
 			tile.drawTopLayer(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY()); 
 		}
 	}
@@ -55,9 +58,9 @@ public class LevelDrawer {
 	 */
 	private void drawMiddleLayer(SpriteBatch batch) {
 		// Draw the level projectiles.
-		level.getLevelWorld().getProjectilePool().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
+		level.getActiveLevelWorld().getProjectilePool().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 		// Draw the level items.
-		level.getLevelWorld().getItemPool().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
+		level.getActiveLevelWorld().getItemPool().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 	}
 
 	/**
@@ -66,13 +69,13 @@ public class LevelDrawer {
 	 */
 	private void drawForegroundLayer(SpriteBatch batch) {
 		// Draw all level blocks.
-		for(Tile tile : level.getLevelWorld().getTiles()) {
+		for(Tile tile : level.getActiveLevelWorld().getTiles()) {
 			if(tile.getPhysicsBlock() != null) {
 				tile.getPhysicsBlock().draw(batch, level.getLevelCamera().getX(), level.getLevelCamera().getY());
 			}
 		}
 		// Draw any interfaces which are part of player/tile interactions.
-		level.getLevelWorld().getTileInteractionFacilitator().drawTileInteractionElements(batch);
+		level.getActiveLevelWorld().getTileInteractionFacilitator().drawTileInteractionElements(batch);
 	}
 	
 	/**
@@ -81,7 +84,7 @@ public class LevelDrawer {
 	 */
 	private void drawCharacters(SpriteBatch batch) {
 		// Draw the characters.
-		level.getLevelWorld().getCharacterPool().drawCharacters(batch, level.getLevelCamera());
+		level.getActiveLevelWorld().getCharacterPool().drawCharacters(batch, level.getLevelCamera());
 	}
 	
 	/**
@@ -90,7 +93,7 @@ public class LevelDrawer {
 	 */
 	private void drawForegroundEffects(SpriteBatch batch) {
 		// Draw all emitter particles.
-		level.getLevelWorld().getEmitterPool().draw();
+		level.getActiveLevelWorld().getEmitterPool().draw();
 	}
 	
 	/**
@@ -99,6 +102,6 @@ public class LevelDrawer {
 	 */
 	private void drawDialogs(SpriteBatch batch) {
 		// Draw the character dialogs.
-		level.getLevelWorld().getCharacterPool().drawCharacterDialogs(batch, level.getLevelCamera());
+		level.getActiveLevelWorld().getCharacterPool().drawCharacterDialogs(batch, level.getLevelCamera());
 	}
 }

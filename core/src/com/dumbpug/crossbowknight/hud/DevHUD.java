@@ -64,7 +64,7 @@ public class DevHUD {
     public void draw(SpriteBatch batch) {
     	// Highlight world boxes if a level is set.
     	if(currentLevel != null) {
-    		for(NBPBox worldBox : currentLevel.getLevelWorld().getPhysicsWorld().getWorldBoxes()) {
+    		for(NBPBox worldBox : currentLevel.getActiveLevelWorld().getPhysicsWorld().getWorldBoxes()) {
     			nbpBoxHighlighter.setX((worldBox.getX() * C.LAYOUT_MULTIPLIER) + currentLevel.getLevelCamera().getX());
     			nbpBoxHighlighter.setY((worldBox.getY() * C.LAYOUT_MULTIPLIER) + currentLevel.getLevelCamera().getY());
     			nbpBoxHighlighter.setSize(worldBox.getWidth() * C.LAYOUT_MULTIPLIER, worldBox.getHeight() * C.LAYOUT_MULTIPLIER);
@@ -78,7 +78,7 @@ public class DevHUD {
     	details += "Display (width/height)      : " + Gdx.graphics.getWidth() + "/" + Gdx.graphics.getHeight() + "\n";
     	// Add level details if a level is set.
     	if(currentLevel != null) {
-    		details += "Level World Physics Objects : " + currentLevel.getLevelWorld().getPhysicsWorld().getWorldBoxes().size() + "\n";
+    		details += "Level World Physics Objects : " + currentLevel.getActiveLevelWorld().getPhysicsWorld().getWorldBoxes().size() + "\n";
     	}
     	// Draw the actual details to the screen.
     	font.draw(batch, details, 5, Gdx.graphics.getHeight() - 5, Gdx.graphics.getWidth(), Align.left, true);

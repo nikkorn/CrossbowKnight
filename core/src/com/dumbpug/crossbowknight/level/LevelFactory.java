@@ -12,20 +12,20 @@ import com.dumbpug.crossbowknight.leveleditor.Marker;
 public class LevelFactory {
 	
 	/**
-	 * Read an existing level from disk.
+	 * Read an existing level world from disk.
 	 * @param levelName
 	 * @return level
 	 */
-	public static Level getLevelFromDisk(String levelName) {
-		// Initialise a new Level.
-		Level level = new Level();
+	public static LevelWorld getLevelWorldFromDisk(String levelName) {
+		// Initialise a new level world.
+		LevelWorld levelWorld = new LevelWorld();
 		// Set the level tiles.
-		level.getLevelWorld().setTiles(LevelReader.readLevelTilesFromDisk(levelName, C.SAVED_LEVELS_DIR));
+		levelWorld.setTiles(LevelReader.readLevelTilesFromDisk(levelName, C.SAVED_LEVELS_DIR));
 		
 		// TODO Read spawn point.
 		
 		// Return our built level.
-		return level;
+		return levelWorld;
 	}
 	
 	/**

@@ -38,7 +38,7 @@ public class IgnitedBolt extends Bolt {
     	// Set the emitter activity.
     	burningParticleEmitter.setEmitterActivity(burningParticleGenerator);
     	// Add the burning emitter to the level world.
-    	level.getLevelWorld().getEmitterPool().add(burningParticleEmitter);
+    	level.getActiveLevelWorld().getEmitterPool().add(burningParticleEmitter);
 	}
 
 	@Override

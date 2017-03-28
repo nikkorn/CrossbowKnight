@@ -110,7 +110,7 @@ public class EquipmentUsage {
 		// TODO modify the bolts damage to reflect character stats.
 		
 		// Attempt to fire, will return true if success, false if the physics world rejects the projectiles physics box.
-		boolean ammoUsageSuccess = level.getLevelWorld().getProjectilePool().add(bolt);
+		boolean ammoUsageSuccess = level.getActiveLevelWorld().getProjectilePool().add(bolt);
 		// If the ammo was fired play a sound.
 		if(ammoUsageSuccess) { 
 			Audio.getSoundEffect(Audio.SoundEffect.JUMP).play(); // TODO Replace! 

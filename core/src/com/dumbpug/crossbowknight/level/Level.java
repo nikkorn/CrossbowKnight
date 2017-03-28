@@ -45,8 +45,6 @@ public class Level {
 	private LevelDrawer levelDrawer;
 	/** The level world generator. */
 	private LevelWorldGenerator levelWorldGenerator;
-	/** The level physics world. */
-	private LevelWorld levelWorld;
 	/** The level world list. */
 	private LevelWorldList worlds;
 	
@@ -59,13 +57,13 @@ public class Level {
 	/**
 	 * Create a new instance of the Level class.
 	 */
-	public Level() {
+	public Level(LevelWorld initialLevelWorld) {
 		// Create our level drawer.
 		this.levelDrawer = new LevelDrawer(this);
-		// Create our level world.
-		this.levelWorld = new LevelWorld();
 		// Create our level world list.
 		this.worlds = new LevelWorldList();
+		// Add our initial level world to our level world list.
+		this.worlds.setActive(initialLevelWorld);
 		// Create our level world generator.
 		this.levelWorldGenerator = new LevelWorldGenerator();
 		// Initialise our player.
@@ -84,20 +82,26 @@ public class Level {
 		player = new Player(50, 50);
 		// Set our players equipment usage helper.
 		player.getEquipment().setEquipmentUsage(new EquipmentUsage(this));
-		// Add our player to the level world.
-		this.levelWorld.getCharacterPool().add(player);
+		// Add our player to the initial level world.
+		this.worlds.getActive().getCharacterPool().add(player);
 		// Set the level world tile interaction facilitator.
-		this.levelWorld.setTileInteractionFacilitator(new TileInteractionFacilitator(player, this.levelWorld));
+		this.worlds.getActive().setTileInteractionFacilitator(new TileInteractionFacilitator(player, this.worlds.getActive()));
 	}
 	
 	/**
 	 * Update the level.
 	 */
 	public void update() {
-		// ------------ Check for Door usage (Player moving to new LevelWorld). -----------
+		// Check for Door usage (Player moving to new LevelWorld).
 		handleLevelWorldSwitch();
-		// ------------ Update the level world. -----------
-		levelWorld.update();
+		
+		// If we do not have an active level world we can't carry on.
+		if(this.worlds.getActive() == null) {
+			return;
+		}
+		
+		// Update the active level world.
+		this.worlds.getActive().update();
 		
 		// ...
 		
@@ -176,7 +180,7 @@ public class Level {
 			}
 			if(item != null) {
 				item.setItemPhysicsBox(new ItemPhysicsBox(item, player.getPhysicsBox().getX(), player.getPhysicsBox().getY() + 50));
-				levelWorld.getItemPool().add(item);
+				this.worlds.getActive().getItemPool().add(item);
 			}
 		}
 	}
@@ -185,16 +189,17 @@ public class Level {
 	 * Check whether we need to switch to another level world.
 	 */
 	private void handleLevelWorldSwitch() {
-		Door activeDoor = levelWorld.getActiveDoor();
+		LevelWorld currentLevelWorld = this.worlds.getActive();
+		Door activeDoor = currentLevelWorld.getActiveDoor();
 		// If we have an active door then we need to move to another level world.
 		if(activeDoor != null) {
 			// Try to get the target level world from our world list.
 			LevelWorld targetLevelWorld = worlds.getByName(activeDoor.getTarget().levelWorld);
 			// If we couldn't get this level world then it doesn't already exist. 
 			// In this case generate it, using the active door to connect to a door in the generated world.
-			targetLevelWorld = levelWorldGenerator.generateLevelWorld(activeDoor, levelWorld);
+			targetLevelWorld = levelWorldGenerator.generateLevelWorld(activeDoor, currentLevelWorld);
 			// We need to reset the level world we are coming from so that it is fresh for if we revisit it.
-			levelWorld.reset();
+			currentLevelWorld.reset();
 			
 			// TODO Add the player to the new level world at the position of the connecting door.
 			
@@ -216,10 +221,10 @@ public class Level {
 	public Player getPlayer() { return player; }
 	
 	/**
-	 * Get the level world.
-	 * @return level world.
+	 * Get the active level world.
+	 * @return active level world.
 	 */
-	public LevelWorld getLevelWorld() { return this.levelWorld; }
+	public LevelWorld getActiveLevelWorld() { return this.worlds.getActive(); }
 	
 	/**
 	 * Draw this level
