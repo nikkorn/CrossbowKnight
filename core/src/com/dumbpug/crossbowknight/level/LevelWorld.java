@@ -72,6 +72,12 @@ public class LevelWorld {
 		// ...
 		
 	}
+	
+	/**
+	 * Get all level tiles.
+	 * @return level tiles.
+	 */
+	public ArrayList<Tile> getTiles() { return levelTiles; }
 
 	/**
 	 * Set all level tiles.
@@ -84,6 +90,36 @@ public class LevelWorld {
 			if(tile.getPhysicsBlock() != null) {
 				this.getPhysicsWorld().addBox(tile.getPhysicsBlock());
 			}
+		}
+	}
+	
+	/**
+	 * Replaces a tile at a position in the world tile with the specified one.
+	 * @param tile
+	 */
+	public void replaceTile(Tile tile) {
+		// Look for an existing tile at the same position as the specified one and ...
+		Tile matchingTile = null;
+		for(Tile existingTile : levelTiles) {
+			if(existingTile.getX() == tile.getX() && existingTile.getY() == tile.getY()) {
+				matchingTile = existingTile;
+				break;
+			}
+		}
+		// ... if it exists ...
+		if(matchingTile != null) {
+			// ... remove it ...
+			levelTiles.remove(matchingTile);
+			// ... as well as the physics box for its block if it has one.
+			if(matchingTile.getPhysicsBlock() != null) {
+				this.getPhysicsWorld().removeBox(tile.getPhysicsBlock());
+			}
+		}
+		// Add the new tile ...
+		levelTiles.add(tile);
+		// ... and add its physics block to the physics world if it has one.
+		if(tile.getPhysicsBlock() != null) {
+			this.getPhysicsWorld().addBox(tile.getPhysicsBlock());
 		}
 	}
 	
@@ -109,12 +145,6 @@ public class LevelWorld {
 		// Remove any active door use.
 		setActiveDoor(null);
 	}
-
-	/**
-	 * Get all level tiles.
-	 * @return level tiles.
-	 */
-	public ArrayList<Tile> getTiles() { return levelTiles; }
 	
 	/**
 	 * Get the level worlds item pool.

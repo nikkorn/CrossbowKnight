@@ -2,7 +2,6 @@ package com.dumbpug.crossbowknight.tiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.level.Block;
 
 /**
  * Represents a world tile.
@@ -10,14 +9,39 @@ import com.dumbpug.crossbowknight.level.Block;
  */
 public class Tile {
 	/** X/Y position of this tile. */
-	protected int x;
-	protected int y;
+	protected int x, y;
 	/** The background texture for this tile */
 	private IndexedTileTexture backgroundTexture = null;
 	/** The decoration texture for this tile */
 	private IndexedTileTexture decorationTexture = null;
 	/** A physical block attached to this tile. */
 	private Block physicsBlock = null;
+	
+	/**
+	 * Create a new instance of the Tile class.
+	 */
+	public Tile() {	}
+	
+	/**
+	 * Create a new instance of the Tile class.
+	 * Copying properties of another tile and applying a x/y offset.
+	 * @param another
+	 * @param offsetX
+	 * @param offsetY
+	 */
+	public Tile(Tile another, int offsetX, int offsetY) {
+		// Set the position at the offset.
+		this.x = another.getX() + offsetX;
+		this.y = another.getY() + offsetY;
+		// Copy tile textures.
+		this.backgroundTexture = another.getBackgroundTexture();
+		this.decorationTexture = another.getDecorationTexture();
+		// Copy block if there is one.
+		if(another.getPhysicsBlock() != null) {
+			// Make a copy of the block, applying a tile offset to the position.
+			this.physicsBlock = new Block(another.getPhysicsBlock(), offsetX, offsetY);
+		}
+	}
 	
 	/**
 	 * Get this tiles background texture.

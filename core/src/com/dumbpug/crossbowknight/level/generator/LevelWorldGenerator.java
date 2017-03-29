@@ -11,6 +11,8 @@ import com.dumbpug.crossbowknight.level.LevelFactory;
 import com.dumbpug.crossbowknight.level.LevelWorld;
 import com.dumbpug.crossbowknight.leveleditor.Connector;
 import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
+import com.dumbpug.crossbowknight.leveleditor.Marker;
+import com.dumbpug.crossbowknight.leveleditor.Marker.MarkerType;
 import com.dumbpug.crossbowknight.lotto.Lotto;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.door.Door;
@@ -81,7 +83,6 @@ public class LevelWorldGenerator {
 			int partitionGenerationFailCount = 0;
 			// Try to generate a partition at the current depth as long as we haven't failed too many times and we haven't already succeeded.
 			while(partitionGenerationFailCount <= C.PROC_GEN_PARTITION_CREATE_RETRY && !success) {
-				
 				// If we have hit our retry limit then we need to remove the last partition.
 				if(partitionGenerationFailCount == C.PROC_GEN_PARTITION_CREATE_RETRY) {
 					// Remove last partition (cannot be our first).
@@ -94,16 +95,12 @@ public class LevelWorldGenerator {
 					}
 					continue;
 				}
-				
 				// Generate a new partition.
 				SegmentPartition next = this.generateSegmentPartition(partitions.get(depth - 1), depth == levelTotalDepth - 1);
-				
 				// Add it to our partition list.
 				partitions.add(next);
-				
 				// Check for failure due to overlaps.
 				boolean failure = doPartitionSegmentTilesOverlap(partitions);
-				
 				// If we had a failure, update our failure count and remove the last partition.
 				if(failure) {
 					partitionGenerationFailCount++;
@@ -114,7 +111,6 @@ public class LevelWorldGenerator {
 					success = true;
 				}
 			}
-			
 			// Check to see whether we hit out fail limit in attempting to create a partition at the current depth.
 			if(!success) {
 				if(++overallFailCount == C.PROC_GEN_PARTITION_CREATE_RETRY) {
@@ -124,10 +120,62 @@ public class LevelWorldGenerator {
 				}
 			}
 		}
-		
+		// Create the level world.
 		LevelWorld levelWorld = new LevelWorld();
-		// TODO Fill level with stuff.
+		for(SegmentPartition partition : partitions) {
+			for(LevelSegment segment : partition.segments) {
+				// For each segment in our partitions, add the tiles to our level world.
+				addSegmentTilesToLevelWorld(levelWorld, segment);
+				// Convert Special/Enemy markers into game entities.
+				processMarkersForSegment(levelWorld, segment, partitions.get(0) == partition);
+			}
+		}
 		return levelWorld;
+	}
+	
+	/**
+	 * Copy all tiles from a level segment to level world.
+	 * This takes the segment tile offset into account.
+	 * @param levelWorld
+	 * @param segment
+	 */
+	private void addSegmentTilesToLevelWorld(LevelWorld levelWorld, LevelSegment segment) {
+		// Iterate over every tile in this segment.
+		for(Tile segmentTile : segment.getTiles()) {
+			// Make a copy of this tile with the segment offset applied to it. 
+			Tile offsetTile = new Tile(segmentTile, segment.getOffsetX(), segment.getOffsetY());
+			// Add this tile to the actual level world.
+			levelWorld.getTiles().add(offsetTile);
+		}
+	}
+	
+	/**
+	 * Process and convert markers for a partition segment into game entities (e.g. tiles) and add them to the level world. 
+	 * @param levelWorld
+	 * @param segment
+	 * @param isInitialPartition
+	 */
+	private void processMarkersForSegment(LevelWorld levelWorld, LevelSegment segment, boolean isInitialPartition) {
+		// Convert Special/Enemy markers into game entities.
+		for(Marker marker : segment.getMarkers()) {
+			// If this is the initial partition and this is a normal marker and the level world does not already have an entry point...
+			if(marker.getMarkerType() == MarkerType.NORMAL && isInitialPartition) {
+				// ... then this needs to be converted to an entrance door (entry point).
+				
+				// TODO Set this door as the LevelWorldEntryPoint
+				
+				continue;
+			}
+			// Convert the marker.
+			switch(marker.getMarkerType()) {
+				case ENEMY:
+					// TODO Create an enemy and add it to pool.
+					break;
+				case NORMAL:
+					// TODO Create something cool, or nothing at all.
+					break;
+			}
+		}
 	}
 	
 	/**

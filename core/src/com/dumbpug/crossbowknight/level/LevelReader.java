@@ -12,6 +12,7 @@ import com.dumbpug.crossbowknight.leveleditor.Connector;
 import com.dumbpug.crossbowknight.leveleditor.ConnectorType;
 import com.dumbpug.crossbowknight.leveleditor.Marker;
 import com.dumbpug.crossbowknight.resources.TileResources;
+import com.dumbpug.crossbowknight.tiles.Block;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.crossbowknight.tiles.Tile;
 import com.dumbpug.crossbowknight.tiles.door.Door;

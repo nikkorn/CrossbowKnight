@@ -3,7 +3,6 @@ package com.dumbpug.crossbowknight.leveleditor.menu;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dumbpug.crossbowknight.level.Block;
 import com.dumbpug.crossbowknight.leveleditor.C;
 import com.dumbpug.crossbowknight.leveleditor.LevelEditorTextures;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.BlockFillButton;
@@ -11,6 +10,7 @@ import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButton.ButtonType;
 import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.MenuButtonGroup;
 import com.dumbpug.crossbowknight.leveleditor.menu.button.TileMenuButton;
+import com.dumbpug.crossbowknight.tiles.Block;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 
 public class BlockMenu {

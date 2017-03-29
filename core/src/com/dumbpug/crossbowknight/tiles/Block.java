@@ -1,8 +1,7 @@
-package com.dumbpug.crossbowknight.level;
+package com.dumbpug.crossbowknight.tiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
-import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
 import com.dumbpug.nbp.NBPBloom;
 import com.dumbpug.nbp.NBPBox;
 import com.dumbpug.nbp.NBPBoxType;
@@ -38,6 +37,23 @@ public class Block extends NBPBox {
 	public Block(float x, float y, float width, float height, TileBlockFillType fillType) {
 		super(x, y, width, height, NBPBoxType.STATIC);
 		this.setFillType(fillType);
+	}
+	
+	/**
+	 * Creates an instance of the Block class.
+	 * Copying properties of another Block and applying a x/y offset.
+	 * @param another
+	 * @param offsetX
+	 * @param offsetY
+	 */
+	public Block(Block another, int offsetX, int offsetY) {
+		super(another.getX() + (offsetX * C.LAYOUT_TILE_SIZE), 
+				another.getY() + (offsetY * C.LAYOUT_TILE_SIZE), 
+				another.getWidth(), 
+				another.getHeight(), 
+				NBPBoxType.STATIC);
+		this.setFillType(another.getFillType());
+		this.setBlockTexture(another.getBlockTexture());
 	}
 
 	@Override
