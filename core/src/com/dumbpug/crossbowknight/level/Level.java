@@ -194,10 +194,12 @@ public class Level {
 		// If we have an active door then we need to move to another level world.
 		if(activeDoor != null) {
 			// Try to get the target level world from our world list.
-			LevelWorld targetLevelWorld = worlds.getByName(activeDoor.getTarget().levelWorld);
-			// If we couldn't get this level world then it doesn't already exist. 
-			// In this case generate it, using the active door to connect to a door in the generated world.
-			targetLevelWorld = levelWorldGenerator.generateLevelWorld(activeDoor, currentLevelWorld);
+			LevelWorld targetLevelWorld = worlds.getById(activeDoor.getTarget().levelWorldId);
+			// If we couldn't get this level world then it doesn't already exist ...
+			if(targetLevelWorld == null) {
+				// ... so generate it, using the active door to connect to a door in the generated world.
+				targetLevelWorld = levelWorldGenerator.generateLevelWorld(activeDoor, currentLevelWorld);
+			}
 			// We need to reset the level world we are coming from so that it is fresh for if we revisit it.
 			currentLevelWorld.reset();
 			

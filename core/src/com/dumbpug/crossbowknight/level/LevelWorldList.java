@@ -13,15 +13,15 @@ public class LevelWorldList {
 	private LevelWorld active = null;
 	
 	/**
-	 * Get a level world in this list which has the name specified. 
-	 * Returns null if no level world with matching name is found.
-	 * @param name
+	 * Get a level world in this list which has the id specified. 
+	 * Returns null if no level world with matching id is found.
+	 * @param id
 	 * @return matching level world
 	 */
-	public LevelWorld getByName(String name) {
-		// Iterate over all level worlds and return the one with a matching name.
+	public LevelWorld getById(String id) {
+		// Iterate over all level worlds and return the one with a matching id.
 		for(LevelWorld world : levelWorlds) {
-			if(world.getName().equals(name)) {
+			if(world.getId().equals(id)) {
 				return world;
 			}
 		}

@@ -44,7 +44,7 @@ public class Door extends Tile {
 	public Door(DoorType type, String id) {
 		this(type);
 		this.id = id;
-		// Set the door tile texture.
+		// Set the door locked tile texture.
 		switch(type) {
 			case SINGLE:
 				lockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_1);
@@ -61,7 +61,8 @@ public class Door extends Tile {
 			case SHOP:
 				lockedTexture = TileResources.getTileTextures().getEntityTileTexture(EntityTile.DOOR_SHOP);
 				break;
-			default:
+			case ENTRANCE:
+				// No need to set a closed door texture for this door as it is never closed.
 				break;
 		}
 	}
@@ -73,11 +74,13 @@ public class Door extends Tile {
 	 * @param connectingLevelWorld
 	 */
 	public Door(Door connectingDoor, String connectingLevelWorld) {
-		this.setDoorType(type);
+		// Make this door a basic single lock (but unlocked) door.
+		// This door must be unlocked if it is the exit for the connecting door.
+		this(DoorType.ENTRANCE, connectingDoor.getTarget().doorId);
 		// Target the connecting door.
-		DoorTarget target = new DoorTarget();
-		target.levelWorld = connectingLevelWorld;
-		target.doorId     = connectingDoor.id;
+		DoorTarget target   = new DoorTarget();
+		target.levelWorldId = connectingLevelWorld;
+		target.doorId       = connectingDoor.id;
 		this.setTarget(target);
 	}
 	

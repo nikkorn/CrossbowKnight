@@ -69,9 +69,9 @@ public class LevelReader {
 				door.setX(xPos);
 				door.setY(yPos);
 				// Set the target of the door.
-				DoorTarget target = new DoorTarget();
-				target.doorId     = targetDoorId;
-				target.levelWorld = targetLevel;
+				DoorTarget target   = new DoorTarget();
+				target.doorId       = targetDoorId;
+				target.levelWorldId = targetLevel;
 				door.setTarget(target);
 				// Unlock the door if it is not locked.
 				if(!locked) {

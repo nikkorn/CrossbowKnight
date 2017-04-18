@@ -122,12 +122,15 @@ public class LevelWorldGenerator {
 		}
 		// Create the level world.
 		LevelWorld levelWorld = new LevelWorld();
+		// The level world id should be the level world target of the source door.
+		levelWorld.setId(sourceDoor.getTarget().levelWorldId);;
 		for(SegmentPartition partition : partitions) {
 			for(LevelSegment segment : partition.segments) {
 				// For each segment in our partitions, add the tiles to our level world.
 				addSegmentTilesToLevelWorld(levelWorld, segment);
-				// Convert Special/Enemy markers into game entities.
-				processMarkersForSegment(levelWorld, segment, partitions.get(0) == partition);
+				// Convert Special/Enemy markers into game entities. 
+				// Pass the source door as one of these markers will be a door which connects to it.
+				processMarkersForSegment(levelWorld, segment, partitions.get(0) == partition, sourceDoor, sourceLevelWorld.getId());
 			}
 		}
 		return levelWorld;
@@ -154,15 +157,19 @@ public class LevelWorldGenerator {
 	 * @param levelWorld
 	 * @param segment
 	 * @param isInitialPartition
+	 * @param sourceDoor
+	 * @param sourceLevelWorld
 	 */
-	private void processMarkersForSegment(LevelWorld levelWorld, LevelSegment segment, boolean isInitialPartition) {
+	private void processMarkersForSegment(LevelWorld levelWorld, LevelSegment segment, boolean isInitialPartition, Door sourceDoor, String sourceLevelWorld) {
 		// Convert Special/Enemy markers into game entities.
 		for(Marker marker : segment.getMarkers()) {
 			// If this is the initial partition and this is a normal marker and the level world does not already have an entry point...
 			if(marker.getMarkerType() == MarkerType.NORMAL && isInitialPartition) {
-				// ... then this needs to be converted to an entrance door (entry point).
+				// ... then this needs to be converted to an entrance door (entry point). TODO Only do once.
+				Door levelWorldEntryPoint = new Door(sourceDoor, sourceLevelWorld);
 				
-				// TODO Set this door as the LevelWorldEntryPoint
+				// TODO Convert the tile at the door position into our door (move properties)
+				// TODO Screw inheritance for tiles and doors, have doors as components.
 				
 				continue;
 			}

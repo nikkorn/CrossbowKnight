@@ -17,8 +17,8 @@ import java.util.ArrayList;
  * @author nikolas.howard
  */
 public class LevelWorld {
-	/** The name of this level. */
-	private String name = "";
+	/** The id of this level. */
+	private String id = "";
 	/** All tiles in this level. */
 	private ArrayList<Tile> levelTiles = new ArrayList<Tile>();
 	/** The physics world of our level */
@@ -183,16 +183,16 @@ public class LevelWorld {
 	public NBPWorld getPhysicsWorld() { return physicsWorld; }
 	
 	/**
-	 * Get the name of this level world.
-	 * @return name
+	 * Get the id of this level world.
+	 * @return id
 	 */
-	public String getName() { return name; }
+	public String getId() { return id; }
 
 	/**
-	 * Set the name of this level world.
-	 * @param name
+	 * Set the id of this level world.
+	 * @param id
 	 */
-	public void setName(String name) { this.name = name; }
+	public void setId(String id) { this.id = id; }
 
 	/**
 	 * Get the tile interaction facilitator.
