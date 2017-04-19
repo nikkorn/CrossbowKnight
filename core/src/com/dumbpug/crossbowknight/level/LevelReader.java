@@ -3,9 +3,7 @@ package com.dumbpug.crossbowknight.level;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.json.JSONArray;
-
 import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.Helpers;
 import com.dumbpug.crossbowknight.leveleditor.Connector;
@@ -54,7 +52,6 @@ public class LevelReader {
 		// Read door tiles from disk if there are any.
 		if(tileDoorsFile.exists()) {
 			JSONArray tileDoorsJSONArray = Helpers.readJSONArrayFromFile(tileDoorsFile);
-			
 			// Create level door tiles.
 			for(int tileDoorIndex = 0; tileDoorIndex < tileDoorsJSONArray.length(); tileDoorIndex++) {
 				int xPos            = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getInt("x");
@@ -66,8 +63,10 @@ public class LevelReader {
 				boolean locked      = tileDoorsJSONArray.getJSONObject(tileDoorIndex).getBoolean("locked");
 				// Create the door.
 				Door door = new Door(DoorType.values()[typeId], id);
-				door.setX(xPos);
-				door.setY(yPos);
+				// Create a blank tile for this door.
+				Tile tile = new Tile();
+				tile.setX(xPos);
+				tile.setY(yPos);
 				// Set the target of the door.
 				DoorTarget target   = new DoorTarget();
 				target.doorId       = targetDoorId;
@@ -77,8 +76,10 @@ public class LevelReader {
 				if(!locked) {
 					door.unlock();
 				}
+				// Set the door on our tile.
+				tile.setDoor(door);
 				// Add our newly created door tile to our map.
-				tileMap.put(xPos + "-" + yPos, door);
+				tileMap.put(xPos + "-" + yPos, tile);
 			}
 		}
 
@@ -187,7 +188,6 @@ public class LevelReader {
 				tileMap.put(xPos + "-" + yPos, tile);
 			}
 		}
-
 		// Return the tiles in our map as a list.
 		return new ArrayList<Tile>(tileMap.values());
 	}
@@ -207,10 +207,10 @@ public class LevelReader {
 			JSONArray connectorsJSONArray = Helpers.readJSONArrayFromFile(connectorsFile);
 			// Create each connector from file.
 			for(int connectorIndex = 0; connectorIndex < connectorsJSONArray.length(); connectorIndex++) {
-				int xPos            = connectorsJSONArray.getJSONObject(connectorIndex).getInt("x");
-				int yPos            = connectorsJSONArray.getJSONObject(connectorIndex).getInt("y");
-				ConnectorType type  = ConnectorType.valueOf(connectorsJSONArray.getJSONObject(connectorIndex).getString("type"));
-				int height          = connectorsJSONArray.getJSONObject(connectorIndex).getInt("height");
+				int xPos           = connectorsJSONArray.getJSONObject(connectorIndex).getInt("x");
+				int yPos           = connectorsJSONArray.getJSONObject(connectorIndex).getInt("y");
+				ConnectorType type = ConnectorType.valueOf(connectorsJSONArray.getJSONObject(connectorIndex).getString("type"));
+				int height         = connectorsJSONArray.getJSONObject(connectorIndex).getInt("height");
 				// Create the connector and add it to the list of connectors.
 				connectors.add(new Connector(type, xPos, yPos, height));
 			}

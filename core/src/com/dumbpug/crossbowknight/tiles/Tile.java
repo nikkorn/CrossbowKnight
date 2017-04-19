@@ -2,6 +2,7 @@ package com.dumbpug.crossbowknight.tiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dumbpug.crossbowknight.C;
+import com.dumbpug.crossbowknight.tiles.door.Door;
 
 /**
  * Represents a world tile.
@@ -16,6 +17,8 @@ public class Tile {
 	private IndexedTileTexture decorationTexture = null;
 	/** A physical block attached to this tile. */
 	private Block physicsBlock = null;
+	/** A physical block attached to this tile. */
+	private Door door = null;
 	
 	/**
 	 * Create a new instance of the Tile class.
@@ -97,6 +100,18 @@ public class Tile {
 	 * @return block
 	 */
 	public Block getPhysicsBlock() { return physicsBlock; }
+	
+	/**
+	 * Get the door attached to this tile.
+	 * @return door
+	 */
+	public Door getDoor() { return this.door; }
+	
+	/**
+	 * Set the door attached to this tile.
+	 * @param door
+	 */
+	public void setDoor(Door door) { this.door = door; }
 
 	/**
 	 * Set the physics block of this tile.
@@ -105,10 +120,17 @@ public class Tile {
 	public void setPhysicsBlock(Block physicsBlock) { this.physicsBlock = physicsBlock; }
 	
 	/**
-	 * Get the type of this door.
+	 * Get the type of this tile.
 	 * @return type
 	 */
-	public TileType getType() { return TileType.NORMAL; }
+	public TileType getType() { 
+		// If this tile has a door, then it is a door tile.
+		if (this.door != null) {
+			return TileType.DOOR;
+		}
+		// This is just a normal tile.
+		return TileType.NORMAL; 
+	}
 	
 	/**
 	 * Draw the background of this tile.
@@ -149,5 +171,10 @@ public class Tile {
 	 * @param xOffset
 	 * @param yOffset
 	 */
-	public void drawTopLayer(SpriteBatch batch, float xOffset, float yOffset) {}
+	public void drawTopLayer(SpriteBatch batch, float xOffset, float yOffset) {
+		// If this is a door tile then draw the door.
+		if (this.getDoor() != null) {
+			this.getDoor().draw(batch, x, y, xOffset, yOffset);
+		}
+	}
 }

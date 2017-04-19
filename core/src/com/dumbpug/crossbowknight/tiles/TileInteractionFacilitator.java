@@ -79,7 +79,7 @@ public class TileInteractionFacilitator {
 			// The way that we interact with this tile depends on its type.
 			switch(getTileAtPlayerPosition().getType()) {
 				case DOOR:
-					Door door = (Door) getTileAtPlayerPosition();
+					Door door = getTileAtPlayerPosition().getDoor();
 					// TODO Improve to take key use into account.
 					// If a door is locked...
 					if(door.isLocked()) {

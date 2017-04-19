@@ -6,14 +6,12 @@ import com.dumbpug.crossbowknight.C;
 import com.dumbpug.crossbowknight.resources.TileResources;
 import com.dumbpug.crossbowknight.resources.TileResources.EntityTile;
 import com.dumbpug.crossbowknight.tiles.IndexedTileTexture;
-import com.dumbpug.crossbowknight.tiles.Tile;
-import com.dumbpug.crossbowknight.tiles.TileType;
 
 /**
- * Represents a door tile.
+ * Represents a door.
  * @author nikolas.howard
  */
-public class Door extends Tile {
+public class Door {
 	/** The unique id of the door */
 	private String id; 
 	/** The type of this door. */
@@ -149,11 +147,6 @@ public class Door extends Tile {
 	 */
 	public void setDoorType(DoorType type) { this.type = type; }
 	
-	/**
-	 * Set the type of this tile.
-	 * @param type
-	 */
-	public TileType getType() { return TileType.DOOR; }
 	
 	/**
 	 * Draw the top layer of this tile.
@@ -162,7 +155,7 @@ public class Door extends Tile {
 	 * @param xOffset
 	 * @param yOffset
 	 */
-	public void drawTopLayer(SpriteBatch batch, float xOffset, float yOffset) {
+	public void draw(SpriteBatch batch, int x, int y, float xOffset, float yOffset) {
 		// Draw the door.
 		batch.draw((this.isUnlocked ? unlockedTexture : lockedTexture).getTexture(),
 				(x * (C.LAYOUT_TILE_SIZE * C.LAYOUT_MULTIPLIER)) + xOffset,
