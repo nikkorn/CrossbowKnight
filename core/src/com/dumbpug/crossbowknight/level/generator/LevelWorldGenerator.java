@@ -145,10 +145,13 @@ public class LevelWorldGenerator {
 	private void addSegmentTilesToLevelWorld(LevelWorld levelWorld, LevelSegment segment) {
 		// Iterate over every tile in this segment.
 		for(Tile segmentTile : segment.getTiles()) {
+			Tile copy = new Tile(segmentTile, segment.getOffsetX(), segment.getOffsetY());
 			// Make a copy of this tile with the segment offset applied to it. 
-			Tile offsetTile = new Tile(segmentTile, segment.getOffsetX(), segment.getOffsetY());
-			// Add this tile to the actual level world.
-			levelWorld.getTiles().add(offsetTile);
+			levelWorld.getTiles().add(copy);
+			// We may need to add our copied tiles physics block to the new physics world.
+			if(copy.getPhysicsBlock() != null) {
+				levelWorld.getPhysicsWorld().addBox(copy.getPhysicsBlock());
+			}
 		}
 	}
 	
@@ -167,10 +170,8 @@ public class LevelWorldGenerator {
 			if(marker.getMarkerType() == MarkerType.NORMAL && isInitialPartition) {
 				// ... then this needs to be converted to an entrance door (entry point). TODO Only do once.
 				Door levelWorldEntryPoint = new Door(sourceDoor, sourceLevelWorld);
-				
-				// TODO Convert the tile at the door position into our door (move properties)
-				// TODO Screw inheritance for tiles and doors, have doors as components.
-				
+				// Set the door on the tile at the marker position.
+				segment.getTileAt(marker.getTilePositionX(), marker.getTilePositionY()).setDoor(levelWorldEntryPoint);
 				continue;
 			}
 			// Convert the marker.

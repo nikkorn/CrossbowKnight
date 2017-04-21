@@ -66,26 +66,14 @@ public class Level {
 		this.worlds.setActive(initialLevelWorld);
 		// Create our level world generator.
 		this.levelWorldGenerator = new LevelWorldGenerator();
-		// Initialise our player.
-		initialisePlayer();
+		// Create our player.
+		createPlayer();
+		// Add our player to the initial level world.
+		addPlayerToActiveLevelWorld();
 		// Set up our level camera.
 		this.camera = new LevelCamera(new PlayerCameraPositionProvider(player));
 		// In order to draw our player effects, we need a level camera.
 		player.setCharacterEffectsDrawer(new CharacterEffectDrawer(player, this.getLevelCamera()));
-	}
-	
-	/**
-	 * Initialise the player.
-	 */
-	public void initialisePlayer() {
-		// Create our player. // TODO Add actual spawn point!!!
-		player = new Player(50, 50);
-		// Set our players equipment usage helper.
-		player.getEquipment().setEquipmentUsage(new EquipmentUsage(this));
-		// Add our player to the initial level world.
-		this.worlds.getActive().getCharacterPool().add(player);
-		// Set the level world tile interaction facilitator.
-		this.worlds.getActive().setTileInteractionFacilitator(new TileInteractionFacilitator(player, this.worlds.getActive()));
 	}
 	
 	/**
@@ -184,13 +172,34 @@ public class Level {
 			}
 		}
 	}
+	
+	/**
+	 * Creates the player
+	 */
+	private void createPlayer() {
+		// Create our player. // TODO Add actual spawn point!!!
+		player = new Player(50, 50);
+		// Set our players equipment usage helper.
+		player.getEquipment().setEquipmentUsage(new EquipmentUsage(this));
+	}
+	
+	/**
+	 * Adds the player to the currently active level world.
+	 */
+	private void addPlayerToActiveLevelWorld() {
+		// Add our player to the initial level world.
+		this.worlds.getActive().getCharacterPool().add(player);
+		// Set the level world tile interaction facilitator.
+		this.worlds.getActive().setTileInteractionFacilitator(new TileInteractionFacilitator(player, this.worlds.getActive()));
+	}
+	
 
 	/**
 	 * Check whether we need to switch to another level world.
 	 */
 	private void handleLevelWorldSwitch() {
 		LevelWorld currentLevelWorld = this.worlds.getActive();
-		Door activeDoor = currentLevelWorld.getActiveDoor();
+		Door activeDoor              = currentLevelWorld.getActiveDoor();
 		// If we have an active door then we need to move to another level world.
 		if(activeDoor != null) {
 			// Try to get the target level world from our world list.
@@ -202,11 +211,13 @@ public class Level {
 			}
 			// We need to reset the level world we are coming from so that it is fresh for if we revisit it.
 			currentLevelWorld.reset();
-			
-			// TODO Add the player to the new level world at the position of the connecting door.
-			
 			// Set the target level world as the active one.
 			worlds.setActive(targetLevelWorld);
+			// TODO Set the players position to match the door in the new level world.
+			player.getPhysicsBox().setX(50);
+			player.getPhysicsBox().setY(0);
+			// Add the player to the new level world.
+			addPlayerToActiveLevelWorld();
 		}
 	}
 

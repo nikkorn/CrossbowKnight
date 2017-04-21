@@ -128,7 +128,6 @@ public class LevelWorld {
 	 * @param door
 	 */
 	public void onDoorUse(Door door) {
-		System.out.println("Used a door!");
 		setActiveDoor(door);
 	}
 	
